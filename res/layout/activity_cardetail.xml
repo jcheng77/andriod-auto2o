@@ -23,9 +23,8 @@
         <LinearLayout
             android:id="@+id/selectCarType_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/car_detail_row_height" 
-            android:orientation="horizontal"
-            >
+            android:layout_height="@dimen/car_detail_row_height"
+            android:orientation="horizontal" >
         </LinearLayout>
 
         <ImageView
@@ -39,33 +38,45 @@
         </LinearLayout>
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/car_detail_front" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:background="@color/car_detail_front"
         android:gravity="center"
-        android:background="@color/car_detail_front" >
+        android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8 people are bidding for this type of car"
-            />
+            android:text="8 people are bidding for this type of car" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="4 manufactors provide price"
-            />
+            android:text="4 manufactors provide price" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:layout_marginTop="10dp"
-            >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <Button
+                android:id="@+id/begin_bid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

@@ -43,6 +43,15 @@
         <activity 
             android:name="com.cettco.buycar.activity.SelectCarTypeActivity"
             ></activity>
+        <activity 
+            android:name="com.cettco.buycar.activity.SubmitOrderActivity"
+            ></activity>
+        <activity 
+            android:name="com.cettco.buycar.activity.MyBaseListActivity"
+            ></activity>
+        <activity 
+            android:name="com.cettco.buycar.activity.ChooseCarColorActivity"
+            ></activity>
     </application>
 
 </manifest>

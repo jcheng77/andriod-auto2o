@@ -1,5 +1,7 @@
 package com.cettco.buycar.activity;
 
+import java.util.ArrayList;
+
 import com.cettco.buycar.R;
 import com.cettco.buycar.R.dimen;
 import com.cettco.buycar.R.drawable;
@@ -89,7 +91,12 @@ public class MainActivity extends ActionBarActivity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, SelectCityActivity.class);
+			intent.setClass(MainActivity.this, MyBaseListActivity.class);
+			ArrayList<String> myArrayList = new ArrayList<String>();
+			myArrayList.add("Beijin");
+			myArrayList.add("Shanghai");
+			myArrayList.add("Guangzhou");
+			intent.putStringArrayListExtra("list", myArrayList);
 			startActivity(intent);
 		}
 	};

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/car_detail_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/actionbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/car_detail_front" >
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/car_detail_front"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/selectCarColor_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/car_detail_row_height"
+            android:orientation="horizontal" >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="外观颜色"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            android:id="@+id/selectCarLicense_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/car_detail_row_height" >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="有无车牌"
+                />
+        </LinearLayout>
+        
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            android:id="@+id/selectLicenseLocation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/car_detail_row_height" >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本地或外地牌照"
+                />
+        </LinearLayout>
+        
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            android:id="@+id/selectPayment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/car_detail_row_height" >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全款或贷款"
+                />
+        </LinearLayout>
+        
+    </LinearLayout>
+
+   
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/car_detail_front"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="#FF6600"
+                android:text="Begin"
+                android:textSize="25sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
