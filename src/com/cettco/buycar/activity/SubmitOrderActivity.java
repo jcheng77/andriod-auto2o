@@ -103,5 +103,8 @@ public class SubmitOrderActivity extends ActionBarActivity{
 			startActivity(intent);
 		}
 	};
+	public void exitClick(View view){
+		this.finish();
+	}
 	
 }

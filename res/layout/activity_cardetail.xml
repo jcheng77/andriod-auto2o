@@ -1,60 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/car_detail_background"
-    android:orientation="vertical" >
+    android:background="@color/car_detail_background" >
 
-    <include layout="@layout/actionbar" />
+    <include 
+        layout="@layout/actionbar"
+        android:id="@+id/carDetailActionbar"
+         />
 
     <RelativeLayout
+        android:id="@+id/carDetailPicRelativeLayout"
+        android:layout_below="@id/carDetailActionbar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/car_detail_front" >
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/car_detail_front"
-        android:orientation="vertical" >
+    
 
-        <LinearLayout
-            android:id="@+id/selectCarType_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/car_detail_row_height"
-            android:orientation="horizontal" >
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/car_detail_row_height" >
-        </LinearLayout>
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="#000000" />
-
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/car_detail_front" />
+    
 
     <LinearLayout
+        android:id="@+id/carDetailButtonLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/car_detail_front"
         android:gravity="center"
         android:orientation="vertical" >
@@ -85,5 +58,16 @@
                 android:textSize="25sp" />
         </RelativeLayout>
     </LinearLayout>
+    
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/carDetailPicRelativeLayout"
+        android:layout_above="@id/carDetailButtonLinearLayout"
+        android:background="@color/car_detail_front" />
 
-</LinearLayout>
+</RelativeLayout>
