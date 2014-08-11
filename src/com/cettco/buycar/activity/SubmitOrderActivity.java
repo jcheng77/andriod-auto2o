@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class SubmitOrderActivity extends ActionBarActivity{
@@ -29,7 +30,21 @@ public class SubmitOrderActivity extends ActionBarActivity{
 		chooseCarLicenseLayout.setOnClickListener(chooseCarLicenseClickListener);
 		chooseCarLocationLayout.setOnClickListener(chooseCarLocationClickListener);
 		chooseCarPaymentLayout.setOnClickListener(chooseCarPaymentClickListener);
+		
+		Button submitBtn = (Button)findViewById(R.id.submitorderBtn);
+		submitBtn.setOnClickListener(submitBtnClickListener);
 	}
+	private OnClickListener submitBtnClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(SubmitOrderActivity.this, MyOrderStatusActivity.class);
+			startActivity(intent);
+			
+		}
+	};
 	private OnClickListener chooseCarLicenseClickListener = new OnClickListener() {
 		
 		@Override

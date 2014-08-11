@@ -52,6 +52,9 @@
         <activity 
             android:name="com.cettco.buycar.activity.ChooseCarColorActivity"
             ></activity>
+        <activity 
+            android:name="com.cettco.buycar.activity.MyOrderStatusActivity"
+            ></activity>
     </application>
 
 </manifest>

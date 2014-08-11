@@ -26,7 +26,7 @@
 
 
             <LinearLayout
-                android:id="@+id/select_city"
+                android:id="@+id/selectCityLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -82,7 +82,7 @@
             android:background="#ffffff" />
         
         <LinearLayout
-            android:id="@+id/account_layout"
+            android:id="@+id/accountLinearLayout"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/slidingmenu_row_height"
             android:gravity="center_vertical"
@@ -110,7 +110,7 @@
             android:background="#ffffff" />
         
         <LinearLayout
-            android:id="@+id/setting_layout"
+            android:id="@+id/settingLinearlayout"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/slidingmenu_row_height"
             android:gravity="center_vertical"
