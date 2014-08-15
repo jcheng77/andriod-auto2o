@@ -2,9 +2,12 @@ package com.cettco.buycar.activity;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.cettco.buycar.R;
@@ -29,8 +32,21 @@ public class MyOrderStatusActivity extends ActionBarActivity {
 		}
 		dealerListAdapter = new DealerListAdapter(this, R.layout.dealer_item, dealerList);
 		dealerListView.setAdapter(dealerListAdapter);
+		dealerListView.setOnItemClickListener(dealerListClickListener);
 		
 	}
+	protected OnItemClickListener dealerListClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(MyOrderStatusActivity.this, BargainActivity.class);
+			startActivity(intent);
+			
+		}
+	};
 	public void exitClick(View view){
 		this.finish();
 	}

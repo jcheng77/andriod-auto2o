@@ -4,6 +4,10 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
@@ -22,39 +26,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.SelectCityActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.CarListActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.CarDetailActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.SignInActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.SignUpActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.FindPwdActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.SelectCarTypeActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.SubmitOrderActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.MyBaseListActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.ChooseCarColorActivity"
-            ></activity>
-        <activity 
-            android:name="com.cettco.buycar.activity.MyOrderStatusActivity"
-            ></activity>
+        <activity
+            android:name="com.alipay.android.app.sdk.WapPayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.SelectCityActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.CarListActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.CarDetailActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.SignInActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.SignUpActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.FindPwdActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.SelectCarTypeActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.SubmitOrderActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.MyBaseListActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.ChooseCarColorActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.MyOrderStatusActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.BargainActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.BargainColorActivity" >
+        </activity>
     </application>
 
 </manifest>
