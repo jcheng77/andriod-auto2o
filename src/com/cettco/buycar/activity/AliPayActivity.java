@@ -1,5 +1,6 @@
 package com.cettco.buycar.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,9 +41,9 @@ public class AliPayActivity extends ActionBarActivity{
 			// TODO Auto-generated method stub
 			try {
 				Log.i("ExternalPartner", "onItemClick");
-				String info = getNewOrderInfo(position);
+				String info = getNewOrderInfo(0);
 				String sign = Rsa.sign(info, Keys.PRIVATE);
-				sign = URLEncoder.encode(sign);
+				sign = URLEncoder.encode(sign,"UTF-8");
 				info += "&sign=\"" + sign + "\"&" + getSignType();
 				Log.i("ExternalPartner", "start pay");
 				// start the pay.
@@ -73,26 +74,26 @@ public class AliPayActivity extends ActionBarActivity{
 			}
 		}
 	};
-	private String getNewOrderInfo(int position) {
+	private String getNewOrderInfo(int position) throws UnsupportedEncodingException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("partner=\"");
 		sb.append(Keys.DEFAULT_PARTNER);
 		sb.append("\"&out_trade_no=\"");
 		sb.append(getOutTradeNo());
 		sb.append("\"&subject=\"");
-		sb.append(sProducts[position].subject);
+		//sb.append(sProducts[position].subject);
 		sb.append("\"&body=\"");
-		sb.append(sProducts[position].body);
+		//sb.append(sProducts[position].body);
 		sb.append("\"&total_fee=\"");
-		sb.append(sProducts[position].price.replace("一口价:", ""));
+		//sb.append(sProducts[position].price.replace("一口价:", ""));
 		sb.append("\"&notify_url=\"");
 
 		// 网址需要做URL编码
-		sb.append(URLEncoder.encode("http://notify.java.jpxx.org/index.jsp"));
+		sb.append(URLEncoder.encode("http://notify.java.jpxx.org/index.jsp","UTF-8"));
 		sb.append("\"&service=\"mobile.securitypay.pay");
 		sb.append("\"&_input_charset=\"UTF-8");
 		sb.append("\"&return_url=\"");
-		sb.append(URLEncoder.encode("http://m.alipay.com"));
+		sb.append(URLEncoder.encode("http://m.alipay.com","UTF-8"));
 		sb.append("\"&payment_type=\"1");
 		sb.append("\"&seller_id=\"");
 		sb.append(Keys.DEFAULT_SELLER);
