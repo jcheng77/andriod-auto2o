@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -18,6 +20,7 @@ public class MyOrderStatusActivity extends ActionBarActivity {
 	private ArrayList<DealerEntity> dealerList;
 	private ListView dealerListView;
 	private DealerListAdapter dealerListAdapter;
+	private Button bargainButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -34,7 +37,20 @@ public class MyOrderStatusActivity extends ActionBarActivity {
 		dealerListView.setAdapter(dealerListAdapter);
 		dealerListView.setOnItemClickListener(dealerListClickListener);
 		
+		bargainButton = (Button)findViewById(R.id.bargainBtn);
+		bargainButton.setOnClickListener(barginBtnClickListener);
+		
 	}
+	protected OnClickListener barginBtnClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(MyOrderStatusActivity.this, BargainActivity.class);
+			startActivity(intent);
+		}
+	};
 	protected OnItemClickListener dealerListClickListener = new OnItemClickListener() {
 
 		@Override
@@ -42,7 +58,7 @@ public class MyOrderStatusActivity extends ActionBarActivity {
 				long arg3) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(MyOrderStatusActivity.this, BargainActivity.class);
+			intent.setClass(MyOrderStatusActivity.this, DealerDetailActivity.class);
 			startActivity(intent);
 			
 		}

@@ -35,7 +35,7 @@
             android:layout_alignParentRight="true"  
             android:layout_centerVertical="true"  
             android:layout_marginRight="5dp"  
-            android:background="@drawable/ic_action_add_to_queue"   />  
+            android:background="@drawable/add_btn_style"   />  
     </RelativeLayout>
     
     <FrameLayout 

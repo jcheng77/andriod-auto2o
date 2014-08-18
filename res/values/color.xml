@@ -2,10 +2,12 @@
 <resources>
 
      <color name="actionbar_main">#33cccc</color>
+     <color name="actionbar_back">#cccccc</color>
       <color name="actionbar_main_text">#ffffff</color>
       <color name="slidingmenu">#111111</color> 
       <color name="slidingmenu_text">#ffffff</color>
       <color name="car_detail_background">#cccccc</color>
       <color name="car_detail_front">#ffffff</color>
       <color name="car_detail_text">#000000</color>
+      <color name="white">#ffffff</color>
 </resources>

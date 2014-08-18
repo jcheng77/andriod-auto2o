@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.alipay.android.app.sdk.AliPay;
-import com.alipay.android.msp.ExternalPartner;
 import com.alipay.android.msp.Keys;
 import com.alipay.android.msp.Result;
 import com.alipay.android.msp.Rsa;

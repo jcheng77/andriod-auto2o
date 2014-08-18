@@ -4,30 +4,25 @@
     android:layout_height="match_parent"
     android:background="@color/car_detail_background" >
 
-    <include 
-        layout="@layout/actionbar"
+    <include
         android:id="@+id/carDetailActionbar"
-         />
+        layout="@layout/actionbar" />
 
     <RelativeLayout
         android:id="@+id/carDetailPicRelativeLayout"
-        android:layout_below="@id/carDetailActionbar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:layout_below="@id/carDetailActionbar"
         android:background="@color/car_detail_front" >
     </RelativeLayout>
-
-    
-
-    
 
     <LinearLayout
         android:id="@+id/carDetailButtonLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_alignParentBottom="true"
         android:background="@color/car_detail_front"
         android:gravity="center"
         android:orientation="vertical" >
@@ -53,21 +48,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="#FF6600"
+                android:background="@drawable/beginbuycar_btn_style"
+                android:paddingBottom="8dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/white"
                 android:text="Begin"
                 android:textSize="25sp" />
         </RelativeLayout>
     </LinearLayout>
-    
+
     <android.support.v4.view.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/carDetailPicRelativeLayout"
         android:layout_above="@id/carDetailButtonLinearLayout"
+        android:layout_below="@id/carDetailPicRelativeLayout"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:background="@color/car_detail_front" />
 
 </RelativeLayout>

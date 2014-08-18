@@ -12,6 +12,7 @@
         android:gravity="center_vertical" >
 
         <LinearLayout
+            android:background="@drawable/back_btn_style"
             android:onClick="exitClick"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
