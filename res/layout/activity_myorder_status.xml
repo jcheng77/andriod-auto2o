@@ -23,20 +23,25 @@
     <ScrollView
         android:id="@+id/order_status_scroolview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:layout_below="@id/order_status_carname"
         android:scrollbars="vertical" >
 
-        <LinearLayout
+       <LinearLayout
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp"
+           android:background="@color/car_detail_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Progress" >
-            </TextView>
+            <include layout="@layout/order_status_item"/>
+            <include layout="@layout/order_status_item"/>
+            <include layout="@layout/order_status_item"/>
+            <include layout="@layout/order_status_item"/>
+            <include layout="@layout/order_status_item"/>
+            <include layout="@layout/order_status_item"/>
+            <include layout="@layout/order_status_item"/>
+            
         </LinearLayout>
     </ScrollView>
 
@@ -54,22 +59,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/white"
             android:background="@drawable/beginbuycar_btn_style"
+            android:paddingBottom="8dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Bargin" />
+            android:text="Bargin"
+            android:textColor="@color/white" />
 
         <Button
+            android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/cancle_order_btn_style"
             android:layout_gravity="center"
+            android:paddingBottom="8dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:text="Cancle" />
     </LinearLayout>
 
@@ -78,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/order_status_bottom"
-        android:layout_below="@id/order_status_carname" >
-    </ListView>
+        android:layout_below="@id/order_status_scroolview" >
+    </ListView>   
 
 </RelativeLayout>

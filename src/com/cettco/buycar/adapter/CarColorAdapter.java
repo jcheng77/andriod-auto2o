@@ -3,6 +3,7 @@ package com.cettco.buycar.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 				false);
 		CarColorEntity carColorEntity = list.get(position);
 		ImageView imageView = (ImageView)rowView.findViewById(R.id.car_color_imageview);
+		imageView.setBackgroundColor(Color.parseColor(carColorEntity.getColor()));
 		TextView textView = (TextView)rowView.findViewById(R.id.car_color_text);
 		textView.setText(carColorEntity.getName());
 		return rowView;
