@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#f6f5f4"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="沃尔沃V40"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_order_gray"
+            android:text="2015 1.4 智能" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最低优惠价"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="#fa6810"
+                android:text="10000" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_order_gray"
+            android:text="4家4s店已经报价" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_order_gray"
+            android:text="状态：第一轮已经结束" />
+    </LinearLayout>
+
+</LinearLayout>

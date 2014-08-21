@@ -8,6 +8,7 @@ import com.cettco.buycar.R.drawable;
 import com.cettco.buycar.R.id;
 import com.cettco.buycar.R.layout;
 import com.cettco.buycar.R.menu;
+import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -103,9 +104,12 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, SignInActivity.class);
-			startActivity(intent);
+//			Intent intent = new Intent();
+//			intent.setClass(MainActivity.this, SignInActivity.class);
+//			startActivity(intent);
+			switchFragment(new MyCarFragment());
+			setTitle("My car");
+			menu.toggle();
 		}
 	};
 	protected OnClickListener addCarClickListener = new OnClickListener() {
@@ -116,6 +120,7 @@ public class MainActivity extends ActionBarActivity {
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, CarListActivity.class);
 			startActivity(intent);
+			
 		}
 	};
 

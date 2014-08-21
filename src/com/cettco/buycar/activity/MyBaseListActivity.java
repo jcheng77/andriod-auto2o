@@ -32,7 +32,6 @@ public class MyBaseListActivity extends ActionBarActivity{
 		listView = (ListView)findViewById(R.id.myBaseListview);
 		adapter = new MyBaseListAdapter(this,android.R.layout.simple_list_item_1, arrayList);
 		listView.setAdapter(adapter);
-		
 	}
 	public void exitClick(View view){
 		this.finish();

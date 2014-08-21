@@ -3,6 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/currentOrderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/my_order_btn_style"
+            android:text="正在选购"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:id="@+id/cancledOrderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/my_order_selected_btn_style"
+            android:text="购买结束"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pull_to_refresh_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>
