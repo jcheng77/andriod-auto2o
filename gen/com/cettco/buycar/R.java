@@ -1443,11 +1443,12 @@ containing a value of this type.
         public static final int submitorder_btn_style=0x7f02007a;
         public static final int title=0x7f02007b;
         public static final int title_background=0x7f02007c;
+        public static final int welcome=0x7f02007d;
     }
     public static final class id {
         public static final int AlipayTitle=0x7f050080;
-        public static final int accountLinearLayout=0x7f05009c;
-        public static final int action_add=0x7f0500a7;
+        public static final int accountLinearLayout=0x7f05009e;
+        public static final int action_add=0x7f0500a9;
         public static final int action_bar=0x7f05002d;
         public static final int action_bar_activity_content=0x7f05001a;
         public static final int action_bar_container=0x7f05002c;
@@ -1455,12 +1456,12 @@ containing a value of this type.
         public static final int action_bar_root=0x7f05002b;
         public static final int action_bar_subtitle=0x7f050034;
         public static final int action_bar_title=0x7f050033;
-        public static final int action_carAdd=0x7f0500a5;
+        public static final int action_carAdd=0x7f0500a7;
         public static final int action_context_bar=0x7f05002e;
         public static final int action_menu_divider=0x7f05001b;
         public static final int action_menu_presenter=0x7f05001c;
         public static final int action_mode_close_button=0x7f050035;
-        public static final int action_settings=0x7f0500a6;
+        public static final int action_settings=0x7f0500a8;
         public static final int actionbar_drawer=0x7f05005e;
         public static final int actionbar_main=0x7f05005d;
         public static final int activityBargainColorRelativeLayout=0x7f05004f;
@@ -1517,7 +1518,7 @@ containing a value of this type.
         public static final int findpwd_data_layout=0x7f05005a;
         public static final int findpwd_logo_layout=0x7f050059;
         public static final int findpwd_text=0x7f05006f;
-        public static final int fl_inner=0x7f05009f;
+        public static final int fl_inner=0x7f0500a1;
         public static final int flip=0x7f050027;
         public static final int fullscreen=0x7f050003;
         public static final int gridview=0x7f050028;
@@ -1529,15 +1530,15 @@ containing a value of this type.
         public static final int left=0x7f050000;
         public static final int left_button=0x7f05008a;
         public static final int listMode=0x7f050007;
-        public static final int list_car_manufactor_text=0x7f050097;
-        public static final int list_car_type_text=0x7f050098;
+        public static final int list_car_manufactor_text=0x7f050098;
+        public static final int list_car_type_text=0x7f050099;
         public static final int list_item=0x7f05003a;
         public static final int login_data_layout=0x7f05006b;
         public static final int login_logo_layout=0x7f05006a;
         public static final int mainView=0x7f05007e;
         public static final int manualOnly=0x7f050023;
         public static final int margin=0x7f050002;
-        public static final int menuCurrentCityTextView=0x7f05009b;
+        public static final int menuCurrentCityTextView=0x7f05009c;
         public static final int middle=0x7f050017;
         public static final int myBaseListview=0x7f050061;
         public static final int never=0x7f05000f;
@@ -1554,11 +1555,11 @@ containing a value of this type.
         public static final int pullFromEnd=0x7f050021;
         public static final int pullFromStart=0x7f050020;
         public static final int pullUpFromBottom=0x7f050025;
-        public static final int pull_to_refresh_image=0x7f0500a0;
+        public static final int pull_to_refresh_image=0x7f0500a2;
         public static final int pull_to_refresh_listview=0x7f050096;
-        public static final int pull_to_refresh_progress=0x7f0500a1;
-        public static final int pull_to_refresh_sub_text=0x7f0500a3;
-        public static final int pull_to_refresh_text=0x7f0500a2;
+        public static final int pull_to_refresh_progress=0x7f0500a3;
+        public static final int pull_to_refresh_sub_text=0x7f0500a5;
+        public static final int pull_to_refresh_text=0x7f0500a4;
         public static final int radio=0x7f050040;
         public static final int right=0x7f050001;
         public static final int right_button=0x7f05008c;
@@ -1576,11 +1577,11 @@ containing a value of this type.
         public static final int search_voice_btn=0x7f05004c;
         public static final int selectCarColor_layout=0x7f050079;
         public static final int selectCarLicense_layout=0x7f05007a;
-        public static final int selectCityLinearLayout=0x7f05009a;
+        public static final int selectCityLinearLayout=0x7f05009b;
         public static final int selectLicenseLocation_layout=0x7f05007b;
         public static final int selectPayment_layout=0x7f05007c;
         public static final int selected_view=0x7f050005;
-        public static final int settingLinearlayout=0x7f05009d;
+        public static final int settingLinearlayout=0x7f05009f;
         public static final int shortcut=0x7f05003f;
         public static final int showCustom=0x7f05000d;
         public static final int showHome=0x7f05000a;
@@ -1597,10 +1598,10 @@ containing a value of this type.
         public static final int signupRePasswordEditText=0x7f050075;
         public static final int signup_data_layout=0x7f050072;
         public static final int signup_logo_layout=0x7f050071;
-        public static final int slidingmenulayout=0x7f050099;
-        public static final int slidingmenumain=0x7f0500a4;
+        public static final int slidingmenulayout=0x7f05009a;
+        public static final int slidingmenumain=0x7f0500a6;
         public static final int split_action_bar=0x7f05002f;
-        public static final int status_circle_img=0x7f05009e;
+        public static final int status_circle_img=0x7f0500a0;
         public static final int submit_area=0x7f05004a;
         public static final int submitorderBtn=0x7f05007d;
         public static final int tabMode=0x7f050008;
@@ -1612,6 +1613,8 @@ containing a value of this type.
         public static final int useLogo=0x7f050009;
         public static final int webView=0x7f05007f;
         public static final int webview=0x7f050029;
+        public static final int welcome_linearLayout=0x7f05009d;
+        public static final int welcome_view_pager=0x7f050097;
         public static final int withText=0x7f050012;
     }
     public static final class integer {
@@ -1693,15 +1696,16 @@ containing a value of this type.
         public static final int drop_down_list_header=0x7f030031;
         public static final int fragment_mycar=0x7f030032;
         public static final int fragment_settings=0x7f030033;
-        public static final int list_car_manufactor=0x7f030034;
-        public static final int list_car_type=0x7f030035;
-        public static final int menu=0x7f030036;
-        public static final int my_order_item=0x7f030037;
-        public static final int order_status_item=0x7f030038;
-        public static final int pull_to_refresh_header_horizontal=0x7f030039;
-        public static final int pull_to_refresh_header_vertical=0x7f03003a;
-        public static final int slidingmenumain=0x7f03003b;
-        public static final int support_simple_spinner_dropdown_item=0x7f03003c;
+        public static final int fragment_welcome=0x7f030034;
+        public static final int list_car_manufactor=0x7f030035;
+        public static final int list_car_type=0x7f030036;
+        public static final int menu=0x7f030037;
+        public static final int my_order_item=0x7f030038;
+        public static final int order_status_item=0x7f030039;
+        public static final int pull_to_refresh_header_horizontal=0x7f03003a;
+        public static final int pull_to_refresh_header_vertical=0x7f03003b;
+        public static final int slidingmenumain=0x7f03003c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03003d;
     }
     public static final class menu {
         public static final int actionbar_main=0x7f0c0000;

@@ -149,15 +149,16 @@ public class CarListActivity extends ActionBarActivity{
 			// TODO Auto-generated method stub
 			//System.out.println("size:");
 			//Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
+			int position = arg2+1;
 			System.out.println("index:"+arg2);
 			if(toggle==0)
 			{
 				ArrayList<CarBrandEntity> tmpArrayList = new ArrayList<CarBrandEntity>();
-				CarBrandEntity tmpBrandEntity = carBrandEntities.get(arg2);
+				CarBrandEntity tmpBrandEntity = carBrandEntities.get(position);
 				tmpArrayList.add(tmpBrandEntity);
 				carBrandListAdapter.updateList(tmpArrayList);
 				carExpandedView.setVisibility(View.VISIBLE);
-				carExpandableListAdapter.updateList(carBrandEntities.get(arg2).getList());
+				carExpandableListAdapter.updateList(carBrandEntities.get(position).getList());
 				toggle = 1;
 			}
 			else if(toggle==1)

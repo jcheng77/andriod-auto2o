@@ -10,6 +10,7 @@ import com.cettco.buycar.R.layout;
 import com.cettco.buycar.R.menu;
 import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
+import com.cettco.buycar.fragment.WelcomeFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.support.v7.app.ActionBarActivity;
@@ -34,6 +35,8 @@ public class MainActivity extends ActionBarActivity {
 	private LinearLayout cityLayout;
 	private LinearLayout accountLayout;
 	private ImageButton addImageButton;
+	
+	private LinearLayout welcomelLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,12 @@ public class MainActivity extends ActionBarActivity {
 		menu.setMenu(R.layout.menu);
 
 
+		switchFragment(new WelcomeFragment());
+		
+		
+		welcomelLayout = (LinearLayout)findViewById(R.id.welcome_linearLayout);
+		welcomelLayout.setOnClickListener(welcomeClickListener);
+		
 		settingLayout = (LinearLayout) findViewById(R.id.settingLinearlayout);
 		settingLayout.setOnClickListener(settingsClickListener);
 		
@@ -109,6 +118,16 @@ public class MainActivity extends ActionBarActivity {
 //			startActivity(intent);
 			switchFragment(new MyCarFragment());
 			setTitle("My car");
+			menu.toggle();
+		}
+	};
+	protected OnClickListener welcomeClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			switchFragment(new WelcomeFragment());
+			setTitle("Welcome");
 			menu.toggle();
 		}
 	};
