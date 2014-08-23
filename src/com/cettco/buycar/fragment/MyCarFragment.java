@@ -34,7 +34,7 @@ public class MyCarFragment extends Fragment {
 		System.out.println("oncreateview");
 		fragmentView = inflater.inflate(R.layout.fragment_mycar, container,
 				false);
-		System.out.println("oncreateview2");
+		//System.out.println("oncreateview2");
 		pullToRefreshView = (PullToRefreshListView) fragmentView
 				.findViewById(R.id.pull_to_refresh_listview);
 		pullToRefreshView

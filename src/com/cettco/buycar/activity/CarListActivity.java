@@ -3,14 +3,27 @@ package com.cettco.buycar.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
+
+import cn.trinea.android.common.entity.HttpResponse;
+import cn.trinea.android.common.service.HttpCache;
+import cn.trinea.android.common.service.HttpCache.HttpCacheListener;
+
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarBrandListAdapter;
 import com.cettco.buycar.adapter.CarExpandableListAdapter;
 import com.cettco.buycar.entity.CarBrandEntity;
 import com.cettco.buycar.entity.CarManufactorEntity;
 import com.cettco.buycar.entity.CarTypeEntity;
+import com.cettco.buycar.utils.HttpConnection;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -24,20 +37,26 @@ import android.widget.Toast;
 
 public class CarListActivity extends ActionBarActivity{
 
+	private PullToRefreshListView pullToRefreshView;
 	private int toggle = 0;
 	private CarBrandListAdapter carBrandListAdapter;
-	private ArrayList<CarBrandEntity> carBrandList;
+	//private ArrayList<CarBrandEntity> carBrandList;
 	private ArrayList<CarBrandEntity> carBrandEntities;
 	private ExpandableListView carExpandedView;
 	private CarExpandableListAdapter carExpandableListAdapter;
+	private ListView carBrandListView;
+	
+	private HttpCache httpCache;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_carlist);
 		getActionBar().hide();
-		ListView carBrandListView = (ListView)findViewById(R.id.carBrandListView);
-		carBrandList = new ArrayList<CarBrandEntity>();
+		
+		httpCache = new HttpCache(this);
+		//carBrandListView = (ListView)findViewById(R.id.carBrandListView);
+		//carBrandList = new ArrayList<CarBrandEntity>();
 		//Test data
 		CarTypeEntity carTypeEntity = new CarTypeEntity();
 		carTypeEntity.setName("111");
@@ -58,6 +77,18 @@ public class CarListActivity extends ActionBarActivity{
 		carBrandEntities.add(carBrandEntity);
 		carBrandEntities.add(carBrandEntity);
 		
+		pullToRefreshView = (PullToRefreshListView)findViewById(R.id.car_list_pull_to_refresh_listview);
+		pullToRefreshView
+				.setOnRefreshListener(new OnRefreshListener<ListView>() {
+					@Override
+					public void onRefresh(
+							PullToRefreshBase<ListView> refreshView) {
+						// Do work to refresh the list here.
+						new GetDataTask().execute();
+					}
+					
+				});
+		carBrandListView = pullToRefreshView.getRefreshableView();
 		carBrandListAdapter = new CarBrandListAdapter(this, R.layout.carbrandlist_item, carBrandEntities);
 		carBrandListView.setAdapter(carBrandListAdapter);
 		carBrandListView.setOnItemClickListener(carBrandListener);
@@ -67,6 +98,49 @@ public class CarListActivity extends ActionBarActivity{
 		carExpandedView.setAdapter(carExpandableListAdapter);
 		carExpandedView.setOnChildClickListener(carChildClickListener);
 	}
+	protected void getData(){
+		String url ="";
+		HttpConnection.post(url, null,new JsonHttpResponseHandler(){
+			
+		});
+	}
+	protected void getCacheData(){
+		String url = "";
+		httpCache.httpGet("http://www.trinea.cn/", new HttpCacheListener() {
+			 
+		    protected void onPreGet() {
+		        // do something like show progressBar before httpGet, runs on the UI thread 
+		    }
+		 
+		    protected void onPostGet(HttpResponse httpResponse, boolean isInCache) {
+		        // do something like show data after httpGet, runs on the UI thread 
+		        if (httpResponse != null) {
+		            // get data success
+		            //setText(httpResponse.getResponseBody());
+		        } else {
+		            // get data fail
+		        }
+		    }
+		});
+	}
+	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
+		@Override
+		protected void onPostExecute(String[] result) {
+			// Call onRefreshComplete when the list has been refreshed.
+			pullToRefreshView.onRefreshComplete();
+			super.onPostExecute(result);
+		}
+
+		@Override
+		protected String[] doInBackground(Void... arg0) {
+			// TODO Auto-generated method stub
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+			}
+			return null;
+		}
+	}
 	protected OnItemClickListener carBrandListener = new OnItemClickListener() {
 
 		@Override
@@ -75,6 +149,7 @@ public class CarListActivity extends ActionBarActivity{
 			// TODO Auto-generated method stub
 			//System.out.println("size:");
 			//Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
+			System.out.println("index:"+arg2);
 			if(toggle==0)
 			{
 				ArrayList<CarBrandEntity> tmpArrayList = new ArrayList<CarBrandEntity>();
@@ -88,7 +163,7 @@ public class CarListActivity extends ActionBarActivity{
 			else if(toggle==1)
 			{
 				carBrandListAdapter.updateList(carBrandEntities);
-				carExpandedView.setVisibility(View.GONE);
+				carExpandedView.setVisibility(View.GONE);		
 				toggle = 0;
 			}
 			

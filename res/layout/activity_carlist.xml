@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/actionbar"/>
-    <ListView 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/carBrandListView"
-        ></ListView>
+    
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/car_list_pull_to_refresh_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
     <ExpandableListView 
         android:id="@+id/carExpandedList"
         android:layout_width="match_parent"
