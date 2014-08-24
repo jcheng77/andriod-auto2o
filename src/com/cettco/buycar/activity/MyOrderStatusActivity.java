@@ -21,6 +21,7 @@ public class MyOrderStatusActivity extends ActionBarActivity {
 	private ListView dealerListView;
 	private DealerListAdapter dealerListAdapter;
 	private Button bargainButton;
+	private Button cancleButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -40,7 +41,19 @@ public class MyOrderStatusActivity extends ActionBarActivity {
 		bargainButton = (Button)findViewById(R.id.bargainBtn);
 		bargainButton.setOnClickListener(barginBtnClickListener);
 		
+		cancleButton = (Button)findViewById(R.id.bargainCancleBtn);
+		cancleButton.setOnClickListener(cancleBtnClickListener);
 	}
+	protected OnClickListener cancleBtnClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(MyOrderStatusActivity.this, CancleReasonActivity.class);
+			startActivity(intent);
+		}
+	};
 	protected OnClickListener barginBtnClickListener = new OnClickListener() {
 		
 		@Override

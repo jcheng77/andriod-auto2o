@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="action_add">Add</string>
     <string name="action_carAdd">Add</string>
-
+    <string name="alerttitle">同意一口价条款</string>
+    <string name="alertmsg">我已经阅读一口价条款，明白可能存在的违约金支付，愿意继续提交一口价购买订单</string>
 </resources>

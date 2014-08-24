@@ -136,6 +136,10 @@
         </activity>
         <activity android:name="com.cettco.buycar.activity.DealerDetailActivity" >
         </activity>
+        <activity android:name="com.cettco.buycar.activity.AgreementActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.CancleReasonActivity" >
+        </activity>
     </application>
 
 </manifest>

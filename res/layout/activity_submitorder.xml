@@ -20,71 +20,128 @@
         android:background="@color/car_detail_front"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/selectCarColor_layout"
+        <RelativeLayout
+            android:id="@+id/activity_submitorder_color_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/car_detail_row_height"
-            android:orientation="horizontal" >
-            <TextView 
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/activity_submitorder_color_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="外观颜色"
-                />
-        </LinearLayout>
+                android:layout_alignParentLeft="true"
+                android:text="颜色" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_action_next_item" />
+        </RelativeLayout>
 
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#000000" />
 
-        <LinearLayout
-            android:id="@+id/selectCarLicense_layout"
+        <RelativeLayout
+            android:id="@+id/activity_submitorder_getcarTime_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/car_detail_row_height" >
-            <TextView 
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/activity_submitorder_getcarTime_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="有无车牌"
-                />
-        </LinearLayout>
-        
+                android:layout_alignParentLeft="true"
+                android:text="提车时间" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_action_next_item" />
+        </RelativeLayout>
+
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#000000" />
 
-        <LinearLayout
-            android:id="@+id/selectLicenseLocation_layout"
+        <RelativeLayout
+            android:id="@+id/activity_submitorder_loan_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/car_detail_row_height" >
-            <TextView 
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/activity_submitorder_loan_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本地或外地牌照"
-                />
-        </LinearLayout>
-        
+                android:layout_alignParentLeft="true"
+                android:text="贷款" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_action_next_item" />
+        </RelativeLayout>
+
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#000000" />
 
-        <LinearLayout
-            android:id="@+id/selectPayment_layout"
+        <RelativeLayout
+            android:id="@+id/activity_submitorder_platelocation_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/car_detail_row_height" >
-            <TextView 
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/activity_submitorder_platelocation_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="全款或贷款"
-                />
-        </LinearLayout>
-        
+                android:layout_alignParentLeft="true"
+                android:text="上牌地" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_action_next_item" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <RelativeLayout
+            android:id="@+id/activity_submitorder_haveplate_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/activity_submitorder_haveplate_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="有无牌照" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_action_next_item" />
+        </RelativeLayout>
     </LinearLayout>
 
-   
-
-   <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -92,8 +149,6 @@
         android:background="@color/car_detail_front"
         android:gravity="center"
         android:orientation="vertical" >
-
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -105,11 +160,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:background="@drawable/submitorder_btn_style"
                 android:paddingBottom="8dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:paddingTop="8dp"
-                android:background="@drawable/submitorder_btn_style"
                 android:text="Begin"
                 android:textSize="25sp" />
         </RelativeLayout>

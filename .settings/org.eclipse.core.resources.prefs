@@ -1,7 +1,11 @@
 eclipse.preferences.version=1
 encoding//src/com/cettco/buycar/activity/AliPayActivity.java=UTF-8
+encoding//src/com/cettco/buycar/activity/BargainActivity.java=UTF-8
+encoding//src/com/cettco/buycar/activity/CancleReasonActivity.java=UTF-8
 encoding//src/com/cettco/buycar/activity/ChooseCarColorActivity.java=UTF-8
 encoding//src/com/cettco/buycar/activity/MainActivity.java=UTF-8
 encoding//src/com/cettco/buycar/activity/SelectCityActivity.java=UTF-8
 encoding//src/com/cettco/buycar/activity/SubmitOrderActivity.java=UTF-8
+encoding//src/com/cettco/buycar/adapter/CancleReasonAdapter.java=UTF-8
+encoding//src/com/cettco/buycar/adapter/CarColorAdapter.java=UTF-8
 encoding//src/com/cettco/buycar/adapter/CarTypeViewPagerAdapter.java=UTF-8
