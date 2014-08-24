@@ -9,6 +9,27 @@
         android:id="@+id/car_list_pull_to_refresh_listview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/current_car_brand_reletavielayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        >
+        <TextView 
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            />
+        <ImageView 
+            android:layout_centerVertical="true"
+            android:id="@+id/current_car_brand_cancle"
+            android:layout_alignParentRight="true"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/close_icon_style"
+            />
+    </RelativeLayout>
     <ExpandableListView 
         android:id="@+id/carExpandedList"
         android:layout_width="match_parent"

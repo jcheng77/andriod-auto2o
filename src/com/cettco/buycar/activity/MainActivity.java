@@ -2,6 +2,11 @@ package com.cettco.buycar.activity;
 
 import java.util.ArrayList;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import cn.trinea.android.common.entity.HttpResponse;
+
 import com.cettco.buycar.R;
 import com.cettco.buycar.R.dimen;
 import com.cettco.buycar.R.drawable;
@@ -11,7 +16,10 @@ import com.cettco.buycar.R.menu;
 import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
 import com.cettco.buycar.fragment.WelcomeFragment;
+import com.cettco.buycar.utils.Data;
+import com.cettco.buycar.utils.HttpConnection;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Fragment;
@@ -91,6 +99,20 @@ public class MainActivity extends ActionBarActivity {
 			break;
 		}
 
+	}
+	protected void getData(){
+		String url = "";
+		HttpConnection.get(url, new JsonHttpResponseHandler(){
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				// TODO Auto-generated method stub
+				super.onSuccess(statusCode, headers, response);
+				//Data.IMAGE_CACHE.get
+			}
+			
+		});
 	}
 	@Override
 	protected void onResume(){

@@ -4,17 +4,17 @@ import java.util.List;
 
 public class CarManufactorEntity {
 	private String name;
-	private List<CarTypeEntity> list;
+	private List<CarTypeEntity> modelList;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<CarTypeEntity> getList() {
-		return list;
+	public List<CarTypeEntity> getModelList() {
+		return modelList;
 	}
-	public void setList(List<CarTypeEntity> list) {
-		this.list = list;
+	public void setModelList(List<CarTypeEntity> modelList) {
+		this.modelList = modelList;
 	}
 }

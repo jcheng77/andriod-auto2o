@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <TextView 
+    android:background="@color/my_order_gray"
+    android:orientation="horizontal" >
+
+    <TextView
         android:id="@+id/list_car_manufactor_text"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
 </LinearLayout>
