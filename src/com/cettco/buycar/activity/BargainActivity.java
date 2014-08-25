@@ -1,6 +1,8 @@
 package com.cettco.buycar.activity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.cettco.buycar.R;
 
@@ -8,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
@@ -34,15 +37,23 @@ public class BargainActivity extends ActionBarActivity {
 
 	private TextView getCarTimeTextView;
 	private RelativeLayout getcarTimeLayout;
+	private ArrayList<String> getcarTimeList;
+	private int getcarTimeSelection=0;
 
 	private TextView loantTextView;
 	private RelativeLayout loanLayout;
+	private ArrayList<String> loanList;
+	private int loanSelection=0;
 
 	private TextView locationTextView;
 	private RelativeLayout locationLayout;
+	private ArrayList<String> locationList;
+	private int locationSelection=0;
 
 	private TextView plateTextView;
 	private RelativeLayout plateLayout;
+	private ArrayList<String> plateList;
+	private int plateSelection=0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,7 @@ public class BargainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bargain);
 		getActionBar().hide();
+		getArray();
 
 		agreementTextView = (TextView) findViewById(R.id.simple_agreement);
 		String text = "<font color='black'>一口价购买方为我公司与4s经销商协议的特价购买通道，价格优势明显但是如果购车订单成功后任何一方违约则可能会涉及到违约金支付</font> <font color='red'>点击查看详情</font>";
@@ -82,10 +94,24 @@ public class BargainActivity extends ActionBarActivity {
 
 	}
 
-	private void updateData() {
-
+	private void getArray(){
+		Resources res = getResources();
+		String[] tmp = res.getStringArray(R.array.getcarTime_array);
+		getcarTimeList =new ArrayList<String>(Arrays.asList(tmp)); 
+		//ArrayList<String> aa= (ArrayList<String>) Arrays.asList(tmp);
+		tmp = res.getStringArray(R.array.loan_array);
+		loanList=new ArrayList<String>(Arrays.asList(tmp));
+		tmp = res.getStringArray(R.array.location_array);
+		locationList = new ArrayList<String>(Arrays.asList(tmp));
+		tmp = res.getStringArray(R.array.plate_array);
+		plateList =new ArrayList<String>(Arrays.asList(tmp));
 	}
-
+	private void updateUI(){
+		getCarTimeTextView.setText(getcarTimeList.get(getcarTimeSelection));
+		loantTextView.setText(loanList.get(loanSelection));
+		locationTextView.setText(locationList.get(locationSelection));
+		plateTextView.setText(plateList.get(plateSelection));
+	}
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		System.out.println("resultcode :" + resultCode + " requestcode:"
 				+ requestCode);
@@ -93,16 +119,17 @@ public class BargainActivity extends ActionBarActivity {
 		switch (resultCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
 		case RESULT_OK:
 			// data为B中回传的Intent
+			int position = b.getInt("result");
 			if (requestCode == RESULT_COLOR) {
 
 			} else if (requestCode == RESULT_TIME) {
-
+				getcarTimeSelection = position;
 			} else if (requestCode == RESULT_LOAN) {
-
+				loanSelection = position;
 			} else if (requestCode == RESULT_LOCATION) {
-
+				locationSelection = position;
 			} else if (requestCode == RESULT_PLATE) {
-
+				plateSelection = position;
 			}
 			break;
 		default:
@@ -156,7 +183,9 @@ public class BargainActivity extends ActionBarActivity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(BargainActivity.this, BargainColorActivity.class);
+			intent.setClass(BargainActivity.this, ChooseCarColorActivity.class);
+			intent.putExtra("name", "选择颜色");
+			intent.putExtra("tag", 1);
 			startActivityForResult(intent, 0);
 		}
 	};
@@ -170,9 +199,9 @@ public class BargainActivity extends ActionBarActivity {
 			arrayList.add("无牌照");
 			Intent intent = new Intent();
 			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
-			intent.putExtra("name", "有无牌照");
+			intent.putExtra("name", "提车时间");
 			intent.putExtra("tag", 1);
-			intent.putStringArrayListExtra("list", arrayList);
+			intent.putStringArrayListExtra("list",getcarTimeList);
 			startActivityForResult(intent, 1);
 		}
 	};
@@ -182,8 +211,11 @@ public class BargainActivity extends ActionBarActivity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(BargainActivity.this, BargainColorActivity.class);
-			startActivityForResult(intent, 0);
+			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
+			intent.putExtra("name", "是否贷款");
+			intent.putExtra("tag", 2);
+			intent.putStringArrayListExtra("list",loanList);
+			startActivityForResult(intent, 2);
 		}
 	};
 	protected OnClickListener locationClickListener = new OnClickListener() {
@@ -192,8 +224,11 @@ public class BargainActivity extends ActionBarActivity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(BargainActivity.this, BargainColorActivity.class);
-			startActivityForResult(intent, 0);
+			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
+			intent.putExtra("name", "车牌地点");
+			intent.putExtra("tag", 3);
+			intent.putStringArrayListExtra("list",locationList);
+			startActivityForResult(intent, 3);
 		}
 	};
 	protected OnClickListener plateClickListener = new OnClickListener() {
@@ -202,11 +237,20 @@ public class BargainActivity extends ActionBarActivity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(BargainActivity.this, BargainColorActivity.class);
-			startActivityForResult(intent, 0);
+			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
+			intent.putExtra("name", "有无牌照");
+			intent.putExtra("tag", 4);
+			intent.putStringArrayListExtra("list",plateList);
+			startActivityForResult(intent, 4);
 		}
 	};
 
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    updateUI();
+	    // Normal case behavior follows
+	}
 	public void exitClick(View view) {
 		this.finish();
 	}

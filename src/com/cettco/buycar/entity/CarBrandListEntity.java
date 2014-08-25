@@ -3,14 +3,14 @@ package com.cettco.buycar.entity;
 import java.util.ArrayList;
 
 public class CarBrandListEntity {
-	ArrayList<CarBrandEntity> brandlist;
+	ArrayList<CarBrandEntity> brand;
 
-	public ArrayList<CarBrandEntity> getBrandlist() {
-		return brandlist;
+	public ArrayList<CarBrandEntity> getBrand() {
+		return brand;
 	}
 
-	public void setBrandlist(ArrayList<CarBrandEntity> brandlist) {
-		this.brandlist = brandlist;
+	public void setBrand(ArrayList<CarBrandEntity> brand) {
+		this.brand = brand;
 	}
 	
 }

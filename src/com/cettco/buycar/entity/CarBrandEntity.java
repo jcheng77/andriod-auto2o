@@ -11,18 +11,18 @@ public class CarBrandEntity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	private List<CarManufactorEntity> manufactorlist;
+	private List<CarManufactorEntity> maker;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<CarManufactorEntity> getManufactorlist() {
-		return manufactorlist;
+	public List<CarManufactorEntity> getMaker() {
+		return maker;
 	}
-	public void setManufactorlist(List<CarManufactorEntity> manufactorlist) {
-		this.manufactorlist = manufactorlist;
+	public void setMaker(List<CarManufactorEntity> maker) {
+		this.maker = maker;
 	}
 	
 }

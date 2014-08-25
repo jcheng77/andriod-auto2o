@@ -52,6 +52,7 @@ public class MyBaseListActivity extends ActionBarActivity{
 		}
 	};
 	public void exitClick(View view){
+		setResult(RESULT_CANCELED, intent);
 		this.finish();
 	}
 	

@@ -71,28 +71,35 @@ public class CarListActivity extends ActionBarActivity{
 		
 		CarTypeEntity carTypeEntity = new CarTypeEntity();
 		carTypeEntity.setName("111");
+		carTypeEntity.setUrl("http://example.com/1.jpg");
 		ArrayList<CarTypeEntity> carTypeEntities = new ArrayList<CarTypeEntity>();
+		carTypeEntities.add(carTypeEntity);
 		carTypeEntities.add(carTypeEntity);
 		
 		CarManufactorEntity carManufactorEntity = new CarManufactorEntity();
 		carManufactorEntity.setName("11");
-		carManufactorEntity.setModelList(carTypeEntities);
+		carManufactorEntity.setModel(carTypeEntities);
 		ArrayList<CarManufactorEntity> carManufactorEntities = new ArrayList<CarManufactorEntity>();
+		carManufactorEntities.add(carManufactorEntity);
 		carManufactorEntities.add(carManufactorEntity);
 		
 		CarBrandEntity carBrandEntity = new CarBrandEntity();
 		carBrandEntity.setName("1");
-		carBrandEntity.setManufactorlist(carManufactorEntities);
+		carBrandEntity.setMaker(carManufactorEntities);
 		carBrandEntities = new ArrayList<CarBrandEntity>();
 		carBrandEntities.add(carBrandEntity);
 		carBrandEntities.add(carBrandEntity);
 		carBrandEntities.add(carBrandEntity);
 		
 		CarBrandListEntity carBrandListEntity = new CarBrandListEntity();
-		carBrandListEntity.setBrandlist(carBrandEntities);
+		carBrandListEntity.setBrand(carBrandEntities);
 		Gson gson = new Gson();
 		String result = gson.toJson(carBrandListEntity);
 		System.out.println(result);
+		
+		CarBrandListEntity tmp = gson.fromJson(result,CarBrandListEntity.class);
+		System.out.println("list entity:"+tmp.getBrand().size());
+		System.out.println("list entity:"+tmp.getBrand().get(0).getMaker().get(0).getName());
 		
 		pullToRefreshView = (PullToRefreshListView)findViewById(R.id.car_list_pull_to_refresh_listview);
 		pullToRefreshView
@@ -202,7 +209,7 @@ public class CarListActivity extends ActionBarActivity{
 //				
 //				toggle = 0;
 //			}
-			carExpandableListAdapter.updateList(carBrandEntities.get(position).getManufactorlist());
+			carExpandableListAdapter.updateList(carBrandEntities.get(position).getMaker());
 			carExpandedView.setVisibility(View.VISIBLE);
 			currentBrandLayout.setVisibility(View.VISIBLE);
 			pullToRefreshView.setVisibility(View.GONE);

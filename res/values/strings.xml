@@ -8,4 +8,24 @@
     <string name="action_carAdd">Add</string>
     <string name="alerttitle">同意一口价条款</string>
     <string name="alertmsg">我已经阅读一口价条款，明白可能存在的违约金支付，愿意继续提交一口价购买订单</string>
+    <string-array name="getcarTime_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+    <string-array name="loan_array">
+        <item>只选择贷款</item>
+        <item>只选择全款</item>
+        <item>都可以</item>
+    </string-array>
+    <string-array name="location_array">
+        <item>本市</item>
+        <item>周边城市即可</item>
+        <item>外省</item>
+    </string-array>
+    <string-array name="plate_array">
+        <item>本地牌照</item>
+        <item>外地牌照</item>
+    </string-array>
 </resources>
