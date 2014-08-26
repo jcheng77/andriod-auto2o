@@ -12,12 +12,12 @@
         android:gravity="center_vertical" >
 
         <LinearLayout
-            android:background="@drawable/back_btn_style"
-            android:onClick="exitClick"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/back_btn_style"
             android:gravity="center_vertical"
-            android:layout_alignParentLeft="true" >
+            android:onClick="exitClick" >
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -42,6 +42,24 @@
             android:text="City"
             android:textColor="@color/actionbar_main_text"
             android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/actionbar_done_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_btn_style"
+                android:gravity="center_vertical"
+                android:text="完成"
+                android:textColor="@color/actionbar_main_text"
+                android:textSize="20sp"
+                android:visibility="gone" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

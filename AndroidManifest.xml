@@ -7,10 +7,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    
+
     <!-- Required -->
-    <permission android:name="com.cettco.buycar.permission.JPUSH_MESSAGE" android:protectionLevel="signature" />
-   
+    <permission
+        android:name="com.cettco.buycar.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
     <!-- Required -->
     <uses-permission android:name="com.cettco.buycar.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -20,8 +22,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>  
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!--since 1.6.0 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- since 1.6.0 -->
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -33,7 +35,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
+
         <!-- Required -->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -46,15 +48,15 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
-         
+
         <!-- Required -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true" >
-          <intent-filter android:priority="1000"> <!--since 1.3.5 -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!--since 1.3.5 -->
-                <category android:name="com.cettco.buycar" /> <!--since 1.3.5 -->
-            </intent-filter> <!--since 1.3.5 -->
+            <intent-filter android:priority="1000" > <!-- since 1.3.5 -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- since 1.3.5 -->
+                <category android:name="com.cettco.buycar" /> <!-- since 1.3.5 -->
+            </intent-filter> <!-- since 1.3.5 -->
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -62,39 +64,45 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-     <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden" >
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.cettco.buycar" />
             </intent-filter>
         </activity>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false" >
         </service>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
-      
+
         <!-- Required. For publish channel feature -->
-        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。-->
+        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。 -->
         <!-- 例如: -->
         <!-- 发到 Google Play 的APK可以设置为 google-play; -->
         <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
-        <!-- 目前这个渠道统计功能的报表还未开放。-->
-        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <!-- 目前这个渠道统计功能的报表还未开放。 -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
         <!-- Required. AppKey copied from Portal -->
-        <meta-data android:name="JPUSH_APPKEY" android:value="9fed5bcb7b9b87413678c407"/>
-        
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="9cf4056cc60887c7122dbd64" />
+
         <activity
             android:name="com.cettco.buycar.activity.MainActivity"
             android:label="@string/app_name" >
@@ -140,6 +148,19 @@
         </activity>
         <activity android:name="com.cettco.buycar.activity.CancleReasonActivity" >
         </activity>
+
+        <receiver
+            android:name="com.cettco.buycar.receiver.JPushReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+
+                <category android:name="com.cettco.buycar" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

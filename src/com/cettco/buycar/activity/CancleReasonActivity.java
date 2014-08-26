@@ -21,6 +21,7 @@ public class CancleReasonActivity extends ActionBarActivity {
 	private ArrayList<String> list;
 	private ListView listView;
 	private TextView textView;
+	private TextView doneTextView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -40,6 +41,10 @@ public class CancleReasonActivity extends ActionBarActivity {
 		listView = (ListView)findViewById(R.id.cancleReason_listview);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listener);
+		
+		doneTextView = (TextView)findViewById(R.id.actionbar_done_btn);
+		doneTextView.setVisibility(View.VISIBLE);
+		doneTextView.setOnClickListener(doneBtnClickListener);
 	}
 	protected OnItemClickListener listener = new OnItemClickListener() {
 

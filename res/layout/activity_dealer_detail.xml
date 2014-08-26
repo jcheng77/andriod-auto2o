@@ -14,6 +14,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/beginbuycar_btn_style"
             android:text="选择这家店进行议价" />
     </LinearLayout>
 

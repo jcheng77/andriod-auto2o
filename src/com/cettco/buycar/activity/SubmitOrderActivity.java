@@ -25,6 +25,7 @@ public class SubmitOrderActivity extends ActionBarActivity{
 	public final int RESULT_LOCATION = 3;
 	public final int RESULT_PLATE = 4;
 
+	private TextView titleTextView;
 	private TextView agreementTextView;
 
 	private Button submitButton;
@@ -58,6 +59,8 @@ public class SubmitOrderActivity extends ActionBarActivity{
 		setContentView(R.layout.activity_submitorder);
 		getActionBar().hide();
 		getArray();
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText(R.string.title_car_demand);
 //		LinearLayout chooseCarColorLayout = (LinearLayout)findViewById(R.id.selectCarColor_layout);
 //		LinearLayout chooseCarLicenseLayout = (LinearLayout)findViewById(R.id.selectCarLicense_layout);
 //		LinearLayout chooseCarLocationLayout = (LinearLayout)findViewById(R.id.selectLicenseLocation_layout);

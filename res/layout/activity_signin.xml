@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-    
-    <include layout="@layout/actionbar"/>
+
+    <include layout="@layout/actionbar" />
+
     <LinearLayout
         android:id="@+id/login_logo_layout"
         android:layout_width="match_parent"
@@ -40,18 +41,18 @@
                 android:layout_weight="2"
                 android:text="Account"
                 android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/signinPhoneEditText"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:singleLine="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" 
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="phone"
-                />
+                android:singleLine="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -60,8 +61,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-             >
+            android:orientation="horizontal" >
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,52 +71,53 @@
                 android:layout_weight="2"
                 android:text="Password"
                 android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/signinPasswordEditText"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:singleLine="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" 
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
-                />
+                android:singleLine="true" />
         </LinearLayout>
-        <LinearLayout 
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <Button 
+            android:layout_height="wrap_content" >
+
+            <Button
                 android:id="@+id/signinBtn"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:text="Sign In"
-                android:textSize="20sp"
-                />
+                android:textSize="20sp" />
         </LinearLayout>
-        
     </LinearLayout>
-    
+
     <TextView
         android:id="@+id/findpwd_text"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/login_data_layout"
-        android:textSize="10sp"
-        android:text="Forgot password?" 
-        />
-    <TextView 
+        android:text="Forgot password?"
+        android:textSize="10sp" />
+
+    <TextView
         android:id="@+id/signUpText"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
         android:text="Sign Up"
-        android:textSize="15sp"
-        />
+        android:textSize="15sp" />
+
+    <include layout="@layout/progressbar_item"/>
+
 </RelativeLayout>

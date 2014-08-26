@@ -194,9 +194,12 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			switchFragment(new SettingsFragment());
-			setTitle("Settings");
-			menu.toggle();
+//			switchFragment(new SettingsFragment());
+//			setTitle("Settings");
+//			menu.toggle();
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, SignInActivity.class);
+			startActivity(intent);
 		}
 	};
 

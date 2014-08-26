@@ -155,6 +155,6 @@
         </LinearLayout>
         
     </LinearLayout>
-
+    <include layout="@layout/progressbar_item"/>
 
 </RelativeLayout>
