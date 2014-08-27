@@ -3,6 +3,7 @@ package com.cettco.buycar.activity;
 import org.apache.http.Header;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.utils.GetLocation;
 import com.cettco.buycar.utils.HttpConnection;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -37,7 +38,8 @@ public class SignInActivity extends ActionBarActivity{
 		
 		signinPasswordeEditText = (EditText)findViewById(R.id.signinPasswordEditText);
 		signinPhoneEditText = (EditText)findViewById(R.id.signinPhoneEditText);
-		
+		GetLocation location = new GetLocation();
+		location.getLocation(this);
 	}
 	protected OnClickListener signInClickListener = new OnClickListener() {
 		

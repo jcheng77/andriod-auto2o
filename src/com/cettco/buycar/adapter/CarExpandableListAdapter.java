@@ -33,8 +33,8 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 	public Object getChild(int arg0, int arg1) {
 		// TODO Auto-generated method stub
 		if(this.list==null)return null;
-		if(this.list.get(arg0).getModel()==null)return 0;
-		return this.list.get(arg0).getModel().get(arg1);
+		if(this.list.get(arg0).getModels()==null)return 0;
+		return this.list.get(arg0).getModels().get(arg1);
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 	public int getChildrenCount(int arg0) {
 		// TODO Auto-generated method stub
 		if(this.list==null)return 0;
-		if(this.list.get(arg0).getModel()==null) return 0;
-		return this.list.get(arg0).getModel().size();
+		if(this.list.get(arg0).getModels()==null) return 0;
+		return this.list.get(arg0).getModels().size();
 	}
 
 	@Override

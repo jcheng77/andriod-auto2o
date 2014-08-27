@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <include layout="@layout/actionbar"/>
-    
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/car_list_pull_to_refresh_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-    <RelativeLayout
-        android:id="@+id/current_car_brand_reletavielayout"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        >
-        <TextView 
-            android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test"
-            />
-        <ImageView 
-            android:layout_centerVertical="true"
-            android:id="@+id/current_car_brand_cancle"
-            android:layout_alignParentRight="true"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:background="@drawable/close_icon_style"
-            />
-    </RelativeLayout>
-    <ExpandableListView 
-        android:id="@+id/carExpandedList"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include layout="@layout/actionbar" />
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/car_list_pull_to_refresh_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/current_car_brand_reletavielayout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="test" />
+
+            <ImageView
+                android:id="@+id/current_car_brand_cancle"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/close_icon_style" />
+        </RelativeLayout>
+
+        <ExpandableListView
+            android:id="@+id/carExpandedList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+        </ExpandableListView>
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressbar_carlist"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="wrap_content"
         android:visibility="gone"
-        ></ExpandableListView>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="5dp" />
+</RelativeLayout>

@@ -2,14 +2,16 @@ package com.cettco.buycar.entity;
 
 public class CarTypeEntity {
 	private String name;
-	private String url;
+	private String pic_url;
 
-	public String getUrl() {
-		return url;
+
+
+	public String getPic_url() {
+		return pic_url;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setPic_url(String pic_url) {
+		this.pic_url = pic_url;
 	}
 
 	public String getName() {

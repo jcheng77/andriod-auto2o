@@ -36,6 +36,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,7 +53,7 @@ public class CarListActivity extends ActionBarActivity{
 	private ListView carBrandListView;
 	private RelativeLayout currentBrandLayout;
 	private ImageView closeImageView;
-	
+	private ProgressBar progressBar;
 	private HttpCache httpCache;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class CarListActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_carlist);
 		getActionBar().hide();
-		
+		progressBar = (ProgressBar)findViewById(R.id.progressbar_carlist);
 		httpCache = new HttpCache(this);
 		//carBrandListView = (ListView)findViewById(R.id.carBrandListView);
 		//carBrandList = new ArrayList<CarBrandEntity>();
@@ -71,35 +72,35 @@ public class CarListActivity extends ActionBarActivity{
 		
 		CarTypeEntity carTypeEntity = new CarTypeEntity();
 		carTypeEntity.setName("111");
-		carTypeEntity.setUrl("http://example.com/1.jpg");
+		carTypeEntity.setPic_url("http://example.com/1.jpg");
 		ArrayList<CarTypeEntity> carTypeEntities = new ArrayList<CarTypeEntity>();
 		carTypeEntities.add(carTypeEntity);
 		carTypeEntities.add(carTypeEntity);
 		
 		CarManufactorEntity carManufactorEntity = new CarManufactorEntity();
 		carManufactorEntity.setName("11");
-		carManufactorEntity.setModel(carTypeEntities);
+		carManufactorEntity.setModels(carTypeEntities);
 		ArrayList<CarManufactorEntity> carManufactorEntities = new ArrayList<CarManufactorEntity>();
 		carManufactorEntities.add(carManufactorEntity);
 		carManufactorEntities.add(carManufactorEntity);
 		
 		CarBrandEntity carBrandEntity = new CarBrandEntity();
 		carBrandEntity.setName("1");
-		carBrandEntity.setMaker(carManufactorEntities);
+		carBrandEntity.setMakers(carManufactorEntities);
 		carBrandEntities = new ArrayList<CarBrandEntity>();
 		carBrandEntities.add(carBrandEntity);
 		carBrandEntities.add(carBrandEntity);
 		carBrandEntities.add(carBrandEntity);
 		
 		CarBrandListEntity carBrandListEntity = new CarBrandListEntity();
-		carBrandListEntity.setBrand(carBrandEntities);
+		carBrandListEntity.setBrands(carBrandEntities);
 		Gson gson = new Gson();
 		String result = gson.toJson(carBrandListEntity);
 		System.out.println(result);
-		
+		//String abc = ' ';
 		CarBrandListEntity tmp = gson.fromJson(result,CarBrandListEntity.class);
-		System.out.println("list entity:"+tmp.getBrand().size());
-		System.out.println("list entity:"+tmp.getBrand().get(0).getMaker().get(0).getName());
+		System.out.println("list entity:"+tmp.getBrands().size());
+		System.out.println("list entity:"+tmp.getBrands().get(0).getMakers().get(0).getName());
 		
 		pullToRefreshView = (PullToRefreshListView)findViewById(R.id.car_list_pull_to_refresh_listview);
 		pullToRefreshView
@@ -135,13 +136,16 @@ public class CarListActivity extends ActionBarActivity{
 			 
 		    protected void onPreGet() {
 		        // do something like show progressBar before httpGet, runs on the UI thread 
+		    	progressBar.setVisibility(0);
 		    }
 		 
 		    protected void onPostGet(HttpResponse httpResponse, boolean isInCache) {
 		        // do something like show data after httpGet, runs on the UI thread 
+		    	progressBar.setVisibility(0);
 		        if (httpResponse != null) {
 		            // get data success
 		            //setText(httpResponse.getResponseBody());
+		        	
 		        } else {
 		            // get data fail
 		        }
@@ -156,6 +160,7 @@ public class CarListActivity extends ActionBarActivity{
 			carExpandedView.setVisibility(View.GONE);
 			currentBrandLayout.setVisibility(View.GONE);
 			pullToRefreshView.setVisibility(View.VISIBLE);
+			//pullToRefreshView.setr
 		}
 	};
 	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
@@ -209,7 +214,7 @@ public class CarListActivity extends ActionBarActivity{
 //				
 //				toggle = 0;
 //			}
-			carExpandableListAdapter.updateList(carBrandEntities.get(position).getMaker());
+			carExpandableListAdapter.updateList(carBrandEntities.get(position).getMakers());
 			carExpandedView.setVisibility(View.VISIBLE);
 			currentBrandLayout.setVisibility(View.VISIBLE);
 			pullToRefreshView.setVisibility(View.GONE);
