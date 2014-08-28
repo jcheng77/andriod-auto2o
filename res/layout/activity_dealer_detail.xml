@@ -18,205 +18,215 @@
             android:text="选择这家店进行议价" />
     </LinearLayout>
 
-
-
-    <LinearLayout
-        android:background="#ccccff"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center" >
-        <TextView 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="pudong new disctric"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#ccccff"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Basic"
-            />
+            android:text="Basic" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
-        <TextView 
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Others"
-            />
+            android:text="Others" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="指导价"
-                />
+                android:layout_height="wrap_content"
+                android:text="指导价" />
+
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:text="10000"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="10000" />
         </LinearLayout>
     </LinearLayout>
 

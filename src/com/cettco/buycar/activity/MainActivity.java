@@ -13,11 +13,16 @@ import com.cettco.buycar.R.drawable;
 import com.cettco.buycar.R.id;
 import com.cettco.buycar.R.layout;
 import com.cettco.buycar.R.menu;
+import com.cettco.buycar.entity.DealerEntity;
+import com.cettco.buycar.entity.DealerListEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.entity.OrderItemListEntity;
 import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
 import com.cettco.buycar.fragment.WelcomeFragment;
 import com.cettco.buycar.utils.Data;
 import com.cettco.buycar.utils.HttpConnection;
+import com.google.gson.Gson;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -98,7 +103,45 @@ public class MainActivity extends ActionBarActivity {
 		default:
 			break;
 		}
+		testJson();
 
+	}
+	void testJson(){
+//		DealerEntity entity = new DealerEntity();
+//		entity.setAddress("pudong");
+//		entity.setDetail1("test");
+//		entity.setDetail2("test");
+//		entity.setId("1");
+//		entity.setNakedPrice(1000);
+//		entity.setSpecialPrice(100);
+//		entity.setTotalPrice(10000);
+//		DealerListEntity dealerListEntity = new DealerListEntity();
+//		ArrayList<DealerEntity> tmpArrayList = new ArrayList<DealerEntity>();
+//		tmpArrayList.add(entity);
+//		dealerListEntity.setDealer(tmpArrayList);
+//		ArrayList<String> tmp2 = new ArrayList<String>();
+//		tmp2.add("step1");
+//		tmp2.add("step2");
+//		tmp2.add("step3");
+//		dealerListEntity.setStatus(tmp2);
+//		Gson gson = new Gson();
+//		String result = gson.toJson(dealerListEntity);
+//		System.out.println("dealer:"+result);
+//		OrderItemEntity itemEntity = new OrderItemEntity();
+//		itemEntity.setBidNum("4");
+//		itemEntity.setId("2");
+//		itemEntity.setName("volve");
+//		itemEntity.setPrice("10000");
+//		itemEntity.setStatus("4 4s bid");
+//		itemEntity.setTrim("智能版");
+//		ArrayList<OrderItemEntity> tmp = new ArrayList<OrderItemEntity>();
+//		tmp.add(itemEntity);
+//		
+//		OrderItemListEntity itemList = new OrderItemListEntity();
+//		itemList.setOrderitems(tmp);
+//		Gson gson = new Gson();
+//		String result = gson.toJson(itemList);
+//		System.out.println("itemlist:"+result);
 	}
 	protected void getData(){
 		String url = "";
