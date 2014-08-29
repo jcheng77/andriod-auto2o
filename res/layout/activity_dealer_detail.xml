@@ -18,19 +18,48 @@
             android:text="选择这家店进行议价" />
     </LinearLayout>
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" >
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <RelativeLayout
+        android:id="@+id/activity_dealer_detail_locationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <TextView
+            android:id="@+id/activity_dealer_detail_address_textView"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:textSize="15sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="pudong new disctric"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="pudong new disctric" />
+        <TextView 
+            android:id="@+id/activity_dealer_detail_distance_textView"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/activity_dealer_detail_address_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.5km"
             />
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_action_next_item" />
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
