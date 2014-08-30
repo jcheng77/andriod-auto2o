@@ -126,27 +126,22 @@ public class DealerDetailActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			// Intent intent = new Intent();
-			// intent.setClass(DealerDetailActivity.this,
-			// DealerMapActivity.class);
-			// startActivity(intent);
-			// Uri mUri = Uri.parse("geo:39.940409,116.355257");
-			// Intent mIntent = new Intent(Intent.ACTION_VIEW,mUri);
-			// startActivity(mIntent);
+			 Intent intent = new Intent();
+			 intent.setClass(DealerDetailActivity.this,DealerMapActivity.class);
+			 startActivity(intent);
 
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			Uri uri = Uri.parse("geo:39.922840,116.3543240,北京市西城区阜外大街2号万通大厦");
-			intent.setData(uri);
-			//intent.setPackage("com.baidu.BaiduMap");
-			if (intent.resolveActivity(getPackageManager()) != null) {
-		        startActivity(intent);
-		    }
-			else{
-				 uri=Uri.parse("http://api.map.baidu.com/geocoder?address="+"上海虹桥机场"+"&output=html");
-				 Intent intent2= new Intent(Intent.ACTION_VIEW, uri);
-				 intent2.setData(uri); 
-				 startActivity(intent2);
-			}
+//			Intent intent = new Intent(Intent.ACTION_VIEW);
+//			Uri uri = Uri.parse("geo:39.922840,116.3543240,北京市西城区阜外大街2号万通大厦");
+//			intent.setData(uri);
+//			if (intent.resolveActivity(getPackageManager()) != null) {
+//		        startActivity(intent);
+//		    }
+//			else{
+//				 uri=Uri.parse("http://api.map.baidu.com/geocoder?address="+"上海虹桥机场"+"&output=html");
+//				 Intent intent2= new Intent(Intent.ACTION_VIEW, uri);
+//				 intent2.setData(uri); 
+//				 startActivity(intent2);
+//			}
 		}
 	};
 
