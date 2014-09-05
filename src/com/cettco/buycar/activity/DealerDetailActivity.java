@@ -9,6 +9,7 @@ import com.baidu.navi.location.LocationClientOption;
 import com.cettco.buycar.R;
 
 import android.R.integer;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class DealerDetailActivity extends ActionBarActivity {
+public class DealerDetailActivity extends Activity {
 
 	private RelativeLayout locationLayout;
 	private LocationClient locationClient;
@@ -34,7 +35,7 @@ public class DealerDetailActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dealer_detail);
-		getActionBar().hide();
+		//getActionBar().hide();
 		locationLayout = (RelativeLayout) findViewById(R.id.activity_dealer_detail_locationLayout);
 		locationLayout.setOnClickListener(locationClickListener);
 		

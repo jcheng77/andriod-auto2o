@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.cettco.buycar.R;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SubmitOrderActivity extends ActionBarActivity{
+public class SubmitOrderActivity extends Activity{
 
 	public final int RESULT_COLOR = 0;
 	public final int RESULT_TIME = 1;
@@ -57,7 +58,7 @@ public class SubmitOrderActivity extends ActionBarActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submitorder);
-		getActionBar().hide();
+		//getActionBar().hide();
 		getArray();
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText(R.string.title_car_demand);
@@ -113,6 +114,7 @@ public class SubmitOrderActivity extends ActionBarActivity{
 		plateTextView.setText(plateList.get(plateSelection));
 	}
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (data==null) return;
 		System.out.println("resultcode :" + resultCode + " requestcode:"
 				+ requestCode);
 		Bundle b = data.getExtras();

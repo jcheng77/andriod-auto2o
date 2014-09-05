@@ -14,4 +14,10 @@
       <color name="orange">#e36300</color>
       <color name="gray">#cccccc</color>
       <color name="my_order_gray">#b19f96</color>
+      
+      <color name="result_view">#b0000000</color>
+      <color name="viewfinder_mask">#60000000</color>
+      <color name="possible_result_points">#c0ffff00</color> 
+      <color name="deep_gray">#ff555555</color>
+      <color name="light_gray">#ff757575</color>
 </resources>

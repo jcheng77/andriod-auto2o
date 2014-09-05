@@ -27,6 +27,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,7 +40,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	private SlidingMenu menu;
 	private TextView currentCitytTextView;
@@ -56,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		// setTitle("Welcome");
 		setContentView(R.layout.activity_main);
-		getActionBar().hide();
+		//getActionBar().hide();
 
 		menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
@@ -241,32 +242,13 @@ public class MainActivity extends ActionBarActivity {
 //			setTitle("Settings");
 //			menu.toggle();
 			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, SignInActivity.class);
+			intent.setClass(MainActivity.this, MipcaActivityCapture.class);
 			startActivity(intent);
 		}
 	};
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.actionbar_main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_carAdd) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	protected void switchFragment(android.support.v4.app.Fragment fragment) {
-		getSupportFragmentManager().beginTransaction()
+	protected void switchFragment(Fragment fragment) {
+		getFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 	}
 

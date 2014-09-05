@@ -39,6 +39,13 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -49,7 +56,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/DefaultStyle" >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="e9OqHPz7X7PwaFwIAqA2rSf6" />
@@ -167,6 +174,16 @@
         <activity android:name="com.cettco.buycar.activity.CancleReasonActivity" >
         </activity>
         <activity android:name="com.cettco.buycar.activity.DealerMapActivity" >
+        </activity>
+        <activity
+            android:name="com.cettco.buycar.activity.SplashActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.cettco.buycar.activity.IntroductionActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.MipcaActivityCapture" >
         </activity>
 
         <receiver

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CancleReasonAdapter;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -15,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class CancleReasonActivity extends ActionBarActivity {
+public class CancleReasonActivity extends Activity {
 
 	private CancleReasonAdapter adapter;
 	private ArrayList<String> list;
@@ -27,7 +28,7 @@ public class CancleReasonActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cancle_reason);
-		getActionBar().hide();
+		//getActionBar().hide();
 		textView = (TextView)findViewById(R.id.title_text);
 		textView.setText("取消原因");
 		list = new ArrayList<String>();

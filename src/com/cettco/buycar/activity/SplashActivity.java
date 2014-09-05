@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTypeViewPagerAdapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
-public class SplashActivity extends ActionBarActivity{
+public class SplashActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

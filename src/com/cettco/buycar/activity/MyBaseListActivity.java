@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.MyBaseListAdapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -14,7 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MyBaseListActivity extends ActionBarActivity{
+public class MyBaseListActivity extends Activity{
 
 	private ListView listView;
 	private MyBaseListAdapter adapter;
@@ -27,7 +28,7 @@ public class MyBaseListActivity extends ActionBarActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_baselist);
-		getActionBar().hide();
+		//getActionBar().hide();
 		TextView titleTextView = (TextView)findViewById(R.id.title_text);
 		intent = getIntent();
 		name = intent.getStringExtra("name");
@@ -51,6 +52,16 @@ public class MyBaseListActivity extends ActionBarActivity{
 			MyBaseListActivity.this.finish();
 		}
 	};
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		System.out.println("back pressed");
+		setResult(RESULT_CANCELED, intent);
+		//this.finish();
+	}
+
 	public void exitClick(View view){
 		setResult(RESULT_CANCELED, intent);
 		this.finish();

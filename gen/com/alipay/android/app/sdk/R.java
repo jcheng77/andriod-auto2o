@@ -8,21 +8,21 @@ package com.alipay.android.app.sdk;
 
 public final class R {
 	public static final class color {
-		public static final int TextColorBlack = 0x7f070006;
-		public static final int TextColorGray = 0x7f070008;
-		public static final int TextColorWhite = 0x7f070007;
-		public static final int ToastBgColor = 0x7f070009;
-		public static final int bgColor = 0x7f07000e;
-		public static final int btnColor = 0x7f07000a;
-		public static final int dialog_tiltle_blue = 0x7f070014;
-		public static final int downLoadBackFocus = 0x7f070012;
-		public static final int downLoadBackNomal = 0x7f070011;
-		public static final int downLoadBackPressed = 0x7f070013;
-		public static final int downLoadTextNomal = 0x7f07000f;
-		public static final int downLoadTextPressed = 0x7f070010;
-		public static final int secondbtntextColor = 0x7f07000c;
-		public static final int textColorforCheckBox = 0x7f07000d;
-		public static final int textColorforItemTitle = 0x7f07000b;
+		public static final int TextColorBlack = 0x7f080006;
+		public static final int TextColorGray = 0x7f080008;
+		public static final int TextColorWhite = 0x7f080007;
+		public static final int ToastBgColor = 0x7f080009;
+		public static final int bgColor = 0x7f08000e;
+		public static final int btnColor = 0x7f08000a;
+		public static final int dialog_tiltle_blue = 0x7f080014;
+		public static final int downLoadBackFocus = 0x7f080012;
+		public static final int downLoadBackNomal = 0x7f080011;
+		public static final int downLoadBackPressed = 0x7f080013;
+		public static final int downLoadTextNomal = 0x7f08000f;
+		public static final int downLoadTextPressed = 0x7f080010;
+		public static final int secondbtntextColor = 0x7f08000c;
+		public static final int textColorforCheckBox = 0x7f08000d;
+		public static final int textColorforItemTitle = 0x7f08000b;
 	}
 	public static final class drawable {
 		public static final int dialog_bg_click = 0x7f020060;
@@ -40,42 +40,42 @@ public final class R {
 		public static final int title_background = 0x7f020082;
 	}
 	public static final class id {
-		public static final int AlipayTitle = 0x7f0500a1;
-		public static final int btn_refresh = 0x7f0500a2;
-		public static final int dialog_button_group = 0x7f0500ad;
-		public static final int dialog_content_view = 0x7f0500ac;
-		public static final int dialog_divider = 0x7f0500aa;
-		public static final int dialog_message = 0x7f0500ab;
-		public static final int dialog_split_v = 0x7f0500af;
-		public static final int dialog_title = 0x7f0500a9;
-		public static final int left_button = 0x7f0500ae;
-		public static final int mainView = 0x7f05009f;
-		public static final int right_button = 0x7f0500b0;
-		public static final int webView = 0x7f0500a0;
+		public static final int AlipayTitle = 0x7f0600b2;
+		public static final int btn_refresh = 0x7f0600b3;
+		public static final int dialog_button_group = 0x7f0600be;
+		public static final int dialog_content_view = 0x7f0600bd;
+		public static final int dialog_divider = 0x7f0600bb;
+		public static final int dialog_message = 0x7f0600bc;
+		public static final int dialog_split_v = 0x7f0600c0;
+		public static final int dialog_title = 0x7f0600ba;
+		public static final int left_button = 0x7f0600bf;
+		public static final int mainView = 0x7f0600b0;
+		public static final int right_button = 0x7f0600c1;
+		public static final int webView = 0x7f0600b1;
 	}
 	public static final class layout {
-		public static final int alipay = 0x7f03002e;
-		public static final int alipay_title = 0x7f03002f;
-		public static final int dialog_alert = 0x7f030035;
+		public static final int alipay = 0x7f030030;
+		public static final int alipay_title = 0x7f030031;
+		public static final int dialog_alert = 0x7f030037;
 	}
 	public static final class string {
-		public static final int cancel = 0x7f0a001d;
-		public static final int cancel_install_alipay = 0x7f0a0024;
-		public static final int cancel_install_msp = 0x7f0a0023;
-		public static final int confirm_title = 0x7f0a001b;
-		public static final int content_description_icon = 0x7f0a001e;
-		public static final int download = 0x7f0a0021;
-		public static final int download_fail = 0x7f0a0022;
-		public static final int ensure = 0x7f0a001c;
-		public static final int install_alipay = 0x7f0a0027;
-		public static final int install_msp = 0x7f0a0026;
-		public static final int processing = 0x7f0a0020;
-		public static final int redo = 0x7f0a0025;
-		public static final int refresh = 0x7f0a001f;
+		public static final int cancel = 0x7f0b001d;
+		public static final int cancel_install_alipay = 0x7f0b0024;
+		public static final int cancel_install_msp = 0x7f0b0023;
+		public static final int confirm_title = 0x7f0b001b;
+		public static final int content_description_icon = 0x7f0b001e;
+		public static final int download = 0x7f0b0021;
+		public static final int download_fail = 0x7f0b0022;
+		public static final int ensure = 0x7f0b001c;
+		public static final int install_alipay = 0x7f0b0027;
+		public static final int install_msp = 0x7f0b0026;
+		public static final int processing = 0x7f0b0020;
+		public static final int redo = 0x7f0b0025;
+		public static final int refresh = 0x7f0b001f;
 	}
 	public static final class style {
-		public static final int AlertDialog = 0x7f0b0092;
-		public static final int AppBaseTheme = 0x7f0b0090;
-		public static final int AppTheme = 0x7f0b0091;
+		public static final int AlertDialog = 0x7f0c0092;
+		public static final int AppBaseTheme = 0x7f0c0090;
+		public static final int AppTheme = 0x7f0c0091;
 	}
 }

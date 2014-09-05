@@ -11,6 +11,7 @@ import com.alipay.android.msp.Result;
 import com.alipay.android.msp.Rsa;
 import com.cettco.buycar.R;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class AliPayActivity extends ActionBarActivity{
+public class AliPayActivity extends Activity{
 
 	public static final String TAG = "alipay-sdk";
 

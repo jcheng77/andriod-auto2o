@@ -2,6 +2,7 @@ package com.cettco.buycar.activity;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -16,7 +17,7 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.DealerListAdapter;
 import com.cettco.buycar.entity.DealerEntity;
 
-public class MyOrderStatusActivity extends ActionBarActivity {
+public class MyOrderStatusActivity extends Activity {
 	private ArrayList<DealerEntity> dealerList;
 	private ListView dealerListView;
 	private DealerListAdapter dealerListAdapter;
@@ -27,7 +28,7 @@ public class MyOrderStatusActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_myorder_status);
-		getActionBar().hide();
+		//getActionBar().hide();
 		dealerListView = (ListView)findViewById(R.id.dealer_listview);
 		dealerList = new ArrayList<DealerEntity>();
 		for(int i = 0;i<20;i++){

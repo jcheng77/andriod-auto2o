@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.cettco.buycar.R;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
@@ -20,7 +21,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class BargainActivity extends ActionBarActivity {
+public class BargainActivity extends Activity {
 
 	public final int RESULT_COLOR = 0;
 	public final int RESULT_TIME = 1;
@@ -60,7 +61,7 @@ public class BargainActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bargain);
-		getActionBar().hide();
+		//getActionBar().hide();
 		getArray();
 
 		agreementTextView = (TextView) findViewById(R.id.simple_agreement);
@@ -113,6 +114,7 @@ public class BargainActivity extends ActionBarActivity {
 		plateTextView.setText(plateList.get(plateSelection));
 	}
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(data==null)return;
 		System.out.println("resultcode :" + resultCode + " requestcode:"
 				+ requestCode);
 		Bundle b = data.getExtras();

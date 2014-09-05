@@ -24,6 +24,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CarListActivity extends ActionBarActivity{
+public class CarListActivity extends Activity{
 
 	private PullToRefreshListView pullToRefreshView;
 	private int toggle = 0;
@@ -60,7 +61,7 @@ public class CarListActivity extends ActionBarActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_carlist);
-		getActionBar().hide();
+		//getActionBar().hide();
 		progressBar = (ProgressBar)findViewById(R.id.progressbar_carlist);
 		httpCache = new HttpCache(this);
 		//carBrandListView = (ListView)findViewById(R.id.carBrandListView);

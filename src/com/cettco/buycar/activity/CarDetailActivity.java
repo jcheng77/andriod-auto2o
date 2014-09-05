@@ -2,6 +2,7 @@ package com.cettco.buycar.activity;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import android.widget.LinearLayout;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTypeViewPagerAdapter;
 
-public class CarDetailActivity extends ActionBarActivity {
+public class CarDetailActivity extends Activity {
 
 	private ArrayList<View> pagerList;
 	private ViewPager viewPager;
@@ -29,7 +30,7 @@ public class CarDetailActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cardetail);
-		getActionBar().hide();
+		//getActionBar().hide();
 		// LinearLayout selectCarTypeLayout =
 		// (LinearLayout)findViewById(R.id.selectCarType_layout);
 		// selectCarTypeLayout.setOnClickListener(selectCartypeClickListener);

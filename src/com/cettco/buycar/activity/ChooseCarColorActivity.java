@@ -6,6 +6,7 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarColorAdapter;
 import com.cettco.buycar.entity.CarColorEntity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -16,7 +17,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ChooseCarColorActivity extends ActionBarActivity{
+public class ChooseCarColorActivity extends Activity{
 	
 	private ArrayList<CarColorEntity> colorList;
 	private ListView listView;
@@ -29,7 +30,7 @@ public class ChooseCarColorActivity extends ActionBarActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choose_carcolor);
-		getActionBar().hide();
+		//getActionBar().hide();
 		TextView titleTextView = (TextView)findViewById(R.id.title_text);
 		intent = getIntent();
 		name = intent.getStringExtra("name");
@@ -60,6 +61,13 @@ public class ChooseCarColorActivity extends ActionBarActivity{
 			mycarColorAdapter.getIsSelected().put(arg2, checkBox.isChecked());
 		}
 	};
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		setResult(RESULT_CANCELED, intent);
+		this.finish();
+	}
 	public void exitClick(View view){
 		//intent.putExtra("result", position);
 		int size = mycarColorAdapter.getIsSelected().size();

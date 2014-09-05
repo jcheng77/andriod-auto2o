@@ -10,6 +10,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cettco.buycar.R;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class DealerMapActivity extends ActionBarActivity{
+public class DealerMapActivity extends Activity{
 
 	private MapView mMapView = null;  
 	private BaiduMap mBaiduMap;
@@ -29,7 +30,7 @@ public class DealerMapActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.activity_dealer_map);
-		getActionBar().hide();
+		//getActionBar().hide();
 		button = (Button)findViewById(R.id.localMapBtn);
 		button.setOnClickListener(localMapBtnClickListener);
 		mMapView = (MapView) findViewById(R.id.bmapView);  

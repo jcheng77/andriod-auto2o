@@ -19,7 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SelectCityActivity extends ActionBarActivity{
+public class SelectCityActivity extends Activity{
 
 	private ArrayList<String> arrayList;
 	private ListView listView;
@@ -29,7 +29,7 @@ public class SelectCityActivity extends ActionBarActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selectcity);
-		getActionBar().hide();
+		//getActionBar().hide();
 		listView = (ListView)findViewById(R.id.city_listview);
 		arrayList = new ArrayList<String>();
 		arrayList.add("上海");

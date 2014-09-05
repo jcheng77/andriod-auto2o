@@ -3,7 +3,7 @@ package com.cettco.buycar.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class User {
+public class UserUtil {
 
 	public static boolean isLogin(Context context){
 		SharedPreferences settings = context.getSharedPreferences("user", 0);

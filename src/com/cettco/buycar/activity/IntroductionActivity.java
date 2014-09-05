@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTypeViewPagerAdapter;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -12,7 +13,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
-public class IntroductionActivity extends ActionBarActivity{
+public class IntroductionActivity extends Activity{
 	private ArrayList<View> pagerList;
 	private ViewPager viewPager;
 	@Override
