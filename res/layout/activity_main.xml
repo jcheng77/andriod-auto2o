@@ -37,6 +37,23 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:background="@drawable/add_btn_style" />
+        <LinearLayout
+            android:id="@+id/logoutLayout"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_btn_style"
+                android:gravity="center_vertical"
+                android:text="注销"
+                android:textColor="@color/actionbar_main_text"
+                android:textSize="20sp" />
+        </LinearLayout>
     </RelativeLayout>
 
 

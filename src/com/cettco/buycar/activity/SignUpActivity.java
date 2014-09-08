@@ -114,7 +114,13 @@ public class SignUpActivity extends Activity{
 					// TODO Auto-generated method stub
 					super.onFailure(statusCode, headers, throwable, errorResponse);
 					progressLayout.setVisibility(View.GONE);
-					System.out.println(errorResponse);
+					System.out.println("error");
+					System.out.println("statusCode:"+statusCode);
+					System.out.println("headers:"+headers);
+					for(int i = 0;i<headers.length;i++){
+						System.out.println(headers[i]);
+					}
+					System.out.println("response:"+errorResponse);
 				}
 
 				@Override
@@ -123,7 +129,13 @@ public class SignUpActivity extends Activity{
 					// TODO Auto-generated method stub
 					super.onSuccess(statusCode, headers, response);
 					progressLayout.setVisibility(View.GONE);
-					System.out.println(response);
+					System.out.println("success");
+					System.out.println("statusCode:"+statusCode);
+					System.out.println("headers:"+headers);
+					for(int i = 0;i<headers.length;i++){
+						System.out.println(headers[i]);
+					}
+					System.out.println("response:"+response);
 				}
 				
 			});

@@ -14,6 +14,13 @@
         android:layout_height="75dp"
         android:layout_below="@id/carDetailActionbar"
         android:background="@color/car_detail_front" >
+        <ImageView 
+            android:id="@+id/carDetail_img"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
     </RelativeLayout>
 
     <LinearLayout

@@ -1,13 +1,13 @@
 package com.cettco.buycar.entity;
 
 public class CarColorEntity {
-	private String color;
+	private String code;
 	private String name;
-	public String getColor() {
-		return color;
+	public String getCode() {
+		return code;
 	}
-	public void setColor(String color) {
-		this.color = color;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public String getName() {
 		return name;

@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.entity.CarColorEntity;
+import com.cettco.buycar.entity.CarColorListEntity;
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +17,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +37,7 @@ public class SubmitOrderActivity extends Activity{
 
 	private TextView colorTextView;
 	private RelativeLayout colorLayout;
+	private String colorString;
 
 	private TextView getCarTimeTextView;
 	private RelativeLayout getcarTimeLayout;
@@ -53,6 +58,8 @@ public class SubmitOrderActivity extends Activity{
 	private RelativeLayout plateLayout;
 	private ArrayList<String> plateList;
 	private int plateSelection=0;
+	
+	private ImageView carImageView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -62,6 +69,8 @@ public class SubmitOrderActivity extends Activity{
 		getArray();
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText(R.string.title_car_demand);
+		
+		carImageView = (ImageView)findViewById(R.id.submitOrder_img);
 //		LinearLayout chooseCarColorLayout = (LinearLayout)findViewById(R.id.selectCarColor_layout);
 //		LinearLayout chooseCarLicenseLayout = (LinearLayout)findViewById(R.id.selectCarLicense_layout);
 //		LinearLayout chooseCarLocationLayout = (LinearLayout)findViewById(R.id.selectLicenseLocation_layout);
@@ -75,6 +84,9 @@ public class SubmitOrderActivity extends Activity{
 		colorLayout = (RelativeLayout) findViewById(R.id.activity_submitorder_color_layout);
 		colorLayout.setOnClickListener(colorLayoutClickListener);
 		colorTextView = (TextView) findViewById(R.id.activity_submitorder_color_textview);
+		colorString = getIntent().getStringExtra("color");
+		
+		//CarColorListEntity carColorListEntity = new Gson().fromJson(getIntent().getStringExtra("color"), CarColorListEntity.class);
 
 		getcarTimeLayout = (RelativeLayout) findViewById(R.id.activity_submitorder_getcarTime_layout);
 		getcarTimeLayout.setOnClickListener(getCarTimeClickListener);
@@ -147,6 +159,7 @@ public class SubmitOrderActivity extends Activity{
 			intent.setClass(SubmitOrderActivity.this, ChooseCarColorActivity.class);
 			intent.putExtra("name", "选择颜色");
 			intent.putExtra("tag", 1);
+			intent.putExtra("color", colorString);
 			startActivityForResult(intent, 0);
 		}
 	};

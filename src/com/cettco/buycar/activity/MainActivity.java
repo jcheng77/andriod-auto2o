@@ -22,6 +22,7 @@ import com.cettco.buycar.fragment.SettingsFragment;
 import com.cettco.buycar.fragment.WelcomeFragment;
 import com.cettco.buycar.utils.Data;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UserUtil;
 import com.google.gson.Gson;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -51,6 +52,7 @@ public class MainActivity extends Activity {
 	private ImageButton addImageButton;
 	
 	private LinearLayout welcomelLayout;
+	private LinearLayout logoutLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,8 @@ public class MainActivity extends Activity {
 
 		switchFragment(new WelcomeFragment());
 		
+		logoutLayout = (LinearLayout)findViewById(R.id.logoutLayout);
+		logoutLayout.setOnClickListener(logoutClickListener);
 		
 		welcomelLayout = (LinearLayout)findViewById(R.id.welcome_linearLayout);
 		welcomelLayout.setOnClickListener(welcomeClickListener);
@@ -174,6 +178,18 @@ public class MainActivity extends Activity {
 			break;
 		}
 	}
+	protected OnClickListener logoutClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			switchFragment(new WelcomeFragment());
+			setTitle("Welcome");
+			logoutLayout.setVisibility(View.GONE);
+			addImageButton.setVisibility(View.VISIBLE);
+			//menu.toggle();
+		}
+	};
 	protected OnClickListener accountClickListener = new OnClickListener() {
 
 		@Override
@@ -182,9 +198,18 @@ public class MainActivity extends Activity {
 //			Intent intent = new Intent();
 //			intent.setClass(MainActivity.this, SignInActivity.class);
 //			startActivity(intent);
-			switchFragment(new MyCarFragment());
-			setTitle("My car");
-			menu.toggle();
+			if(UserUtil.isLogin(MainActivity.this)){
+				switchFragment(new MyCarFragment());
+				setTitle("My car");
+				logoutLayout.setVisibility(View.VISIBLE);
+				addImageButton.setVisibility(View.GONE);
+				menu.toggle();
+			}
+			else {
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, SignInActivity.class);
+				startActivity(intent);
+			}
 		}
 	};
 	protected OnClickListener welcomeClickListener = new OnClickListener() {
@@ -242,7 +267,7 @@ public class MainActivity extends Activity {
 //			setTitle("Settings");
 //			menu.toggle();
 			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, MipcaActivityCapture.class);
+			intent.setClass(MainActivity.this, SignInActivity.class);
 			startActivity(intent);
 		}
 	};

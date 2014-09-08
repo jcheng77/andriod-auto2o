@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarColorAdapter;
 import com.cettco.buycar.entity.CarColorEntity;
+import com.cettco.buycar.entity.CarColorListEntity;
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,14 +39,14 @@ public class ChooseCarColorActivity extends Activity{
 		tag = intent.getIntExtra("tag",0);
 		titleTextView.setText(name);
 		listView = (ListView)findViewById(R.id.color_listview);	
-		colorList = new ArrayList<CarColorEntity>();
-		for(int i= 0;i<4;i++)
-		{
-			CarColorEntity entity = new CarColorEntity();
-			entity.setColor("#444444");
-			entity.setName("黄色");
-			colorList.add(entity);
-		}
+		colorList = new Gson().fromJson(intent.getStringExtra("color"), CarColorListEntity.class).getColors();
+//		for(int i= 0;i<colorList.size();i++)
+//		{
+//			CarColorEntity entity = new CarColorEntity();
+//			entity.setCode("#444444");
+//			entity.setName("黄色");
+//			colorList.add(entity);
+//		}
 		mycarColorAdapter = new CarColorAdapter(this,R.layout.carcolor_item,colorList);
 		listView.setAdapter(mycarColorAdapter);
 		listView.setOnItemClickListener(listener);

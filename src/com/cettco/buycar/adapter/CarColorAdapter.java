@@ -62,7 +62,7 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 				false);
 		CarColorEntity carColorEntity = list.get(position);
 		ImageView imageView = (ImageView)rowView.findViewById(R.id.car_color_imageview);
-		imageView.setBackgroundColor(Color.parseColor(carColorEntity.getColor()));
+		imageView.setBackgroundColor(Color.parseColor(carColorEntity.getCode()));
 		TextView textView = (TextView)rowView.findViewById(R.id.car_color_text);
 		textView.setText(carColorEntity.getName());
 		

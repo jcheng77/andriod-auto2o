@@ -5,12 +5,14 @@ import java.util.List;
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.CarManufactorEntity;
 import com.cettco.buycar.entity.CarTypeEntity;
+import com.cettco.buycar.utils.Data;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CarExpandableListAdapter extends BaseExpandableListAdapter {
@@ -54,6 +56,8 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 		TextView carTypetTextView = (TextView) convertView.findViewById(R.id.list_car_type_text);
 		carTypetTextView.setText(carTypeEntity.getName());
+		ImageView imageView = (ImageView)convertView.findViewById(R.id.list_car_type_img);
+		Data.IMAGE_CACHE.get(carTypeEntity.getPic_url(), imageView);
 		return convertView;
 	}
 

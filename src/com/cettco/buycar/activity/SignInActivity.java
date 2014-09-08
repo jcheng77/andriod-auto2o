@@ -13,6 +13,7 @@ import com.cettco.buycar.utils.Data;
 import com.cettco.buycar.utils.GetLocation;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UserUtil;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SignInActivity extends Activity{
 
@@ -87,7 +89,15 @@ public class SignInActivity extends Activity{
 					// TODO Auto-generated method stub
 					super.onFailure(statusCode, headers, throwable, errorResponse);
 					progressLayout.setVisibility(View.GONE);
-					System.out.println(errorResponse);
+					System.out.println("error");
+					System.out.println("statusCode:"+statusCode);
+					System.out.println("headers:"+headers);
+					for(int i = 0;i<headers.length;i++){
+						System.out.println(headers[i]);
+					}
+					System.out.println("response:"+errorResponse);
+					Toast toast = Toast.makeText(SignInActivity.this, "登录失败，重新登录", Toast.LENGTH_SHORT);
+					toast.show();
 				}
 
 				@Override
@@ -95,8 +105,16 @@ public class SignInActivity extends Activity{
 						JSONObject response) {
 					// TODO Auto-generated method stub
 					super.onSuccess(statusCode, headers, response);
+					System.out.println("success");
+					System.out.println("statusCode:"+statusCode);
+					System.out.println("headers:"+headers);
+					System.out.println("response:"+response);
 					progressLayout.setVisibility(View.GONE);
-					System.out.println(response);
+					UserUtil.login(SignInActivity.this);
+					Toast toast = Toast.makeText(SignInActivity.this, "登录成功", Toast.LENGTH_SHORT);
+					toast.show();
+					SignInActivity.this.finish();
+					
 				}
 				
 			});

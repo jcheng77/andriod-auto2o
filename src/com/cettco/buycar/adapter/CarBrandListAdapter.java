@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CarBrandListAdapter extends ArrayAdapter<CarBrandEntity>{
@@ -32,7 +33,8 @@ public class CarBrandListAdapter extends ArrayAdapter<CarBrandEntity>{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return carBrandList.size();
+		//System.out.println("adpater size:"+carBrandList.size());
+		return this.carBrandList.size();
 	}
 
 	@Override
@@ -45,6 +47,7 @@ public class CarBrandListAdapter extends ArrayAdapter<CarBrandEntity>{
 		CarBrandEntity entity = carBrandList.get(position);
 		TextView textView = (TextView)rowView.findViewById(R.id.carBrandText);
 		textView.setText(entity.getName());
+		//ImageView imageView = (ImageView)rowView.findViewById(R.id.car)
 		return rowView;
 	}
 	
