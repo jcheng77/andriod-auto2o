@@ -53,4 +53,17 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginRight="5dp" />
+    <LinearLayout 
+        android:id="@+id/carlist_nodata_layout"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有数据"
+            />
+    </LinearLayout>
 </RelativeLayout>

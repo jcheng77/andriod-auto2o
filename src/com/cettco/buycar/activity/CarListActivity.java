@@ -39,6 +39,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -56,6 +57,7 @@ public class CarListActivity extends Activity {
 	private CarExpandableListAdapter carExpandableListAdapter;
 	private ListView carBrandListView;
 	private RelativeLayout currentBrandLayout;
+	private LinearLayout nodataLayout;
 	private ImageView closeImageView;
 	private ProgressBar progressBar;
 	private HttpCache httpCache;
@@ -82,6 +84,7 @@ public class CarListActivity extends Activity {
 		closeImageView.setOnClickListener(closeClickListener);
 		
 		currentBrandNameTextView = (TextView)findViewById(R.id.curent_car_brand_name);
+		nodataLayout = (LinearLayout)findViewById(R.id.carlist_nodata_layout);
 
 //		CarTypeEntity carTypeEntity = new CarTypeEntity();
 //		carTypeEntity.setName("111");
@@ -148,10 +151,7 @@ public class CarListActivity extends Activity {
 		// carExpandedView.set
 		//pullToRefreshView.
 		super.onResume();
-		System.out.println("onResume");
-		//pullToRefreshView.setRefreshing();
 		getCacheData();
-		System.out.println("onResume end");
 	}
 
 //	protected void getData() {
@@ -211,13 +211,13 @@ public class CarListActivity extends Activity {
 				// do something like show data after httpGet, runs on the UI
 				// thread
 				// progressBar.setVisibility(View.GONE);
-				System.out.println("onpostget");
 				System.out.println("isincache:"+isInCache);
 				if (httpResponse != null) {
 					// get data success
 					// setText(httpResponse.getResponseBody());
-					System.out.println("code:" + httpResponse.getResponseCode());
-					System.out.println("body" + httpResponse.getResponseBody());
+					//System.out.println("code:" + httpResponse.getResponseCode());
+					//System.out.println("body" + httpResponse.getResponseBody());
+					nodataLayout.setVisibility(View.GONE);
 					String result= httpResponse.getResponseBody();
 					Gson gson = new Gson();
 					carBrandListEntity = gson.fromJson(result, CarBrandListEntity.class);
@@ -232,6 +232,7 @@ public class CarListActivity extends Activity {
 					// get data fail
 					Toast toast = Toast.makeText(CarListActivity.this, "获取车型列表失败", Toast.LENGTH_SHORT);
 					toast.show();
+					nodataLayout.setVisibility(View.VISIBLE);
 				}
 			}
 		});

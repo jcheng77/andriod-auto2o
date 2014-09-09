@@ -15,6 +15,7 @@ encoding//src/com/cettco/buycar/activity/SubmitOrderActivity.java=UTF-8
 encoding//src/com/cettco/buycar/adapter/CancleReasonAdapter.java=UTF-8
 encoding//src/com/cettco/buycar/adapter/CarColorAdapter.java=UTF-8
 encoding//src/com/cettco/buycar/adapter/CarTypeViewPagerAdapter.java=UTF-8
+encoding//src/com/cettco/buycar/fragment/MyCarFragment.java=UTF-8
 encoding//src/com/cettco/buycar/receiver/JPushReceiver.java=UTF-8
 encoding//src/com/cettco/buycar/utils/GetLocation.java=UTF-8
 encoding//src/com/cettco/buycar/utils/SFHCamera.java=UTF-8

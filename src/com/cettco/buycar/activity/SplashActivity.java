@@ -23,18 +23,20 @@ public class SplashActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		SharedPreferences settings = getSharedPreferences("installed", 0);
-		if (settings.getBoolean("first", false)) {
-			Intent intent = new Intent();
-			intent.setClass(SplashActivity.this, MainActivity.class);
-			startActivity(intent);
-		}
-		else{
+		if (settings.getBoolean("first", true)) {
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putBoolean("first", true);
+			editor.putBoolean("first", false);
 			editor.commit();
 			Intent intent = new Intent();
 			intent.setClass(SplashActivity.this, IntroductionActivity.class);
 			startActivity(intent);
+			this.finish();
+		}
+		else{			
+			Intent intent = new Intent();
+			intent.setClass(SplashActivity.this, MainActivity.class);
+			startActivity(intent);
+			this.finish();
 		}
 		
 	}

@@ -1,11 +1,26 @@
 package com.cettco.buycar.fragment;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import org.apache.http.Header;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONObject;
+
+import cn.trinea.android.common.entity.HttpResponse;
+import cn.trinea.android.common.service.HttpCache;
+import cn.trinea.android.common.service.HttpCache.HttpCacheListener;
+
 import com.cettco.buycar.R;
+import com.cettco.buycar.activity.CarListActivity;
+import com.cettco.buycar.activity.MyOrderStatusActivity;
+import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
+import com.cettco.buycar.entity.CarBrandListEntity;
 import com.cettco.buycar.entity.MyOrderEntity;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UserUtil;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -13,6 +28,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,8 +38,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MyCarFragment extends Fragment {
 
@@ -34,6 +54,7 @@ public class MyCarFragment extends Fragment {
 	private ArrayList<MyOrderEntity> list = new ArrayList<MyOrderEntity>();
 	private Button currentButton;
 	private Button historyButton;
+	private LinearLayout mycarBgLayout;
 	
 	//private array
 
@@ -41,10 +62,11 @@ public class MyCarFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		//System.out.println("oncreateview");
 		fragmentView = inflater.inflate(R.layout.fragment_mycar, container,
 				false);
 		//System.out.println("oncreateview2");
+		mycarBgLayout = (LinearLayout)fragmentView
+				.findViewById(R.id.carlist_bg_layout);
 		pullToRefreshView = (PullToRefreshListView) fragmentView
 				.findViewById(R.id.pull_to_refresh_listview);
 		pullToRefreshView
@@ -58,6 +80,7 @@ public class MyCarFragment extends Fragment {
 					
 				});
 		listView = pullToRefreshView.getRefreshableView();
+		listView.setOnItemClickListener(itemClickListener);
 		for(int i = 0;i<0;i++){
 			MyOrderEntity entity = new MyOrderEntity();
 			list.add(entity);
@@ -71,6 +94,28 @@ public class MyCarFragment extends Fragment {
 		return fragmentView;
 	}
 	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		//pullToRefreshView.setRefreshing();
+	}
+
+	protected OnItemClickListener itemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			// System.out.println("size:");
+			// Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
+			int position = arg2 - 1;
+			Intent intent = new Intent();
+			intent.setClass(MyCarFragment.this.getActivity(), MyOrderStatusActivity.class);
+			startActivity(intent);
+
+		}
+	};
 	private OnClickListener currentClickListener = new OnClickListener() {
 		
 		@Override
@@ -126,6 +171,52 @@ public class MyCarFragment extends Fragment {
 			}
 			return null;
 		}
+	}
+	private void getData(){
+		String url="";
+		Gson gson = new Gson();
+        StringEntity entity = null;
+//        try {
+//        	System.out.println(gson.toJson(userEntity).toString());
+//			entity = new StringEntity(gson.toJson(userEntity).toString());
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		HttpConnection.post(getActivity(), url, null, entity, "application/json", new JsonHttpResponseHandler(){
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				// TODO Auto-generated method stub
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+				//progressLayout.setVisibility(View.GONE);
+				System.out.println("error");
+				System.out.println("statusCode:"+statusCode);
+				System.out.println("headers:"+headers);
+				for(int i = 0;i<headers.length;i++){
+					System.out.println(headers[i]);
+				}
+				System.out.println("response:"+errorResponse);
+				Toast toast = Toast.makeText(getActivity(), "获取订单失败", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				// TODO Auto-generated method stub
+				super.onSuccess(statusCode, headers, response);
+				System.out.println("success");
+				System.out.println("statusCode:"+statusCode);
+				System.out.println("headers:"+headers);
+				System.out.println("response:"+response);
+				//progressLayout.setVisibility(View.GONE);
+				//UserUtil.login(SignInActivity.this);
+				
+			}
+			
+		});
 	}
 	private Handler mHandler = new Handler(){  
         

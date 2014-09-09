@@ -183,6 +183,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			UserUtil.logout(MainActivity.this);
 			switchFragment(new WelcomeFragment());
 			setTitle("Welcome");
 			logoutLayout.setVisibility(View.GONE);
