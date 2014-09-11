@@ -1,10 +1,18 @@
 package com.cettco.buycar.fragment;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.Header;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import cn.trinea.android.common.entity.HttpResponse;
@@ -18,7 +26,9 @@ import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
 import com.cettco.buycar.entity.CarBrandListEntity;
 import com.cettco.buycar.entity.MyOrderEntity;
+import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.SyncHttpConnection;
 import com.cettco.buycar.utils.UserUtil;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -26,6 +36,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -98,6 +109,7 @@ public class MyCarFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		System.out.println("onResume");
 		//pullToRefreshView.setRefreshing();
 	}
 
@@ -156,24 +168,12 @@ public class MyCarFragment extends Fragment {
 
 		@Override
 		protected String[] doInBackground(Void... arg0) {
-			// TODO Auto-generated method stub
-			try {
-//				String url = "";
-//				HttpConnection.get(url, new JsonHttpResponseHandler(){});
-				Thread.sleep(4000);
-				MyOrderEntity entity = new MyOrderEntity();
-				list.add(entity);
-				//adapter.notifyDataSetChanged();
-				Message message = new Message();
-				message.what = 1;
-				mHandler.sendMessage(message);
-			} catch (InterruptedException e) {
-			}
+			getData();
 			return null;
 		}
 	}
 	private void getData(){
-		String url="";
+		String url=GlobalData.getBaseUrl()+"/deals.json";
 		Gson gson = new Gson();
         StringEntity entity = null;
 //        try {
@@ -183,40 +183,89 @@ public class MyCarFragment extends Fragment {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		HttpConnection.post(getActivity(), url, null, entity, "application/json", new JsonHttpResponseHandler(){
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONObject errorResponse) {
-				// TODO Auto-generated method stub
-				super.onFailure(statusCode, headers, throwable, errorResponse);
-				//progressLayout.setVisibility(View.GONE);
-				System.out.println("error");
-				System.out.println("statusCode:"+statusCode);
-				System.out.println("headers:"+headers);
-				for(int i = 0;i<headers.length;i++){
-					System.out.println(headers[i]);
-				}
-				System.out.println("response:"+errorResponse);
-				Toast toast = Toast.makeText(getActivity(), "获取订单失败", Toast.LENGTH_SHORT);
-				toast.show();
+        String cookieStr=null;
+		String cookieName=null;
+		PersistentCookieStore myCookieStore = new PersistentCookieStore(
+				getActivity());
+		if(myCookieStore==null){System.out.println("cookie store null");return;}
+		List<Cookie> cookies = myCookieStore.getCookies();
+		for (Cookie cookie : cookies) {
+			String name =cookie.getName();
+			cookieName=name;
+			System.out.println(name);
+			if(name.equals("_JustBidIt_session")){
+				cookieStr=cookie.getValue();
+				System.out.println("value:"+cookieStr);
+				break;
 			}
-
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				// TODO Auto-generated method stub
-				super.onSuccess(statusCode, headers, response);
-				System.out.println("success");
-				System.out.println("statusCode:"+statusCode);
-				System.out.println("headers:"+headers);
-				System.out.println("response:"+response);
-				//progressLayout.setVisibility(View.GONE);
-				//UserUtil.login(SignInActivity.this);
-				
+		}
+		if(cookieStr==null||cookieStr.equals("")){System.out.println("cookie null");return;}
+//		SyncHttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
+//		SyncHttpConnection.get(url,new JsonHttpResponseHandler(){
+//
+//			@Override
+//			public void onFailure(int statusCode, Header[] headers,
+//					Throwable throwable, JSONObject errorResponse) {
+//				// TODO Auto-generated method stub
+//				super.onFailure(statusCode, headers, throwable, errorResponse);
+//				//progressLayout.setVisibility(View.GONE);
+//				System.out.println("error");
+//				System.out.println("statusCode:"+statusCode);
+//				System.out.println("headers:"+headers);
+//				for(int i = 0;i<headers.length;i++){
+//					System.out.println(headers[i]);
+//				}
+//				System.out.println("response:"+errorResponse);
+//				Message message = new Message();
+//				message.what = 2;
+//				mHandler.sendMessage(message);
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(int statusCode, Header[] headers,
+//					JSONObject response) {
+//				// TODO Auto-generated method stub
+//				super.onSuccess(statusCode, headers, response);
+//				System.out.println("success");
+//				System.out.println("statusCode:"+statusCode);
+//				System.out.println("headers:"+headers);
+//				System.out.println("response:"+response);
+//				//progressLayout.setVisibility(View.GONE);
+//				//UserUtil.login(SignInActivity.this);
+//				
+//			}
+//			
+//		});
+	        HttpClient httpclient = new DefaultHttpClient();
+	        String uri = GlobalData.getBaseUrl()+"/deals.json";
+	        HttpGet get = new HttpGet(uri);
+	        //添加http头信息 
+	        get.addHeader("Cookie", cookieName+"="+cookieStr);
+	        get.addHeader("Content-Type", "application/json");
+	        org.apache.http.HttpResponse response;
+	        try {
+				response = httpclient.execute(get);
+				int code = response.getStatusLine().getStatusCode();
+		        //检验状态码，如果成功接收数据
+				System.out.println("code:"+code);
+		        if (code == 200) {
+		        	String result = EntityUtils.toString(response.getEntity());
+		        	System.out.println(result);
+		        }
+		        else if(code==401){
+					Message message = new Message();
+					message.what = 2;
+					mHandler.sendMessage(message);
+		        }
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-		});
+	        
 	}
 	private Handler mHandler = new Handler(){  
         
@@ -226,6 +275,10 @@ public class MyCarFragment extends Fragment {
                 //updateTitle(); 
             	adapter.notifyDataSetChanged();
                 break;  
+            case 2:
+            	Toast toast = Toast.makeText(getActivity(), "获取订单失败", Toast.LENGTH_SHORT);
+				toast.show();
+				break;
             }  
         };  
     };

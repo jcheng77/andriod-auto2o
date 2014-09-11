@@ -26,6 +26,7 @@ import com.cettco.buycar.utils.UserUtil;
 import com.google.gson.Gson;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -40,6 +41,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -184,10 +186,16 @@ public class MainActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			UserUtil.logout(MainActivity.this);
+			PersistentCookieStore myCookieStore = new PersistentCookieStore(
+					MainActivity.this);
+			if(myCookieStore==null)return;
+			myCookieStore.clear();
 			switchFragment(new WelcomeFragment());
 			setTitle("Welcome");
 			logoutLayout.setVisibility(View.GONE);
 			addImageButton.setVisibility(View.VISIBLE);
+			Toast toast = Toast.makeText(MainActivity.this, "注销成功", Toast.LENGTH_SHORT);
+			toast.show();
 			//menu.toggle();
 		}
 	};

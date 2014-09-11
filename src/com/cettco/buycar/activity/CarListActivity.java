@@ -61,7 +61,7 @@ public class CarListActivity extends Activity {
 	private ImageView closeImageView;
 	private ProgressBar progressBar;
 	private HttpCache httpCache;
-	private String carListUrl = GlobalData.getBaseUrl() + "/cars/all/car_list.json";
+	private String carListUrl = GlobalData.getBaseUrl() + "/cars/list.json";
 	private TextView currentBrandNameTextView;
 	private CarBrandListEntity carBrandListEntity = new CarBrandListEntity();
 	private int brandPosition=0;
@@ -196,8 +196,9 @@ public class CarListActivity extends Activity {
 		}
 	}
 	protected void getCacheData() {
-		//String url = GlobalData.getBaseUrl() + "/cars/all/car_list.json";
+		//String url = GlobalData.getBaseUrl() + "/cars/list.json";
 		// httpCache.clear();
+		System.out.println(carListUrl);
 		httpCache.httpGet(carListUrl, new HttpCacheListener() {
 
 			protected void onPreGet() {

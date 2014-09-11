@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cettco.buycar.R;
@@ -81,7 +82,8 @@ public class SignInActivity extends Activity{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			HttpConnection.post(SignInActivity.this, url, null, entity, "application/json", new JsonHttpResponseHandler(){
+	        HttpConnection.setCookie(getApplicationContext());
+			HttpConnection.post(SignInActivity.this, url, null, entity, "application/json;charset=utf-8", new JsonHttpResponseHandler(){
 
 				@Override
 				public void onFailure(int statusCode, Header[] headers,
@@ -92,9 +94,9 @@ public class SignInActivity extends Activity{
 					System.out.println("error");
 					System.out.println("statusCode:"+statusCode);
 					System.out.println("headers:"+headers);
-					for(int i = 0;i<headers.length;i++){
-						System.out.println(headers[i]);
-					}
+//					for(int i = 0;i<headers.length;i++){
+//						System.out.println(headers[i]);
+//					}
 					System.out.println("response:"+errorResponse);
 					Toast toast = Toast.makeText(SignInActivity.this, "登录失败，重新登录", Toast.LENGTH_SHORT);
 					toast.show();
@@ -107,10 +109,21 @@ public class SignInActivity extends Activity{
 					super.onSuccess(statusCode, headers, response);
 					System.out.println("success");
 					System.out.println("statusCode:"+statusCode);
-					System.out.println("headers:"+headers);
+					
+					for(int i=0;i<headers.length;i++){
+						System.out.println(headers[0]);
+					}
 					System.out.println("response:"+response);
 					progressLayout.setVisibility(View.GONE);
+					String id=null;
+					try {
+						 id = response.getString("id");
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
 					UserUtil.login(SignInActivity.this);
+					UserUtil.setUserId(SignInActivity.this, id);
 					Toast toast = Toast.makeText(SignInActivity.this, "登录成功", Toast.LENGTH_SHORT);
 					toast.show();
 					SignInActivity.this.finish();
