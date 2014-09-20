@@ -1,6 +1,7 @@
 package com.cettco.buycar.adapter;
 
 import java.net.ContentHandler;
+import java.util.HashMap;
 import java.util.List;
 
 import com.cettco.buycar.R;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 
+	private HashMap<Integer, Boolean> isSelected; 
 	private Context context;
 	private List<DealerEntity> list;
 	public DealerListAdapter(Context context, int resource,
@@ -23,8 +25,21 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.list = objects;
+		isSelected = new HashMap<Integer, Boolean>();  
+		initDate();
 	}
-	
+	private void initDate() {  
+        for (int i = 0; i < list.size(); i++) {  
+            getIsSelected().put(i, false);  
+        }  
+    } 
+	public  HashMap<Integer, Boolean> getIsSelected() {  
+        return isSelected;  
+    }  
+
+    public  void setIsSelected(HashMap<Integer, Boolean> isSelected) {  
+        this.isSelected = isSelected;  
+    }
 
 	@Override
 	public int getCount() {
@@ -38,7 +53,7 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.dealer_item, parent,
+		View rowView = inflater.inflate(R.layout.selectshop_item, parent,
 				false);
 		return rowView;
 		//return super.getView(position, convertView, parent);

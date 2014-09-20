@@ -55,6 +55,8 @@ public class BargainActivity extends Activity {
 	private RelativeLayout plateLayout;
 	private ArrayList<String> plateList;
 	private int plateSelection=0;
+	
+	private RelativeLayout shopLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,9 @@ public class BargainActivity extends Activity {
 		plateLayout = (RelativeLayout) findViewById(R.id.activity_bargain_haveplate_layout);
 		plateLayout.setOnClickListener(plateClickListener);
 		plateTextView = (TextView) findViewById(R.id.activity_bargain_haveplate_textview);
+		
+		shopLayout = (RelativeLayout) findViewById(R.id.activity_bargain_4s_layout);
+		shopLayout.setOnClickListener(shopBtnClickListener);
 
 	}
 
@@ -139,6 +144,17 @@ public class BargainActivity extends Activity {
 		}
 	}
 
+	protected OnClickListener shopBtnClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(BargainActivity.this, SelectDealerActivity.class);
+			startActivity(intent);
+			
+		}
+	};
 	protected OnClickListener submitBtnClickListener = new OnClickListener() {
 
 		@Override

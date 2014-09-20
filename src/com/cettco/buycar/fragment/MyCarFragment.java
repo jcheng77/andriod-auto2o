@@ -2,6 +2,7 @@ package com.cettco.buycar.fragment;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,10 @@ import com.cettco.buycar.entity.CarBrandListEntity;
 import com.cettco.buycar.entity.MyOrderEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
-import com.cettco.buycar.utils.SyncHttpConnection;
 import com.cettco.buycar.utils.UserUtil;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -92,10 +94,10 @@ public class MyCarFragment extends Fragment {
 				});
 		listView = pullToRefreshView.getRefreshableView();
 		listView.setOnItemClickListener(itemClickListener);
-		for(int i = 0;i<0;i++){
-			MyOrderEntity entity = new MyOrderEntity();
-			list.add(entity);
-		}
+//		for(int i = 0;i<0;i++){
+//			MyOrderEntity entity = new MyOrderEntity();
+//			list.add(entity);
+//		}
 		adapter = new MyOrderAdapter(getActivity(), R.layout.my_order_item, list);
 		listView.setAdapter(adapter);
 		currentButton = (Button)fragmentView.findViewById(R.id.currentOrderBtn);
@@ -238,7 +240,7 @@ public class MyCarFragment extends Fragment {
 //			
 //		});
 	        HttpClient httpclient = new DefaultHttpClient();
-	        String uri = GlobalData.getBaseUrl()+"/deals.json";
+	        String uri = GlobalData.getBaseUrl()+"/tenders.json";
 	        HttpGet get = new HttpGet(uri);
 	        //添加http头信息 
 	        get.addHeader("Cookie", cookieName+"="+cookieStr);
@@ -251,7 +253,17 @@ public class MyCarFragment extends Fragment {
 				System.out.println("code:"+code);
 		        if (code == 200) {
 		        	String result = EntityUtils.toString(response.getEntity());
+		        	Type listType = new TypeToken<ArrayList<MyOrderEntity>>(){}.getType();
+		        	list = new Gson().fromJson(result,listType);
 		        	System.out.println(result);
+		        	System.out.println(list.size());
+		        	for(int i=0;i<list.size();i++){
+		        		System.out.println(list.get(i).getModel());
+		        		System.out.println(list.get(i).getDescription());
+		        	}
+		        	Message message = new Message();
+					message.what = 1;
+					mHandler.sendMessage(message);
 		        }
 		        else if(code==401){
 					Message message = new Message();
@@ -273,7 +285,7 @@ public class MyCarFragment extends Fragment {
             switch (msg.what) {  
             case 1:  
                 //updateTitle(); 
-            	adapter.notifyDataSetChanged();
+            	adapter.updateList(list);
                 break;  
             case 2:
             	Toast toast = Toast.makeText(getActivity(), "获取订单失败", Toast.LENGTH_SHORT);

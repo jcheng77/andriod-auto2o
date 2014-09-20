@@ -29,6 +29,7 @@ public class DealerDetailActivity extends Activity {
     private static int LOCATION_COUTNS = 0; 
     private LatLng pt1; 
 	private LatLng pt2;
+	private RelativeLayout viewCommentLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,9 @@ public class DealerDetailActivity extends Activity {
 		//getActionBar().hide();
 		locationLayout = (RelativeLayout) findViewById(R.id.activity_dealer_detail_locationLayout);
 		locationLayout.setOnClickListener(locationClickListener);
+		
+		viewCommentLayout = (RelativeLayout)findViewById(R.id.activity_dealer_detail_viewcomment);
+		viewCommentLayout.setOnClickListener(commentClickListener);
 		
 		addressTextView = (TextView)findViewById(R.id.activity_dealer_detail_address_textView);
 		distancetTextView = (TextView)findViewById(R.id.activity_dealer_detail_distance_textView);
@@ -121,7 +125,17 @@ public class DealerDetailActivity extends Activity {
             locationClient.requestLocation();  
         }  
 	}
-
+	
+	private OnClickListener commentClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(DealerDetailActivity.this,DealerCommentActivity.class);
+			startActivity(intent);
+		}
+	};
 	private OnClickListener locationClickListener = new OnClickListener() {
 
 		@Override

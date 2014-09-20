@@ -1,13 +1,27 @@
 package com.cettco.buycar.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.CarColorEntity;
 import com.cettco.buycar.entity.CarColorListEntity;
+import com.cettco.buycar.entity.Tender;
+import com.cettco.buycar.entity.TenderEntity;
+import com.cettco.buycar.utils.GlobalData;
+import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UserUtil;
 import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SubmitOrderActivity extends Activity{
 
@@ -220,6 +235,81 @@ public class SubmitOrderActivity extends Activity{
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+//			String tenderUrl=GlobalData.getBaseUrl()+"/tenders.json";
+//			Gson gson = new Gson();
+//			Tender tender = new Tender();
+//			tender.setDescription("test");
+//			tender.setModel("宝马");
+//			TenderEntity tenderEntity = new TenderEntity();
+//			tenderEntity.setTender(tender);
+//	        StringEntity entity = null;
+//	        try {
+//	        	System.out.println(gson.toJson(tenderEntity).toString());
+//				entity = new StringEntity(gson.toJson(tenderEntity).toString());
+//			} catch (UnsupportedEncodingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	        String cookieStr=null;
+//			String cookieName=null;
+//			PersistentCookieStore myCookieStore = new PersistentCookieStore(
+//					SubmitOrderActivity.this);
+//			if(myCookieStore==null){System.out.println("cookie store null");return;}
+//			List<Cookie> cookies = myCookieStore.getCookies();
+//			for (Cookie cookie : cookies) {
+//				String name =cookie.getName();
+//				cookieName=name;
+//				System.out.println(name);
+//				if(name.equals("_JustBidIt_session")){
+//					cookieStr=cookie.getValue();
+//					System.out.println("value:"+cookieStr);
+//					break;
+//				}
+//			}
+//			if(cookieStr==null||cookieStr.equals("")){System.out.println("cookie null");return;}
+//			HttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
+//			HttpConnection.post(SubmitOrderActivity.this, tenderUrl, null, entity, "application/json;charset=utf-8", new JsonHttpResponseHandler(){
+//
+//				@Override
+//				public void onFailure(int statusCode, Header[] headers,
+//						Throwable throwable, JSONObject errorResponse) {
+//					// TODO Auto-generated method stub
+//					super.onFailure(statusCode, headers, throwable, errorResponse);
+//					System.out.println("error");
+//					System.out.println("statusCode:"+statusCode);
+//					System.out.println("headers:"+headers);
+//				}
+//
+//				@Override
+//				public void onSuccess(int statusCode, Header[] headers,
+//						JSONObject response) {
+//					// TODO Auto-generated method stub
+//					super.onSuccess(statusCode, headers, response);
+//					
+//					System.out.println("success");
+//					System.out.println("statusCode:"+statusCode);
+//					
+////					for(int i=0;i<headers.length;i++){
+////						System.out.println(headers[0]);
+////					}
+//					System.out.println("response:"+response);
+//					if(statusCode==201){
+//						try {
+//							int id = response.getInt("id");
+//							Intent intent = new Intent();
+//							intent.putExtra("tenderId", id);
+//							intent.setClass(SubmitOrderActivity.this, MyOrderStatusActivity.class);
+//							startActivity(intent);
+//						} catch (JSONException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//						
+//					}
+//					
+//				}
+//				
+//			});
 			Intent intent = new Intent();
 			intent.setClass(SubmitOrderActivity.this, MyOrderStatusActivity.class);
 			startActivity(intent);

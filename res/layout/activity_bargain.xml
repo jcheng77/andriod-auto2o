@@ -41,7 +41,7 @@
                 android:orientation="horizontal"
                 android:padding="10dp" >
 
-                <TextView                    
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="裸车价" />
@@ -138,6 +138,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/ic_action_next_item" />
                 </RelativeLayout>
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -162,6 +163,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/ic_action_next_item" />
                 </RelativeLayout>
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -179,6 +181,30 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="有无牌照" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/ic_action_next_item" />
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000" />
+
+                <RelativeLayout
+                    android:id="@+id/activity_bargain_4s_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:id="@+id/activity_bargain_4s_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="选择可接受4s店" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -216,23 +242,23 @@
                     android:hint="输入"
                     android:minLines="3" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:background="@color/car_detail_front"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/submit_bargain_price_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/beginbuycar_btn_style"
+                    android:text="Submit bargain price" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:background="@color/car_detail_front"
-        android:gravity="center" >
-
-        <Button
-            android:id="@+id/submit_bargain_price_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/beginbuycar_btn_style"
-            android:text="Submit bargain price" />
-    </LinearLayout>
 
 </RelativeLayout>

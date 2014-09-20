@@ -185,6 +185,10 @@
         </activity>
         <activity android:name="com.cettco.buycar.activity.MipcaActivityCapture" >
         </activity>
+        <activity android:name="com.cettco.buycar.activity.SelectDealerActivity" >
+        </activity>
+        <activity android:name="com.cettco.buycar.activity.DealerCommentActivity" >
+        </activity>
 
         <receiver
             android:name="com.cettco.buycar.receiver.JPushReceiver"

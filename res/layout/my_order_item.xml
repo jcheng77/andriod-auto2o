@@ -24,6 +24,7 @@
         android:paddingLeft="10dp" >
 
         <TextView
+            android:id="@+id/my_order_model_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="沃尔沃V40"
@@ -47,6 +48,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/my_order_price_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -55,12 +57,14 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/my_order_num_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_order_gray"
             android:text="4家4s店已经报价" />
 
         <TextView
+            android:id="@+id/my_order_state_textview"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

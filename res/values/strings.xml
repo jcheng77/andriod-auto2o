@@ -31,4 +31,16 @@
         <item>本地牌照</item>
         <item>外地牌照</item>
     </string-array>
+    <string-array name="state">
+        <item>intention</item>
+        <item>determined</item>
+        <item>qualified</item>
+        <item>invite</item>
+        <item>bid_open</item>
+        <item>bid_closed</item>
+        <item>deal_closed</item>
+        <item>bargain_started</item>
+        <item>final_bid_open</item>
+        <item>final_bid_closed</item>
+    </string-array>
 </resources>

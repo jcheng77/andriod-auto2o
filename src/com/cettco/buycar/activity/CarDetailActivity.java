@@ -109,7 +109,7 @@ public class CarDetailActivity extends Activity {
 			CarColorListEntity colorListEntity = new CarColorListEntity();
 			colorListEntity.setColors(carTypeEntity.getColors());
 			intent.putExtra("color", new Gson().toJson(colorListEntity));
-			intent.setClass(CarDetailActivity.this, SubmitOrderActivity.class);
+			intent.setClass(CarDetailActivity.this, BargainActivity.class);
 			startActivity(intent);
 
 		}

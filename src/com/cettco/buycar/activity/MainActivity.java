@@ -226,6 +226,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			logoutLayout.setVisibility(View.GONE);
+			addImageButton.setVisibility(View.VISIBLE);
 			switchFragment(new WelcomeFragment());
 			setTitle("Welcome");
 			menu.toggle();

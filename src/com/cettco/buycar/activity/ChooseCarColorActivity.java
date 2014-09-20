@@ -31,14 +31,14 @@ public class ChooseCarColorActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_choose_carcolor);
+		setContentView(R.layout.activity_selectshop);
 		//getActionBar().hide();
 		TextView titleTextView = (TextView)findViewById(R.id.title_text);
 		intent = getIntent();
 		name = intent.getStringExtra("name");
 		tag = intent.getIntExtra("tag",0);
 		titleTextView.setText(name);
-		listView = (ListView)findViewById(R.id.color_listview);	
+		listView = (ListView)findViewById(R.id.selectshop_listview);	
 		colorList = new Gson().fromJson(intent.getStringExtra("color"), CarColorListEntity.class).getColors();
 //		for(int i= 0;i<colorList.size();i++)
 //		{

@@ -18,6 +18,7 @@ public final class R {
 		public static final int drop_down_list_header_second_font_color = 0x7f080004;
 	}
 	public static final class dimen {
+		public static final int dp_40 = 0x7f09001c;
 		public static final int drop_down_list_footer_button_height = 0x7f09001b;
 		public static final int drop_down_list_footer_button_margin_left = 0x7f09001a;
 		public static final int drop_down_list_footer_progress_bar_height = 0x7f090019;
@@ -30,17 +31,17 @@ public final class R {
 		public static final int drop_down_list_arrow = 0x7f020067;
 	}
 	public static final class id {
-		public static final int drop_down_list_footer_button = 0x7f0600ca;
-		public static final int drop_down_list_footer_progress_bar = 0x7f0600c9;
-		public static final int drop_down_list_header_default_text = 0x7f0600ce;
-		public static final int drop_down_list_header_default_text_layout = 0x7f0600cc;
-		public static final int drop_down_list_header_image = 0x7f0600cd;
-		public static final int drop_down_list_header_progress_bar = 0x7f0600cb;
-		public static final int drop_down_list_header_second_text = 0x7f0600cf;
+		public static final int drop_down_list_footer_button = 0x7f0600cf;
+		public static final int drop_down_list_footer_progress_bar = 0x7f0600ce;
+		public static final int drop_down_list_header_default_text = 0x7f0600d3;
+		public static final int drop_down_list_header_default_text_layout = 0x7f0600d1;
+		public static final int drop_down_list_header_image = 0x7f0600d2;
+		public static final int drop_down_list_header_progress_bar = 0x7f0600d0;
+		public static final int drop_down_list_header_second_text = 0x7f0600d4;
 	}
 	public static final class layout {
-		public static final int drop_down_list_footer = 0x7f030038;
-		public static final int drop_down_list_header = 0x7f030039;
+		public static final int drop_down_list_footer = 0x7f03003a;
+		public static final int drop_down_list_header = 0x7f03003b;
 	}
 	public static final class string {
 		public static final int drop_down_list_footer_default_text = 0x7f0b0011;
