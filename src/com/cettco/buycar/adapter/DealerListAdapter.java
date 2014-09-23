@@ -5,13 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.activity.DealerCommentActivity;
 import com.cettco.buycar.entity.DealerEntity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
@@ -53,10 +57,22 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.selectshop_item, parent,
+		View rowView = inflater.inflate(R.layout.dealer_item, parent,
 				false);
+		RelativeLayout viewcommentLayout = (RelativeLayout)rowView.findViewById(R.id.dealer_view_comment_layout);
+		viewcommentLayout.setOnClickListener(viewCommentClickListener);
 		return rowView;
 		//return super.getView(position, convertView, parent);
 	}
+	private OnClickListener viewCommentClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(context, DealerCommentActivity.class);
+			context.startActivity(intent);
+		}
+	};
 
 }

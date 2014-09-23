@@ -12,6 +12,7 @@ import com.alipay.android.msp.Rsa;
 import com.cettco.buycar.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +20,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class AliPayActivity extends Activity{
@@ -28,50 +30,56 @@ public class AliPayActivity extends Activity{
 	private static final int RQF_PAY = 1;
 
 	private static final int RQF_LOGIN = 2;
+	private Button submitButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alipay);
+		submitButton = (Button)findViewById(R.id.alipay_submit_btn);
+		submitButton.setOnClickListener(payClickListener);
 	}
 	private OnClickListener payClickListener = new OnClickListener() {
 		
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			try {
-				Log.i("ExternalPartner", "onItemClick");
-				String info = getNewOrderInfo(0);
-				String sign = Rsa.sign(info, Keys.PRIVATE);
-				sign = URLEncoder.encode(sign,"UTF-8");
-				info += "&sign=\"" + sign + "\"&" + getSignType();
-				Log.i("ExternalPartner", "start pay");
-				// start the pay.
-				Log.i(TAG, "info = " + info);
-
-				final String orderInfo = info;
-				new Thread() {
-					public void run() {
-						AliPay alipay = new AliPay(AliPayActivity.this, mHandler);
-						
-						//设置为沙箱模式，不设置默认为线上环境
-						//alipay.setSandBox(true);
-
-						String result = alipay.pay(orderInfo);
-
-						Log.i(TAG, "result = " + result);
-						Message msg = new Message();
-						msg.what = RQF_PAY;
-						msg.obj = result;
-						mHandler.sendMessage(msg);
-					}
-				}.start();
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				//Toast.makeText(ExternalPartner.this, R.string.remote_call_failed,
-						//Toast.LENGTH_SHORT).show();
-			}
+			Intent intent = new Intent();
+			intent.setClass(AliPayActivity.this, OrderWaitingActivity.class);
+			startActivity(intent);
+//			try {
+//				Log.i("ExternalPartner", "onItemClick");
+//				String info = getNewOrderInfo(0);
+//				String sign = Rsa.sign(info, Keys.PRIVATE);
+//				sign = URLEncoder.encode(sign,"UTF-8");
+//				info += "&sign=\"" + sign + "\"&" + getSignType();
+//				Log.i("ExternalPartner", "start pay");
+//				// start the pay.
+//				Log.i(TAG, "info = " + info);
+//
+//				final String orderInfo = info;
+//				new Thread() {
+//					public void run() {
+//						AliPay alipay = new AliPay(AliPayActivity.this, mHandler);
+//						
+//						//设置为沙箱模式，不设置默认为线上环境
+//						//alipay.setSandBox(true);
+//
+//						String result = alipay.pay(orderInfo);
+//
+//						Log.i(TAG, "result = " + result);
+//						Message msg = new Message();
+//						msg.what = RQF_PAY;
+//						msg.obj = result;
+//						mHandler.sendMessage(msg);
+//					}
+//				}.start();
+//
+//			} catch (Exception ex) {
+//				ex.printStackTrace();
+//				//Toast.makeText(ExternalPartner.this, R.string.remote_call_failed,
+//						//Toast.LENGTH_SHORT).show();
+//			}
 		}
 	};
 	private String getNewOrderInfo(int position) throws UnsupportedEncodingException {
@@ -143,5 +151,8 @@ public class AliPayActivity extends Activity{
 		public String subject;
 		public String body;
 		public String price;
+	}
+	public void exitClick(View view){
+		this.finish();
 	}
 }

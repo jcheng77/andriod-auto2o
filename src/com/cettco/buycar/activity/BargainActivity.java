@@ -171,6 +171,9 @@ public class BargainActivity extends Activity {
 										int id) {
 									// FIRE ZE MISSILES!
 									dialog.dismiss();
+									Intent intent = new Intent();
+									intent.setClass(BargainActivity.this, AliPayActivity.class);
+									startActivity(intent);
 								}
 							})
 					.setNegativeButton("取消",

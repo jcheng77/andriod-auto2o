@@ -207,19 +207,25 @@ public class MainActivity extends Activity {
 //			Intent intent = new Intent();
 //			intent.setClass(MainActivity.this, SignInActivity.class);
 //			startActivity(intent);
-			if(UserUtil.isLogin(MainActivity.this)){
-				switchFragment(new MyCarFragment());
-				setTitle("My car");
-				logoutLayout.setVisibility(View.VISIBLE);
-				addImageButton.setVisibility(View.GONE);
-				menu.toggle();
-			}
-			else {
-				Intent intent = new Intent();
-				intent.setClass(MainActivity.this, SignInActivity.class);
-				startActivity(intent);
-			}
+//			if(UserUtil.isLogin(MainActivity.this)){
+//				switchFragment(new MyCarFragment());
+//				setTitle("My car");
+//				logoutLayout.setVisibility(View.VISIBLE);
+//				addImageButton.setVisibility(View.GONE);
+//				menu.toggle();
+//			}
+//			else {
+//				Intent intent = new Intent();
+//				intent.setClass(MainActivity.this, SignInActivity.class);
+//				startActivity(intent);
+//			}
+			switchFragment(new MyCarFragment());
+			setTitle("My car");
+			logoutLayout.setVisibility(View.VISIBLE);
+			addImageButton.setVisibility(View.GONE);
+			menu.toggle();
 		}
+		
 	};
 	protected OnClickListener welcomeClickListener = new OnClickListener() {
 		
@@ -278,7 +284,7 @@ public class MainActivity extends Activity {
 //			setTitle("Settings");
 //			menu.toggle();
 			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, SignInActivity.class);
+			intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
 			startActivity(intent);
 		}
 	};

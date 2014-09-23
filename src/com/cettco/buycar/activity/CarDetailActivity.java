@@ -17,6 +17,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cettco.buycar.R;
@@ -25,6 +26,12 @@ import com.cettco.buycar.entity.CarColorListEntity;
 import com.cettco.buycar.entity.CarTypeEntity;
 import com.cettco.buycar.entity.TrimEntity;
 import com.cettco.buycar.utils.Data;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.Legend;
+import com.github.mikephil.charting.utils.Legend.LegendPosition;
 import com.google.gson.Gson;
 
 public class CarDetailActivity extends Activity {
@@ -35,6 +42,9 @@ public class CarDetailActivity extends Activity {
 	private ArrayList<TrimEntity> trimList;
 	private ImageView carImageView;
 	private TextView titleTextView;
+	private LineChart mChart;
+	private RelativeLayout view4sLayout;
+	private int[] mColors = new int[] { R.color.vordiplom_1, R.color.vordiplom_2, R.color.vordiplom_3 };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +56,11 @@ public class CarDetailActivity extends Activity {
 		// (LinearLayout)findViewById(R.id.selectCarType_layout);
 		// selectCarTypeLayout.setOnClickListener(selectCartypeClickListener);
 
-		// Viewpager
+		
+		initChart();
+		view4sLayout = (RelativeLayout)findViewById(R.id.view4sLinearLayout);
+		view4sLayout.setOnClickListener(view4sClickListener);
+		
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText("选择车型");
 		carImageView = (ImageView)findViewById(R.id.carDetail_img);
@@ -80,6 +94,69 @@ public class CarDetailActivity extends Activity {
 		super.onResume();
 		
 	}
+	protected void initChart(){
+		mChart = (LineChart) findViewById(R.id.car_price_chart);
+		mChart.setDrawYValues(false);
+
+        // enable value highlighting
+        mChart.setHighlightEnabled(false);
+
+        // enable touch gestures
+        mChart.setTouchEnabled(false);
+
+        // enable scaling and dragging
+        mChart.setDragScaleEnabled(false);
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        mChart.setPinchZoom(false);
+        updateChart();
+//        Legend l = mChart.getLegend();
+//        l.setPosition(LegendPosition.BELOW_CHART_CENTER);
+        
+	}
+	protected void updateChart(){
+		ArrayList<String> xVals = new ArrayList<String>();
+        for (int i = 0; i < 4; i++) {
+            xVals.add((i) + "");
+        }
+		ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
+
+        for (int z = 0; z < 3; z++) {
+
+            ArrayList<Entry> values = new ArrayList<Entry>();
+
+            for (int i = 0; i < 4; i++) {
+                double val = (Math.random() * 20) + 3;
+                values.add(new Entry((float) val, i));
+            }
+
+            LineDataSet d = new LineDataSet(values, "DataSet " + (z + 1));
+            d.setLineWidth(2.5f);
+            d.setCircleSize(4f);
+            
+            int color = getResources().getColor(mColors[z % mColors.length]);
+            d.setColor(color);
+            d.setCircleColor(color);
+            dataSets.add(d);
+        }
+
+        // make the first DataSet dashed
+        dataSets.get(0).enableDashedLine(10, 10, 0);
+
+        LineData data = new LineData(xVals, dataSets);
+        mChart.setData(data);
+        mChart.invalidate();
+	}
+	protected OnClickListener view4sClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(CarDetailActivity.this, DealersListActivity.class);
+			startActivity(intent);
+		}
+	};
 	protected OnPageChangeListener viewChangeListener = new OnPageChangeListener() {
 
 		@Override

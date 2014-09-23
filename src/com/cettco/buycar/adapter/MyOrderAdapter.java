@@ -47,10 +47,10 @@ public class MyOrderAdapter extends ArrayAdapter<MyOrderEntity>{
 		modeltextView.setText(entity.getModel());
 		TextView pricetextView = (TextView)rowView.findViewById(R.id.my_order_price_textview);
 		pricetextView.setText(entity.getPrice());
-		TextView statetextView = (TextView)rowView.findViewById(R.id.my_order_state_textview);
-	    statetextView.setText(entity.getState());
-		TextView numtextView = (TextView)rowView.findViewById(R.id.my_order_num_textview);
-		numtextView.setText(entity.getSecond_round_bids());
+//		TextView statetextView = (TextView)rowView.findViewById(R.id.my_order_state_textview);
+//	    statetextView.setText(entity.getState());
+//		TextView numtextView = (TextView)rowView.findViewById(R.id.my_order_num_textview);
+//		numtextView.setText(entity.getSecond_round_bids());
 		return rowView;
 	}
 

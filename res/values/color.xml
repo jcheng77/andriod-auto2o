@@ -20,4 +20,5 @@
       <color name="possible_result_points">#c0ffff00</color> 
       <color name="deep_gray">#ff555555</color>
       <color name="light_gray">#ff757575</color>
+      <color name="order_status">#ff6600</color>
 </resources>

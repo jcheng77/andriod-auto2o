@@ -1,12 +1,14 @@
 package com.cettco.buycar.activity;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import cn.trinea.android.common.view.DropDownListView;
 import cn.trinea.android.common.view.DropDownListView.OnDropDownListener;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.adapter.DealerCommentAdapter;
+import com.cettco.buycar.entity.DealerCommentEntity;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -17,12 +19,9 @@ import android.widget.ArrayAdapter;
 
 public class DealerCommentActivity extends Activity{
 
-	private LinkedList<String>   listItems = null;
+	private ArrayList<DealerCommentEntity>   listItems;
     private DropDownListView     listView  = null;
-    private ArrayAdapter<String> adapter;
-    private String[]             mStrings  = { "Aaaaaa", "Bbbbbb", "Cccccc", "Dddddd", "Eeeeee",
-            "Ffffff", "Gggggg", "Hhhhhh", "Iiiiii", "Jjjjjj", "Kkkkkk", "Llllll", "Mmmmmm",
-            "Nnnnnn",                     };
+    private DealerCommentAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -47,9 +46,14 @@ public class DealerCommentActivity extends Activity{
 				
 			}
 		});
-        listItems = new LinkedList<String>();
-        listItems.addAll(Arrays.asList(mStrings));
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
+        listItems = new ArrayList<DealerCommentEntity>();
+        //listItems.addAll(Arrays.asList(mStrings));
+        for(int i =0;i<10;i++){
+        	DealerCommentEntity entity = new DealerCommentEntity();
+        	listItems.add(entity);
+        }
+        System.out.println("list item size:"+listItems.size());
+        adapter = new DealerCommentAdapter(this, R.layout.dealer_comment_item, listItems);
         listView.setAdapter(adapter);
 	}
 	 private class GetDataTask extends AsyncTask<Void, Void, String[]> {
@@ -74,7 +78,7 @@ public class DealerCommentActivity extends Activity{
 	        protected void onPostExecute(String[] result) {
 	 
 	            if (isDropDown) {
-	                listItems.addFirst("Added after drop down");
+	                //listItems.addFirst("Added after drop down");
 	                adapter.notifyDataSetChanged();
 	                listView.onDropDownComplete();
 	 
@@ -83,7 +87,7 @@ public class DealerCommentActivity extends Activity{
 //	                listView.onDropDownComplete(getString(R.string.update_at)
 //	                                            + dateFormat.format(new Date()));
 	            } else {
-	                listItems.add("Added after on bottom");
+	                //listItems.add("Added after on bottom");
 	                adapter.notifyDataSetChanged();
 	 
 	                // should call onBottomComplete function of DropDownListView at end of on bottom complete.

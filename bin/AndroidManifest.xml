@@ -176,6 +176,8 @@
         </activity>
         <activity android:name="com.cettco.buycar.activity.DealerMapActivity" >
         </activity>
+        <activity android:name="com.cettco.buycar.activity.DealersListActivity" >
+        </activity>
         <activity
             android:name="com.cettco.buycar.activity.MainActivity" >
         </activity>
@@ -189,6 +191,12 @@
         </activity>
         <activity android:name="com.cettco.buycar.activity.DealerCommentActivity" >
         </activity>
+         <activity android:name="com.cettco.buycar.activity.OrderWaitingActivity" >
+        </activity>
+         <activity android:name="com.cettco.buycar.activity.OrderHasDealerActivity" >
+         </activity>
+          <activity android:name="com.cettco.buycar.activity.AliPayActivity" >
+         </activity>
 
         <receiver
             android:name="com.cettco.buycar.receiver.JPushReceiver"

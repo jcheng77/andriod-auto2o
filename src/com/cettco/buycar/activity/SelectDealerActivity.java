@@ -15,7 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarColorAdapter;
-import com.cettco.buycar.adapter.DealerListAdapter;
+import com.cettco.buycar.adapter.SelectShopAdapter;
 import com.cettco.buycar.entity.CarColorEntity;
 import com.cettco.buycar.entity.CarColorListEntity;
 import com.cettco.buycar.entity.DealerEntity;
@@ -24,7 +24,7 @@ import com.google.gson.Gson;
 public class SelectDealerActivity extends Activity{
 	private ArrayList<DealerEntity> dealerList;
 	private ListView listView;
-	private DealerListAdapter dealerListAdapter;
+	private SelectShopAdapter dealerListAdapter;
 	private Intent intent;
 	private String name;
 	private int tag;
@@ -45,11 +45,11 @@ public class SelectDealerActivity extends Activity{
 			DealerEntity dealerEntity = new DealerEntity();
 			dealerList.add(dealerEntity);
 		}
-		dealerListAdapter = new DealerListAdapter(this, R.layout.dealer_item,
+		dealerListAdapter = new SelectShopAdapter(this, R.layout.selectshop_item,
 				dealerList);
 		listView.setAdapter(dealerListAdapter);
 		listView.setOnItemClickListener(dealerListClickListener);
-		listView.setOnItemLongClickListener(dealerlistLongClickListener);
+		//listView.setOnItemLongClickListener(dealerlistLongClickListener);
 	}
 	protected OnItemClickListener dealerListClickListener = new OnItemClickListener() {
 
@@ -60,9 +60,12 @@ public class SelectDealerActivity extends Activity{
 //			CheckBox checkBox = (CheckBox) arg1.findViewById(R.id.selectshop_checkBox);
 //			checkBox.toggle();
 //			dealerListAdapter.getIsSelected().put(arg2, checkBox.isChecked());
-			Intent intent = new Intent();
-			intent.setClass(SelectDealerActivity.this,DealerDetailActivity.class);
-			startActivity(intent);
+//			Intent intent = new Intent();
+//			intent.setClass(SelectDealerActivity.this,DealerDetailActivity.class);
+//			startActivity(intent);
+			CheckBox checkBox = (CheckBox) arg1.findViewById(R.id.selectshop_checkBox);
+			checkBox.toggle();
+			dealerListAdapter.getIsSelected().put(arg2, checkBox.isChecked());
 
 		}
 	};

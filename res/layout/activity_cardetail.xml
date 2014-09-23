@@ -1,81 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/car_detail_background" >
+    android:layout_height="match_parent" >
 
     <include
         android:id="@+id/carDetailActionbar"
         layout="@layout/actionbar" />
 
-    <RelativeLayout
-        android:id="@+id/carDetailPicRelativeLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_below="@id/carDetailActionbar"
-        android:background="@color/car_detail_front" >
-        <ImageView 
-            android:id="@+id/carDetail_img"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/carDetailActionbar" >
 
-    <LinearLayout
-        android:id="@+id/carDetailButtonLinearLayout"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/car_detail_background"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/carDetailPicRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@color/car_detail_front" >
+
+                <ImageView
+                    android:id="@+id/carDetail_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@color/car_detail_front" />
+
+            <LinearLayout
+                android:id="@+id/carDetailButtonLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pager"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/car_detail_front"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8 people are bidding for this type of car" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="4 manufactors provide price" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/view4sLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pager"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/item_click" >
+
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="查看可选4s店" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/car_price_chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/gray" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@color/car_detail_front"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
 
-        <TextView
+        <Button
+            android:id="@+id/begin_bid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8 people are bidding for this type of car" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="4 manufactors provide price" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
-
-            <Button
-                android:id="@+id/begin_bid"
-                android:layout_marginBottom="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/beginbuycar_btn_style"
-                android:paddingBottom="8dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="8dp"
-                android:textColor="@color/white"
-                android:text="Begin"
-                android:textSize="25sp" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/carDetailButtonLinearLayout"
-        android:layout_below="@id/carDetailPicRelativeLayout"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@color/car_detail_front" />
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/beginbuycar_btn_style"
+            android:paddingBottom="8dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="8dp"
+            android:text="Begin"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
