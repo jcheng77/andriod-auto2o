@@ -294,6 +294,8 @@ public class CarListActivity extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(CarListActivity.this, CarDetailActivity.class);
 			intent.putExtra("model", new Gson().toJson(carTypeEntity));
+			//intent.putExtra("name", car);
+			//intent.putExtra("id", new Gson().toJson(carTypeEntity));
 			startActivity(intent);
 			return false;
 		}

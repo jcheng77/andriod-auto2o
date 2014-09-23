@@ -3,8 +3,11 @@ package com.cettco.buycar.fragment;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.security.auth.PrivateCredentialPermission;
 
 import org.apache.http.Header;
 import org.apache.http.client.ClientProtocolException;
@@ -21,12 +24,15 @@ import cn.trinea.android.common.service.HttpCache;
 import cn.trinea.android.common.service.HttpCache.HttpCacheListener;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.activity.CarDetailActivity;
 import com.cettco.buycar.activity.CarListActivity;
 import com.cettco.buycar.activity.MyOrderStatusActivity;
 import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
 import com.cettco.buycar.entity.CarBrandListEntity;
 import com.cettco.buycar.entity.MyOrderEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.utils.DatabaseHelper;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.UserUtil;
@@ -65,9 +71,11 @@ public class MyCarFragment extends Fragment {
 	private PullToRefreshListView pullToRefreshView;
 	private MyOrderAdapter adapter;
 	private ArrayList<MyOrderEntity> list = new ArrayList<MyOrderEntity>();
-	private Button currentButton;
-	private Button historyButton;
+//	private Button currentButton;
+//	private Button historyButton;
 	private LinearLayout mycarBgLayout;
+	private List<OrderItemEntity> orderItems;
+	//private List<E>
 	
 	//private array
 
@@ -94,16 +102,16 @@ public class MyCarFragment extends Fragment {
 				});
 		listView = pullToRefreshView.getRefreshableView();
 		listView.setOnItemClickListener(itemClickListener);
-		for(int i = 0;i<5;i++){
-			MyOrderEntity entity = new MyOrderEntity();
-			list.add(entity);
-		}
-		adapter = new MyOrderAdapter(getActivity(), R.layout.my_order_item, list);
+//		for(int i = 0;i<5;i++){
+//			MyOrderEntity entity = new MyOrderEntity();
+//			list.add(entity);
+//		}
+		adapter = new MyOrderAdapter(getActivity(), R.layout.my_order_item, orderItems);
 		listView.setAdapter(adapter);
-		currentButton = (Button)fragmentView.findViewById(R.id.currentOrderBtn);
-		historyButton = (Button)fragmentView.findViewById(R.id.cancledOrderBtn);
-		currentButton.setOnClickListener(currentClickListener);
-		historyButton.setOnClickListener(historyClickListener);
+//		currentButton = (Button)fragmentView.findViewById(R.id.currentOrderBtn);
+//		historyButton = (Button)fragmentView.findViewById(R.id.cancledOrderBtn);
+//		currentButton.setOnClickListener(currentClickListener);
+//		historyButton.setOnClickListener(historyClickListener);
 		return fragmentView;
 	}
 	
@@ -113,6 +121,16 @@ public class MyCarFragment extends Fragment {
 		super.onResume();
 		System.out.println("onResume");
 		//pullToRefreshView.setRefreshing();
+		DatabaseHelper helper = DatabaseHelper.getHelper(getActivity());
+		try {
+			orderItems=helper.getOrderDao().queryForAll();
+			adapter.updateList(orderItems);
+			System.out.println("order size:"+orderItems.size());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	protected OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -130,36 +148,36 @@ public class MyCarFragment extends Fragment {
 
 		}
 	};
-	private OnClickListener currentClickListener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			currentButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
-			currentButton.setTextColor(getResources().getColor(R.color.white));
-			
-			historyButton.setBackgroundResource(R.drawable.my_order_btn_style);
-			historyButton.setTextColor(getResources().getColor(R.color.blue));
-			
-			//pullToRefreshView.st
-			pullToRefreshView.setRefreshing();
-			
-		}
-	};
-	private OnClickListener historyClickListener =  new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			historyButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
-			historyButton.setTextColor(getResources().getColor(R.color.white));
-			
-			currentButton.setBackgroundResource(R.drawable.my_order_btn_style);
-			currentButton.setTextColor(getResources().getColor(R.color.blue));
-			
-			pullToRefreshView.setRefreshing();
-		}
-	};
+//	private OnClickListener currentClickListener = new OnClickListener() {
+//		
+//		@Override
+//		public void onClick(View v) {
+//			// TODO Auto-generated method stub
+//			currentButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
+//			currentButton.setTextColor(getResources().getColor(R.color.white));
+//			
+//			historyButton.setBackgroundResource(R.drawable.my_order_btn_style);
+//			historyButton.setTextColor(getResources().getColor(R.color.blue));
+//			
+//			//pullToRefreshView.st
+//			pullToRefreshView.setRefreshing();
+//			
+//		}
+//	};
+//	private OnClickListener historyClickListener =  new OnClickListener() {
+//		
+//		@Override
+//		public void onClick(View v) {
+//			// TODO Auto-generated method stub
+//			historyButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
+//			historyButton.setTextColor(getResources().getColor(R.color.white));
+//			
+//			currentButton.setBackgroundResource(R.drawable.my_order_btn_style);
+//			currentButton.setTextColor(getResources().getColor(R.color.blue));
+//			
+//			pullToRefreshView.setRefreshing();
+//		}
+//	};
 	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 		@Override
 		protected void onPostExecute(String[] result) {
@@ -285,7 +303,7 @@ public class MyCarFragment extends Fragment {
             switch (msg.what) {  
             case 1:  
                 //updateTitle(); 
-            	adapter.updateList(list);
+            	adapter.updateList(orderItems);
                 break;  
             case 2:
             	Toast toast = Toast.makeText(getActivity(), "获取订单失败", Toast.LENGTH_SHORT);

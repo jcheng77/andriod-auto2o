@@ -1,5 +1,6 @@
 package com.cettco.buycar.activity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -24,8 +25,10 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTypeViewPagerAdapter;
 import com.cettco.buycar.entity.CarColorListEntity;
 import com.cettco.buycar.entity.CarTypeEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.entity.TrimEntity;
 import com.cettco.buycar.utils.Data;
+import com.cettco.buycar.utils.DatabaseHelper;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -33,6 +36,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.Legend;
 import com.github.mikephil.charting.utils.Legend.LegendPosition;
 import com.google.gson.Gson;
+import com.j256.ormlite.stmt.UpdateBuilder;
+import com.j256.ormlite.stmt.Where;
 
 public class CarDetailActivity extends Activity {
 
@@ -44,7 +49,13 @@ public class CarDetailActivity extends Activity {
 	private TextView titleTextView;
 	private LineChart mChart;
 	private RelativeLayout view4sLayout;
+	
 	private int[] mColors = new int[] { R.color.vordiplom_1, R.color.vordiplom_2, R.color.vordiplom_3 };
+	
+	//
+	private String trim;
+	private String id;
+	private String name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +77,7 @@ public class CarDetailActivity extends Activity {
 		carImageView = (ImageView)findViewById(R.id.carDetail_img);
 		carTypeEntity = new Gson().fromJson(getIntent().getStringExtra("model"), CarTypeEntity.class);
 		trimList = carTypeEntity.getTrims();
+		//carTypeEntity.get
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		pagerList = new ArrayList<View>();
 		LayoutInflater inflater = getLayoutInflater().from(this);
@@ -80,6 +92,9 @@ public class CarDetailActivity extends Activity {
 			trimPriceTextView.setText(trimList.get(i).getGuide_price());
 			pagerList.add(view);
 		}
+		if(trimList.size()>0){
+			trim=trimList.get(0).getName();
+		}
 		CarTypeViewPagerAdapter carTypeViewPagerAdapter = new CarTypeViewPagerAdapter(
 				pagerList);
 		viewPager.setAdapter(carTypeViewPagerAdapter);
@@ -88,6 +103,7 @@ public class CarDetailActivity extends Activity {
 		beginBiddingBtn.setOnClickListener(beginBiddingClickListener);
 		
 		Data.IMAGE_CACHE.get(carTypeEntity.getPic_url(),carImageView);
+		//orderItemEntity.setPic_url(carTypeEntity.getPic_url());
 	}
 	@Override
 	protected void onResume(){
@@ -160,9 +176,9 @@ public class CarDetailActivity extends Activity {
 	protected OnPageChangeListener viewChangeListener = new OnPageChangeListener() {
 
 		@Override
-		public void onPageSelected(int arg0) {
+		public void onPageSelected(int index) {
 			// TODO Auto-generated method stub
-
+			trim = trimList.get(index).getName();
 		}
 
 		@Override
@@ -204,5 +220,35 @@ public class CarDetailActivity extends Activity {
 
 	public void exitClick(View view) {
 		finish();
+	}
+	private void updateDatabase(){
+		OrderItemEntity orderItemEntity = new OrderItemEntity();
+		orderItemEntity.setPic_url(carTypeEntity.getPic_url());
+		orderItemEntity.setTrim(trim);
+		DatabaseHelper helper = DatabaseHelper.getHelper(CarDetailActivity.this);
+		try {
+			int nums = (int) helper.getOrderDao().queryBuilder().where().eq("name", carTypeEntity.getName()).countOf();
+			if(nums==0)
+				helper.getOrderDao().create(orderItemEntity);
+			else {
+				helper.getOrderDao().create(orderItemEntity);
+				UpdateBuilder<OrderItemEntity, Integer> updateBuilder = helper.getOrderDao().updateBuilder();
+				// set the criteria like you would a QueryBuilder
+				updateBuilder.where().eq("name", carTypeEntity.getName());
+				// update the value of your field(s)
+				updateBuilder.updateColumnValue("trim" /* column */, "trim" /* value */);
+				updateBuilder.update();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		updateDatabase();
 	}
 }
