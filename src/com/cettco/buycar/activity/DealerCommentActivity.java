@@ -11,22 +11,27 @@ import com.cettco.buycar.adapter.DealerCommentAdapter;
 import com.cettco.buycar.entity.DealerCommentEntity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class DealerCommentActivity extends Activity{
 
 	private ArrayList<DealerCommentEntity>   listItems;
     private DropDownListView     listView  = null;
     private DealerCommentAdapter adapter;
+    private TextView addCommentTextView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dealer_comment);
+		addCommentTextView = (TextView)findViewById(R.id.comment_add_textview);
+		addCommentTextView.setOnClickListener(addCommentClick);
 		listView = (DropDownListView)findViewById(R.id.comment_list_view);
         // set drop down listener
 		listView.setOnDropDownListener(new OnDropDownListener() {
@@ -97,6 +102,16 @@ public class DealerCommentActivity extends Activity{
 	            super.onPostExecute(result);
 	        }
 	    }
+	 private OnClickListener addCommentClick = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(DealerCommentActivity.this, AddCommentActivity.class);
+			startActivity(intent);
+		}
+	};
 	public void exitClick(View view){
 		//intent.putExtra("result", position);
 //		int size = mycarColorAdapter.getIsSelected().size();

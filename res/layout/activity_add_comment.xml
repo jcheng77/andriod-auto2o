@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/add_comment_actionbar"
+        layout="@layout/actionbar" />
+
+    <EditText
+        android:id="@+id/add_comment_editText"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/add_comment_actionbar"
+        android:maxLines="5" />
+
+    <LinearLayout
+        android:id="@+id/add_comment_star_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_comment_editText"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格合理" />
+
+            <com.cettco.buycar.utils.MarkView
+                android:id="@+id/add_comment_price_markview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </com.cettco.buycar.utils.MarkView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="交车时间" />
+
+            <com.cettco.buycar.utils.MarkView
+                android:id="@+id/add_comment_time_markview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </com.cettco.buycar.utils.MarkView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务质量" />
+
+            <com.cettco.buycar.utils.MarkView
+                android:id="@+id/add_comment_quality_markview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </com.cettco.buycar.utils.MarkView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="******" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/add_comment_submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/beginbuycar_btn_style"
+            android:paddingBottom="8dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="8dp"
+            android:text="提交评论"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</RelativeLayout>
