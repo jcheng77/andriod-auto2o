@@ -49,10 +49,18 @@
                     android:layout_height="wrap_content"
                     android:text="价格合理" />
 
-                <TextView
+                <com.cettco.buycar.utils.MarkView
+                    android:id="@+id/dealer_comment_price_markview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4" />
+                    android:layout_height="wrap_content" >
+                </com.cettco.buycar.utils.MarkView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -60,10 +68,11 @@
                     android:layout_marginLeft="5dp"
                     android:text="交车时间" />
 
-                <TextView
+                <com.cettco.buycar.utils.MarkView
+                    android:id="@+id/dealer_comment_time_markview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4" />
+                    android:layout_height="wrap_content" >
+                </com.cettco.buycar.utils.MarkView>
             </LinearLayout>
 
             <LinearLayout
@@ -77,10 +86,11 @@
                     android:layout_height="wrap_content"
                     android:text="服务质量" />
 
-                <TextView
+                <com.cettco.buycar.utils.MarkView
+                    android:id="@+id/dealer_comment_quality_markview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4" />
+                    android:layout_height="wrap_content" >
+                </com.cettco.buycar.utils.MarkView>
             </LinearLayout>
 
             <LinearLayout

@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.DealerCommentEntity;
+import com.cettco.buycar.utils.MarkView;
 
 public class DealerCommentAdapter extends ArrayAdapter<DealerCommentEntity>{
 	private Context context;
@@ -40,6 +41,12 @@ public class DealerCommentAdapter extends ArrayAdapter<DealerCommentEntity>{
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.dealer_comment_item, parent,
 				false);
+		MarkView priceMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_price_markview);
+		priceMarkView.setLevel(3);
+		MarkView timeMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_time_markview);
+		priceMarkView.setLevel(3);
+		MarkView qualityMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_quality_markview);
+		priceMarkView.setLevel(3);
 //		DealerCommentEntity entity = carBrandList.get(position);
 //		TextView textView = (TextView)rowView.findViewById(R.id.carBrandText);
 //		textView.setText(entity.getName());

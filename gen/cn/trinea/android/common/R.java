@@ -31,13 +31,13 @@ public final class R {
 		public static final int drop_down_list_arrow = 0x7f020069;
 	}
 	public static final class id {
-		public static final int drop_down_list_footer_button = 0x7f0a00d9;
-		public static final int drop_down_list_footer_progress_bar = 0x7f0a00d8;
-		public static final int drop_down_list_header_default_text = 0x7f0a00dd;
-		public static final int drop_down_list_header_default_text_layout = 0x7f0a00db;
-		public static final int drop_down_list_header_image = 0x7f0a00dc;
-		public static final int drop_down_list_header_progress_bar = 0x7f0a00da;
-		public static final int drop_down_list_header_second_text = 0x7f0a00de;
+		public static final int drop_down_list_footer_button = 0x7f0a00dc;
+		public static final int drop_down_list_footer_progress_bar = 0x7f0a00db;
+		public static final int drop_down_list_header_default_text = 0x7f0a00e0;
+		public static final int drop_down_list_header_default_text_layout = 0x7f0a00de;
+		public static final int drop_down_list_header_image = 0x7f0a00df;
+		public static final int drop_down_list_header_progress_bar = 0x7f0a00dd;
+		public static final int drop_down_list_header_second_text = 0x7f0a00e1;
 	}
 	public static final class layout {
 		public static final int drop_down_list_footer = 0x7f03003e;
