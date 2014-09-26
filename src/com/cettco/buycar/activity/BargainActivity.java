@@ -1,10 +1,27 @@
 package com.cettco.buycar.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.cettco.buycar.R;
+import com.cettco.buycar.entity.Bargain;
+import com.cettco.buycar.entity.BargainEntity;
+import com.cettco.buycar.entity.CarColorListEntity;
+import com.cettco.buycar.entity.Tender;
+import com.cettco.buycar.entity.TenderEntity;
+import com.cettco.buycar.utils.GlobalData;
+import com.cettco.buycar.utils.HttpConnection;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,6 +37,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BargainActivity extends Activity {
 
@@ -57,6 +75,7 @@ public class BargainActivity extends Activity {
 	private int plateSelection=0;
 	
 	private RelativeLayout shopLayout;
+	private int tender_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +83,8 @@ public class BargainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bargain);
 		//getActionBar().hide();
+		tender_id = getIntent().getIntExtra("tender_id", -1);
 		getArray();
-
 		agreementTextView = (TextView) findViewById(R.id.simple_agreement);
 		String text = "<font color='black'>一口价购买方为我公司与4s经销商协议的特价购买通道，价格优势明显但是如果购车订单成功后任何一方违约则可能会涉及到违约金支付</font> <font color='red'>点击查看详情</font>";
 
@@ -171,9 +190,10 @@ public class BargainActivity extends Activity {
 										int id) {
 									// FIRE ZE MISSILES!
 									dialog.dismiss();
-									Intent intent = new Intent();
-									intent.setClass(BargainActivity.this, AliPayActivity.class);
-									startActivity(intent);
+//									Intent intent = new Intent();
+//									intent.setClass(BargainActivity.this, AliPayActivity.class);
+//									startActivity(intent);
+									submit();
 								}
 							})
 					.setNegativeButton("取消",
@@ -188,6 +208,108 @@ public class BargainActivity extends Activity {
 			builder.create().show();
 		}
 	};
+	private void submit(){
+		String tenderUrl=GlobalData.getBaseUrl()+"/tenders/"+tender_id+"/submit_bargain.json";
+		System.out.println(tenderUrl);
+		Gson gson = new Gson();
+		Bargain bargain = new Bargain();
+		bargain.setPostscript("无");
+		bargain.setPrice("10000");
+		BargainEntity bargainEntity = new BargainEntity();
+		bargainEntity.setBargain(bargain);
+//		Tender tender = new Tender();
+//		tender.setDescription("test1");
+//		tender.setModel("宝马");
+//		tender.setColor_id(carTypeEntity.getColors().get(0).getId());
+//		tender.setTrim_id(trim_id);
+//		TenderEntity tenderEntity = new TenderEntity();
+//		tenderEntity.setTender(tender);
+        StringEntity entity = null;
+        try {
+        	System.out.println(gson.toJson(bargainEntity).toString());
+			entity = new StringEntity(gson.toJson(bargainEntity).toString());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        String cookieStr=null;
+		String cookieName=null;
+		PersistentCookieStore myCookieStore = new PersistentCookieStore(
+				BargainActivity.this);
+		if(myCookieStore==null){System.out.println("cookie store null");return;}
+		List<Cookie> cookies = myCookieStore.getCookies();
+		for (Cookie cookie : cookies) {
+			String name =cookie.getName();
+			cookieName=name;
+			System.out.println(name);
+			if(name.equals("_JustBidIt_session")){
+				cookieStr=cookie.getValue();
+				System.out.println("value:"+cookieStr);
+				break;
+			}
+		}
+		if(cookieStr==null||cookieStr.equals("")){System.out.println("cookie null");return;}
+		HttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
+		HttpConnection.post(BargainActivity.this, tenderUrl, null, entity, "application/json;charset=utf-8", new JsonHttpResponseHandler(){
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				// TODO Auto-generated method stub
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+				System.out.println("error");
+				System.out.println("statusCode:"+statusCode);
+				System.out.println("headers:"+headers);
+				Toast toast = Toast.makeText(BargainActivity.this, "提交失败", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				super.onFailure(statusCode, headers, responseString, throwable);
+				System.out.println("2");
+				Toast toast = Toast.makeText(BargainActivity.this, "提交失败", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				// TODO Auto-generated method stub
+				super.onSuccess(statusCode, headers, response);
+				
+				System.out.println("success");
+				System.out.println("statusCode:"+statusCode);
+				
+//				for(int i=0;i<headers.length;i++){
+//					System.out.println(headers[0]);
+//				}
+				System.out.println("response:"+response);
+				if(statusCode==201){
+					Toast toast = Toast.makeText(BargainActivity.this, "提交成功", Toast.LENGTH_SHORT);
+					toast.show();
+					//int id = response.getInt("id");
+//						Intent intent = new Intent();
+//						CarColorListEntity colorListEntity = new CarColorListEntity();
+//						colorListEntity.setColors(carTypeEntity.getColors());
+//						intent.putExtra("color", new Gson().toJson(colorListEntity));
+//						intent.putExtra("tender_id", id);
+//						intent.setClass(CarDetailActivity.this, BargainActivity.class);
+//						startActivity(intent);
+//						
+						Intent intent = new Intent();
+						//intent.putExtra("tenderId", id);
+						intent.setClass(BargainActivity.this, OrderWaitingActivity.class);
+						startActivity(intent);
+					
+				}
+				
+			}
+			
+		});
+	}
 	protected OnClickListener agreementClickListener = new OnClickListener() {
 
 		@Override

@@ -7,6 +7,16 @@ public class CarTypeEntity {
 	private String pic_url;
 	private ArrayList<TrimEntity> trims;
 	private ArrayList<CarColorEntity> colors;
+	private String id;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	
 
 
 	public ArrayList<TrimEntity> getTrims() {

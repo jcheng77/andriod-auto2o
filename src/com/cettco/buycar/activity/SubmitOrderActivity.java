@@ -238,8 +238,10 @@ public class SubmitOrderActivity extends Activity{
 //			String tenderUrl=GlobalData.getBaseUrl()+"/tenders.json";
 //			Gson gson = new Gson();
 //			Tender tender = new Tender();
-//			tender.setDescription("test");
+//			tender.setDescription("test1");
 //			tender.setModel("宝马");
+//			tender.setColor_id(color_id);
+//			tender.setTrim_id(trim_id);
 //			TenderEntity tenderEntity = new TenderEntity();
 //			tenderEntity.setTender(tender);
 //	        StringEntity entity = null;

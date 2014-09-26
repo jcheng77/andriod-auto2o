@@ -284,7 +284,7 @@ public class MainActivity extends Activity {
 //			setTitle("Settings");
 //			menu.toggle();
 			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
+			intent.setClass(MainActivity.this, SignInActivity.class);
 			startActivity(intent);
 		}
 	};

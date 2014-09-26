@@ -1,7 +1,16 @@
 package com.cettco.buycar.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
+
+import org.apache.http.Header;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,15 +29,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTypeViewPagerAdapter;
 import com.cettco.buycar.entity.CarColorListEntity;
 import com.cettco.buycar.entity.CarTypeEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.entity.Tender;
+import com.cettco.buycar.entity.TenderEntity;
 import com.cettco.buycar.entity.TrimEntity;
 import com.cettco.buycar.utils.Data;
 import com.cettco.buycar.utils.DatabaseHelper;
+import com.cettco.buycar.utils.GlobalData;
+import com.cettco.buycar.utils.HttpConnection;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -38,6 +52,8 @@ import com.github.mikephil.charting.utils.Legend.LegendPosition;
 import com.google.gson.Gson;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.stmt.Where;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 
 public class CarDetailActivity extends Activity {
 
@@ -49,6 +65,8 @@ public class CarDetailActivity extends Activity {
 	private TextView titleTextView;
 	private LineChart mChart;
 	private RelativeLayout view4sLayout;
+	
+	private String trim_id;
 	
 	private int[] mColors = new int[] { R.color.vordiplom_1, R.color.vordiplom_2, R.color.vordiplom_3 };
 	
@@ -93,7 +111,7 @@ public class CarDetailActivity extends Activity {
 			pagerList.add(view);
 		}
 		if(trimList.size()>0){
-			trim=trimList.get(0).getName();
+			trim_id=trimList.get(0).getId();
 		}
 		CarTypeViewPagerAdapter carTypeViewPagerAdapter = new CarTypeViewPagerAdapter(
 				pagerList);
@@ -178,7 +196,7 @@ public class CarDetailActivity extends Activity {
 		@Override
 		public void onPageSelected(int index) {
 			// TODO Auto-generated method stub
-			trim = trimList.get(index).getName();
+			trim_id = trimList.get(index).getId();
 		}
 
 		@Override
@@ -198,12 +216,103 @@ public class CarDetailActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			CarColorListEntity colorListEntity = new CarColorListEntity();
-			colorListEntity.setColors(carTypeEntity.getColors());
-			intent.putExtra("color", new Gson().toJson(colorListEntity));
-			intent.setClass(CarDetailActivity.this, BargainActivity.class);
-			startActivity(intent);
+			
+			String tenderUrl=GlobalData.getBaseUrl()+"/tenders.json";
+			Gson gson = new Gson();
+			Tender tender = new Tender();
+			tender.setDescription("test1");
+			tender.setModel("宝马");
+			tender.setColor_id(carTypeEntity.getColors().get(0).getId());
+			tender.setTrim_id(trim_id);
+			TenderEntity tenderEntity = new TenderEntity();
+			tenderEntity.setTender(tender);
+	        StringEntity entity = null;
+	        try {
+	        	System.out.println(gson.toJson(tenderEntity).toString());
+				entity = new StringEntity(gson.toJson(tenderEntity).toString());
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        String cookieStr=null;
+			String cookieName=null;
+			PersistentCookieStore myCookieStore = new PersistentCookieStore(
+					CarDetailActivity.this);
+			if(myCookieStore==null){System.out.println("cookie store null");return;}
+			List<Cookie> cookies = myCookieStore.getCookies();
+			for (Cookie cookie : cookies) {
+				String name =cookie.getName();
+				cookieName=name;
+				System.out.println(name);
+				if(name.equals("_JustBidIt_session")){
+					cookieStr=cookie.getValue();
+					System.out.println("value:"+cookieStr);
+					break;
+				}
+			}
+			if(cookieStr==null||cookieStr.equals("")){System.out.println("cookie null");return;}
+			HttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
+			HttpConnection.post(CarDetailActivity.this, tenderUrl, null, entity, "application/json;charset=utf-8", new JsonHttpResponseHandler(){
+
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						Throwable throwable, JSONObject errorResponse) {
+					// TODO Auto-generated method stub
+					super.onFailure(statusCode, headers, throwable, errorResponse);
+					System.out.println("error");
+					System.out.println("statusCode:"+statusCode);
+					System.out.println("headers:"+headers);
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						String responseString, Throwable throwable) {
+					// TODO Auto-generated method stub
+					super.onFailure(statusCode, headers, responseString, throwable);
+					Toast toast = Toast.makeText(CarDetailActivity.this, "提交失败", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						JSONObject response) {
+					// TODO Auto-generated method stub
+					super.onSuccess(statusCode, headers, response);
+					
+					System.out.println("success");
+					System.out.println("statusCode:"+statusCode);
+					
+//					for(int i=0;i<headers.length;i++){
+//						System.out.println(headers[0]);
+//					}
+					System.out.println("response:"+response);
+					if(statusCode==201){
+						try {
+							Toast toast = Toast.makeText(CarDetailActivity.this, "提交成功", Toast.LENGTH_SHORT);
+							toast.show();
+							int id = response.getInt("id");
+							Intent intent = new Intent();
+							CarColorListEntity colorListEntity = new CarColorListEntity();
+							colorListEntity.setColors(carTypeEntity.getColors());
+							intent.putExtra("color", new Gson().toJson(colorListEntity));
+							intent.putExtra("tender_id", id);
+							intent.setClass(CarDetailActivity.this, BargainActivity.class);
+							startActivity(intent);
+//							
+//							Intent intent = new Intent();
+//							intent.putExtra("tenderId", id);
+//							intent.setClass(CarDetailActivity.this, MyOrderStatusActivity.class);
+//							startActivity(intent);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					
+				}
+				
+			});
 
 		}
 	};
