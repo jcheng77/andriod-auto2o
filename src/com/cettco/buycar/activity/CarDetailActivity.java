@@ -66,6 +66,8 @@ public class CarDetailActivity extends Activity {
 	private LineChart mChart;
 	private RelativeLayout view4sLayout;
 	
+	private RelativeLayout progressLayout;
+	
 	private String trim_id;
 	
 	private int[] mColors = new int[] { R.color.vordiplom_1, R.color.vordiplom_2, R.color.vordiplom_3 };
@@ -80,6 +82,7 @@ public class CarDetailActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cardetail);
+		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
 		//getActionBar().hide();
 		// LinearLayout selectCarTypeLayout =
 		// (LinearLayout)findViewById(R.id.selectCarType_layout);
@@ -259,6 +262,7 @@ public class CarDetailActivity extends Activity {
 						Throwable throwable, JSONObject errorResponse) {
 					// TODO Auto-generated method stub
 					super.onFailure(statusCode, headers, throwable, errorResponse);
+					progressLayout.setVisibility(View.GONE);
 					System.out.println("error");
 					System.out.println("statusCode:"+statusCode);
 					System.out.println("headers:"+headers);
@@ -269,6 +273,7 @@ public class CarDetailActivity extends Activity {
 						String responseString, Throwable throwable) {
 					// TODO Auto-generated method stub
 					super.onFailure(statusCode, headers, responseString, throwable);
+					progressLayout.setVisibility(View.GONE);
 					Toast toast = Toast.makeText(CarDetailActivity.this, "提交失败", Toast.LENGTH_SHORT);
 					toast.show();
 				}
@@ -278,7 +283,7 @@ public class CarDetailActivity extends Activity {
 						JSONObject response) {
 					// TODO Auto-generated method stub
 					super.onSuccess(statusCode, headers, response);
-					
+					progressLayout.setVisibility(View.GONE);
 					System.out.println("success");
 					System.out.println("statusCode:"+statusCode);
 					
@@ -313,7 +318,7 @@ public class CarDetailActivity extends Activity {
 				}
 				
 			});
-
+			progressLayout.setVisibility(View.VISIBLE);
 		}
 	};
 	protected OnClickListener selectCartypeClickListener = new OnClickListener() {

@@ -76,12 +76,15 @@ public class BargainActivity extends Activity {
 	
 	private RelativeLayout shopLayout;
 	private int tender_id;
+	
+	private RelativeLayout progressLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bargain);
+		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
 		//getActionBar().hide();
 		tender_id = getIntent().getIntExtra("tender_id", -1);
 		getArray();
@@ -209,6 +212,7 @@ public class BargainActivity extends Activity {
 		}
 	};
 	private void submit(){
+		progressLayout.setVisibility(View.VISIBLE);
 		String tenderUrl=GlobalData.getBaseUrl()+"/tenders/"+tender_id+"/submit_bargain.json";
 		System.out.println(tenderUrl);
 		Gson gson = new Gson();
@@ -257,6 +261,7 @@ public class BargainActivity extends Activity {
 					Throwable throwable, JSONObject errorResponse) {
 				// TODO Auto-generated method stub
 				super.onFailure(statusCode, headers, throwable, errorResponse);
+				progressLayout.setVisibility(View.GONE);
 				System.out.println("error");
 				System.out.println("statusCode:"+statusCode);
 				System.out.println("headers:"+headers);
@@ -269,6 +274,7 @@ public class BargainActivity extends Activity {
 					String responseString, Throwable throwable) {
 				// TODO Auto-generated method stub
 				super.onFailure(statusCode, headers, responseString, throwable);
+				progressLayout.setVisibility(View.GONE);
 				System.out.println("2");
 				Toast toast = Toast.makeText(BargainActivity.this, "提交失败", Toast.LENGTH_SHORT);
 				toast.show();
@@ -279,6 +285,7 @@ public class BargainActivity extends Activity {
 					JSONObject response) {
 				// TODO Auto-generated method stub
 				super.onSuccess(statusCode, headers, response);
+				progressLayout.setVisibility(View.GONE);
 				
 				System.out.println("success");
 				System.out.println("statusCode:"+statusCode);
@@ -309,6 +316,7 @@ public class BargainActivity extends Activity {
 			}
 			
 		});
+		
 	}
 	protected OnClickListener agreementClickListener = new OnClickListener() {
 
