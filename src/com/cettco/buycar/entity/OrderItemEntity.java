@@ -10,6 +10,8 @@ public class OrderItemEntity {
 	@DatabaseField
 	private String id;
 	@DatabaseField
+	private String model;
+	@DatabaseField
 	private String name;
 	@DatabaseField
 	private String trim;
@@ -18,7 +20,15 @@ public class OrderItemEntity {
 	@DatabaseField
 	private String bidNum;
 	@DatabaseField
-	private String status;
+	private String state;
+	@DatabaseField
+	private String url;
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	@DatabaseField
 	private String pic_url;
 	public String getPic_url() {
@@ -57,10 +67,22 @@ public class OrderItemEntity {
 	public void setBidNum(String bidNum) {
 		this.bidNum = bidNum;
 	}
-	public String getStatus() {
-		return status;
+	public int getOrder_id() {
+		return order_id;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setOrder_id(int order_id) {
+		this.order_id = order_id;
+	}
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 }

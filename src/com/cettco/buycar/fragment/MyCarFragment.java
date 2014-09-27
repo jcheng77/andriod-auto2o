@@ -30,7 +30,6 @@ import com.cettco.buycar.activity.MyOrderStatusActivity;
 import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
 import com.cettco.buycar.entity.CarBrandListEntity;
-import com.cettco.buycar.entity.MyOrderEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.DatabaseHelper;
 import com.cettco.buycar.utils.GlobalData;
@@ -70,14 +69,15 @@ public class MyCarFragment extends Fragment {
 	private ListView listView;
 	private PullToRefreshListView pullToRefreshView;
 	private MyOrderAdapter adapter;
-	private ArrayList<MyOrderEntity> list = new ArrayList<MyOrderEntity>();
-//	private Button currentButton;
-//	private Button historyButton;
+	private ArrayList<OrderItemEntity> list = new ArrayList<OrderItemEntity>();
+	// private Button currentButton;
+	// private Button historyButton;
 	private LinearLayout mycarBgLayout;
 	private List<OrderItemEntity> orderItems;
-	//private List<E>
-	
-	//private array
+
+	// private List<E>
+
+	// private array
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -85,8 +85,8 @@ public class MyCarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		fragmentView = inflater.inflate(R.layout.fragment_mycar, container,
 				false);
-		//System.out.println("oncreateview2");
-		mycarBgLayout = (LinearLayout)fragmentView
+		// System.out.println("oncreateview2");
+		mycarBgLayout = (LinearLayout) fragmentView
 				.findViewById(R.id.carlist_bg_layout);
 		pullToRefreshView = (PullToRefreshListView) fragmentView
 				.findViewById(R.id.pull_to_refresh_listview);
@@ -98,39 +98,42 @@ public class MyCarFragment extends Fragment {
 						// Do work to refresh the list here.
 						new GetDataTask().execute();
 					}
-					
+
 				});
 		listView = pullToRefreshView.getRefreshableView();
 		listView.setOnItemClickListener(itemClickListener);
-//		for(int i = 0;i<5;i++){
-//			MyOrderEntity entity = new MyOrderEntity();
-//			list.add(entity);
-//		}
-		adapter = new MyOrderAdapter(getActivity(), R.layout.my_order_item, orderItems);
+		// for(int i = 0;i<5;i++){
+		// MyOrderEntity entity = new MyOrderEntity();
+		// list.add(entity);
+		// }
+		adapter = new MyOrderAdapter(getActivity(), R.layout.my_order_item,
+				orderItems);
 		listView.setAdapter(adapter);
-//		currentButton = (Button)fragmentView.findViewById(R.id.currentOrderBtn);
-//		historyButton = (Button)fragmentView.findViewById(R.id.cancledOrderBtn);
-//		currentButton.setOnClickListener(currentClickListener);
-//		historyButton.setOnClickListener(historyClickListener);
+		// currentButton =
+		// (Button)fragmentView.findViewById(R.id.currentOrderBtn);
+		// historyButton =
+		// (Button)fragmentView.findViewById(R.id.cancledOrderBtn);
+		// currentButton.setOnClickListener(currentClickListener);
+		// historyButton.setOnClickListener(historyClickListener);
 		return fragmentView;
 	}
-	
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		System.out.println("onResume");
-		//pullToRefreshView.setRefreshing();
+		// pullToRefreshView.setRefreshing();
 		DatabaseHelper helper = DatabaseHelper.getHelper(getActivity());
 		try {
-			orderItems=helper.getOrderDao().queryForAll();
+			orderItems = helper.getOrderDao().queryForAll();
 			adapter.updateList(orderItems);
-			System.out.println("order size:"+orderItems.size());
+			System.out.println("order size:" + orderItems.size());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	protected OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -143,41 +146,43 @@ public class MyCarFragment extends Fragment {
 			// Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
 			int position = arg2 - 1;
 			Intent intent = new Intent();
-			intent.setClass(MyCarFragment.this.getActivity(), MyOrderStatusActivity.class);
+			intent.setClass(MyCarFragment.this.getActivity(),
+					MyOrderStatusActivity.class);
 			startActivity(intent);
 
 		}
 	};
-//	private OnClickListener currentClickListener = new OnClickListener() {
-//		
-//		@Override
-//		public void onClick(View v) {
-//			// TODO Auto-generated method stub
-//			currentButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
-//			currentButton.setTextColor(getResources().getColor(R.color.white));
-//			
-//			historyButton.setBackgroundResource(R.drawable.my_order_btn_style);
-//			historyButton.setTextColor(getResources().getColor(R.color.blue));
-//			
-//			//pullToRefreshView.st
-//			pullToRefreshView.setRefreshing();
-//			
-//		}
-//	};
-//	private OnClickListener historyClickListener =  new OnClickListener() {
-//		
-//		@Override
-//		public void onClick(View v) {
-//			// TODO Auto-generated method stub
-//			historyButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
-//			historyButton.setTextColor(getResources().getColor(R.color.white));
-//			
-//			currentButton.setBackgroundResource(R.drawable.my_order_btn_style);
-//			currentButton.setTextColor(getResources().getColor(R.color.blue));
-//			
-//			pullToRefreshView.setRefreshing();
-//		}
-//	};
+
+	// private OnClickListener currentClickListener = new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// // TODO Auto-generated method stub
+	// currentButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
+	// currentButton.setTextColor(getResources().getColor(R.color.white));
+	//
+	// historyButton.setBackgroundResource(R.drawable.my_order_btn_style);
+	// historyButton.setTextColor(getResources().getColor(R.color.blue));
+	//
+	// //pullToRefreshView.st
+	// pullToRefreshView.setRefreshing();
+	//
+	// }
+	// };
+	// private OnClickListener historyClickListener = new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// // TODO Auto-generated method stub
+	// historyButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
+	// historyButton.setTextColor(getResources().getColor(R.color.white));
+	//
+	// currentButton.setBackgroundResource(R.drawable.my_order_btn_style);
+	// currentButton.setTextColor(getResources().getColor(R.color.blue));
+	//
+	// pullToRefreshView.setRefreshing();
+	// }
+	// };
 	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 		@Override
 		protected void onPostExecute(String[] result) {
@@ -192,125 +197,136 @@ public class MyCarFragment extends Fragment {
 			return null;
 		}
 	}
-	private void getData(){
-		String url=GlobalData.getBaseUrl()+"/deals.json";
-		Gson gson = new Gson();
-        StringEntity entity = null;
-//        try {
-//        	System.out.println(gson.toJson(userEntity).toString());
-//			entity = new StringEntity(gson.toJson(userEntity).toString());
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-        String cookieStr=null;
-		String cookieName=null;
+
+	private void getData() {
+		// String url=GlobalData.getBaseUrl()+"/tenders.json";
+		// Gson gson = new Gson();
+		// StringEntity entity = null;
+		// try {
+		// System.out.println(gson.toJson(userEntity).toString());
+		// entity = new StringEntity(gson.toJson(userEntity).toString());
+		// } catch (UnsupportedEncodingException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
+		// SyncHttpConnection.getClient().addHeader("Cookie",
+		// cookieName+"="+cookieStr);
+		// SyncHttpConnection.get(url,new JsonHttpResponseHandler(){
+		//
+		// @Override
+		// public void onFailure(int statusCode, Header[] headers,
+		// Throwable throwable, JSONObject errorResponse) {
+		// // TODO Auto-generated method stub
+		// super.onFailure(statusCode, headers, throwable, errorResponse);
+		// //progressLayout.setVisibility(View.GONE);
+		// System.out.println("error");
+		// System.out.println("statusCode:"+statusCode);
+		// System.out.println("headers:"+headers);
+		// for(int i = 0;i<headers.length;i++){
+		// System.out.println(headers[i]);
+		// }
+		// System.out.println("response:"+errorResponse);
+		// Message message = new Message();
+		// message.what = 2;
+		// mHandler.sendMessage(message);
+		//
+		// }
+		//
+		// @Override
+		// public void onSuccess(int statusCode, Header[] headers,
+		// JSONObject response) {
+		// // TODO Auto-generated method stub
+		// super.onSuccess(statusCode, headers, response);
+		// System.out.println("success");
+		// System.out.println("statusCode:"+statusCode);
+		// System.out.println("headers:"+headers);
+		// System.out.println("response:"+response);
+		// //progressLayout.setVisibility(View.GONE);
+		// //UserUtil.login(SignInActivity.this);
+		//
+		// }
+		//
+		// });
+		String cookieStr = null;
+		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
 				getActivity());
-		if(myCookieStore==null){System.out.println("cookie store null");return;}
+		if (myCookieStore == null) {
+			System.out.println("cookie store null");
+			return;
+		}
 		List<Cookie> cookies = myCookieStore.getCookies();
 		for (Cookie cookie : cookies) {
-			String name =cookie.getName();
-			cookieName=name;
+			String name = cookie.getName();
+			cookieName = name;
 			System.out.println(name);
-			if(name.equals("_JustBidIt_session")){
-				cookieStr=cookie.getValue();
-				System.out.println("value:"+cookieStr);
+			if (name.equals("_JustBidIt_session")) {
+				cookieStr = cookie.getValue();
+				System.out.println("value:" + cookieStr);
 				break;
 			}
 		}
-		if(cookieStr==null||cookieStr.equals("")){System.out.println("cookie null");return;}
-//		SyncHttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
-//		SyncHttpConnection.get(url,new JsonHttpResponseHandler(){
-//
-//			@Override
-//			public void onFailure(int statusCode, Header[] headers,
-//					Throwable throwable, JSONObject errorResponse) {
-//				// TODO Auto-generated method stub
-//				super.onFailure(statusCode, headers, throwable, errorResponse);
-//				//progressLayout.setVisibility(View.GONE);
-//				System.out.println("error");
-//				System.out.println("statusCode:"+statusCode);
-//				System.out.println("headers:"+headers);
-//				for(int i = 0;i<headers.length;i++){
-//					System.out.println(headers[i]);
-//				}
-//				System.out.println("response:"+errorResponse);
-//				Message message = new Message();
-//				message.what = 2;
-//				mHandler.sendMessage(message);
-//				
-//			}
-//
-//			@Override
-//			public void onSuccess(int statusCode, Header[] headers,
-//					JSONObject response) {
-//				// TODO Auto-generated method stub
-//				super.onSuccess(statusCode, headers, response);
-//				System.out.println("success");
-//				System.out.println("statusCode:"+statusCode);
-//				System.out.println("headers:"+headers);
-//				System.out.println("response:"+response);
-//				//progressLayout.setVisibility(View.GONE);
-//				//UserUtil.login(SignInActivity.this);
-//				
-//			}
-//			
-//		});
-	        HttpClient httpclient = new DefaultHttpClient();
-	        String uri = GlobalData.getBaseUrl()+"/tenders.json";
-	        HttpGet get = new HttpGet(uri);
-	        //添加http头信息 
-	        get.addHeader("Cookie", cookieName+"="+cookieStr);
-	        get.addHeader("Content-Type", "application/json");
-	        org.apache.http.HttpResponse response;
-	        try {
-				response = httpclient.execute(get);
-				int code = response.getStatusLine().getStatusCode();
-		        //检验状态码，如果成功接收数据
-				System.out.println("code:"+code);
-		        if (code == 200) {
-		        	String result = EntityUtils.toString(response.getEntity());
-		        	Type listType = new TypeToken<ArrayList<MyOrderEntity>>(){}.getType();
-		        	list = new Gson().fromJson(result,listType);
-		        	System.out.println(result);
-		        	System.out.println(list.size());
-		        	for(int i=0;i<list.size();i++){
-		        		System.out.println(list.get(i).getModel());
-		        		System.out.println(list.get(i).getDescription());
-		        	}
-		        	Message message = new Message();
-					message.what = 1;
-					mHandler.sendMessage(message);
-		        }
-		        else if(code==401){
-					Message message = new Message();
-					message.what = 2;
-					mHandler.sendMessage(message);
-		        }
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (cookieStr == null || cookieStr.equals("")) {
+			System.out.println("cookie null");
+			return;
+		}
+		HttpClient httpclient = new DefaultHttpClient();
+		String uri = GlobalData.getBaseUrl() + "/tenders.json";
+		HttpGet get = new HttpGet(uri);
+		// 添加http头信息
+		get.addHeader("Cookie", cookieName + "=" + cookieStr);
+		get.addHeader("Content-Type", "application/json");
+		org.apache.http.HttpResponse response;
+		try {
+			response = httpclient.execute(get);
+			int code = response.getStatusLine().getStatusCode();
+			// 检验状态码，如果成功接收数据
+			System.out.println("code:" + code);
+			if (code == 200) {
+				String result = EntityUtils.toString(response.getEntity());
+				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
+				}.getType();
+				list = new Gson().fromJson(result, listType);
+				System.out.println(result);
+				System.out.println(list.size());
+				for (int i = 0; i < list.size(); i++) {
+					System.out.println(list.get(i).getId());
+					System.out.println(list.get(i).getState());
+				}
+				Message message = new Message();
+				message.what = 1;
+				mHandler.sendMessage(message);
+			} else if (code == 401) {
+				Message message = new Message();
+				message.what = 2;
+				mHandler.sendMessage(message);
 			}
-	        
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
-	private Handler mHandler = new Handler(){  
-        
-        public void handleMessage(Message msg) {  
-            switch (msg.what) {  
-            case 1:  
-                //updateTitle(); 
-            	adapter.updateList(orderItems);
-                break;  
-            case 2:
-            	Toast toast = Toast.makeText(getActivity(), "获取订单失败", Toast.LENGTH_SHORT);
+
+	private Handler mHandler = new Handler() {
+
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				// updateTitle();
+				adapter.updateList(list);
+				break;
+			case 2:
+				Toast toast = Toast.makeText(getActivity(), "获取订单失败",
+						Toast.LENGTH_SHORT);
 				toast.show();
 				break;
-            }  
-        };  
-    };
+			}
+		};
+	};
 
 }
