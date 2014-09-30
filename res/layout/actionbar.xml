@@ -20,6 +20,7 @@
             android:onClick="exitClick" >
 
             <ImageButton
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_action_back" />
@@ -28,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="Back"
+                android:text="返回"
                 android:textColor="@color/actionbar_main_text"
                 android:textSize="20sp" />
         </LinearLayout>

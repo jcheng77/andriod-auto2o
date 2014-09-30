@@ -77,6 +77,7 @@ public class DealerDetailActivity extends Activity {
 //                sb.append(location.getLongitude());  
 //                sb.append("\nRadius : ");  
 //                sb.append(location.getRadius());  
+                pt1 = new LatLng(location.getLatitude(), location.getLongitude());
                 double distance = DistanceUtil.getDistance(pt1, pt2);
                 distancetTextView.setText(distance+"km");
 //                if (location.getLocType() == BDLocation.TypeGpsLocation){  

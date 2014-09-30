@@ -47,7 +47,7 @@ public class BargainActivity extends Activity {
 	public final int RESULT_LOCATION = 3;
 	public final int RESULT_PLATE = 4;
 
-	private TextView agreementTextView;
+	//private TextView agreementTextView;
 
 	private Button submitButton;
 
@@ -88,11 +88,11 @@ public class BargainActivity extends Activity {
 		//getActionBar().hide();
 		tender_id = getIntent().getIntExtra("tender_id", -1);
 		getArray();
-		agreementTextView = (TextView) findViewById(R.id.simple_agreement);
-		String text = "<font color='black'>一口价购买方为我公司与4s经销商协议的特价购买通道，价格优势明显但是如果购车订单成功后任何一方违约则可能会涉及到违约金支付</font> <font color='red'>点击查看详情</font>";
+//		agreementTextView = (TextView) findViewById(R.id.simple_agreement);
+//		String text = "<font color='black'>一口价购买方为我公司与4s经销商协议的特价购买通道，价格优势明显但是如果购车订单成功后任何一方违约则可能会涉及到违约金支付</font> <font color='red'>点击查看详情</font>";
 
-		agreementTextView.setText(Html.fromHtml(text));
-		agreementTextView.setOnClickListener(agreementClickListener);
+//		agreementTextView.setText(Html.fromHtml(text));
+//		agreementTextView.setOnClickListener(agreementClickListener);
 
 		submitButton = (Button) findViewById(R.id.submit_bargain_price_btn);
 		submitButton.setOnClickListener(submitBtnClickListener);
@@ -318,16 +318,16 @@ public class BargainActivity extends Activity {
 		});
 		
 	}
-	protected OnClickListener agreementClickListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			intent.setClass(BargainActivity.this, AgreementActivity.class);
-			startActivity(intent);
-		}
-	};
+//	protected OnClickListener agreementClickListener = new OnClickListener() {
+//
+//		@Override
+//		public void onClick(View arg0) {
+//			// TODO Auto-generated method stub
+//			Intent intent = new Intent();
+//			intent.setClass(BargainActivity.this, AgreementActivity.class);
+//			startActivity(intent);
+//		}
+//	};
 	protected OnClickListener colorLayoutClickListener = new OnClickListener() {
 
 		@Override

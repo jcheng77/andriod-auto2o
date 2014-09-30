@@ -4,6 +4,7 @@ import java.net.ContentHandler;
 import java.util.HashMap;
 import java.util.List;
 
+import com.baidu.navi.location.LocationClient;
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.DealerCommentActivity;
 import com.cettco.buycar.entity.DealerEntity;
@@ -23,6 +24,11 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 	private HashMap<Integer, Boolean> isSelected; 
 	private Context context;
 	private List<DealerEntity> list;
+	
+	//Location private memebers
+//	private LocationClient locationClient;
+//	private static final int UPDATE_TIME = 5000;  
+//    private static int LOCATION_COUTNS = 0;
 	public DealerListAdapter(Context context, int resource,
 			List<DealerEntity> objects) {
 		super(context, resource, objects);
@@ -61,6 +67,7 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 				false);
 		RelativeLayout viewcommentLayout = (RelativeLayout)rowView.findViewById(R.id.dealer_view_comment_layout);
 		viewcommentLayout.setOnClickListener(viewCommentClickListener);
+		TextView textView = (TextView)rowView.findViewById(R.id.dealer_item_distance);
 		return rowView;
 		//return super.getView(position, convertView, parent);
 	}

@@ -8,7 +8,7 @@
         android:id="@+id/activity_bargin_actionbar"
         layout="@layout/actionbar" />
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/activity_bargain_agreement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,12 +20,12 @@
             android:id="@+id/simple_agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+    </LinearLayout> -->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/activity_bargain_agreement"
+        android:layout_below="@id/activity_bargin_actionbar"
         android:layout_marginTop="5dp" >
 
         <LinearLayout
