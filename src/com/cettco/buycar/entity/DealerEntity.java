@@ -8,6 +8,13 @@ public class DealerEntity {
 	private double totalPrice;
 	private String detail1;
 	private String detail2;
+	private int distance;
+	public int getDistance() {
+		return distance;
+	}
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
 	public String getId() {
 		return id;
 	}
