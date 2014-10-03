@@ -1,6 +1,16 @@
 package com.cettco.buycar.activity;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import cn.trinea.android.common.view.DropDownListView;
 import cn.trinea.android.common.view.DropDownListView.OnDropDownListener;
@@ -16,13 +26,21 @@ import com.cettco.buycar.adapter.DealerCommentAdapter;
 import com.cettco.buycar.adapter.DealerListAdapter;
 import com.cettco.buycar.entity.DealerCommentEntity;
 import com.cettco.buycar.entity.DealerEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.utils.GlobalData;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class DealersListActivity extends Activity {
@@ -190,6 +208,136 @@ public class DealersListActivity extends Activity {
 		}
 	}
 
+	private void getData() {
+		// String url=GlobalData.getBaseUrl()+"/tenders.json";
+		// Gson gson = new Gson();
+		// StringEntity entity = null;
+		// try {
+		// System.out.println(gson.toJson(userEntity).toString());
+		// entity = new StringEntity(gson.toJson(userEntity).toString());
+		// } catch (UnsupportedEncodingException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
+		// SyncHttpConnection.getClient().addHeader("Cookie",
+		// cookieName+"="+cookieStr);
+		// SyncHttpConnection.get(url,new JsonHttpResponseHandler(){
+		//
+		// @Override
+		// public void onFailure(int statusCode, Header[] headers,
+		// Throwable throwable, JSONObject errorResponse) {
+		// // TODO Auto-generated method stub
+		// super.onFailure(statusCode, headers, throwable, errorResponse);
+		// //progressLayout.setVisibility(View.GONE);
+		// System.out.println("error");
+		// System.out.println("statusCode:"+statusCode);
+		// System.out.println("headers:"+headers);
+		// for(int i = 0;i<headers.length;i++){
+		// System.out.println(headers[i]);
+		// }
+		// System.out.println("response:"+errorResponse);
+		// Message message = new Message();
+		// message.what = 2;
+		// mHandler.sendMessage(message);
+		//
+		// }
+		//
+		// @Override
+		// public void onSuccess(int statusCode, Header[] headers,
+		// JSONObject response) {
+		// // TODO Auto-generated method stub
+		// super.onSuccess(statusCode, headers, response);
+		// System.out.println("success");
+		// System.out.println("statusCode:"+statusCode);
+		// System.out.println("headers:"+headers);
+		// System.out.println("response:"+response);
+		// //progressLayout.setVisibility(View.GONE);
+		// //UserUtil.login(SignInActivity.this);
+		//
+		// }
+		//
+		// });
+		String cookieStr = null;
+		String cookieName = null;
+		PersistentCookieStore myCookieStore = new PersistentCookieStore(
+				this);
+		if (myCookieStore == null) {
+			System.out.println("cookie store null");
+			return;
+		}
+		List<Cookie> cookies = myCookieStore.getCookies();
+		for (Cookie cookie : cookies) {
+			String name = cookie.getName();
+			cookieName = name;
+			System.out.println(name);
+			if (name.equals("_JustBidIt_session")) {
+				cookieStr = cookie.getValue();
+				System.out.println("value:" + cookieStr);
+				break;
+			}
+		}
+		if (cookieStr == null || cookieStr.equals("")) {
+			System.out.println("cookie null");
+			return;
+		}
+		HttpClient httpclient = new DefaultHttpClient();
+		String uri = GlobalData.getBaseUrl() + "/tenders.json";
+		HttpGet get = new HttpGet(uri);
+		// 添加http头信息
+		get.addHeader("Cookie", cookieName + "=" + cookieStr);
+		get.addHeader("Content-Type", "application/json");
+		org.apache.http.HttpResponse response;
+		try {
+			response = httpclient.execute(get);
+			int code = response.getStatusLine().getStatusCode();
+			// 检验状态码，如果成功接收数据
+			System.out.println("code:" + code);
+			if (code == 200) {
+				String result = EntityUtils.toString(response.getEntity());
+				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
+				}.getType();
+//				list = new Gson().fromJson(result, listType);
+//				System.out.println(result);
+//				System.out.println(list.size());
+//				for (int i = 0; i < list.size(); i++) {
+//					System.out.println(list.get(i).getId());
+//					System.out.println(list.get(i).getState());
+//				}
+				Message message = new Message();
+				message.what = 1;
+				mHandler.sendMessage(message);
+			} else if (code == 401) {
+				Message message = new Message();
+				message.what = 2;
+				mHandler.sendMessage(message);
+			}
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private Handler mHandler = new Handler() {
+
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				// updateTitle();
+				//adapter.updateList(list);
+				break;
+			case 2:
+				Toast toast = Toast.makeText(DealersListActivity.this, "获取商家列表失败",
+						Toast.LENGTH_SHORT);
+				toast.show();
+				break;
+			}
+		};
+	};
 	public void exitClick(View view) {
 		// intent.putExtra("result", position);
 		// int size = mycarColorAdapter.getIsSelected().size();
