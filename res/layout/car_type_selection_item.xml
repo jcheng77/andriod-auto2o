@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <LinearLayout
+   <!--  <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -13,47 +14,71 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1.8L/118kw 涡轮增压" />
-    </LinearLayout>
+    </LinearLayout> -->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/trim_previous_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/trim_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="30 TFSI 自动 舒适型" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CVT 无级变速" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:background="@drawable/ic_action_previous_item" />
+        <ImageView
+            android:id="@+id/trim_next_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:orientation="vertical" >
+            android:background="@drawable/ic_action_next_item" />
 
-            <TextView
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="false"
+            android:layout_toLeftOf="@id/trim_next_item"
+            android:layout_toRightOf="@id/trim_previous_item" >
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="指导价" />
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/trim_guidePrice"
+                <TextView
+                    android:id="@+id/trim_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30 TFSI 自动 舒适型" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CVT 无级变速" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30万" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="指导价" />
+
+                <TextView
+                    android:id="@+id/trim_guidePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30万" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        
     </RelativeLayout>
 
 </LinearLayout>

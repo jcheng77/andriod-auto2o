@@ -102,13 +102,14 @@ public class MyCarFragment extends Fragment {
 				});
 		listView = pullToRefreshView.getRefreshableView();
 		listView.setOnItemClickListener(itemClickListener);
-		// for(int i = 0;i<5;i++){
-		// MyOrderEntity entity = new MyOrderEntity();
-		// list.add(entity);
-		// }
+		 for(int i = 0;i<5;i++){
+		 OrderItemEntity entity = new OrderItemEntity();
+		 list.add(entity);
+		 }
 		adapter = new MyOrderAdapter(getActivity(), R.layout.my_order_item,
-				orderItems);
+				list);
 		listView.setAdapter(adapter);
+		adapter.updateList(list);
 		// currentButton =
 		// (Button)fragmentView.findViewById(R.id.currentOrderBtn);
 		// historyButton =
@@ -145,6 +146,7 @@ public class MyCarFragment extends Fragment {
 			// System.out.println("size:");
 			// Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
 			int position = arg2 - 1;
+			//String state = orderItems.get(position).getState();
 			Intent intent = new Intent();
 			intent.setClass(MyCarFragment.this.getActivity(),
 					MyOrderStatusActivity.class);

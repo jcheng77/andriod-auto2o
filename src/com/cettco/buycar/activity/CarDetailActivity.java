@@ -107,6 +107,16 @@ public class CarDetailActivity extends Activity {
 			View view = inflater
 					.inflate(R.layout.car_type_selection_item, null);
 			view.getHeight();
+			ImageView preImageView = (ImageView)view.findViewById(R.id.trim_previous_item);
+			ImageView nextImageView = (ImageView)view.findViewById(R.id.trim_next_item);
+			if(i==0){
+				preImageView.setVisibility(View.INVISIBLE);
+				nextImageView.setVisibility(View.VISIBLE);
+			}
+			else if (i==trimList.size()-1) {
+				preImageView.setVisibility(View.VISIBLE);
+				nextImageView.setVisibility(View.INVISIBLE);
+			}
 			TextView trimNameTextView = (TextView)view.findViewById(R.id.trim_name);
 			TextView  trimPriceTextView = (TextView)view.findViewById(R.id.trim_guidePrice);
 			trimNameTextView.setText(trimList.get(i).getName());

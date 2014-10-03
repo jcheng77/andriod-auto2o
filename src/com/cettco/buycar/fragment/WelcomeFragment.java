@@ -40,6 +40,7 @@ public class WelcomeFragment extends Fragment {
 		}
 		autoScrollViewPager.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
+		autoScrollViewPager.startAutoScroll();
 		return fragmentView;
 	}
 	protected class WelcomePagerAdapter extends PagerAdapter{

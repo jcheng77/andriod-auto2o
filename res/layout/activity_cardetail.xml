@@ -34,44 +34,25 @@
             </RelativeLayout>
 
             <android.support.v4.view.ViewPager
+                android:paddingTop="10dp"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
                 android:background="@color/car_detail_front" />
 
-            <LinearLayout
-                android:id="@+id/carDetailButtonLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/pager"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@color/car_detail_front"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="8 people are bidding for this type of car" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="4 manufactors provide price" />
-            </LinearLayout>
+            
 
             <RelativeLayout
                 android:id="@+id/view4sLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/pager"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/item_click" >
 
                 <TextView
@@ -79,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="查看可选4s店" />
 
                 <ImageView
@@ -95,9 +77,9 @@
                 android:background="@color/gray" />
 
             <RelativeLayout
-                android:background="@color/car_detail_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" >
 
