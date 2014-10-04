@@ -34,19 +34,18 @@
             </RelativeLayout>
 
             <android.support.v4.view.ViewPager
-                android:paddingTop="10dp"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/car_detail_front" />
 
             
 
-            <RelativeLayout
+           <RelativeLayout
                 android:id="@+id/view4sLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,11 +55,11 @@
                 android:background="@drawable/item_click" >
 
                 <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:text="查看可选4s店" />
 
                 <ImageView
@@ -88,7 +87,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/beginbuycar_btn_style"
                     android:paddingBottom="8dp"
                     android:paddingLeft="25dp"

@@ -263,7 +263,12 @@ public class CarDetailActivity extends Activity {
 					break;
 				}
 			}
-			if(cookieStr==null||cookieStr.equals("")){System.out.println("cookie null");return;}
+			if(cookieStr==null||cookieStr.equals("")){
+				Toast toast = Toast.makeText(CarDetailActivity.this, "未登录或登录信息失效，请重新登录", Toast.LENGTH_SHORT);
+				toast.show();
+				System.out.println("cookie null");
+				return;
+				}
 			HttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
 			HttpConnection.post(CarDetailActivity.this, tenderUrl, null, entity, "application/json;charset=utf-8", new JsonHttpResponseHandler(){
 

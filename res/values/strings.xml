@@ -12,10 +12,9 @@
     <string name="alerttitle">同意一口价条款</string>
     <string name="alertmsg">我已经阅读一口价条款，明白可能存在的违约金支付，愿意继续提交一口价购买订单</string>
     <string-array name="getcarTime_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
+        <item>7日到店</item>
+        <item>14日到店</item>
+        <item>21日到店</item>
     </string-array>
     <string-array name="loan_array">
         <item>只选择贷款</item>

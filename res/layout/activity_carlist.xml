@@ -23,16 +23,19 @@
             android:visibility="gone" >
 
             <TextView
+                android:layout_marginLeft="20dp"
                 android:id="@+id/curent_car_brand_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:text="test" />
 
             <ImageView
                 android:id="@+id/current_car_brand_cancle"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/close_icon_style" />
