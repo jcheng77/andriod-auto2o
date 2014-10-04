@@ -295,7 +295,7 @@ public class BargainActivity extends Activity {
 //				}
 				System.out.println("response:"+response);
 				if(statusCode==201){
-					Toast toast = Toast.makeText(BargainActivity.this, "提交成功", Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(BargainActivity.this, "提交成功,请支付", Toast.LENGTH_SHORT);
 					toast.show();
 					//int id = response.getInt("id");
 //						Intent intent = new Intent();
@@ -308,7 +308,7 @@ public class BargainActivity extends Activity {
 //						
 						Intent intent = new Intent();
 						//intent.putExtra("tenderId", id);
-						intent.setClass(BargainActivity.this, OrderWaitingActivity.class);
+						intent.setClass(BargainActivity.this, AliPayActivity.class);
 						startActivity(intent);
 					
 				}

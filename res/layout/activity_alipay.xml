@@ -5,15 +5,18 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
+    <include layout="@layout/actionbar" />
+
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="#000000" />
@@ -131,6 +134,8 @@
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/alipay_client_layout"
+            android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -168,13 +173,23 @@
             </LinearLayout>
 
             <CheckBox
+                android:checked="true"
+                android:id="@+id/alipay_client_checkbox"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp" />
         </RelativeLayout>
 
+        <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#000000" />
         <RelativeLayout
+            android:id="@+id/alipay_web_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -212,11 +227,19 @@
             </LinearLayout>
 
             <CheckBox
+                android:id="@+id/alipay_web_checkbox"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp" />
         </RelativeLayout>
+        <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#000000" />
     </LinearLayout>
 
     <RelativeLayout
@@ -240,24 +263,23 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:gravity="center"
-        >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center" >
+
         <Button
             android:id="@+id/alipay_submit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/beginbuycar_btn_style"
             android:paddingBottom="8dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingTop="8dp"
-            android:text="Begin"
-            android:textColor="@color/white"
+            android:text="支付"
             android:textSize="25sp" />
     </LinearLayout>
 

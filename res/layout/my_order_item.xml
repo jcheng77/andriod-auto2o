@@ -15,15 +15,24 @@
             android:id="@+id/my_order_status_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="开始一口价购买"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/my_order_imageview"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
+        android:background="#ffffff" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="#000000" />
 
     <RelativeLayout
@@ -54,14 +63,21 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="10dp"
             android:id="@+id/my_order_price_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:text="10000"
             android:textColor="#fa6810" />
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#000000" />
 
 </LinearLayout>

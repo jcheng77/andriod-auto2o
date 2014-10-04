@@ -280,15 +280,15 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			switchFragment(new SettingsFragment());
-			setTitle("Settings");
-			//menu.
+//			switchFragment(new SettingsFragment());
+//			setTitle("Settings");
+//			//menu.
+//			//System.out.println(menu.isActivated());
+//			menu.toggle();
 			//System.out.println(menu.isActivated());
-			menu.toggle();
-			//System.out.println(menu.isActivated());
-//			Intent intent = new Intent();
-//			intent.setClass(MainActivity.this, SignInActivity.class);
-//			startActivity(intent);
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, AliPayActivity.class);
+			startActivity(intent);
 		}
 	};
 

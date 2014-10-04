@@ -94,7 +94,7 @@
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
                     android:paddingTop="8dp"
-                    android:text="Begin"
+                    android:text="开始购车"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
             </RelativeLayout>
