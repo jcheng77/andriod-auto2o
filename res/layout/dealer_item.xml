@@ -2,139 +2,173 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="上海旗舰店" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="浦东新区" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/dealer_item_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10km" />
-        </LinearLayout>
-    </RelativeLayout>
+    android:background="#f1f1f1"
+    android:orientation="vertical"
+    android:paddingTop="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/dealer_img_pager"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@color/car_detail_front" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上海旗舰店" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="浦东新区" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/dealer_item_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10km" />
+            </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:gravity="center"
+            android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="价格收费合理" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10km" />
+            <android.support.v4.view.ViewPager
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/dealer_img_pager"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@color/car_detail_front" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/dealer_view_comment_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content" >
 
-            <TextView
+            <ImageView
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新车交付速度" />
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_action_next_item" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:weightSum="3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="10km" />
-        </LinearLayout>
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="服务质量与态度" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="价格收费合理" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10km" />
-        </LinearLayout>
-    </LinearLayout>
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    <RelativeLayout
-        android:id="@+id/dealer_view_comment_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_click"
-        android:orientation="vertical" >
+                    <com.cettco.buycar.utils.MarkView
+                        android:id="@+id/dealer_price_markview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" >
+                    </com.cettco.buycar.utils.MarkView>
+                </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:text="查看共23条记录" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="新车交付速度" />
+
+                    <com.cettco.buycar.utils.MarkView
+                        android:id="@+id/dealer_time_markview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" >
+                    </com.cettco.buycar.utils.MarkView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="服务质量与态度" />
+
+                    <com.cettco.buycar.utils.MarkView
+                        android:id="@+id/dealer_quality_markview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" >
+                    </com.cettco.buycar.utils.MarkView>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f1f1f1" />
+
+        <RelativeLayout
+            
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_action_next_item" />
-    </RelativeLayout>
+            android:background="@drawable/item_click"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/gray"
+                android:text="查看共23条记录" />
+
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

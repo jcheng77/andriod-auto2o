@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#f1f1f1"
     android:orientation="vertical" >
 
     <include layout="@layout/actionbar"/>
     <LinearLayout
+        android:layout_margin="10dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -20,10 +22,12 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@color/orange" />
+                android:background="#000000" />
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -47,6 +51,10 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_margin="10dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -85,19 +93,22 @@
     </RelativeLayout>
 
     <com.baidu.mapapi.map.MapView
+        android:background="@color/white"
         android:id="@+id/order_has_dealer_bmapView"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:clickable="true" />
 
     <LinearLayout
+        android:padding="10dp"
+        android:background="@color/white"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:orientation="vertical"
          >
 
@@ -115,7 +126,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/orange"
+                android:textColor="@color/orange"
                 android:text="230,9000" />
             <TextView
                 android:layout_marginLeft="20dp"
@@ -123,10 +134,10 @@
                 android:layout_height="wrap_content"
                 android:text="优惠:" />
             <TextView
-                android:background="@color/orange"
+                android:textColor="@color/orange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10km" />
+                android:text="23333" />
         </LinearLayout>
     </LinearLayout>
 

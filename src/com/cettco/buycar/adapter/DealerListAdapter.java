@@ -8,6 +8,7 @@ import com.baidu.navi.location.LocationClient;
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.DealerCommentActivity;
 import com.cettco.buycar.entity.DealerEntity;
+import com.cettco.buycar.utils.MarkView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +69,17 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 		RelativeLayout viewcommentLayout = (RelativeLayout)rowView.findViewById(R.id.dealer_view_comment_layout);
 		viewcommentLayout.setOnClickListener(viewCommentClickListener);
 		TextView textView = (TextView)rowView.findViewById(R.id.dealer_item_distance);
+		
+		//
+		MarkView priceMarkView = (MarkView)rowView.findViewById(R.id.dealer_price_markview);
+		priceMarkView.setLevel(3);
+		priceMarkView.setClick(false);
+		MarkView timeMarkView = (MarkView)rowView.findViewById(R.id.dealer_time_markview);
+		timeMarkView.setLevel(3);
+		priceMarkView.setClick(false);
+		MarkView qualityMarkView = (MarkView)rowView.findViewById(R.id.dealer_quality_markview);
+		qualityMarkView.setLevel(3);
+		qualityMarkView.setClick(false);
 		return rowView;
 		//return super.getView(position, convertView, parent);
 	}

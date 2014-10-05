@@ -287,7 +287,7 @@ public class MainActivity extends Activity {
 //			menu.toggle();
 			//System.out.println(menu.isActivated());
 			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, AliPayActivity.class);
+			intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
 			startActivity(intent);
 		}
 	};
