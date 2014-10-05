@@ -15,12 +15,14 @@ import org.apache.http.util.EntityUtils;
 import cn.trinea.android.common.view.DropDownListView;
 import cn.trinea.android.common.view.DropDownListView.OnDropDownListener;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
-import com.baidu.navi.location.BDLocation;
-import com.baidu.navi.location.BDLocationListener;
-import com.baidu.navi.location.LocationClient;
-import com.baidu.navi.location.LocationClientOption;
+import com.baidu.nplatform.comapi.basestruct.GeoPoint;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.DealerCommentAdapter;
 import com.cettco.buycar.adapter.DealerListAdapter;
@@ -57,6 +59,7 @@ public class DealersListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_dealers);
 		listView = (DropDownListView) findViewById(R.id.dealers_list_view);
 		// set drop down listener
@@ -88,35 +91,51 @@ public class DealersListActivity extends Activity {
 				listItems);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listItemClickListener);
+		initLocation();
 	}
 
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		locationClient.stop();
+		super.onStop();
+	}
+	
 	private void initLocation(){
-		locationClient = new LocationClient(this);
+		locationClient = new LocationClient(getApplicationContext());
 		//设置定位条件  
-        LocationClientOption option = new LocationClientOption();  
-        option.setOpenGps(true);                                //是否打开GPS  
+        LocationClientOption option = new LocationClientOption();
+        //option.setl
+        //option.setLocationMode(LocationMode.Hight_Accuracy);
+        //option.setOpenGps(true);                                //是否打开GPS  
         option.setCoorType("bd09ll");                           //设置返回值的坐标类型。  
         //com.baidu.navi.location.LocationClientOption.n
-        option.setPriority(LocationClientOption.NetWorkFirst);  //设置定位优先级  
+        //option.setPriority(LocationClientOption.NetWorkFirst);  //设置定位优先级  
         option.setProdName("LocationDemo");                     //设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。  
-        option.setScanSpan(UPDATE_TIME);                        //设置定时定位的时间间隔。单位毫秒  
+        option.setScanSpan(UPDATE_TIME);   
+        //设置定时定位的时间间隔。单位毫秒  
         locationClient.setLocOption(option);  
           
         //注册位置监听器  
+        System.out.println("register");
         locationClient.registerLocationListener(new BDLocationListener() {  
               
             @Override  
             public void onReceiveLocation(BDLocation location) {  
                 // TODO Auto-generated method stub  
+            	System.out.println("location1");
                 if (location == null) {  
+                	System.out.println("location null");
                     return;  
                 }  
                 for(int i=0;i<listItems.size();i++){
                 	DealerEntity tmp =listItems.get(i);
-                	LatLng pt1=null;
-                	LatLng pt2 = null;
+                	//GeoPoint g1 = new geo
+                	LatLng pt1=new LatLng(location.getAltitude(), location.getLatitude());
+                	LatLng pt2 = new LatLng(24.000, 34.000);
                 	double distance = DistanceUtil.getDistance(pt1, pt2);
                 	tmp.setDistance((int) distance);
+                	System.out.println("distance:"+location.getAltitude());
                 	
                 }
                 adapter.notifyDataSetChanged();
@@ -148,11 +167,29 @@ public class DealersListActivity extends Activity {
 //                locationInfoTextView.setText(sb.toString());  
             }  
               
-            @Override  
-            public void onReceivePoi(BDLocation location) {  
-            }  
-              
+//            @Override  
+//            public void onReceivePoi(BDLocation location) {  
+//            	System.out.println("location2");
+//                if (location == null) {  
+//                	System.out.println("location null");
+//                    return;  
+//                }  
+//                for(int i=0;i<listItems.size();i++){
+//                	DealerEntity tmp =listItems.get(i);
+//                	LatLng pt1=new LatLng(location.getAltitude(), location.getLatitude());
+//                	LatLng pt2 = new LatLng(24.000, 34.000);
+//                	double distance = DistanceUtil.getDistance(pt1, pt2);
+//                	tmp.setDistance((int) distance);
+//                	System.out.println("distance:"+distance);
+//                	
+//                }
+//                adapter.notifyDataSetChanged();
+//            }  
+//              
         });
+        System.out.println("start");
+        locationClient.start();
+        System.out.println("start2");
 	}
 	private OnItemClickListener listItemClickListener = new OnItemClickListener() {
 

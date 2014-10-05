@@ -66,10 +66,11 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.dealer_item, parent,
 				false);
+		DealerEntity entity = list.get(position);
 		RelativeLayout viewcommentLayout = (RelativeLayout)rowView.findViewById(R.id.dealer_view_comment_layout);
 		viewcommentLayout.setOnClickListener(viewCommentClickListener);
 		TextView textView = (TextView)rowView.findViewById(R.id.dealer_item_distance);
-		
+		textView.setText(Integer.toString(entity.getDistance()));
 		//
 		MarkView priceMarkView = (MarkView)rowView.findViewById(R.id.dealer_price_markview);
 		priceMarkView.setLevel(3);
