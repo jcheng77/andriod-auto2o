@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,20 +54,38 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
+		ViewHolder holder = null;
+		if(convertView==null){
+			holder = new ViewHolder();
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.carcolor_item, parent,
+					false);
+			holder.imageView = (ImageView)convertView.findViewById(R.id.car_color_imageview);
+			holder.textView = (TextView)convertView.findViewById(R.id.car_color_text);
+			
+			holder.checkBox = (CheckBox)convertView.findViewById(R.id.car_color_checkBox);
+			convertView.setTag(holder);
+;
+		}else {
+			holder = (ViewHolder) convertView.getTag(); 
+		}
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.carcolor_item, parent,
 				false);
 		CarColorEntity carColorEntity = list.get(position);
-		ImageView imageView = (ImageView)rowView.findViewById(R.id.car_color_imageview);
-		imageView.setBackgroundColor(Color.parseColor(carColorEntity.getCode()));
-		TextView textView = (TextView)rowView.findViewById(R.id.car_color_text);
-		textView.setText(carColorEntity.getName());
-		
-		CheckBox checkBox = (CheckBox)rowView.findViewById(R.id.car_color_checkBox);
+		holder.imageView.setBackgroundColor(Color.parseColor(carColorEntity.getCode()));
+		holder.textView.setText(carColorEntity.getName());
 		return rowView;
 	}
-	
+	private static class ViewHolder
+    {
+		ImageView imageView;
+		TextView textView;
+		
+		CheckBox checkBox;
+    }
 	
 	
 }
