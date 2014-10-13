@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
@@ -32,11 +33,18 @@ public class SplashActivity extends Activity{
 			startActivity(intent);
 			this.finish();
 		}
-		else{			
-			Intent intent = new Intent();
-			intent.setClass(SplashActivity.this, MainActivity.class);
-			startActivity(intent);
-			this.finish();
+		else{
+			
+	        Handler h = new Handler();
+	        h.postDelayed(new Runnable() {
+	            public void run() {
+	            	Intent intent = new Intent();
+	    			intent.setClass(SplashActivity.this, MainActivity.class);
+	    			startActivity(intent);
+	    			SplashActivity.this.finish();
+	            }
+
+	        }, 2000);
 		}
 		
 	}

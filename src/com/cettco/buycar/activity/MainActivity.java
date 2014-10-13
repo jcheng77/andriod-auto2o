@@ -39,6 +39,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +56,8 @@ public class MainActivity extends Activity {
 	
 	private LinearLayout welcomelLayout;
 	private LinearLayout logoutLayout;
+	
+	//private ImageView launchingImageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class MainActivity extends Activity {
 		// setTitle("Welcome");
 		setContentView(R.layout.activity_main);
 		//getActionBar().hide();
+		//launchingImageView = (ImageView)findViewById(R.id.launching_imageview);
 
 		menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
@@ -98,6 +102,9 @@ public class MainActivity extends Activity {
 		addImageButton.setOnClickListener(addCarClickListener);
 		
 		currentCitytTextView= (TextView)findViewById(R.id.menuCurrentCityTextView);
+		
+		//Launching view
+		//launchingImageView.setVisibility(View.GONE);
 		SharedPreferences settings = getSharedPreferences("city_selection", 0);
 		int selection = settings.getInt("city", 0);
 		switch (selection) {
