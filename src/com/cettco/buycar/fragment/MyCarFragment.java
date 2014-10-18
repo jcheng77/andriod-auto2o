@@ -31,10 +31,10 @@ import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
 import com.cettco.buycar.entity.CarBrandListEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
-import com.cettco.buycar.utils.DatabaseHelper;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.UserUtil;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
@@ -125,9 +125,9 @@ public class MyCarFragment extends Fragment {
 		super.onResume();
 		System.out.println("onResume");
 		// pullToRefreshView.setRefreshing();
-		DatabaseHelper helper = DatabaseHelper.getHelper(getActivity());
+		DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(getActivity());
 		try {
-			orderItems = helper.getOrderDao().queryForAll();
+			orderItems = helper.getDao().queryForAll();
 			adapter.updateList(orderItems);
 			System.out.println("order size:" + orderItems.size());
 		} catch (SQLException e) {

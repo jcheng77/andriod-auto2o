@@ -2,7 +2,20 @@ package com.cettco.buycar.entity;
 
 import java.util.List;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "brands")
 public class CarBrandEntity {
+	@DatabaseField(id=true)
+	private String id;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	@DatabaseField
 	private String name;
 	private String url;
 	public String getUrl() {
@@ -11,17 +24,17 @@ public class CarBrandEntity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	private List<CarManufactorEntity> makers;
+	private List<CarMakerEntity> makers;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<CarManufactorEntity> getMakers() {
+	public List<CarMakerEntity> getMakers() {
 		return makers;
 	}
-	public void setMakers(List<CarManufactorEntity> makers) {
+	public void setMakers(List<CarMakerEntity> makers) {
 		this.makers = makers;
 	}
 	

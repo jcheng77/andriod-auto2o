@@ -1,9 +1,8 @@
 package com.cettco.buycar.activity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.http.Header;
 
 import cn.trinea.android.common.entity.HttpResponse;
 import cn.trinea.android.common.service.HttpCache;
@@ -14,16 +13,20 @@ import com.cettco.buycar.adapter.CarBrandListAdapter;
 import com.cettco.buycar.adapter.CarExpandableListAdapter;
 import com.cettco.buycar.entity.CarBrandEntity;
 import com.cettco.buycar.entity.CarBrandListEntity;
-import com.cettco.buycar.entity.CarManufactorEntity;
-import com.cettco.buycar.entity.CarTypeEntity;
+import com.cettco.buycar.entity.CarColorEntity;
+import com.cettco.buycar.entity.CarMakerEntity;
+import com.cettco.buycar.entity.CarModelEntity;
+import com.cettco.buycar.entity.CarTrimEntity;
 import com.cettco.buycar.utils.GlobalData;
-import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.db.DatabaseHelperBrand;
+import com.cettco.buycar.utils.db.DatabaseHelperColor;
+import com.cettco.buycar.utils.db.DatabaseHelperMaker;
+import com.cettco.buycar.utils.db.DatabaseHelperModel;
+import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,7 +34,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -52,7 +54,7 @@ public class CarListActivity extends Activity {
 	private int toggle = 0;
 	private CarBrandListAdapter carBrandListAdapter;
 	// private ArrayList<CarBrandEntity> carBrandList;
-	private ArrayList<CarBrandEntity> carBrandEntities;
+	private List<CarBrandEntity> carBrandEntities;
 	private ExpandableListView carExpandedView;
 	private CarExpandableListAdapter carExpandableListAdapter;
 	private ListView carBrandListView;
@@ -64,7 +66,9 @@ public class CarListActivity extends Activity {
 	private String carListUrl = GlobalData.getBaseUrl() + "/cars/list.json";
 	private TextView currentBrandNameTextView;
 	private CarBrandListEntity carBrandListEntity = new CarBrandListEntity();
-	private int brandPosition=0;
+	private int brandPosition = 0;
+
+	private List<CarMakerEntity> makerEntities;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,47 +82,14 @@ public class CarListActivity extends Activity {
 		// carBrandList = new ArrayList<CarBrandEntity>();
 		// Test data
 		carBrandEntities = new ArrayList<CarBrandEntity>();
-		
+		makerEntities = new ArrayList<CarMakerEntity>();
+
 		currentBrandLayout = (RelativeLayout) findViewById(R.id.current_car_brand_reletavielayout);
 		closeImageView = (ImageView) findViewById(R.id.current_car_brand_cancle);
 		closeImageView.setOnClickListener(closeClickListener);
-		
-		currentBrandNameTextView = (TextView)findViewById(R.id.curent_car_brand_name);
-		nodataLayout = (LinearLayout)findViewById(R.id.carlist_nodata_layout);
 
-//		CarTypeEntity carTypeEntity = new CarTypeEntity();
-//		carTypeEntity.setName("111");
-//		carTypeEntity.setPic_url("http://example.com/1.jpg");
-//		ArrayList<CarTypeEntity> carTypeEntities = new ArrayList<CarTypeEntity>();
-//		carTypeEntities.add(carTypeEntity);
-//		carTypeEntities.add(carTypeEntity);
-//
-//		CarManufactorEntity carManufactorEntity = new CarManufactorEntity();
-//		carManufactorEntity.setName("11");
-//		carManufactorEntity.setModels(carTypeEntities);
-//		ArrayList<CarManufactorEntity> carManufactorEntities = new ArrayList<CarManufactorEntity>();
-//		carManufactorEntities.add(carManufactorEntity);
-//		carManufactorEntities.add(carManufactorEntity);
-//
-//		CarBrandEntity carBrandEntity = new CarBrandEntity();
-//		carBrandEntity.setName("1");
-//		carBrandEntity.setMakers(carManufactorEntities);
-//		
-//		carBrandEntities.add(carBrandEntity);
-//		carBrandEntities.add(carBrandEntity);
-//		carBrandEntities.add(carBrandEntity);
-//
-//		//CarBrandListEntity carBrandListEntity = new CarBrandListEntity();
-//		carBrandListEntity.setBrands(carBrandEntities);
-//		Gson gson = new Gson();
-//		String result = gson.toJson(carBrandListEntity);
-//		System.out.println(result);
-//		// String abc = ' ';
-//		CarBrandListEntity tmp = gson
-//				.fromJson(result, CarBrandListEntity.class);
-//		System.out.println("list entity:" + tmp.getBrands().size());
-//		System.out.println("list entity:"
-//				+ tmp.getBrands().get(0).getMakers().get(0).getName());
+		currentBrandNameTextView = (TextView) findViewById(R.id.curent_car_brand_name);
+		nodataLayout = (LinearLayout) findViewById(R.id.carlist_nodata_layout);
 
 		pullToRefreshView = (PullToRefreshListView) findViewById(R.id.car_list_pull_to_refresh_listview);
 		pullToRefreshView
@@ -149,19 +120,17 @@ public class CarListActivity extends Activity {
 	@Override
 	protected void onResume() {
 		// carExpandedView.set
-		//pullToRefreshView.
+		// pullToRefreshView.
 		super.onResume();
-		getCacheData();
+		getCachedData();
 	}
 
-//	protected void getData() {
-//		String url = "";
-//		HttpConnection.post(url, null, new JsonHttpResponseHandler() {
-//
-//		});
-//	}
-
-	
+	// protected void getData() {
+	// String url = "";
+	// HttpConnection.post(url, null, new JsonHttpResponseHandler() {
+	//
+	// });
+	// }
 
 	protected OnClickListener closeClickListener = new OnClickListener() {
 
@@ -185,59 +154,16 @@ public class CarListActivity extends Activity {
 
 		@Override
 		protected String[] doInBackground(Void... arg0) {
-			//String url = GlobalData.getBaseUrl() + "/cars/all/car_list.json";
+			// String url = GlobalData.getBaseUrl() + "/cars/all/car_list.json";
 			System.out.println("background");
 			if (httpCache.containsKey(carListUrl)) {
 				httpCache.clear();
 				// httpCache.
 			}
-			getCacheData();
+			getData();
 			return null;
 		}
-	}
-	protected void getCacheData() {
-		//String url = GlobalData.getBaseUrl() + "/cars/list.json";
-		// httpCache.clear();
-		System.out.println(carListUrl);
-		httpCache.httpGet(carListUrl, new HttpCacheListener() {
-
-			protected void onPreGet() {
-				// do something like show progressBar before httpGet, runs on
-				// the UI thread
-				// progressBar.setVisibility(View.VISIBLE);
-			}
-
-			protected void onPostGet(HttpResponse httpResponse,
-					boolean isInCache) {
-				// do something like show data after httpGet, runs on the UI
-				// thread
-				// progressBar.setVisibility(View.GONE);
-				System.out.println("isincache:"+isInCache);
-				if (httpResponse != null) {
-					// get data success
-					// setText(httpResponse.getResponseBody());
-					//System.out.println("code:" + httpResponse.getResponseCode());
-					//System.out.println("body" + httpResponse.getResponseBody());
-					nodataLayout.setVisibility(View.GONE);
-					String result= httpResponse.getResponseBody();
-					Gson gson = new Gson();
-					carBrandListEntity = gson.fromJson(result, CarBrandListEntity.class);
-					carBrandEntities= carBrandListEntity.getBrands();
-					System.out.println("brand size:"+carBrandEntities.size());
-					System.out.println("name:"+carBrandEntities.get(0).getName());
-					Message message = new Message();
-					message.what = 1;
-					mHandler.sendMessage(message);
-
-				} else {
-					// get data fail
-					Toast toast = Toast.makeText(CarListActivity.this, "获取车型列表失败", Toast.LENGTH_SHORT);
-					toast.show();
-					nodataLayout.setVisibility(View.VISIBLE);
-				}
-			}
-		});
-	}
+	}	
 
 	protected OnItemClickListener carBrandListener = new OnItemClickListener() {
 
@@ -275,12 +201,26 @@ public class CarListActivity extends Activity {
 			// toggle = 0;
 			// }
 			brandPosition = position;
-			carExpandableListAdapter.updateList(carBrandEntities.get(position)
-					.getMakers());
+			try {
+				getChildData(brandPosition);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("maker size:"+makerEntities.size());
+			carExpandableListAdapter.updateList(makerEntities);
 			carExpandedView.setVisibility(View.VISIBLE);
 			currentBrandLayout.setVisibility(View.VISIBLE);
-			currentBrandNameTextView.setText(carBrandEntities.get(position).getName());
+			currentBrandNameTextView.setText(carBrandEntities.get(position)
+					.getName());
 			pullToRefreshView.setVisibility(View.GONE);
+//			carExpandableListAdapter.updateList(carBrandEntities.get(position)
+//					.getMakers());
+//			carExpandedView.setVisibility(View.VISIBLE);
+//			currentBrandLayout.setVisibility(View.VISIBLE);
+//			currentBrandNameTextView.setText(carBrandEntities.get(position)
+//					.getName());
+//			pullToRefreshView.setVisibility(View.GONE);
 
 		}
 	};
@@ -290,12 +230,19 @@ public class CarListActivity extends Activity {
 		public boolean onChildClick(ExpandableListView parent, View v,
 				int groupPosition, int childPosition, long id) {
 			// TODO Auto-generated method stub
-			CarTypeEntity carTypeEntity = carBrandEntities.get(brandPosition).getMakers().get(groupPosition).getModels().get(childPosition);
+//			CarModelEntity carTypeEntity = carBrandEntities.get(brandPosition)
+//					.getMakers().get(groupPosition).getModels()
+//					.get(childPosition);
+			System.out.println("maker size:"+makerEntities.size());
+			System.out.println("group position:"+groupPosition);
+			System.out.println("model size:"+makerEntities.get(groupPosition).getModels().size());
+			System.out.println("child position:"+childPosition);
 			Intent intent = new Intent();
 			intent.setClass(CarListActivity.this, CarDetailActivity.class);
-			intent.putExtra("model", new Gson().toJson(carTypeEntity));
-			//intent.putExtra("name", car);
-			//intent.putExtra("id", new Gson().toJson(carTypeEntity));
+			intent.putExtra("model_id", makerEntities.get(groupPosition).getModels().get(childPosition).getId());
+			//intent.putExtra("model", new Gson().toJson(carTypeEntity));
+			// intent.putExtra("name", car);
+			// intent.putExtra("id", new Gson().toJson(carTypeEntity));
 			startActivity(intent);
 			return false;
 		}
@@ -306,13 +253,176 @@ public class CarListActivity extends Activity {
 			switch (msg.what) {
 			case 1:
 				// updateTitle();
-				//carBrandListAdapter.notifyDataSetChanged();
+				// carBrandListAdapter.notifyDataSetChanged();
 				carBrandListAdapter.updateList(carBrandEntities);
+				try {
+					writeCacheData();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			}
 		};
 	};
 
+	
+
+	private void getCachedData() {
+		DatabaseHelperBrand helper = DatabaseHelperBrand.getHelper(this);
+		try {
+			List<CarBrandEntity> nums = helper.getDao().queryForAll();
+			if (nums == null || nums.size() == 0) {
+				System.out.println("not cached");
+				getData();
+			} else {
+				System.out.println("cached");
+				carBrandEntities = nums;
+				carBrandListAdapter.updateList(carBrandEntities);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	protected void getData() {
+		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
+		// httpCache.clear();
+		System.out.println(carListUrl);
+		httpCache.httpGet(carListUrl, new HttpCacheListener() {
+
+			protected void onPreGet() {
+				// do something like show progressBar before httpGet, runs on
+				// the UI thread
+				// progressBar.setVisibility(View.VISIBLE);
+			}
+
+			protected void onPostGet(HttpResponse httpResponse,
+					boolean isInCache) {
+				// do something like show data after httpGet, runs on the UI
+				// thread
+				// progressBar.setVisibility(View.GONE);
+				System.out.println("isincache:" + isInCache);
+				if (httpResponse != null) {
+					// get data success
+					// setText(httpResponse.getResponseBody());
+					// System.out.println("code:" +
+					// httpResponse.getResponseCode());
+					// System.out.println("body" +
+					// httpResponse.getResponseBody());
+					nodataLayout.setVisibility(View.GONE);
+					String result = httpResponse.getResponseBody();
+					Gson gson = new Gson();
+					carBrandListEntity = gson.fromJson(result,
+							CarBrandListEntity.class);
+					carBrandEntities = carBrandListEntity.getBrands();
+					try {
+						writeCacheData();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("brand size:" + carBrandEntities.size());
+					System.out.println("name:"
+							+ carBrandEntities.get(0).getName());
+					Message message = new Message();
+					message.what = 1;
+					mHandler.sendMessage(message);
+
+				} else {
+					// get data fail
+					Toast toast = Toast.makeText(CarListActivity.this,
+							"获取车型列表失败", Toast.LENGTH_SHORT);
+					toast.show();
+					nodataLayout.setVisibility(View.VISIBLE);
+				}
+			}
+		});
+	}
+	
+	private void getChildData(int n) throws SQLException {
+		DatabaseHelperMaker helperMaker = DatabaseHelperMaker.getHelper(this);
+		CarBrandEntity brandEntity = carBrandEntities.get(n);
+		System.out.println("brand_id:"+brandEntity.getId());
+		List<CarMakerEntity> tmp = helperMaker.getDao().queryBuilder().query();
+		System.out.println("tmp size:"+tmp.size());
+		for(int m=0;m<tmp.size();m++){
+			System.out.println("tmp "+tmp.get(m).getBrand_id()+":"+tmp.get(m).getId());
+		}
+		makerEntities = helperMaker.getDao().queryBuilder().where()
+				.eq("brand_id", brandEntity.getId()).query();
+		for(int i=0;i<makerEntities.size();i++){
+			DatabaseHelperModel helperModel = DatabaseHelperModel
+					.getHelper(this);
+			List<CarModelEntity> modelEntities=helperModel.getDao().queryBuilder().where()
+			.eq("maker_id", makerEntities.get(i).getId()).query();
+			System.out.println("modle pic:"+modelEntities.get(0).getPic_url());
+			makerEntities.get(i).setModels(modelEntities);
+		}
+
+	}
+	private void writeCacheData() throws SQLException {
+		List<CarBrandEntity> tmpBrandEntities = carBrandListEntity.getBrands();
+		// DatabaseHelperBrand
+		DatabaseHelperBrand helperBrand = DatabaseHelperBrand.getHelper(this);
+		for (int i = 0; i < tmpBrandEntities.size(); i++) {
+			CarBrandEntity brandEntity = tmpBrandEntities.get(i);
+			try {
+				helperBrand.getDao().createOrUpdate(brandEntity);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			List<CarMakerEntity> tmpManufactorEntities = brandEntity
+					.getMakers();
+			System.out.println("tmp maker size:"+tmpManufactorEntities);
+			DatabaseHelperMaker helperMaker = DatabaseHelperMaker
+					.getHelper(this);
+			for (int j = 0; j < tmpManufactorEntities.size(); j++) {
+				CarMakerEntity makerEntity = tmpManufactorEntities.get(j);
+				makerEntity.setBrand_id(brandEntity.getId());
+				System.out.println("tmp maker :"+makerEntity.getId()+":"+makerEntity.getName());
+				try {
+					helperMaker.getDao().createOrUpdate(makerEntity);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				List<CarModelEntity> tmpModelEntities = makerEntity.getModels();
+				DatabaseHelperModel helperModel = DatabaseHelperModel
+						.getHelper(this);
+				for (int k = 0; k < tmpModelEntities.size(); k++) {
+					CarModelEntity modelEntity = tmpModelEntities.get(k);
+					modelEntity.setMaker_id(makerEntity.getId());
+					try {
+						helperModel.getDao().createOrUpdate(modelEntity);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					List<CarTrimEntity> tmpTrimEntities = modelEntity
+							.getTrims();
+					DatabaseHelperTrim helperTrim = DatabaseHelperTrim
+							.getHelper(this);
+					for (int m = 0; m < tmpTrimEntities.size(); m++) {
+						CarTrimEntity trimEntity = tmpTrimEntities.get(m);
+						trimEntity.setModel_id(modelEntity.getId());
+						helperTrim.getDao().createOrUpdate(trimEntity);
+					}
+					List<CarColorEntity> tmpColorEntities = modelEntity
+							.getColors();
+					DatabaseHelperColor helperColor = DatabaseHelperColor
+							.getHelper(this);
+					for (int m = 0; m < tmpColorEntities.size(); m++) {
+						CarColorEntity colorEntity = tmpColorEntities.get(m);
+						colorEntity.setModel_id(modelEntity.getId());
+						helperColor.getDao().createOrUpdate(colorEntity);
+					}
+				}
+			}
+		}
+	}
 	public void exitClick(View view) {
 		finish();
 	}

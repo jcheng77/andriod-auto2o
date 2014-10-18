@@ -43,6 +43,27 @@
             android:layout_toRightOf="@id/trim_previous_item" >
 
             <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:id="@+id/guide_price_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="指导价" />
+
+                <TextView
+                    android:id="@+id/trim_guidePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30万" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_toLeftOf="@id/guide_price_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -60,23 +81,6 @@
                     android:text="CVT 无级变速" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="指导价" />
-
-                <TextView
-                    android:id="@+id/trim_guidePrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="30万" />
-            </LinearLayout>
         </RelativeLayout>
 
         

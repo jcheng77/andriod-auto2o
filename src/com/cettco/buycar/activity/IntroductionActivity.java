@@ -3,7 +3,7 @@ package com.cettco.buycar.activity;
 import java.util.ArrayList;
 
 import com.cettco.buycar.R;
-import com.cettco.buycar.adapter.CarTypeViewPagerAdapter;
+import com.cettco.buycar.adapter.CarTrimViewPagerAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -46,7 +46,7 @@ public class IntroductionActivity extends Activity{
 		enterButton.setVisibility(View.VISIBLE);
 		enterButton.setOnClickListener(enterClickListener);
 		pagerList.add(view);
-		CarTypeViewPagerAdapter carTypeViewPagerAdapter = new CarTypeViewPagerAdapter(
+		CarTrimViewPagerAdapter carTypeViewPagerAdapter = new CarTrimViewPagerAdapter(
 				pagerList);
 		viewPager.setAdapter(carTypeViewPagerAdapter);
 	}

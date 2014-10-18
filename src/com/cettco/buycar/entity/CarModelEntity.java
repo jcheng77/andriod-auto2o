@@ -2,12 +2,22 @@ package com.cettco.buycar.entity;
 
 import java.util.ArrayList;
 
-public class CarTypeEntity {
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "models")
+public class CarModelEntity {
+	@DatabaseField
+	private String maker_id;
+	@DatabaseField
 	private String name;
+	@DatabaseField
 	private String pic_url;
-	private ArrayList<TrimEntity> trims;
+	private ArrayList<CarTrimEntity> trims;
 	private ArrayList<CarColorEntity> colors;
+	@DatabaseField(id=true)
 	private String id;
+
 	public String getId() {
 		return id;
 	}
@@ -16,14 +26,11 @@ public class CarTypeEntity {
 		this.id = id;
 	}
 
-	
-
-
-	public ArrayList<TrimEntity> getTrims() {
+	public ArrayList<CarTrimEntity> getTrims() {
 		return trims;
 	}
 
-	public void setTrims(ArrayList<TrimEntity> trims) {
+	public void setTrims(ArrayList<CarTrimEntity> trims) {
 		this.trims = trims;
 	}
 
@@ -50,6 +57,13 @@ public class CarTypeEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public String getMaker_id() {
+		return maker_id;
+	}
+
+	public void setMaker_id(String maker_id) {
+		this.maker_id = maker_id;
+	}
 
 }

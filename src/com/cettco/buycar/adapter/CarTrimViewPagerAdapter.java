@@ -6,10 +6,10 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CarTypeViewPagerAdapter extends PagerAdapter{  
+public class CarTrimViewPagerAdapter extends PagerAdapter{  
     private List<View> mListViews;  
       
-    public CarTypeViewPagerAdapter(List<View> mListViews) {  
+    public CarTrimViewPagerAdapter(List<View> mListViews) {  
         this.mListViews = mListViews;
     }  
 

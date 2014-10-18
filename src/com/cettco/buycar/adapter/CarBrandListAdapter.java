@@ -17,7 +17,7 @@ public class CarBrandListAdapter extends ArrayAdapter<CarBrandEntity>{
 	private Context context;
 	private List<CarBrandEntity> carBrandList;
 	public CarBrandListAdapter(Context context, int resource,
-			ArrayList<CarBrandEntity> carBrandList) {
+			List<CarBrandEntity> carBrandList) {
 		super(context, resource, carBrandList);
 		// TODO Auto-generated constructor stub
 		this.context = context;

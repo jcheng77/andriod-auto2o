@@ -32,17 +32,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cettco.buycar.R;
-import com.cettco.buycar.adapter.CarTypeViewPagerAdapter;
+import com.cettco.buycar.adapter.CarTrimViewPagerAdapter;
 import com.cettco.buycar.entity.CarColorListEntity;
-import com.cettco.buycar.entity.CarTypeEntity;
+import com.cettco.buycar.entity.CarModelEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.entity.Tender;
 import com.cettco.buycar.entity.TenderEntity;
-import com.cettco.buycar.entity.TrimEntity;
+import com.cettco.buycar.entity.CarTrimEntity;
 import com.cettco.buycar.utils.Data;
-import com.cettco.buycar.utils.DatabaseHelper;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.db.DatabaseHelperModel;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
+import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -59,8 +61,8 @@ public class CarDetailActivity extends Activity {
 
 	private ArrayList<View> pagerList;
 	private ViewPager viewPager;
-	private CarTypeEntity carTypeEntity;
-	private ArrayList<TrimEntity> trimList;
+	private CarModelEntity carTypeEntity;
+	private List<CarTrimEntity> trimList;
 	private ImageView carImageView;
 	private TextView titleTextView;
 	private LineChart mChart;
@@ -76,6 +78,8 @@ public class CarDetailActivity extends Activity {
 	private String trim;
 	private String id;
 	private String name;
+	
+	private String model_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +100,28 @@ public class CarDetailActivity extends Activity {
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText("选择车型");
 		carImageView = (ImageView)findViewById(R.id.carDetail_img);
-		carTypeEntity = new Gson().fromJson(getIntent().getStringExtra("model"), CarTypeEntity.class);
-		trimList = carTypeEntity.getTrims();
+//		carTypeEntity = new Gson().fromJson(getIntent().getStringExtra("model"), CarModelEntity.class);
+//		trimList = carTypeEntity.getTrims();
+		
+		model_id=getIntent().getStringExtra("model_id");
+		DatabaseHelperModel helperModel = DatabaseHelperModel
+				.getHelper(this);
+		try {
+			carTypeEntity=helperModel.getDao().queryBuilder().where()
+			.eq("id",model_id ).queryForFirst();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DatabaseHelperTrim helperTrim = DatabaseHelperTrim
+				.getHelper(this);
+		try {
+			trimList = helperTrim.getDao().queryBuilder().where()
+					.eq("model_id",model_id ).query();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//carTypeEntity.get
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		pagerList = new ArrayList<View>();
@@ -126,7 +150,7 @@ public class CarDetailActivity extends Activity {
 		if(trimList.size()>0){
 			trim_id=trimList.get(0).getId();
 		}
-		CarTypeViewPagerAdapter carTypeViewPagerAdapter = new CarTypeViewPagerAdapter(
+		CarTrimViewPagerAdapter carTypeViewPagerAdapter = new CarTrimViewPagerAdapter(
 				pagerList);
 		viewPager.setAdapter(carTypeViewPagerAdapter);
 
@@ -354,14 +378,14 @@ public class CarDetailActivity extends Activity {
 		OrderItemEntity orderItemEntity = new OrderItemEntity();
 		orderItemEntity.setPic_url(carTypeEntity.getPic_url());
 		orderItemEntity.setTrim(trim);
-		DatabaseHelper helper = DatabaseHelper.getHelper(CarDetailActivity.this);
+		DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(this);
 		try {
-			int nums = (int) helper.getOrderDao().queryBuilder().where().eq("name", carTypeEntity.getName()).countOf();
+			int nums = (int) helper.getDao().queryBuilder().where().eq("name", carTypeEntity.getName()).countOf();
 			if(nums==0)
-				helper.getOrderDao().create(orderItemEntity);
+				helper.getDao().create(orderItemEntity);
 			else {
-				helper.getOrderDao().create(orderItemEntity);
-				UpdateBuilder<OrderItemEntity, Integer> updateBuilder = helper.getOrderDao().updateBuilder();
+				helper.getDao().create(orderItemEntity);
+				UpdateBuilder<OrderItemEntity, Integer> updateBuilder = helper.getDao().updateBuilder();
 				// set the criteria like you would a QueryBuilder
 				updateBuilder.where().eq("name", carTypeEntity.getName());
 				// update the value of your field(s)
@@ -379,5 +403,16 @@ public class CarDetailActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		updateDatabase();
+	}
+	private void test() throws SQLException{
+		String model_id="";
+		DatabaseHelperTrim helperTrim = DatabaseHelperTrim
+				.getHelper(this);
+		trimList=helperTrim.getDao().queryBuilder().where().eq("model_id", model_id).query();
+		
+		//write data
+		DatabaseHelperModel helperModel = DatabaseHelperModel
+				.getHelper(this);
+		CarModelEntity modelEntity = helperModel.getDao().queryBuilder().where().eq("id", model_id).queryForFirst();
 	}
 }

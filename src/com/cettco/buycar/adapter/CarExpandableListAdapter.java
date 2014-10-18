@@ -3,8 +3,8 @@ package com.cettco.buycar.adapter;
 import java.util.List;
 
 import com.cettco.buycar.R;
-import com.cettco.buycar.entity.CarManufactorEntity;
-import com.cettco.buycar.entity.CarTypeEntity;
+import com.cettco.buycar.entity.CarMakerEntity;
+import com.cettco.buycar.entity.CarModelEntity;
 import com.cettco.buycar.utils.Data;
 
 import android.content.Context;
@@ -18,15 +18,15 @@ import android.widget.TextView;
 public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
-	List<CarManufactorEntity> list;
+	List<CarMakerEntity> list;
 
 	public CarExpandableListAdapter(Context context,
-			List<CarManufactorEntity> list) {
+			List<CarMakerEntity> list) {
 		this.context = context;
 		this.list = list;
 	}
 
-	public void updateList(List<CarManufactorEntity> list) {
+	public void updateList(List<CarMakerEntity> list) {
 		this.list = list;
 		notifyDataSetChanged();
 	}
@@ -49,7 +49,7 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		CarTypeEntity carTypeEntity = (CarTypeEntity) getChild(groupPosition, childPosition);
+		CarModelEntity carTypeEntity = (CarModelEntity) getChild(groupPosition, childPosition);
 		if(convertView==null){
 			LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.list_car_type, null);
@@ -57,6 +57,7 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 		TextView carTypetTextView = (TextView) convertView.findViewById(R.id.list_car_type_text);
 		carTypetTextView.setText(carTypeEntity.getName());
 		ImageView imageView = (ImageView)convertView.findViewById(R.id.list_car_type_img);
+		//System.out.println("img url:"+carTypeEntity.getPic_url());
 		Data.IMAGE_CACHE.get(carTypeEntity.getPic_url(), imageView);
 		return convertView;
 	}
@@ -91,7 +92,7 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int arg0, boolean arg1, View arg2, ViewGroup arg3) {
 		// TODO Auto-generated method stub
-		CarManufactorEntity carManufactorEntity = (CarManufactorEntity) getGroup(arg0);
+		CarMakerEntity carManufactorEntity = (CarMakerEntity) getGroup(arg0);
 		if (arg2 == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

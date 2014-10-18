@@ -1,8 +1,23 @@
 package com.cettco.buycar.entity;
 
-public class TrimEntity {
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "trims")
+public class CarTrimEntity {
+	@DatabaseField
+	private String model_id;
+	public String getModel_id() {
+		return model_id;
+	}
+	public void setModel_id(String model_id) {
+		this.model_id = model_id;
+	}
+	@DatabaseField
 	private String name;
+	@DatabaseField
 	private String guide_price;
+	@DatabaseField(id=true)
 	private String id;
 	public String getId() {
 		return id;
