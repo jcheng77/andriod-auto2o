@@ -45,7 +45,7 @@ public class SelectDealerActivity extends Activity{
 			DealerEntity dealerEntity = new DealerEntity();
 			dealerList.add(dealerEntity);
 		}
-		dealerListAdapter = new SelectShopAdapter(this, R.layout.selectshop_item,
+		dealerListAdapter = new SelectShopAdapter(this, R.layout.item_selectshop,
 				dealerList);
 		listView.setAdapter(dealerListAdapter);
 		listView.setOnItemClickListener(dealerListClickListener);

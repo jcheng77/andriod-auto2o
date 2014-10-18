@@ -53,7 +53,7 @@ public class SelectShopAdapter extends ArrayAdapter<DealerEntity>{
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.selectshop_item, parent,
+		View rowView = inflater.inflate(R.layout.item_selectshop, parent,
 				false);
 		return rowView;
 		//return super.getView(position, convertView, parent);

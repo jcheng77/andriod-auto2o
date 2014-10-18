@@ -43,7 +43,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity>{
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.my_order_item, parent,
+		View rowView = inflater.inflate(R.layout.item_my_order, parent,
 				false);
 		OrderItemEntity entity = list.get(position);
 		TextView modeltextView = (TextView)rowView.findViewById(R.id.my_order_model_textview);

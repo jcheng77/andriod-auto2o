@@ -73,6 +73,6 @@
         </LinearLayout>
         
     </LinearLayout>
-    <include layout="@layout/progressbar_item"/>
+    <include layout="@layout/item_progressbar"/>
 
 </RelativeLayout>

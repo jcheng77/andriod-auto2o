@@ -106,7 +106,7 @@ public class MyCarFragment extends Fragment {
 		 OrderItemEntity entity = new OrderItemEntity();
 		 list.add(entity);
 		 }
-		adapter = new MyOrderAdapter(getActivity(), R.layout.my_order_item,
+		adapter = new MyOrderAdapter(getActivity(), R.layout.item_my_order,
 				list);
 		listView.setAdapter(adapter);
 		adapter.updateList(list);

@@ -67,7 +67,7 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 			holder = new ViewHolder();
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.dealer_item, parent,
+			convertView = inflater.inflate(R.layout.item_dealer, parent,
 					false);
 			holder.viewcommentLayout = (RelativeLayout)convertView.findViewById(R.id.dealer_view_comment_layout);
 			

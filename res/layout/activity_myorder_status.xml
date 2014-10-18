@@ -37,13 +37,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-            <include layout="@layout/order_status_item"/>
-            <include layout="@layout/order_status_item"/>
-            <include layout="@layout/order_status_item"/>
-            <include layout="@layout/order_status_item"/>
-            <include layout="@layout/order_status_item"/>
-            <include layout="@layout/order_status_item"/>
-            <include layout="@layout/order_status_item"/>
+            <include layout="@layout/item_order_status"/>
+            <include layout="@layout/item_order_status"/>
+            <include layout="@layout/item_order_status"/>
+            <include layout="@layout/item_order_status"/>
+            <include layout="@layout/item_order_status"/>
+            <include layout="@layout/item_order_status"/>
+            <include layout="@layout/item_order_status"/>
             
         </LinearLayout>
     </ScrollView>

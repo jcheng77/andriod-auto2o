@@ -59,7 +59,7 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 			holder = new ViewHolder();
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.carcolor_item, parent,
+			convertView = inflater.inflate(R.layout.item_color, parent,
 					false);
 			holder.imageView = (ImageView)convertView.findViewById(R.id.car_color_imageview);
 			holder.textView = (TextView)convertView.findViewById(R.id.car_color_text);
@@ -72,7 +72,7 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 		}
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.carcolor_item, parent,
+		View rowView = inflater.inflate(R.layout.item_color, parent,
 				false);
 		CarColorEntity carColorEntity = list.get(position);
 		holder.imageView.setBackgroundColor(Color.parseColor(carColorEntity.getCode()));

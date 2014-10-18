@@ -129,7 +129,7 @@ public class CarDetailActivity extends Activity {
 		
 		for (int i = 0; i < trimList.size(); i++) {
 			View view = inflater
-					.inflate(R.layout.car_type_selection_item, null);
+					.inflate(R.layout.item_trim, null);
 			view.getHeight();
 			ImageView preImageView = (ImageView)view.findViewById(R.id.trim_previous_item);
 			ImageView nextImageView = (ImageView)view.findViewById(R.id.trim_next_item);

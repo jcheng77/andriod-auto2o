@@ -42,21 +42,21 @@ public final class R {
 	public static final class id {
 		public static final int AlipayTitle = 0x7f0a00ce;
 		public static final int btn_refresh = 0x7f0a00cf;
-		public static final int dialog_button_group = 0x7f0a00e8;
-		public static final int dialog_content_view = 0x7f0a00e7;
-		public static final int dialog_divider = 0x7f0a00e5;
-		public static final int dialog_message = 0x7f0a00e6;
-		public static final int dialog_split_v = 0x7f0a00ea;
-		public static final int dialog_title = 0x7f0a00e4;
-		public static final int left_button = 0x7f0a00e9;
+		public static final int dialog_button_group = 0x7f0a00d4;
+		public static final int dialog_content_view = 0x7f0a00d3;
+		public static final int dialog_divider = 0x7f0a00d1;
+		public static final int dialog_message = 0x7f0a00d2;
+		public static final int dialog_split_v = 0x7f0a00d6;
+		public static final int dialog_title = 0x7f0a00d0;
+		public static final int left_button = 0x7f0a00d5;
 		public static final int mainView = 0x7f0a00cc;
-		public static final int right_button = 0x7f0a00eb;
+		public static final int right_button = 0x7f0a00d7;
 		public static final int webView = 0x7f0a00cd;
 	}
 	public static final class layout {
 		public static final int alipay = 0x7f030036;
 		public static final int alipay_title = 0x7f030037;
-		public static final int dialog_alert = 0x7f03003e;
+		public static final int dialog_alert = 0x7f030038;
 	}
 	public static final class string {
 		public static final int cancel = 0x7f08001e;

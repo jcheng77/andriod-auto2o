@@ -67,7 +67,7 @@ public class MyOrderStatusActivity extends Activity {
 			DealerEntity dealerEntity = new DealerEntity();
 			dealerList.add(dealerEntity);
 		}
-		dealerListAdapter = new SelectShopAdapter(this, R.layout.dealer_item,
+		dealerListAdapter = new SelectShopAdapter(this, R.layout.item_dealer,
 				dealerList);
 		dealerListView.setAdapter(dealerListAdapter);
 		dealerListView.setOnItemClickListener(dealerListClickListener);

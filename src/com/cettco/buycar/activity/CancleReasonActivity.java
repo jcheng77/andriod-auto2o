@@ -37,7 +37,7 @@ public class CancleReasonActivity extends Activity {
 		list.add("信息提交错误");
 		list.add("选择其他车型");
 		list.add("推迟购买计划");
-		adapter = new CancleReasonAdapter(this, R.layout.cancle_reason_item, list);
+		adapter = new CancleReasonAdapter(this, R.layout.item_cancle_reason, list);
 		
 		listView = (ListView)findViewById(R.id.cancleReason_listview);
 		listView.setAdapter(adapter);

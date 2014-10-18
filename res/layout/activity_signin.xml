@@ -120,6 +120,6 @@
         android:text="Sign Up"
         android:textSize="15sp" />
 
-    <include layout="@layout/progressbar_item"/>
+    <include layout="@layout/item_progressbar"/>
 
 </RelativeLayout>

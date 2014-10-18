@@ -58,7 +58,7 @@ public class DealerCommentActivity extends Activity{
         	listItems.add(entity);
         }
         System.out.println("list item size:"+listItems.size());
-        adapter = new DealerCommentAdapter(this, R.layout.dealer_comment_item, listItems);
+        adapter = new DealerCommentAdapter(this, R.layout.item_dealer_comment, listItems);
         listView.setAdapter(adapter);
 	}
 	 private class GetDataTask extends AsyncTask<Void, Void, String[]> {

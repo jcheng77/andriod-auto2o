@@ -59,7 +59,7 @@ public class CancleReasonAdapter extends ArrayAdapter<String> {
 			holder = new ViewHolder();
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.cancle_reason_item, parent,
+			convertView = inflater.inflate(R.layout.item_cancle_reason, parent,
 					false);
 			holder.textView = (TextView)convertView.findViewById(R.id.cancleReason_text);
 			convertView.setTag(holder);

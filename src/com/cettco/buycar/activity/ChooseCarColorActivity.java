@@ -47,7 +47,7 @@ public class ChooseCarColorActivity extends Activity{
 //			entity.setName("黄色");
 //			colorList.add(entity);
 //		}
-		mycarColorAdapter = new CarColorAdapter(this,R.layout.carcolor_item,colorList);
+		mycarColorAdapter = new CarColorAdapter(this,R.layout.item_color,colorList);
 		listView.setAdapter(mycarColorAdapter);
 		listView.setOnItemClickListener(listener);
 	}

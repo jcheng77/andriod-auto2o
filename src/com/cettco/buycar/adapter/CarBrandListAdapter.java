@@ -42,7 +42,7 @@ public class CarBrandListAdapter extends ArrayAdapter<CarBrandEntity>{
 			holder = new ViewHolder();
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.carbrandlist_item, parent,
+			convertView = inflater.inflate(R.layout.item_carbrandlist, parent,
 					false);
 			holder.textView = (TextView)convertView.findViewById(R.id.carBrandText);
 			convertView.setTag(holder);

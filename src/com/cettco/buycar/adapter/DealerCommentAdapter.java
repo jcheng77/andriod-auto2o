@@ -41,7 +41,7 @@ public class DealerCommentAdapter extends ArrayAdapter<DealerCommentEntity>{
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.dealer_comment_item, parent,
+		View rowView = inflater.inflate(R.layout.item_dealer_comment, parent,
 				false);
 		MarkView priceMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_price_markview);
 		priceMarkView.setLevel(3);

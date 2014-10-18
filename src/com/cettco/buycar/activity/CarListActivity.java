@@ -104,7 +104,7 @@ public class CarListActivity extends Activity {
 				});
 		carBrandListView = pullToRefreshView.getRefreshableView();
 		carBrandListAdapter = new CarBrandListAdapter(this,
-				R.layout.carbrandlist_item, carBrandEntities);
+				R.layout.item_carbrandlist, carBrandEntities);
 		carBrandListView.setAdapter(carBrandListAdapter);
 		carBrandListView.setOnItemClickListener(carBrandListener);
 

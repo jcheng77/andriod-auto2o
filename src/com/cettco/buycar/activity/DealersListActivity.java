@@ -87,7 +87,7 @@ public class DealersListActivity extends Activity {
 			listItems.add(entity);
 		}
 		System.out.println("list item size:" + listItems.size());
-		adapter = new DealerListAdapter(this, R.layout.dealer_item,
+		adapter = new DealerListAdapter(this, R.layout.item_dealer,
 				listItems);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listItemClickListener);
