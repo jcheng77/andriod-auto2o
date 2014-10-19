@@ -24,6 +24,7 @@ import cn.trinea.android.common.service.HttpCache;
 import cn.trinea.android.common.service.HttpCache.HttpCacheListener;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.activity.BargainActivity;
 import com.cettco.buycar.activity.CarDetailActivity;
 import com.cettco.buycar.activity.CarListActivity;
 import com.cettco.buycar.activity.MyOrderStatusActivity;
@@ -102,10 +103,10 @@ public class MyCarFragment extends Fragment {
 				});
 		listView = pullToRefreshView.getRefreshableView();
 		listView.setOnItemClickListener(itemClickListener);
-		 for(int i = 0;i<5;i++){
-		 OrderItemEntity entity = new OrderItemEntity();
-		 list.add(entity);
-		 }
+		for (int i = 0; i < 5; i++) {
+			OrderItemEntity entity = new OrderItemEntity();
+			list.add(entity);
+		}
 		adapter = new MyOrderAdapter(getActivity(), R.layout.item_my_order,
 				list);
 		listView.setAdapter(adapter);
@@ -124,17 +125,33 @@ public class MyCarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		System.out.println("onResume");
-		// pullToRefreshView.setRefreshing();
-		DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(getActivity());
-		try {
-			orderItems = helper.getDao().queryForAll();
-			adapter.updateList(orderItems);
-			System.out.println("order size:" + orderItems.size());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		getCachedData();
 
+	}
+	private void getCachedData(){
+		
+		DatabaseHelperOrder helper = DatabaseHelperOrder
+				.getHelper(getActivity());
+		if(UserUtil.isLogin(getActivity())){
+			try {
+				orderItems = helper.getDao().queryForAll();
+				adapter.updateList(orderItems);
+				System.out.println("order size:" + orderItems.size());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			try {
+				orderItems = helper.getDao().queryBuilder().where().eq("state", "viewed").or().eq("state", "bargain").query();
+				adapter.updateList(orderItems);
+				System.out.println("order size:" + orderItems.size());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	protected OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -146,11 +163,51 @@ public class MyCarFragment extends Fragment {
 			// System.out.println("size:");
 			// Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
 			int position = arg2 - 1;
-			//String state = orderItems.get(position).getState();
-			Intent intent = new Intent();
-			intent.setClass(MyCarFragment.this.getActivity(),
-					MyOrderStatusActivity.class);
-			startActivity(intent);
+			OrderItemEntity orderItemEntity =orderItems.get(position);
+			String state = orderItemEntity.getState();
+			if (state.equals("viewed")) {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						CarDetailActivity.class);
+				intent.putExtra("order_id", orderItemEntity.getOrder_id());
+				startActivity(intent);
+			} else if (state.equals("begain")) {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						BargainActivity.class);
+				intent.putExtra("order_id", orderItemEntity.getOrder_id());
+				startActivity(intent);
+
+			} else if (state.equals("determined")) {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						MyOrderStatusActivity.class);
+				startActivity(intent);
+
+			} else if (state.equals("qualified")) {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						MyOrderStatusActivity.class);
+				startActivity(intent);
+
+			} else if (state.equals("timeout")) {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						MyOrderStatusActivity.class);
+				startActivity(intent);
+
+			} else if (state.equals("sumbitted")) {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						MyOrderStatusActivity.class);
+				startActivity(intent);
+			}
+			else if (state.equals("final_deal_closed")) {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						MyOrderStatusActivity.class);
+				startActivity(intent);
+			}
 
 		}
 	};
