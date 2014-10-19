@@ -1,6 +1,7 @@
 package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,10 +16,12 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.entity.Bargain;
 import com.cettco.buycar.entity.BargainEntity;
 import com.cettco.buycar.entity.CarColorListEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.entity.Tender;
 import com.cettco.buycar.entity.TenderEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
@@ -78,6 +81,10 @@ public class BargainActivity extends Activity {
 	private int tender_id;
 	
 	private RelativeLayout progressLayout;
+	
+	private int order_id;
+	private String model_id;
+	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +93,16 @@ public class BargainActivity extends Activity {
 		setContentView(R.layout.activity_bargain);
 		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
 		//getActionBar().hide();
-		tender_id = getIntent().getIntExtra("tender_id", -1);
+		//tender_id = getIntent().getIntExtra("tender_id", -1);
+		order_id=getIntent().getIntExtra("order_id", -1);		
+		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
+		try {
+			orderItemEntity=orderHelper.getDao().queryBuilder().where().eq("order_id", order_id).queryForFirst();
+			model_id = orderItemEntity.getModel_id();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		getArray();
 //		agreementTextView = (TextView) findViewById(R.id.simple_agreement);
 //		String text = "<font color='black'>一口价购买方为我公司与4s经销商协议的特价购买通道，价格优势明显但是如果购车订单成功后任何一方违约则可能会涉及到违约金支付</font> <font color='red'>点击查看详情</font>";
@@ -337,6 +353,7 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, SelectCarColorActivity.class);
 			intent.putExtra("name", "选择颜色");
 			intent.putExtra("tag", 1);
+			intent.putExtra("model_id", model_id);
 			startActivityForResult(intent, 0);
 		}
 	};

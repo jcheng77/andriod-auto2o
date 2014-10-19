@@ -1,11 +1,14 @@
 package com.cettco.buycar.activity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarColorAdapter;
 import com.cettco.buycar.entity.CarColorEntity;
 import com.cettco.buycar.entity.CarColorListEntity;
+import com.cettco.buycar.utils.db.DatabaseHelperColor;
 import com.google.gson.Gson;
 
 import android.app.Activity;
@@ -21,12 +24,13 @@ import android.widget.TextView;
 
 public class SelectCarColorActivity extends Activity{
 	
-	private ArrayList<CarColorEntity> colorList;
+	private List<CarColorEntity> colorList;
 	private ListView listView;
 	private CarColorAdapter mycarColorAdapter;
 	private Intent intent;
 	private String name;
-	private int tag;
+	private String model_id;
+	//private int tag;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -36,10 +40,22 @@ public class SelectCarColorActivity extends Activity{
 		TextView titleTextView = (TextView)findViewById(R.id.title_text);
 		intent = getIntent();
 		name = intent.getStringExtra("name");
-		tag = intent.getIntExtra("tag",0);
+		model_id=intent.getStringExtra("model_id");
+		//System.out.println("model_id:"+model_id);
+		DatabaseHelperColor helperColor = DatabaseHelperColor
+				.getHelper(this);
+		try {
+			colorList = helperColor.getDao().queryBuilder().where().eq("model_id", model_id).query();
+			//System.out.println("color list size:"+colorList.size());
+			//System.out.println("color list 0:"+colorList.get(0).getCode());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//tag = intent.getIntExtra("tag",0);
 		titleTextView.setText(name);
 		listView = (ListView)findViewById(R.id.selectshop_listview);	
-		colorList = new Gson().fromJson(intent.getStringExtra("color"), CarColorListEntity.class).getColors();
+		//colorList = new Gson().fromJson(intent.getStringExtra("color"), CarColorListEntity.class).getColors();
 //		for(int i= 0;i<colorList.size();i++)
 //		{
 //			CarColorEntity entity = new CarColorEntity();

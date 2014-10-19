@@ -81,7 +81,7 @@ public class CarDetailActivity extends Activity {
 	
 	private String model_id;
 	private int order_id;
-	OrderItemEntity orderItemEntity = new OrderItemEntity();
+	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -48,7 +48,7 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return list.size();
+		return list==null?0:list.size();
 	}
 
 	@Override
@@ -70,14 +70,14 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 		}else {
 			holder = (ViewHolder) convertView.getTag(); 
 		}
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.item_color, parent,
-				false);
+//		LayoutInflater inflater = (LayoutInflater) context
+//				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//		View rowView = inflater.inflate(R.layout.item_color, parent,
+//				false);
 		CarColorEntity carColorEntity = list.get(position);
 		holder.imageView.setBackgroundColor(Color.parseColor(carColorEntity.getCode()));
 		holder.textView.setText(carColorEntity.getName());
-		return rowView;
+		return convertView;
 	}
 	private static class ViewHolder
     {
