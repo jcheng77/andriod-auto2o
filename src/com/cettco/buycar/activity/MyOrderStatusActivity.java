@@ -34,7 +34,6 @@ import android.widget.ListView;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.SelectShopAdapter;
 import com.cettco.buycar.entity.DealerEntity;
-import com.cettco.buycar.entity.MyOrderEntity;
 import com.cettco.buycar.entity.User;
 import com.cettco.buycar.entity.UserEntity;
 import com.cettco.buycar.utils.GlobalData;

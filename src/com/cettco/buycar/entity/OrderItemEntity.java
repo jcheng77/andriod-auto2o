@@ -10,7 +10,7 @@ public class OrderItemEntity {
 	@DatabaseField
 	private String id;
 	@DatabaseField
-	private String model;
+	private String model_id;
 	@DatabaseField
 	private String name;
 	@DatabaseField
@@ -73,11 +73,11 @@ public class OrderItemEntity {
 	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
-	public String getModel() {
-		return model;
+	public String getModel_id() {
+		return model_id;
 	}
-	public void setModel(String model) {
-		this.model = model;
+	public void setModel_id(String model_id) {
+		this.model_id = model_id;
 	}
 	public String getState() {
 		return state;

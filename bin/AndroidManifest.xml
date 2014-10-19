@@ -156,17 +156,17 @@
         </activity>
         <activity android:name="com.cettco.buycar.activity.SelectCarTypeActivity" >
         </activity>
-        <activity android:name="com.cettco.buycar.activity.SubmitOrderActivity" >
+        <activity android:name="com.cettco.buycar.activity.StartBargainActivity" >
         </activity>
         <activity android:name="com.cettco.buycar.activity.MyBaseListActivity" >
         </activity>
-        <activity android:name="com.cettco.buycar.activity.ChooseCarColorActivity" >
+        <activity android:name="com.cettco.buycar.activity.SelectCarColorActivity" >
         </activity>
         <activity android:name="com.cettco.buycar.activity.MyOrderStatusActivity" >
         </activity>
         <activity android:name="com.cettco.buycar.activity.BargainActivity" >
         </activity>
-        <activity android:name="com.cettco.buycar.activity.BargainColorActivity" >
+        <activity android:name="com.cettco.buycar.activity.SelectColorActivity" >
         </activity>
         <activity android:name="com.cettco.buycar.activity.DealerDetailActivity" >
         </activity>

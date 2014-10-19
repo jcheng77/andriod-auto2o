@@ -334,7 +334,7 @@ public class BargainActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(BargainActivity.this, ChooseCarColorActivity.class);
+			intent.setClass(BargainActivity.this, SelectCarColorActivity.class);
 			intent.putExtra("name", "选择颜色");
 			intent.putExtra("tag", 1);
 			startActivityForResult(intent, 0);

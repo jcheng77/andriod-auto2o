@@ -17,11 +17,13 @@ import com.cettco.buycar.entity.CarColorEntity;
 import com.cettco.buycar.entity.CarMakerEntity;
 import com.cettco.buycar.entity.CarModelEntity;
 import com.cettco.buycar.entity.CarTrimEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.db.DatabaseHelperBrand;
 import com.cettco.buycar.utils.db.DatabaseHelperColor;
 import com.cettco.buycar.utils.db.DatabaseHelperMaker;
 import com.cettco.buycar.utils.db.DatabaseHelperModel;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -67,7 +69,6 @@ public class CarListActivity extends Activity {
 	private TextView currentBrandNameTextView;
 	private CarBrandListEntity carBrandListEntity = new CarBrandListEntity();
 	private int brandPosition = 0;
-
 	private List<CarMakerEntity> makerEntities;
 
 	@Override
@@ -237,9 +238,24 @@ public class CarListActivity extends Activity {
 			System.out.println("group position:"+groupPosition);
 			System.out.println("model size:"+makerEntities.get(groupPosition).getModels().size());
 			System.out.println("child position:"+childPosition);
+			CarModelEntity modelEntity = makerEntities.get(groupPosition).getModels().get(childPosition);
+			OrderItemEntity orderItemEntity = new OrderItemEntity();
+			orderItemEntity.setPic_url(modelEntity.getPic_url());
+			orderItemEntity.setState("viewed");
+			orderItemEntity.setModel_id(modelEntity.getId());
+			//orderItemEntity.setTrim(trim);
+			DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(CarListActivity.this);
+			try {
+				int i=helper.getDao().create(orderItemEntity);
+				System.out.println("i is:"+i);
+				System.out.println("primary id:"+orderItemEntity.getOrder_id());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Intent intent = new Intent();
 			intent.setClass(CarListActivity.this, CarDetailActivity.class);
-			intent.putExtra("model_id", makerEntities.get(groupPosition).getModels().get(childPosition).getId());
+			intent.putExtra("order_id", orderItemEntity.getOrder_id());
 			//intent.putExtra("model", new Gson().toJson(carTypeEntity));
 			// intent.putExtra("name", car);
 			// intent.putExtra("id", new Gson().toJson(carTypeEntity));

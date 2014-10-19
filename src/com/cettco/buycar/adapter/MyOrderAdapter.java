@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cettco.buycar.R;
-import com.cettco.buycar.entity.MyOrderEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.utils.Data;
