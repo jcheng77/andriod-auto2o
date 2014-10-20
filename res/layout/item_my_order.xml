@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/my_order_status_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/order_status"

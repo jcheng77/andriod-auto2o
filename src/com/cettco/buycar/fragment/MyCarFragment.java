@@ -143,7 +143,7 @@ public class MyCarFragment extends Fragment {
 			}
 		}else{
 			try {
-				orderItems = helper.getDao().queryBuilder().where().eq("state", "viewed").or().eq("state", "bargain").query();
+				orderItems = helper.getDao().queryBuilder().where().eq("state", "viewed").or().eq("state", "begain").query();
 				adapter.updateList(orderItems);
 				System.out.println("order size:" + orderItems.size());
 			} catch (SQLException e) {

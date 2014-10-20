@@ -81,7 +81,7 @@ public class CarDetailActivity extends Activity {
 	
 	private String model_id;
 	private int order_id;
-	private OrderItemEntity orderItemEntity = new OrderItemEntity();
+	private OrderItemEntity orderItemEntity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -372,7 +372,7 @@ public class CarDetailActivity extends Activity {
 			orderItemEntity.setState("begain");
 			DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(CarDetailActivity.this);
 			try {
-				helper.getDao().create(orderItemEntity);
+				helper.getDao().update(orderItemEntity);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
