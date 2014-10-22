@@ -439,6 +439,7 @@ public class CarListActivity extends Activity {
 			}
 		}
 	}
+
 	public void exitClick(View view) {
 		finish();
 	}

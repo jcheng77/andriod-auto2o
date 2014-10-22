@@ -125,14 +125,16 @@ public class MyCarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		System.out.println("onResume");
+		pullToRefreshView.setRefreshing(true);
 		getCachedData();
 
 	}
-	private void getCachedData(){
-		
+
+	private void getCachedData() {
+
 		DatabaseHelperOrder helper = DatabaseHelperOrder
 				.getHelper(getActivity());
-		if(UserUtil.isLogin(getActivity())){
+		if (UserUtil.isLogin(getActivity())) {
 			try {
 				orderItems = helper.getDao().queryForAll();
 				adapter.updateList(orderItems);
@@ -141,9 +143,11 @@ public class MyCarFragment extends Fragment {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			try {
-				orderItems = helper.getDao().queryBuilder().where().eq("state", "viewed").or().eq("state", "begain").query();
+				orderItems = helper.getDao().queryBuilder().where()
+						.eq("state", "viewed").or().eq("state", "begain")
+						.query();
 				adapter.updateList(orderItems);
 				System.out.println("order size:" + orderItems.size());
 			} catch (SQLException e) {
@@ -151,7 +155,28 @@ public class MyCarFragment extends Fragment {
 				e.printStackTrace();
 			}
 		}
-		
+
+	}
+
+	private void updateDB() {
+		DatabaseHelperOrder helper = DatabaseHelperOrder
+				.getHelper(getActivity());
+		for (int i = 0; i < list.size(); i++) {
+			OrderItemEntity entity = list.get(i);
+			try {
+				OrderItemEntity tmp = helper.getDao().queryBuilder().where()
+						.eq("id",entity.getId()).queryForFirst();
+				if (tmp != null) {
+					tmp.setState(entity.getState());
+				} else {
+					helper.getDao().create(entity);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//getCachedData();
 	}
 
 	protected OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -163,7 +188,7 @@ public class MyCarFragment extends Fragment {
 			// System.out.println("size:");
 			// Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
 			int position = arg2 - 1;
-			OrderItemEntity orderItemEntity =orderItems.get(position);
+			OrderItemEntity orderItemEntity = orderItems.get(position);
 			String state = orderItemEntity.getState();
 			if (state.equals("viewed")) {
 				Intent intent = new Intent();
@@ -201,8 +226,7 @@ public class MyCarFragment extends Fragment {
 				intent.setClass(MyCarFragment.this.getActivity(),
 						MyOrderStatusActivity.class);
 				startActivity(intent);
-			}
-			else if (state.equals("final_deal_closed")) {
+			} else if (state.equals("final_deal_closed")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
 						MyOrderStatusActivity.class);
@@ -211,37 +235,6 @@ public class MyCarFragment extends Fragment {
 
 		}
 	};
-
-	// private OnClickListener currentClickListener = new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// // TODO Auto-generated method stub
-	// currentButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
-	// currentButton.setTextColor(getResources().getColor(R.color.white));
-	//
-	// historyButton.setBackgroundResource(R.drawable.my_order_btn_style);
-	// historyButton.setTextColor(getResources().getColor(R.color.blue));
-	//
-	// //pullToRefreshView.st
-	// pullToRefreshView.setRefreshing();
-	//
-	// }
-	// };
-	// private OnClickListener historyClickListener = new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// // TODO Auto-generated method stub
-	// historyButton.setBackgroundResource(R.drawable.my_order_selected_btn_style);
-	// historyButton.setTextColor(getResources().getColor(R.color.white));
-	//
-	// currentButton.setBackgroundResource(R.drawable.my_order_btn_style);
-	// currentButton.setTextColor(getResources().getColor(R.color.blue));
-	//
-	// pullToRefreshView.setRefreshing();
-	// }
-	// };
 	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 		@Override
 		protected void onPostExecute(String[] result) {
@@ -252,69 +245,18 @@ public class MyCarFragment extends Fragment {
 
 		@Override
 		protected String[] doInBackground(Void... arg0) {
+			System.out.println("begin 0");
 			getData();
+			System.out.println("begin 1");
 			return null;
 		}
 	}
-
 	private void getData() {
-		// String url=GlobalData.getBaseUrl()+"/tenders.json";
-		// Gson gson = new Gson();
-		// StringEntity entity = null;
-		// try {
-		// System.out.println(gson.toJson(userEntity).toString());
-		// entity = new StringEntity(gson.toJson(userEntity).toString());
-		// } catch (UnsupportedEncodingException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// SyncHttpConnection.getClient().addHeader("Cookie",
-		// cookieName+"="+cookieStr);
-		// SyncHttpConnection.get(url,new JsonHttpResponseHandler(){
-		//
-		// @Override
-		// public void onFailure(int statusCode, Header[] headers,
-		// Throwable throwable, JSONObject errorResponse) {
-		// // TODO Auto-generated method stub
-		// super.onFailure(statusCode, headers, throwable, errorResponse);
-		// //progressLayout.setVisibility(View.GONE);
-		// System.out.println("error");
-		// System.out.println("statusCode:"+statusCode);
-		// System.out.println("headers:"+headers);
-		// for(int i = 0;i<headers.length;i++){
-		// System.out.println(headers[i]);
-		// }
-		// System.out.println("response:"+errorResponse);
-		// Message message = new Message();
-		// message.what = 2;
-		// mHandler.sendMessage(message);
-		//
-		// }
-		//
-		// @Override
-		// public void onSuccess(int statusCode, Header[] headers,
-		// JSONObject response) {
-		// // TODO Auto-generated method stub
-		// super.onSuccess(statusCode, headers, response);
-		// System.out.println("success");
-		// System.out.println("statusCode:"+statusCode);
-		// System.out.println("headers:"+headers);
-		// System.out.println("response:"+response);
-		// //progressLayout.setVisibility(View.GONE);
-		// //UserUtil.login(SignInActivity.this);
-		//
-		// }
-		//
-		// });
+		System.out.println("begin");
 		String cookieStr = null;
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
 				getActivity());
-		if (myCookieStore == null) {
-			System.out.println("cookie store null");
-			return;
-		}
 		List<Cookie> cookies = myCookieStore.getCookies();
 		for (Cookie cookie : cookies) {
 			String name = cookie.getName();
@@ -353,6 +295,7 @@ public class MyCarFragment extends Fragment {
 					System.out.println(list.get(i).getId());
 					System.out.println(list.get(i).getState());
 				}
+				updateDB();
 				Message message = new Message();
 				message.what = 1;
 				mHandler.sendMessage(message);
@@ -377,7 +320,8 @@ public class MyCarFragment extends Fragment {
 			switch (msg.what) {
 			case 1:
 				// updateTitle();
-				adapter.updateList(list);
+				//adapter.updateList(list);
+				getCachedData();
 				break;
 			case 2:
 				Toast toast = Toast.makeText(getActivity(), "获取订单失败",
