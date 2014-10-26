@@ -2,6 +2,7 @@ package com.cettco.buycar.activity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.cettco.buycar.R;
@@ -88,10 +89,17 @@ public class SelectCarColorActivity extends Activity{
 	}
 	public void exitClick(View view){
 		//intent.putExtra("result", position);
-		int size = mycarColorAdapter.getIsSelected().size();
-		for(int i = 0;i<size;i++){
-			mycarColorAdapter.getIsSelected().get(i);
+		StringBuffer buffer = new StringBuffer();
+		Iterator<Integer> iter = mycarColorAdapter.getIsSelected().keySet().iterator();
+		while (iter.hasNext()) {  
+		    Integer key = iter.next();  
+		    Boolean value = mycarColorAdapter.getIsSelected().get(key);
+		    if(value==true) buffer.append(colorList.get(key).getId()+",");
 		}
+		if (buffer!=null&&buffer.length()>0) {
+			buffer.deleteCharAt(buffer.length()-1);
+		}
+		intent.putExtra("colors", buffer.toString());
 		setResult(RESULT_OK, intent);
 		this.finish();
 	}

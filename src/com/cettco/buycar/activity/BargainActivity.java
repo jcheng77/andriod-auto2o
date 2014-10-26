@@ -4,7 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Header;
 import org.apache.http.cookie.Cookie;
@@ -38,6 +40,7 @@ import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,8 +52,9 @@ public class BargainActivity extends Activity {
 	public final int RESULT_LOAN = 2;
 	public final int RESULT_LOCATION = 3;
 	public final int RESULT_PLATE = 4;
+	public final int RESULT_SHOP = 5;
 
-	//private TextView agreementTextView;
+	// private TextView agreementTextView;
 
 	private Button submitButton;
 
@@ -60,30 +64,35 @@ public class BargainActivity extends Activity {
 	private TextView getCarTimeTextView;
 	private RelativeLayout getcarTimeLayout;
 	private ArrayList<String> getcarTimeList;
-	private int getcarTimeSelection=0;
+	private int getcarTimeSelection = 0;
 
 	private TextView loantTextView;
 	private RelativeLayout loanLayout;
 	private ArrayList<String> loanList;
-	private int loanSelection=0;
+	private int loanSelection = 0;
 
 	private TextView locationTextView;
 	private RelativeLayout locationLayout;
 	private ArrayList<String> locationList;
-	private int locationSelection=0;
+	private int locationSelection = 0;
 
 	private TextView plateTextView;
 	private RelativeLayout plateLayout;
 	private ArrayList<String> plateList;
-	private int plateSelection=0;
-	
+	private int plateSelection = 0;
+
 	private RelativeLayout shopLayout;
 	private int tender_id;
-	
+
 	private RelativeLayout progressLayout;
 	
+	private EditText priceEditText;
+
 	private int order_id;
 	private String model_id;
+	private String trim_id;
+	private String colors;
+	private ArrayList<String>dealers = new ArrayList<String>();
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 
 	@Override
@@ -91,24 +100,19 @@ public class BargainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bargain);
-		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
-		//getActionBar().hide();
-		//tender_id = getIntent().getIntExtra("tender_id", -1);
-		order_id=getIntent().getIntExtra("order_id", -1);		
+		progressLayout = (RelativeLayout) findViewById(R.id.progressbar_relativeLayout);
+		order_id = getIntent().getIntExtra("order_id", -1);
 		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
 		try {
-			orderItemEntity=orderHelper.getDao().queryBuilder().where().eq("order_id", order_id).queryForFirst();
+			orderItemEntity = orderHelper.getDao().queryBuilder().where()
+					.eq("order_id", order_id).queryForFirst();
 			model_id = orderItemEntity.getModel_id();
+			trim_id = orderItemEntity.getTrim_id();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		getArray();
-//		agreementTextView = (TextView) findViewById(R.id.simple_agreement);
-//		String text = "<font color='black'>一口价购买方为我公司与4s经销商协议的特价购买通道，价格优势明显但是如果购车订单成功后任何一方违约则可能会涉及到违约金支付</font> <font color='red'>点击查看详情</font>";
-
-//		agreementTextView.setText(Html.fromHtml(text));
-//		agreementTextView.setOnClickListener(agreementClickListener);
 
 		submitButton = (Button) findViewById(R.id.submit_bargain_price_btn);
 		submitButton.setOnClickListener(submitBtnClickListener);
@@ -132,218 +136,208 @@ public class BargainActivity extends Activity {
 		plateLayout = (RelativeLayout) findViewById(R.id.activity_bargain_haveplate_layout);
 		plateLayout.setOnClickListener(plateClickListener);
 		plateTextView = (TextView) findViewById(R.id.activity_bargain_haveplate_textview);
-		
+
 		shopLayout = (RelativeLayout) findViewById(R.id.activity_bargain_4s_layout);
 		shopLayout.setOnClickListener(shopBtnClickListener);
+		
+		priceEditText = (EditText)findViewById(R.id.activity_bargain_myprice_textview);
 
 	}
 
-	private void getArray(){
+	private void getArray() {
 		Resources res = getResources();
 		String[] tmp = res.getStringArray(R.array.getcarTime_array);
-		getcarTimeList =new ArrayList<String>(Arrays.asList(tmp)); 
-		//ArrayList<String> aa= (ArrayList<String>) Arrays.asList(tmp);
+		getcarTimeList = new ArrayList<String>(Arrays.asList(tmp));
+		// ArrayList<String> aa= (ArrayList<String>) Arrays.asList(tmp);
 		tmp = res.getStringArray(R.array.loan_array);
-		loanList=new ArrayList<String>(Arrays.asList(tmp));
+		loanList = new ArrayList<String>(Arrays.asList(tmp));
 		tmp = res.getStringArray(R.array.location_array);
 		locationList = new ArrayList<String>(Arrays.asList(tmp));
 		tmp = res.getStringArray(R.array.plate_array);
-		plateList =new ArrayList<String>(Arrays.asList(tmp));
+		plateList = new ArrayList<String>(Arrays.asList(tmp));
 	}
-	private void updateUI(){
+
+	private void updateUI() {
 		getCarTimeTextView.setText(getcarTimeList.get(getcarTimeSelection));
 		loantTextView.setText(loanList.get(loanSelection));
 		locationTextView.setText(locationList.get(locationSelection));
 		plateTextView.setText(plateList.get(plateSelection));
 	}
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(data==null)return;
-		System.out.println("resultcode :" + resultCode + " requestcode:"
-				+ requestCode);
-		Bundle b = data.getExtras();
-		switch (resultCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
-		case RESULT_OK:
-			// data为B中回传的Intent
-			int position = b.getInt("result");
-			if (requestCode == RESULT_COLOR) {
 
-			} else if (requestCode == RESULT_TIME) {
-				getcarTimeSelection = position;
-			} else if (requestCode == RESULT_LOAN) {
-				loanSelection = position;
-			} else if (requestCode == RESULT_LOCATION) {
-				locationSelection = position;
-			} else if (requestCode == RESULT_PLATE) {
-				plateSelection = position;
-			}
-			break;
-		default:
-			break;
-		}
-	}
-
-	protected OnClickListener shopBtnClickListener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			intent.setClass(BargainActivity.this, SelectDealerActivity.class);
-			startActivity(intent);
-			
-		}
-	};
 	protected OnClickListener submitBtnClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(
-					BargainActivity.this);
-			builder.setTitle(R.string.alerttitle);
-			builder.setMessage(R.string.alertmsg)
-					.setPositiveButton("同意并继续",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// FIRE ZE MISSILES!
-									dialog.dismiss();
-//									Intent intent = new Intent();
-//									intent.setClass(BargainActivity.this, AliPayActivity.class);
-//									startActivity(intent);
-									submit();
-								}
-							})
-					.setNegativeButton("取消",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									// User cancelled the dialog
-									dialog.dismiss();
-								}
-							});
-			// Create the AlertDialog object and return it
-			builder.create().show();
+			// AlertDialog.Builder builder = new AlertDialog.Builder(
+			// BargainActivity.this);
+			// builder.setTitle(R.string.alerttitle);
+			// builder.setMessage(R.string.alertmsg)
+			// .setPositiveButton("同意并继续",
+			// new DialogInterface.OnClickListener() {
+			// public void onClick(DialogInterface dialog,
+			// int id) {
+			// // FIRE ZE MISSILES!
+			// dialog.dismiss();
+			// // Intent intent = new Intent();
+			// // intent.setClass(BargainActivity.this, AliPayActivity.class);
+			// // startActivity(intent);
+			// submit();
+			// }
+			// })
+			// .setNegativeButton("取消",
+			// new DialogInterface.OnClickListener() {
+			// public void onClick(DialogInterface dialog,
+			// int id) {
+			// // User cancelled the dialog
+			// dialog.dismiss();
+			// }
+			// });
+			// // Create the AlertDialog object and return it
+			// builder.create().show();
+//			String url = "http://wappaygw.alipay.com/service/rest.htm?req_data=<direct_trade_create_req><subject>12121212</subject><out_trade_no>12121021</out_trade_no><total_fee>1</total_fee><seller_account_name>che12121</seller_account_name><notify_url>http://www.alipay.com/waptest0504/servlet/NotifyReceiver</notify_url><out_user>outID123</out_user><merchant_url>http://www.alipay.com</merchant_url><pay_expire>10</pay_expire></direct_trade_create_req>&service=alipay.wap.trade.create.direct&sec_id=0001&partner=12112&req_id=11121212&sign=bDfw5%2Bctc3pxzl7emPxqOod4EiPu3BkE0 Um54g4whHT22CwLbOn1gzyE%2BU5SIleGPke2rNQ%3D&format=xml&v=2.0";
+//			Intent intent = new Intent();
+//			String url2 = "https://wappaygw.alipay.com/service/rest.htm";
+//			intent.setClass(BargainActivity.this, AlipayWebActivity.class);
+//			intent.putExtra("url", url2);
+//			startActivity(intent);
+			submit();
+//			Intent intent = new Intent();
+//			intent.setClass(BargainActivity.this, AliPayActivity.class);
+//			startActivity(intent);
 		}
 	};
-	private void submit(){
+
+	private void submit() {
 		progressLayout.setVisibility(View.VISIBLE);
-		String tenderUrl=GlobalData.getBaseUrl()+"/tenders/"+tender_id+"/submit_bargain.json";
-		System.out.println(tenderUrl);
+		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
+		String price = priceEditText.getText().toString();
+		Tender tender = new Tender();
+		tender.setColors_id(colors);
+		tender.setGot_licence(String.valueOf(plateSelection));
+		tender.setLoan_option(String.valueOf(loanSelection));
+		tender.setModel("111");
+		tender.setTrim_id(trim_id);
+		tender.setPickup_time(String.valueOf(getcarTimeSelection));
+		tender.setLicense_location(String.valueOf(locationSelection));
+		tender.setPrice(price);
+		Map<String, String> shops = new HashMap<>();
+		for(int i=0;i<dealers.size();i++){
+			shops.put(dealers.get(i), "1");
+		}
+		tender.setShops(shops);
+		TenderEntity tenderEntity = new TenderEntity();
+		tenderEntity.setTender(tender);
+		
 		Gson gson = new Gson();
-		Bargain bargain = new Bargain();
-		bargain.setPostscript("无");
-		bargain.setPrice("10000");
-		BargainEntity bargainEntity = new BargainEntity();
-		bargainEntity.setBargain(bargain);
-//		Tender tender = new Tender();
-//		tender.setDescription("test1");
-//		tender.setModel("宝马");
-//		tender.setColor_id(carTypeEntity.getColors().get(0).getId());
-//		tender.setTrim_id(trim_id);
-//		TenderEntity tenderEntity = new TenderEntity();
-//		tenderEntity.setTender(tender);
-        StringEntity entity = null;
-        try {
-        	System.out.println(gson.toJson(bargainEntity).toString());
-			entity = new StringEntity(gson.toJson(bargainEntity).toString());
+		System.out.println(gson.toJson(tenderEntity).toString());
+		StringEntity entity = null;
+		try {
+			//System.out.println(gson.toJson(bargainEntity).toString());
+			entity = new StringEntity(gson.toJson(tenderEntity).toString());
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        String cookieStr=null;
-		String cookieName=null;
+		String cookieStr = null;
+		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
 				BargainActivity.this);
-		if(myCookieStore==null){System.out.println("cookie store null");return;}
+		if (myCookieStore == null) {
+			System.out.println("cookie store null");
+			return;
+		}
 		List<Cookie> cookies = myCookieStore.getCookies();
 		for (Cookie cookie : cookies) {
-			String name =cookie.getName();
-			cookieName=name;
+			String name = cookie.getName();
+			cookieName = name;
 			System.out.println(name);
-			if(name.equals("_JustBidIt_session")){
-				cookieStr=cookie.getValue();
-				System.out.println("value:"+cookieStr);
+			if (name.equals("_JustBidIt_session")) {
+				cookieStr = cookie.getValue();
+				System.out.println("value:" + cookieStr);
 				break;
 			}
 		}
-		if(cookieStr==null||cookieStr.equals("")){System.out.println("cookie null");return;}
-		HttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
-		HttpConnection.post(BargainActivity.this, tenderUrl, null, entity, "application/json;charset=utf-8", new JsonHttpResponseHandler(){
+		if (cookieStr == null || cookieStr.equals("")) {
+			System.out.println("cookie null");
+			return;
+		}
+		HttpConnection.getClient().addHeader("Cookie",
+				cookieName + "=" + cookieStr);
+		HttpConnection.post(BargainActivity.this, tenderUrl, null, entity,
+				"application/json;charset=utf-8",
+				new JsonHttpResponseHandler() {
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONObject errorResponse) {
-				// TODO Auto-generated method stub
-				super.onFailure(statusCode, headers, throwable, errorResponse);
-				progressLayout.setVisibility(View.GONE);
-				System.out.println("error");
-				System.out.println("statusCode:"+statusCode);
-				System.out.println("headers:"+headers);
-				Toast toast = Toast.makeText(BargainActivity.this, "提交失败", Toast.LENGTH_SHORT);
-				toast.show();
-			}
-			
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					String responseString, Throwable throwable) {
-				// TODO Auto-generated method stub
-				super.onFailure(statusCode, headers, responseString, throwable);
-				progressLayout.setVisibility(View.GONE);
-				System.out.println("2");
-				Toast toast = Toast.makeText(BargainActivity.this, "提交失败", Toast.LENGTH_SHORT);
-				toast.show();
-			}
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						// TODO Auto-generated method stub
+						super.onFailure(statusCode, headers, throwable,
+								errorResponse);
+						progressLayout.setVisibility(View.GONE);
+						System.out.println("error");
+						System.out.println("statusCode:" + statusCode);
+						System.out.println("headers:" + headers);
+						Toast toast = Toast.makeText(BargainActivity.this,
+								"提交失败", Toast.LENGTH_SHORT);
+						toast.show();
+					}
 
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				// TODO Auto-generated method stub
-				super.onSuccess(statusCode, headers, response);
-				progressLayout.setVisibility(View.GONE);
-				
-				System.out.println("success");
-				System.out.println("statusCode:"+statusCode);
-				
-//				for(int i=0;i<headers.length;i++){
-//					System.out.println(headers[0]);
-//				}
-				System.out.println("response:"+response);
-				if(statusCode==201){
-					Toast toast = Toast.makeText(BargainActivity.this, "提交成功,请支付", Toast.LENGTH_SHORT);
-					toast.show();
-					//int id = response.getInt("id");
-//						Intent intent = new Intent();
-//						CarColorListEntity colorListEntity = new CarColorListEntity();
-//						colorListEntity.setColors(carTypeEntity.getColors());
-//						intent.putExtra("color", new Gson().toJson(colorListEntity));
-//						intent.putExtra("tender_id", id);
-//						intent.setClass(CarDetailActivity.this, BargainActivity.class);
-//						startActivity(intent);
-//						
-						Intent intent = new Intent();
-						//intent.putExtra("tenderId", id);
-						intent.setClass(BargainActivity.this, AliPayActivity.class);
-						startActivity(intent);
-					
-				}
-				
-			}
-			
-		});
-		
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						// TODO Auto-generated method stub
+						super.onFailure(statusCode, headers, responseString,
+								throwable);
+						progressLayout.setVisibility(View.GONE);
+						System.out.println("2");
+						Toast toast = Toast.makeText(BargainActivity.this,
+								"提交失败", Toast.LENGTH_SHORT);
+						toast.show();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						// TODO Auto-generated method stub
+						super.onSuccess(statusCode, headers, response);
+						progressLayout.setVisibility(View.GONE);
+
+						System.out.println("success");
+						System.out.println("statusCode:" + statusCode);
+
+						// for(int i=0;i<headers.length;i++){
+						// System.out.println(headers[0]);
+						// }
+						System.out.println("response:" + response);
+						if (statusCode == 201) {
+							
+							try {
+								orderItemEntity.setId(response.getString("id"));
+								orderItemEntity.setState(response.getString("state"));
+								DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(BargainActivity.this);
+								orderHelper.getDao().update(orderItemEntity);
+							} catch (JSONException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							Toast toast = Toast.makeText(BargainActivity.this,
+									"提交成功,请支付", Toast.LENGTH_SHORT);
+							toast.show();
+							Intent intent = new Intent();
+							// intent.putExtra("tenderId", id);
+							intent.setClass(BargainActivity.this,
+									AliPayActivity.class);
+							startActivity(intent);
+
+						}
+
+					}
+
+				});
+
 	}
-//	protected OnClickListener agreementClickListener = new OnClickListener() {
-//
-//		@Override
-//		public void onClick(View arg0) {
-//			// TODO Auto-generated method stub
-//			Intent intent = new Intent();
-//			intent.setClass(BargainActivity.this, AgreementActivity.class);
-//			startActivity(intent);
-//		}
-//	};
 	protected OnClickListener colorLayoutClickListener = new OnClickListener() {
 
 		@Override
@@ -369,7 +363,7 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
 			intent.putExtra("name", "提车时间");
 			intent.putExtra("tag", 1);
-			intent.putStringArrayListExtra("list",getcarTimeList);
+			intent.putStringArrayListExtra("list", getcarTimeList);
 			startActivityForResult(intent, 1);
 		}
 	};
@@ -382,7 +376,7 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
 			intent.putExtra("name", "是否贷款");
 			intent.putExtra("tag", 2);
-			intent.putStringArrayListExtra("list",loanList);
+			intent.putStringArrayListExtra("list", loanList);
 			startActivityForResult(intent, 2);
 		}
 	};
@@ -395,7 +389,7 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
 			intent.putExtra("name", "车牌地点");
 			intent.putExtra("tag", 3);
-			intent.putStringArrayListExtra("list",locationList);
+			intent.putStringArrayListExtra("list", locationList);
 			startActivityForResult(intent, 3);
 		}
 	};
@@ -408,17 +402,60 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
 			intent.putExtra("name", "有无牌照");
 			intent.putExtra("tag", 4);
-			intent.putStringArrayListExtra("list",plateList);
+			intent.putStringArrayListExtra("list", plateList);
 			startActivityForResult(intent, 4);
 		}
 	};
+	protected OnClickListener shopBtnClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(BargainActivity.this, SelectDealerActivity.class);
+			intent.putExtra("name", "选择4s店");
+			intent.putExtra("trim_id", trim_id);
+			startActivityForResult(intent,5);
+
+		}
+	};
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (data == null)
+			return;
+		System.out.println("resultcode :" + resultCode + " requestcode:"
+				+ requestCode);
+		Bundle b = data.getExtras();
+		switch (resultCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
+		case RESULT_OK:
+			// data为B中回传的Intent
+			//int position = b.getInt("result");
+			if (requestCode == RESULT_COLOR) {
+				colors = b.getString("colors");
+			} else if (requestCode == RESULT_TIME) {
+				getcarTimeSelection = b.getInt("result");
+			} else if (requestCode == RESULT_LOAN) {
+				loanSelection = b.getInt("result");
+			} else if (requestCode == RESULT_LOCATION) {
+				locationSelection = b.getInt("result");
+			} else if (requestCode == RESULT_PLATE) {
+				plateSelection = b.getInt("result");
+			} else if (requestCode == RESULT_SHOP) {
+				dealers = b.getStringArrayList("dealers");
+				System.out.println("dealer size:"+dealers.size());
+			}
+			break;
+		default:
+			break;
+		}
+	}
 
 	@Override
 	protected void onResume() {
-	    super.onResume();
-	    updateUI();
-	    // Normal case behavior follows
+		super.onResume();
+		updateUI();
+		// Normal case behavior follows
 	}
+
 	public void exitClick(View view) {
 		this.finish();
 	}

@@ -370,6 +370,7 @@ public class CarDetailActivity extends Activity {
 //			});
 //			progressLayout.setVisibility(View.VISIBLE);
 			orderItemEntity.setState("begain");
+			orderItemEntity.setTrim_id(trim_id);
 			DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(CarDetailActivity.this);
 			try {
 				helper.getDao().update(orderItemEntity);

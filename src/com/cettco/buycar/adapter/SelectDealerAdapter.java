@@ -1,6 +1,5 @@
 package com.cettco.buycar.adapter;
 
-import java.net.ContentHandler;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class SelectShopAdapter extends ArrayAdapter<DealerEntity>{
+public class SelectDealerAdapter extends ArrayAdapter<DealerEntity>{
 
 	private HashMap<Integer, Boolean> isSelected; 
 	private Context context;
 	private List<DealerEntity> list;
-	public SelectShopAdapter(Context context, int resource,
+	public SelectDealerAdapter(Context context, int resource,
 			List<DealerEntity> objects) {
 		super(context, resource, objects);
 		// TODO Auto-generated constructor stub
@@ -33,6 +32,10 @@ public class SelectShopAdapter extends ArrayAdapter<DealerEntity>{
             getIsSelected().put(i, false);  
         }  
     } 
+	public void updateList(List<DealerEntity> list){
+		this.list = list;
+		notifyDataSetChanged();
+	}
 	public  HashMap<Integer, Boolean> getIsSelected() {  
         return isSelected;  
     }  
@@ -44,19 +47,39 @@ public class SelectShopAdapter extends ArrayAdapter<DealerEntity>{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return this.list.size();
+		return this.list==null?0:this.list.size();
 	}
 
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.item_selectshop, parent,
-				false);
-		return rowView;
+		ViewHolder holder = null;
+		if(convertView==null){
+			holder = new ViewHolder();
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.item_selectshop, parent,
+					false);
+			
+			holder.nameTextView = (TextView)convertView.findViewById(R.id.selectshop_name_text);
+			//
+			holder.addressTextView = (TextView)convertView.findViewById(R.id.selectshop_address_text);
+			convertView.setTag(holder);
+;
+		}else {
+			holder = (ViewHolder) convertView.getTag(); 
+		}
+		DealerEntity entity = list.get(position);
+		holder.nameTextView.setText(entity.getName());
+		holder.addressTextView.setText(entity.getAddress());
+		return convertView;
 		//return super.getView(position, convertView, parent);
 	}
+	private static class ViewHolder
+    {
+		TextView nameTextView;
+		TextView addressTextView;
+    }
 
 }

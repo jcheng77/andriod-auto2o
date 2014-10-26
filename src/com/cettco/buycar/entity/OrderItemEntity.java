@@ -16,6 +16,8 @@ public class OrderItemEntity {
 	@DatabaseField
 	private String trim;
 	@DatabaseField
+	private String trim_id;
+	@DatabaseField
 	private String price;
 	@DatabaseField
 	private String bidNum;
@@ -39,6 +41,12 @@ public class OrderItemEntity {
 	}
 	public String getId() {
 		return id;
+	}
+	public String getTrim_id() {
+		return trim_id;
+	}
+	public void setTrim_id(String trim_id) {
+		this.trim_id = trim_id;
 	}
 	public void setId(String id) {
 		this.id = id;

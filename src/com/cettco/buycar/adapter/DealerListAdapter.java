@@ -7,6 +7,7 @@ import java.util.List;
 import com.baidu.navi.location.LocationClient;
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.DealerCommentActivity;
+import com.cettco.buycar.entity.CarBrandEntity;
 import com.cettco.buycar.entity.DealerEntity;
 import com.cettco.buycar.utils.MarkView;
 
@@ -39,6 +40,10 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 		isSelected = new HashMap<Integer, Boolean>();  
 		initDate();
 	}
+	public void updateList(List<DealerEntity> list){
+		this.list = list;
+		notifyDataSetChanged();
+	}
 	private void initDate() {  
         for (int i = 0; i < list.size(); i++) {  
             getIsSelected().put(i, false);  
@@ -55,7 +60,7 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return this.list.size();
+		return this.list==null?0:this.list.size();
 	}
 
 

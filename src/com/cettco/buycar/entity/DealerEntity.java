@@ -3,11 +3,8 @@ package com.cettco.buycar.entity;
 public class DealerEntity {
 	private String id;
 	private String address;
-	private double nakedPrice;
-	private double specialPrice;
-	private double totalPrice;
-	private String detail1;
-	private String detail2;
+	private String name;
+	private String city_id;
 	private int distance;
 	public int getDistance() {
 		return distance;
@@ -27,35 +24,17 @@ public class DealerEntity {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public double getNakedPrice() {
-		return nakedPrice;
+	public String getName() {
+		return name;
 	}
-	public void setNakedPrice(double nakedPrice) {
-		this.nakedPrice = nakedPrice;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public double getSpecialPrice() {
-		return specialPrice;
+	public String getCity_id() {
+		return city_id;
 	}
-	public void setSpecialPrice(double specialPrice) {
-		this.specialPrice = specialPrice;
-	}
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-	public String getDetail1() {
-		return detail1;
-	}
-	public void setDetail1(String detail1) {
-		this.detail1 = detail1;
-	}
-	public String getDetail2() {
-		return detail2;
-	}
-	public void setDetail2(String detail2) {
-		this.detail2 = detail2;
+	public void setCity_id(String city_id) {
+		this.city_id = city_id;
 	}
 
 }

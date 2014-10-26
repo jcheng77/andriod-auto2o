@@ -24,10 +24,13 @@ import cn.trinea.android.common.service.HttpCache;
 import cn.trinea.android.common.service.HttpCache.HttpCacheListener;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.activity.AliPayActivity;
 import com.cettco.buycar.activity.BargainActivity;
 import com.cettco.buycar.activity.CarDetailActivity;
 import com.cettco.buycar.activity.CarListActivity;
 import com.cettco.buycar.activity.MyOrderStatusActivity;
+import com.cettco.buycar.activity.OrderHasDealerActivity;
+import com.cettco.buycar.activity.OrderWaitingActivity;
 import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
 import com.cettco.buycar.entity.CarBrandListEntity;
@@ -206,13 +209,13 @@ public class MyCarFragment extends Fragment {
 			} else if (state.equals("determined")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
-						MyOrderStatusActivity.class);
+						AliPayActivity.class);
 				startActivity(intent);
 
 			} else if (state.equals("qualified")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
-						MyOrderStatusActivity.class);
+						OrderWaitingActivity.class);
 				startActivity(intent);
 
 			} else if (state.equals("timeout")) {
@@ -224,7 +227,7 @@ public class MyCarFragment extends Fragment {
 			} else if (state.equals("sumbitted")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
-						MyOrderStatusActivity.class);
+						OrderHasDealerActivity.class);
 				startActivity(intent);
 			} else if (state.equals("final_deal_closed")) {
 				Intent intent = new Intent();
@@ -286,6 +289,7 @@ public class MyCarFragment extends Fragment {
 			System.out.println("code:" + code);
 			if (code == 200) {
 				String result = EntityUtils.toString(response.getEntity());
+				System.out.println("result:"+result);
 				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
 				}.getType();
 				list = new Gson().fromJson(result, listType);

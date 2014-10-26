@@ -32,7 +32,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.cettco.buycar.R;
-import com.cettco.buycar.adapter.SelectShopAdapter;
+import com.cettco.buycar.adapter.SelectDealerAdapter;
 import com.cettco.buycar.entity.DealerEntity;
 import com.cettco.buycar.entity.User;
 import com.cettco.buycar.entity.UserEntity;
@@ -47,7 +47,7 @@ import com.loopj.android.http.PersistentCookieStore;
 public class MyOrderStatusActivity extends Activity {
 	private ArrayList<DealerEntity> dealerList;
 	private ListView dealerListView;
-	private SelectShopAdapter dealerListAdapter;
+	private SelectDealerAdapter dealerListAdapter;
 	private Button bargainButton;
 	private Button cancleButton;
 	private int tenderId;
@@ -66,7 +66,7 @@ public class MyOrderStatusActivity extends Activity {
 			DealerEntity dealerEntity = new DealerEntity();
 			dealerList.add(dealerEntity);
 		}
-		dealerListAdapter = new SelectShopAdapter(this, R.layout.item_dealer,
+		dealerListAdapter = new SelectDealerAdapter(this, R.layout.item_dealer,
 				dealerList);
 		dealerListView.setAdapter(dealerListAdapter);
 		dealerListView.setOnItemClickListener(dealerListClickListener);

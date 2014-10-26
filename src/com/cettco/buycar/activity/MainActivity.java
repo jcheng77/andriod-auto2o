@@ -53,19 +53,21 @@ public class MainActivity extends Activity {
 	private LinearLayout cityLayout;
 	private LinearLayout accountLayout;
 	private ImageButton addImageButton;
+	private TextView titleTextView;
 	
 	private LinearLayout welcomelLayout;
-	private LinearLayout logoutLayout;
+	//private LinearLayout logoutLayout;
 	
 	//private ImageView launchingImageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setTitle("Welcome");
+		// setMyTitle("Welcome");
 		setContentView(R.layout.activity_main);
 		//getActionBar().hide();
 		//launchingImageView = (ImageView)findViewById(R.id.launching_imageview);
+		titleTextView = (TextView)findViewById(R.id.welcome_actionbar_title_textview);
 
 		menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
@@ -80,8 +82,8 @@ public class MainActivity extends Activity {
 
 		switchFragment(new WelcomeFragment());
 		
-		logoutLayout = (LinearLayout)findViewById(R.id.logoutLayout);
-		logoutLayout.setOnClickListener(logoutClickListener);
+//		logoutLayout = (LinearLayout)findViewById(R.id.logoutLayout);
+//		logoutLayout.setOnClickListener(logoutClickListener);
 		
 		welcomelLayout = (LinearLayout)findViewById(R.id.welcome_linearLayout);
 		welcomelLayout.setOnClickListener(welcomeClickListener);
@@ -187,25 +189,25 @@ public class MainActivity extends Activity {
 			break;
 		}
 	}
-	protected OnClickListener logoutClickListener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-			UserUtil.logout(MainActivity.this);
-			PersistentCookieStore myCookieStore = new PersistentCookieStore(
-					MainActivity.this);
-			if(myCookieStore==null)return;
-			myCookieStore.clear();
-			switchFragment(new WelcomeFragment());
-			setTitle("Welcome");
-			logoutLayout.setVisibility(View.GONE);
-			addImageButton.setVisibility(View.VISIBLE);
-			Toast toast = Toast.makeText(MainActivity.this, "注销成功", Toast.LENGTH_SHORT);
-			toast.show();
-			//menu.toggle();
-		}
-	};
+//	protected OnClickListener logoutClickListener = new OnClickListener() {
+//		
+//		@Override
+//		public void onClick(View arg0) {
+//			// TODO Auto-generated method stub
+//			UserUtil.logout(MainActivity.this);
+//			PersistentCookieStore myCookieStore = new PersistentCookieStore(
+//					MainActivity.this);
+//			if(myCookieStore==null)return;
+//			myCookieStore.clear();
+//			switchFragment(new WelcomeFragment());
+//			setMyTitle("Welcome");
+//			logoutLayout.setVisibility(View.GONE);
+//			addImageButton.setVisibility(View.VISIBLE);
+//			Toast toast = Toast.makeText(MainActivity.this, "注销成功", Toast.LENGTH_SHORT);
+//			toast.show();
+//			//menu.toggle();
+//		}
+//	};
 	protected OnClickListener accountClickListener = new OnClickListener() {
 
 		@Override
@@ -216,7 +218,7 @@ public class MainActivity extends Activity {
 //			startActivity(intent);
 //			if(UserUtil.isLogin(MainActivity.this)){
 //				switchFragment(new MyCarFragment());
-//				setTitle("My car");
+//				setMyTitle("My car");
 //				logoutLayout.setVisibility(View.VISIBLE);
 //				addImageButton.setVisibility(View.GONE);
 //				menu.toggle();
@@ -227,9 +229,9 @@ public class MainActivity extends Activity {
 //				startActivity(intent);
 //			}
 			switchFragment(new MyCarFragment());
-			setTitle("My car");
-			logoutLayout.setVisibility(View.VISIBLE);
-			addImageButton.setVisibility(View.GONE);
+			setMyTitle("我的车");
+			//logoutLayout.setVisibility(View.VISIBLE);
+			//addImageButton.setVisibility(View.GONE);
 			menu.toggle();
 		}
 		
@@ -239,10 +241,10 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			logoutLayout.setVisibility(View.GONE);
-			addImageButton.setVisibility(View.VISIBLE);
+			//logoutLayout.setVisibility(View.GONE);
+			//addImageButton.setVisibility(View.VISIBLE);
 			switchFragment(new WelcomeFragment());
-			setTitle("Welcome");
+			setMyTitle("首页");
 			menu.toggle();
 		}
 	};
@@ -288,7 +290,7 @@ public class MainActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			switchFragment(new SettingsFragment());
-			setTitle("Settings");
+			setMyTitle("设置");
 			//menu.
 			//System.out.println(menu.isActivated());
 			menu.toggle();
@@ -299,6 +301,9 @@ public class MainActivity extends Activity {
 		}
 	};
 
+	protected void setMyTitle(String title){
+		titleTextView.setText(title);
+	}
 	protected void switchFragment(Fragment fragment) {
 		getFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();

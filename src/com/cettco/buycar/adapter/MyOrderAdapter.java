@@ -1,3 +1,4 @@
+
 package com.cettco.buycar.adapter;
 
 import java.util.List;
@@ -72,25 +73,25 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		Data.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
-			holder.stateTextView.setText("Äú¿´¹ıµÄ³µĞÍ");
+			holder.stateTextView.setText("ä»¥çœ‹è½¦å‹");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6600"));
 		} else if (entity.getState().equals("begain")) {
-			holder.stateTextView.setText("ÄúÈ·¶¨µÄ³µĞÍ");
+			holder.stateTextView.setText("å†³å®šè´­ä¹°è½¦å‹");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
 		} else if (entity.getState().equals("determined")) {
-			holder.stateTextView.setText("´ı¸¶¿î");
+			holder.stateTextView.setText("å·²æäº¤è®¢å•,å¾…æ”¯ä»˜");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
 		} else if (entity.getState().equals("qualified")) {
-			holder.stateTextView.setText("Ö§¸¶³É¹¦£¬µÈ´ı¸¶¿î");
+			holder.stateTextView.setText("å·²æ”¯ä»˜");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
 		} else if (entity.getState().equals("timeout")) {
-			holder.stateTextView.setText("³¬Ê±");
+			holder.stateTextView.setText("è¶…æ—¶");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
 		} else if (entity.getState().equals("sumbitted")) {
-			holder.stateTextView.setText("ÄúÒÑÈ·ÈÏ¶©µ¥£¬Çëµ½4sµê¹º³µ");
+			holder.stateTextView.setText("å·²æœ‰4såº—æ¥å•");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
 		} else if (entity.getState().equals("final_deal_closed")) {
-			holder.stateTextView.setText("×îÖÕ³É½»");
+			holder.stateTextView.setText("æœ€ç»ˆæˆäº¤");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
 		}
 		return convertView;

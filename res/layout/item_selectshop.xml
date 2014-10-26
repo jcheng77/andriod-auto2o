@@ -6,7 +6,8 @@
 
    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="90dp"
+        android:orientation="vertical"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical" >
@@ -19,12 +20,21 @@
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="店名" />
+        <TextView
+            android:id="@+id/selectshop_address_text"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="店名" />
 
 
     </LinearLayout>
 
     <CheckBox
         android:id="@+id/selectshop_checkBox"
+        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentRight="true"
