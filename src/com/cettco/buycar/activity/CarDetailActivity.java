@@ -236,6 +236,7 @@ public class CarDetailActivity extends Activity {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
 			intent.setClass(CarDetailActivity.this, DealersListActivity.class);
+			intent.putExtra("trim_id", trim_id);
 			startActivity(intent);
 		}
 	};

@@ -1,19 +1,18 @@
 package com.cettco.buycar.activity;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-
-import cn.trinea.android.common.view.DropDownListView;
-import cn.trinea.android.common.view.DropDownListView.OnDropDownListener;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -30,9 +29,12 @@ import com.cettco.buycar.entity.DealerCommentEntity;
 import com.cettco.buycar.entity.DealerEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.GlobalData;
+import com.cettco.buycar.utils.HttpConnection;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -42,18 +44,21 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class DealersListActivity extends Activity {
 
 	private ArrayList<DealerEntity> listItems;
-	private DropDownListView listView = null;
+	private ListView listView = null;
 	private DealerListAdapter adapter;
 	
 	private LocationClient locationClient;
 	private static final int UPDATE_TIME = 5000;  
     private static int LOCATION_COUTNS = 0; 
+    
+    private String trim_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,36 +66,20 @@ public class DealersListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_dealers);
-		listView = (DropDownListView) findViewById(R.id.dealers_list_view);
+		trim_id = getIntent().getStringExtra("trim_id");
+		listView = (ListView) findViewById(R.id.dealers_list_view);
 		// set drop down listener
-		listView.setOnDropDownListener(new OnDropDownListener() {
-
-			@Override
-			public void onDropDown() {
-				// TODO Auto-generated method stub
-				new GetDataTask(true).execute();
-			}
-		});
-		listView.setOnBottomListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				new GetDataTask(true).execute();
-
-			}
-		});
 		listItems = new ArrayList<DealerEntity>();
 		// listItems.addAll(Arrays.asList(mStrings));
-		for (int i = 0; i < 10; i++) {
-			DealerEntity entity = new DealerEntity();
-			listItems.add(entity);
-		}
-		System.out.println("list item size:" + listItems.size());
+//		for (int i = 0; i < 10; i++) {
+//			DealerEntity entity = new DealerEntity();
+//			listItems.add(entity);
+//		}
 		adapter = new DealerListAdapter(this, R.layout.item_dealer,
 				listItems);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listItemClickListener);
+		getData();
 		initLocation();
 	}
 
@@ -200,163 +189,47 @@ public class DealersListActivity extends Activity {
 			
 		}
 	};
-	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 
-		private boolean isDropDown;
+	protected void getData() {
+		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
+		// httpCache.clear();
+		String url=GlobalData.getBaseUrl()+"/shops.json";
+		RequestParams params = new RequestParams();
+		params.put("trim", trim_id);
+		System.out.println("trim_url:"+url);
+		HttpConnection.get(url,params,new AsyncHttpResponseHandler(){
 
-		public GetDataTask(boolean isDropDown) {
-			this.isDropDown = isDropDown;
-		}
-
-		@Override
-		protected String[] doInBackground(Void... params) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				;
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(String[] result) {
-
-			if (isDropDown) {
-				// listItems.addFirst("Added after drop down");
-				adapter.notifyDataSetChanged();
-				listView.onDropDownComplete();
-
-				// should call onDropDownComplete function of DropDownListView
-				// at end of drop down complete.
-				// SimpleDateFormat dateFormat = new
-				// SimpleDateFormat("MM-dd HH:mm:ss");
-				// listView.onDropDownComplete(getString(R.string.update_at)
-				// + dateFormat.format(new Date()));
-			} else {
-				// listItems.add("Added after on bottom");
-				adapter.notifyDataSetChanged();
-
-				// should call onBottomComplete function of DropDownListView at
-				// end of on bottom complete.
-				listView.onBottomComplete();
-			}
-
-			super.onPostExecute(result);
-		}
-	}
-
-	private void getData() {
-		// String url=GlobalData.getBaseUrl()+"/tenders.json";
-		// Gson gson = new Gson();
-		// StringEntity entity = null;
-		// try {
-		// System.out.println(gson.toJson(userEntity).toString());
-		// entity = new StringEntity(gson.toJson(userEntity).toString());
-		// } catch (UnsupportedEncodingException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// SyncHttpConnection.getClient().addHeader("Cookie",
-		// cookieName+"="+cookieStr);
-		// SyncHttpConnection.get(url,new JsonHttpResponseHandler(){
-		//
-		// @Override
-		// public void onFailure(int statusCode, Header[] headers,
-		// Throwable throwable, JSONObject errorResponse) {
-		// // TODO Auto-generated method stub
-		// super.onFailure(statusCode, headers, throwable, errorResponse);
-		// //progressLayout.setVisibility(View.GONE);
-		// System.out.println("error");
-		// System.out.println("statusCode:"+statusCode);
-		// System.out.println("headers:"+headers);
-		// for(int i = 0;i<headers.length;i++){
-		// System.out.println(headers[i]);
-		// }
-		// System.out.println("response:"+errorResponse);
-		// Message message = new Message();
-		// message.what = 2;
-		// mHandler.sendMessage(message);
-		//
-		// }
-		//
-		// @Override
-		// public void onSuccess(int statusCode, Header[] headers,
-		// JSONObject response) {
-		// // TODO Auto-generated method stub
-		// super.onSuccess(statusCode, headers, response);
-		// System.out.println("success");
-		// System.out.println("statusCode:"+statusCode);
-		// System.out.println("headers:"+headers);
-		// System.out.println("response:"+response);
-		// //progressLayout.setVisibility(View.GONE);
-		// //UserUtil.login(SignInActivity.this);
-		//
-		// }
-		//
-		// });
-		String cookieStr = null;
-		String cookieName = null;
-		PersistentCookieStore myCookieStore = new PersistentCookieStore(
-				this);
-		if (myCookieStore == null) {
-			System.out.println("cookie store null");
-			return;
-		}
-		List<Cookie> cookies = myCookieStore.getCookies();
-		for (Cookie cookie : cookies) {
-			String name = cookie.getName();
-			cookieName = name;
-			System.out.println(name);
-			if (name.equals("_JustBidIt_session")) {
-				cookieStr = cookie.getValue();
-				System.out.println("value:" + cookieStr);
-				break;
-			}
-		}
-		if (cookieStr == null || cookieStr.equals("")) {
-			System.out.println("cookie null");
-			return;
-		}
-		HttpClient httpclient = new DefaultHttpClient();
-		String uri = GlobalData.getBaseUrl() + "/tenders.json";
-		HttpGet get = new HttpGet(uri);
-		// 添加http头信息
-		get.addHeader("Cookie", cookieName + "=" + cookieStr);
-		get.addHeader("Content-Type", "application/json");
-		org.apache.http.HttpResponse response;
-		try {
-			response = httpclient.execute(get);
-			int code = response.getStatusLine().getStatusCode();
-			// 检验状态码，如果成功接收数据
-			System.out.println("code:" + code);
-			if (code == 200) {
-				String result = EntityUtils.toString(response.getEntity());
-				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
-				}.getType();
-//				list = new Gson().fromJson(result, listType);
-//				System.out.println(result);
-//				System.out.println(list.size());
-//				for (int i = 0; i < list.size(); i++) {
-//					System.out.println(list.get(i).getId());
-//					System.out.println(list.get(i).getState());
-//				}
-				Message message = new Message();
-				message.what = 1;
-				mHandler.sendMessage(message);
-			} else if (code == 401) {
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				System.out.println("fail");
 				Message message = new Message();
 				message.what = 2;
 				mHandler.sendMessage(message);
 			}
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				System.out.println("seccuss");
+				try {
+					String result= new String(arg2,"UTF-8");
+					Type listType = new TypeToken<ArrayList<DealerEntity>>() {
+					}.getType();
+					listItems = new Gson().fromJson(result, listType);
+					//System.out.println("size:"+dealerList.size());
+					Message message = new Message();
+					message.what = 1;
+					mHandler.sendMessage(message);
+					//System.out.println("result:"+result);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
 	}
 
 	private Handler mHandler = new Handler() {
@@ -366,6 +239,7 @@ public class DealersListActivity extends Activity {
 			case 1:
 				// updateTitle();
 				//adapter.updateList(list);
+				adapter.updateList(listItems);
 				break;
 			case 2:
 				Toast toast = Toast.makeText(DealersListActivity.this, "获取商家列表失败",

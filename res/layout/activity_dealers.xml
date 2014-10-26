@@ -7,15 +7,10 @@
     android:background="@color/white" >
 
     <include layout="@layout/actionbar" />
-
-    <cn.trinea.android.common.view.DropDownListView
-        android:clickable="false"
+    <ListView 
         android:id="@+id/dealers_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawSelectorOnTop="false"
-        android:paddingBottom="@dimen/dp_40"
-        listViewAttr:isDropDownStyle="true"
-        listViewAttr:isOnBottomStyle="true" />
+        ></ListView>
 
 </LinearLayout>
