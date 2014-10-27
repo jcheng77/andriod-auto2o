@@ -1717,7 +1717,7 @@ containing a value of this type.
         public static final int never=0x7f0a000f;
         public static final int none=0x7f0a0004;
         public static final int normal=0x7f0a0006;
-        public static final int order_has_dealer_bmapView=0x7f0a00ac;
+        public static final int order_has_dealer_qr_image=0x7f0a00ac;
         public static final int order_status_actionbar=0x7f0a00a5;
         public static final int order_status_bottom=0x7f0a00a8;
         public static final int order_status_carname=0x7f0a00a6;

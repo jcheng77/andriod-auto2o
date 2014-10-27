@@ -188,11 +188,10 @@ public class MyCarFragment extends Fragment {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
-			// System.out.println("size:");
-			// Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
 			int position = arg2 - 1;
 			OrderItemEntity orderItemEntity = orderItems.get(position);
 			String state = orderItemEntity.getState();
+			System.out.println("order:"+state);
 			if (state.equals("viewed")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
@@ -229,10 +228,11 @@ public class MyCarFragment extends Fragment {
 				intent.setClass(MyCarFragment.this.getActivity(),
 						OrderHasDealerActivity.class);
 				startActivity(intent);
-			} else if (state.equals("final_deal_closed")) {
+			} else if (state.equals("deal_made")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
-						MyOrderStatusActivity.class);
+						OrderHasDealerActivity.class);
+				intent.putExtra("id", orderItemEntity.getId());
 				startActivity(intent);
 			}
 
@@ -248,14 +248,11 @@ public class MyCarFragment extends Fragment {
 
 		@Override
 		protected String[] doInBackground(Void... arg0) {
-			System.out.println("begin 0");
 			getData();
-			System.out.println("begin 1");
 			return null;
 		}
 	}
 	private void getData() {
-		System.out.println("begin");
 		String cookieStr = null;
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
@@ -264,15 +261,12 @@ public class MyCarFragment extends Fragment {
 		for (Cookie cookie : cookies) {
 			String name = cookie.getName();
 			cookieName = name;
-			System.out.println(name);
 			if (name.equals("_JustBidIt_session")) {
 				cookieStr = cookie.getValue();
-				System.out.println("value:" + cookieStr);
 				break;
 			}
 		}
 		if (cookieStr == null || cookieStr.equals("")) {
-			System.out.println("cookie null");
 			return;
 		}
 		HttpClient httpclient = new DefaultHttpClient();
@@ -285,20 +279,12 @@ public class MyCarFragment extends Fragment {
 		try {
 			response = httpclient.execute(get);
 			int code = response.getStatusLine().getStatusCode();
-			// 检验状态码，如果成功接收数据
-			System.out.println("code:" + code);
 			if (code == 200) {
 				String result = EntityUtils.toString(response.getEntity());
 				System.out.println("result:"+result);
 				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
 				}.getType();
 				list = new Gson().fromJson(result, listType);
-				System.out.println(result);
-				System.out.println(list.size());
-				for (int i = 0; i < list.size(); i++) {
-					System.out.println(list.get(i).getId());
-					System.out.println(list.get(i).getState());
-				}
 				updateDB();
 				Message message = new Message();
 				message.what = 1;

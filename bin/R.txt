@@ -622,7 +622,7 @@ int id my_order_status_textview 0x7f0a00f9
 int id never 0x7f0a000f
 int id none 0x7f0a0004
 int id normal 0x7f0a0006
-int id order_has_dealer_bmapView 0x7f0a00ac
+int id order_has_dealer_qr_image 0x7f0a00ac
 int id order_status_actionbar 0x7f0a00a5
 int id order_status_bottom 0x7f0a00a8
 int id order_status_carname 0x7f0a00a6
