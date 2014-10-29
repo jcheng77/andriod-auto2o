@@ -201,6 +201,8 @@
          </activity>
          <activity android:name="com.cettco.buycar.activity.AlipayWebActivity" >
          </activity>
+         <activity android:name="com.cettco.buycar.activity.OrderDetailActivity" >
+         </activity>
 
         <receiver
             android:name="com.cettco.buycar.receiver.JPushReceiver"

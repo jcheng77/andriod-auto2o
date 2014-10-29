@@ -102,14 +102,14 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <!-- <com.baidu.mapapi.map.MapView
+            <com.baidu.mapapi.map.MapView
                 android:id="@+id/order_has_dealer_bmapView"
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@color/white"
-                android:clickable="true" /> -->
+                android:clickable="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"

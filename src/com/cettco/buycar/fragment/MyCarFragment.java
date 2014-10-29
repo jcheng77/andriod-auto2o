@@ -29,6 +29,7 @@ import com.cettco.buycar.activity.BargainActivity;
 import com.cettco.buycar.activity.CarDetailActivity;
 import com.cettco.buycar.activity.CarListActivity;
 import com.cettco.buycar.activity.MyOrderStatusActivity;
+import com.cettco.buycar.activity.OrderDetailActivity;
 import com.cettco.buycar.activity.OrderHasDealerActivity;
 import com.cettco.buycar.activity.OrderWaitingActivity;
 import com.cettco.buycar.activity.SignInActivity;
@@ -231,7 +232,7 @@ public class MyCarFragment extends Fragment {
 			} else if (state.equals("deal_made")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
-						OrderHasDealerActivity.class);
+						OrderDetailActivity.class);
 				intent.putExtra("id", orderItemEntity.getId());
 				startActivity(intent);
 			}

@@ -42,8 +42,8 @@ import android.widget.ImageView;
 
 public class OrderHasDealerActivity extends Activity {
 
-//	private MapView mMapView = null;
-//	private BaiduMap mBaiduMap;
+	private MapView mMapView = null;
+	private BaiduMap mBaiduMap;
 	private ImageView qrImageView;
 	private String id;
 	private OrderDetailEntity  detailEntity ;
@@ -52,24 +52,24 @@ public class OrderHasDealerActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		//SDKInitializer.initialize(getApplicationContext());  
+		SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.activity_order_has_dealer);
 		
 		id= getIntent().getStringExtra("id");
-//		mMapView = (MapView) findViewById(R.id.order_has_dealer_bmapView);
-//		mBaiduMap = mMapView.getMap();
-//		// 普通地图
-//		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-//		// 定义Maker坐标点
-//		LatLng point = new LatLng(39.963175, 116.400244);
-//		// 构建Marker图标
-//		BitmapDescriptor bitmap = BitmapDescriptorFactory
-//				.fromResource(R.drawable.icon_marka);
-//		// 构建MarkerOption，用于在地图上添加Marker
-//		OverlayOptions option = new MarkerOptions().position(point)
-//				.icon(bitmap);
-//		// 在地图上添加Marker，并显示
-//		mBaiduMap.addOverlay(option);
+		mMapView = (MapView) findViewById(R.id.order_has_dealer_bmapView);
+		mBaiduMap = mMapView.getMap();
+		// 普通地图
+		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+		// 定义Maker坐标点
+		LatLng point = new LatLng(39.963175, 116.400244);
+		// 构建Marker图标
+		BitmapDescriptor bitmap = BitmapDescriptorFactory
+				.fromResource(R.drawable.icon_marka);
+		// 构建MarkerOption，用于在地图上添加Marker
+		OverlayOptions option = new MarkerOptions().position(point)
+				.icon(bitmap);
+		// 在地图上添加Marker，并显示
+		mBaiduMap.addOverlay(option);
 		
 		qrImageView = (ImageView)findViewById(R.id.order_has_dealer_qr_image);
 		getData();
@@ -80,21 +80,21 @@ public class OrderHasDealerActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		// 在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-		//mMapView.onDestroy();
+		mMapView.onDestroy();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-		//mMapView.onResume();
+		mMapView.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		// 在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-		//mMapView.onPause();
+		mMapView.onPause();
 	}
 
 	protected void getData() {
