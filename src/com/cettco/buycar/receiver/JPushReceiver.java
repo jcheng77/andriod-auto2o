@@ -2,8 +2,6 @@ package com.cettco.buycar.receiver;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.MainActivity;
-import com.cettco.buycar.activity.MyOrderStatusActivity;
-
 import cn.jpush.android.api.JPushInterface;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -51,7 +49,7 @@ public class JPushReceiver extends BroadcastReceiver{
 		        .setContentTitle("有新的通知")
 		        .setContentText(msg);
 		// Creates an explicit intent for an Activity in your app
-		Intent resultIntent = new Intent(context, MyOrderStatusActivity.class);
+		Intent resultIntent = new Intent(context, MainActivity.class);
 
 		// The stack builder object will contain an artificial back stack for the
 		// started Activity.

@@ -31,7 +31,6 @@ import com.cettco.buycar.activity.AliPayActivity;
 import com.cettco.buycar.activity.BargainActivity;
 import com.cettco.buycar.activity.CarDetailActivity;
 import com.cettco.buycar.activity.CarListActivity;
-import com.cettco.buycar.activity.MyOrderStatusActivity;
 import com.cettco.buycar.activity.OrderDetailActivity;
 import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
