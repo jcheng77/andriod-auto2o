@@ -1,5 +1,7 @@
 package com.cettco.buycar.entity;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -25,6 +27,22 @@ public class OrderItemEntity {
 	private String state;
 	@DatabaseField
 	private String url;
+	@DatabaseField
+	private Date time;
+	private String updated_at;
+	
+	public Date getTime() {
+		return time;
+	}
+	public void setTime(Date time) {
+		this.time = time;
+	}
+	public String getUpdated_at() {
+		return updated_at;
+	}
+	public void setUpdated_at(String updated_at) {
+		this.updated_at = updated_at;
+	}
 	public String getUrl() {
 		return url;
 	}

@@ -2,6 +2,7 @@ package com.cettco.buycar.activity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.trinea.android.common.entity.HttpResponse;
@@ -243,6 +244,7 @@ public class CarListActivity extends Activity {
 			orderItemEntity.setPic_url(modelEntity.getPic_url());
 			orderItemEntity.setState("viewed");
 			orderItemEntity.setModel_id(modelEntity.getId());
+			orderItemEntity.setTime(new Date());
 			//orderItemEntity.setTrim(trim);
 			DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(CarListActivity.this);
 			try {

@@ -1,6 +1,10 @@
 package com.cettco.buycar.activity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -119,45 +123,22 @@ public class MainActivity extends Activity {
 		default:
 			break;
 		}
-		testJson();
+		//testJson();
 
 	}
 	void testJson(){
-//		DealerEntity entity = new DealerEntity();
-//		entity.setAddress("pudong");
-//		entity.setDetail1("test");
-//		entity.setDetail2("test");
-//		entity.setId("1");
-//		entity.setNakedPrice(1000);
-//		entity.setSpecialPrice(100);
-//		entity.setTotalPrice(10000);
-//		DealerListEntity dealerListEntity = new DealerListEntity();
-//		ArrayList<DealerEntity> tmpArrayList = new ArrayList<DealerEntity>();
-//		tmpArrayList.add(entity);
-//		dealerListEntity.setDealer(tmpArrayList);
-//		ArrayList<String> tmp2 = new ArrayList<String>();
-//		tmp2.add("step1");
-//		tmp2.add("step2");
-//		tmp2.add("step3");
-//		dealerListEntity.setStatus(tmp2);
-//		Gson gson = new Gson();
-//		String result = gson.toJson(dealerListEntity);
-//		System.out.println("dealer:"+result);
-//		OrderItemEntity itemEntity = new OrderItemEntity();
-//		itemEntity.setBidNum("4");
-//		itemEntity.setId("2");
-//		itemEntity.setName("volve");
-//		itemEntity.setPrice("10000");
-//		itemEntity.setStatus("4 4s bid");
-//		itemEntity.setTrim("智能版");
-//		ArrayList<OrderItemEntity> tmp = new ArrayList<OrderItemEntity>();
-//		tmp.add(itemEntity);
-//		
-//		OrderItemListEntity itemList = new OrderItemListEntity();
-//		itemList.setOrderitems(tmp);
-//		Gson gson = new Gson();
-//		String result = gson.toJson(itemList);
-//		System.out.println("itemlist:"+result);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+		Date date = new Date();
+		System.out.println("date:"+dateFormat.format(date));
+		String dtStart = "2010-10-15T09:27:37Z";  
+		SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");  
+		try {  
+		    Date date2 = format.parse(dtStart);  
+		    System.out.println("date2:"+date2);  
+		} catch (ParseException e) {  
+		    // TODO Auto-generated catch block  
+		    e.printStackTrace();  
+		}
 	}
 	protected void getData(){
 		String url = "";

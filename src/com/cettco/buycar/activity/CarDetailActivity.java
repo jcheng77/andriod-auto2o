@@ -3,6 +3,7 @@ package com.cettco.buycar.activity;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -372,6 +373,7 @@ public class CarDetailActivity extends Activity {
 //			progressLayout.setVisibility(View.VISIBLE);
 			orderItemEntity.setState("begain");
 			orderItemEntity.setTrim_id(trim_id);
+			orderItemEntity.setTime(new Date());
 			DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(CarDetailActivity.this);
 			try {
 				helper.getDao().update(orderItemEntity);

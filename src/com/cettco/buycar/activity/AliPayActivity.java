@@ -84,7 +84,7 @@ public class AliPayActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(AliPayActivity.this, OrderWaitingActivity.class);
+			intent.setClass(AliPayActivity.this, OrderDetailActivity.class);
 			startActivity(intent);
 			// try {
 			// Log.i("ExternalPartner", "onItemClick");

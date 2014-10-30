@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.security.auth.PrivateCredentialPermission;
@@ -30,8 +33,6 @@ import com.cettco.buycar.activity.CarDetailActivity;
 import com.cettco.buycar.activity.CarListActivity;
 import com.cettco.buycar.activity.MyOrderStatusActivity;
 import com.cettco.buycar.activity.OrderDetailActivity;
-import com.cettco.buycar.activity.OrderHasDealerActivity;
-import com.cettco.buycar.activity.OrderWaitingActivity;
 import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
 import com.cettco.buycar.entity.CarBrandListEntity;
@@ -129,7 +130,7 @@ public class MyCarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		System.out.println("onResume");
-		pullToRefreshView.setRefreshing(true);
+		//pullToRefreshView.setRefreshing(true);
 		getCachedData();
 
 	}
@@ -140,7 +141,7 @@ public class MyCarFragment extends Fragment {
 				.getHelper(getActivity());
 		if (UserUtil.isLogin(getActivity())) {
 			try {
-				orderItems = helper.getDao().queryForAll();
+				orderItems = helper.getDao().queryBuilder().orderBy("time", false).query();
 				adapter.updateList(orderItems);
 				System.out.println("order size:" + orderItems.size());
 			} catch (SQLException e) {
@@ -149,9 +150,8 @@ public class MyCarFragment extends Fragment {
 			}
 		} else {
 			try {
-				orderItems = helper.getDao().queryBuilder().where()
-						.eq("state", "viewed").or().eq("state", "begain")
-						.query();
+				orderItems = helper.getDao().queryBuilder().orderBy("time", false).where()
+						.eq("state", "viewed").or().eq("state", "begain").query();
 				adapter.updateList(orderItems);
 				System.out.println("order size:" + orderItems.size());
 			} catch (SQLException e) {
@@ -172,7 +172,24 @@ public class MyCarFragment extends Fragment {
 						.eq("id",entity.getId()).queryForFirst();
 				if (tmp != null) {
 					tmp.setState(entity.getState());
+					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");  
+					try {  
+					    Date date = format.parse(entity.getUpdated_at());  
+					    tmp.setTime(date);
+					} catch (ParseException e) {  
+					    // TODO Auto-generated catch block  
+					    e.printStackTrace();  
+					}
+					
 				} else {
+					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");  
+					try {  
+					    Date date = format.parse(entity.getUpdated_at());  
+					    entity.setTime(date);
+					} catch (ParseException e) {  
+					    // TODO Auto-generated catch block  
+					    e.printStackTrace();  
+					}
 					helper.getDao().create(entity);
 				}
 			} catch (SQLException e) {
@@ -212,24 +229,8 @@ public class MyCarFragment extends Fragment {
 						AliPayActivity.class);
 				startActivity(intent);
 
-			} else if (state.equals("qualified")) {
-				Intent intent = new Intent();
-				intent.setClass(MyCarFragment.this.getActivity(),
-						OrderWaitingActivity.class);
-				startActivity(intent);
-
-			} else if (state.equals("timeout")) {
-				Intent intent = new Intent();
-				intent.setClass(MyCarFragment.this.getActivity(),
-						MyOrderStatusActivity.class);
-				startActivity(intent);
-
-			} else if (state.equals("sumbitted")) {
-				Intent intent = new Intent();
-				intent.setClass(MyCarFragment.this.getActivity(),
-						OrderHasDealerActivity.class);
-				startActivity(intent);
-			} else if (state.equals("deal_made")) {
+			} 
+			else {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
 						OrderDetailActivity.class);
