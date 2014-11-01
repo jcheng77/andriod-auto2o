@@ -1,10 +1,13 @@
 package com.cettco.buycar.utils;
 
+import java.util.Set;
+
 import org.apache.http.client.CookieStore;
 
 import com.loopj.android.http.PersistentCookieStore;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.trinea.android.common.service.impl.ImageCache;
 import cn.trinea.android.common.util.CacheManager;
 import android.app.Application;

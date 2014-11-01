@@ -126,7 +126,7 @@
         <!-- Required. AppKey copied from Portal -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="9cf4056cc60887c7122dbd64" />
+            android:value="3b3a37bc0cb93a2d8a84db0e" />
 
         <activity
             android:name="com.cettco.buycar.activity.SplashActivity"

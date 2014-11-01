@@ -1,11 +1,15 @@
 package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Set;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.User;
@@ -127,6 +131,14 @@ public class SignInActivity extends Activity{
 					Toast toast = Toast.makeText(SignInActivity.this, "登录成功", Toast.LENGTH_SHORT);
 					toast.show();
 					SignInActivity.this.finish();
+					JPushInterface.setAlias(getApplicationContext(), id, new TagAliasCallback() {
+						
+						@Override
+						public void gotResult(int arg0, String arg1, Set<String> arg2) {
+							// TODO Auto-generated method stub
+							System.out.print("set success:"+arg1);
+						}
+					});
 					
 				}
 				
