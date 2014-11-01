@@ -245,7 +245,6 @@ public class BargainActivity extends Activity {
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
 				BargainActivity.this);
 		if (myCookieStore == null) {
-			System.out.println("cookie store null");
 			return;
 		}
 		List<Cookie> cookies = myCookieStore.getCookies();
@@ -260,7 +259,12 @@ public class BargainActivity extends Activity {
 			}
 		}
 		if (cookieStr == null || cookieStr.equals("")) {
-			System.out.println("cookie null");
+			Toast toast = Toast.makeText(BargainActivity.this,
+					"请先登录", Toast.LENGTH_SHORT);
+			toast.show();
+			Intent intent = new Intent();
+			intent.setClass(BargainActivity.this, SignInActivity.class);
+			startActivity(intent);
 			return;
 		}
 		HttpConnection.getClient().addHeader("Cookie",

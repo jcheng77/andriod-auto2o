@@ -167,7 +167,7 @@ public class MyCarFragment extends Fragment {
 						.eq("id",entity.getId()).queryForFirst();
 				if (tmp != null) {
 					tmp.setState(entity.getState());
-					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'z'");  
+					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");  
 					try {  
 					    Date date = format.parse(entity.getUpdated_at());  
 					    tmp.setTime(date);
@@ -177,7 +177,7 @@ public class MyCarFragment extends Fragment {
 					}
 					
 				} else {
-					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'z'");  
+					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");  
 					try {  
 					    Date date = format.parse(entity.getUpdated_at());  
 					    entity.setTime(date);

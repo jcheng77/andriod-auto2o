@@ -2,6 +2,8 @@ package com.cettco.buycar.activity;
 
 import java.util.ArrayList;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTrimViewPagerAdapter;
 
@@ -47,6 +49,20 @@ public class SplashActivity extends Activity{
 	        }, 2000);
 		}
 		
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		JPushInterface.onResume(this);
 	}
 
 }
