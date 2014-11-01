@@ -90,7 +90,6 @@ public class MyCarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		fragmentView = inflater.inflate(R.layout.fragment_mycar, container,
 				false);
-		// System.out.println("oncreateview2");
 		mycarBgLayout = (LinearLayout) fragmentView
 				.findViewById(R.id.carlist_bg_layout);
 		pullToRefreshView = (PullToRefreshListView) fragmentView
@@ -128,8 +127,7 @@ public class MyCarFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		System.out.println("onResume");
-		//pullToRefreshView.setRefreshing(true);
+		pullToRefreshView.setRefreshing(true);
 		getCachedData();
 
 	}
@@ -142,7 +140,6 @@ public class MyCarFragment extends Fragment {
 			try {
 				orderItems = helper.getDao().queryBuilder().orderBy("time", false).query();
 				adapter.updateList(orderItems);
-				System.out.println("order size:" + orderItems.size());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -152,7 +149,6 @@ public class MyCarFragment extends Fragment {
 				orderItems = helper.getDao().queryBuilder().orderBy("time", false).where()
 						.eq("state", "viewed").or().eq("state", "begain").query();
 				adapter.updateList(orderItems);
-				System.out.println("order size:" + orderItems.size());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -171,7 +167,7 @@ public class MyCarFragment extends Fragment {
 						.eq("id",entity.getId()).queryForFirst();
 				if (tmp != null) {
 					tmp.setState(entity.getState());
-					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");  
+					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'z'");  
 					try {  
 					    Date date = format.parse(entity.getUpdated_at());  
 					    tmp.setTime(date);
@@ -181,7 +177,7 @@ public class MyCarFragment extends Fragment {
 					}
 					
 				} else {
-					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");  
+					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'z'");  
 					try {  
 					    Date date = format.parse(entity.getUpdated_at());  
 					    entity.setTime(date);
@@ -221,7 +217,6 @@ public class MyCarFragment extends Fragment {
 						BargainActivity.class);
 				intent.putExtra("order_id", orderItemEntity.getOrder_id());
 				startActivity(intent);
-
 			} else if (state.equals("determined")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
@@ -282,7 +277,6 @@ public class MyCarFragment extends Fragment {
 			int code = response.getStatusLine().getStatusCode();
 			if (code == 200) {
 				String result = EntityUtils.toString(response.getEntity());
-				System.out.println("result:"+result);
 				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
 				}.getType();
 				list = new Gson().fromJson(result, listType);

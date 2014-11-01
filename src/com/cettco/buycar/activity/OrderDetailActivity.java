@@ -14,6 +14,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.OrderDetailEntity;
+import com.cettco.buycar.utils.Data;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.google.gson.Gson;
@@ -49,6 +50,13 @@ public class OrderDetailActivity extends Activity {
 	private LinearLayout intentionLayout;
 	private LinearLayout qRcodeLayout;
 	private TextView stateTextView;
+	private ImageView carImageView;
+	private TextView modelTextView;
+	private TextView priceTextView;
+	private TextView pickupTimeTextView;
+	private TextView licenseLocationTextView;
+	private TextView gotLicenseTextView;
+	private TextView loanTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,13 @@ public class OrderDetailActivity extends Activity {
 		intentionLayout = (LinearLayout) findViewById(R.id.activity_order_detail_customer_intention);
 		qRcodeLayout = (LinearLayout) findViewById(R.id.activity_order_detail_qrcode);
 		stateTextView = (TextView)findViewById(R.id.order_detail_state);
+		carImageView = (ImageView)findViewById(R.id.order_detail_car_imageview);
+		modelTextView = (TextView)findViewById(R.id.order_detail_model_textview);
+		priceTextView = (TextView)findViewById(R.id.order_detail_price_textview);
+		pickupTimeTextView = (TextView)findViewById(R.id.order_detail_pickup_time_textview);
+		licenseLocationTextView = (TextView)findViewById(R.id.order_detail_license_location_textview);
+		gotLicenseTextView = (TextView)findViewById(R.id.order_detail_got_licence_textview);
+		loanTextView = (TextView)findViewById(R.id.order_detail_loan_option_textview);
 		id = getIntent().getStringExtra("id");
 		mMapView = (MapView) findViewById(R.id.order_has_dealer_bmapView);
 		mBaiduMap = mMapView.getMap();
@@ -161,7 +176,7 @@ public class OrderDetailActivity extends Activity {
 		String state = detailEntity.getState();
 		if (state.equals("qualified")) {
 			stateTextView.setText("已支付,等待4s店接受报价");
-		} else if (state.equals("submitted")) {
+		} else if (state.equals("deal_made")) {
 			stateTextView.setText("已有4s店接受报价");
 			dealerInfoLayout.setVisibility(View.VISIBLE);
 
@@ -178,6 +193,13 @@ public class OrderDetailActivity extends Activity {
 			}
 
 		}
+		Data.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
+		modelTextView.setText(detailEntity.getModel());
+		priceTextView.setText(detailEntity.getPrice());
+		pickupTimeTextView.setText(detailEntity.getPickup_time());
+		licenseLocationTextView.setText(detailEntity.getLicense_location());
+		gotLicenseTextView.setText(detailEntity.getGot_licence());
+		loanTextView.setText(detailEntity.getLoan_option());
 		
 	}
 

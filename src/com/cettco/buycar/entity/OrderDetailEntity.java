@@ -9,6 +9,13 @@ public class OrderDetailEntity {
 	private String license_location;
 	private String got_licence;
 	private String loan_option;
+	private String pic_url;
+	public String getPic_url() {
+		return pic_url;
+	}
+	public void setPic_url(String pic_url) {
+		this.pic_url = pic_url;
+	}
 	public String getId() {
 		return id;
 	}

@@ -29,6 +29,9 @@ public class OrderItemEntity {
 	private String url;
 	@DatabaseField
 	private Date time;
+	@DatabaseField
+	private String pic_url;
+	
 	private String updated_at;
 	
 	public Date getTime() {
@@ -49,8 +52,6 @@ public class OrderItemEntity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	@DatabaseField
-	private String pic_url;
 	public String getPic_url() {
 		return pic_url;
 	}
