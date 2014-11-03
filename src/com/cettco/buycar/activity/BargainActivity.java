@@ -210,7 +210,6 @@ public class BargainActivity extends Activity {
 	};
 
 	private void submit() {
-		progressLayout.setVisibility(View.VISIBLE);
 		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
 		String price = priceEditText.getText().toString();
 		Tender tender = new Tender();
@@ -267,6 +266,7 @@ public class BargainActivity extends Activity {
 			startActivity(intent);
 			return;
 		}
+		progressLayout.setVisibility(View.VISIBLE);
 		HttpConnection.getClient().addHeader("Cookie",
 				cookieName + "=" + cookieStr);
 		HttpConnection.post(BargainActivity.this, tenderUrl, null, entity,

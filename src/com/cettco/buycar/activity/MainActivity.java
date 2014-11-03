@@ -5,10 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.trinea.android.common.entity.HttpResponse;
 
 import com.cettco.buycar.R;
@@ -55,11 +58,11 @@ public class MainActivity extends Activity {
 	private LinearLayout settingLayout;
 	private ImageButton drawerButton;
 	private LinearLayout cityLayout;
-	private LinearLayout accountLayout;
+	private LinearLayout mycarLayout;
 	private ImageButton addImageButton;
 	private TextView titleTextView;
 	
-	private LinearLayout welcomelLayout;
+	//private LinearLayout welcomelLayout;
 	//private LinearLayout logoutLayout;
 	
 	//private ImageView launchingImageView;
@@ -84,13 +87,13 @@ public class MainActivity extends Activity {
 		menu.setMenu(R.layout.menu);
 
 
-		switchFragment(new WelcomeFragment());
+		switchFragment(new MyCarFragment());
 		
 //		logoutLayout = (LinearLayout)findViewById(R.id.logoutLayout);
 //		logoutLayout.setOnClickListener(logoutClickListener);
 		
-		welcomelLayout = (LinearLayout)findViewById(R.id.welcome_linearLayout);
-		welcomelLayout.setOnClickListener(welcomeClickListener);
+//		welcomelLayout = (LinearLayout)findViewById(R.id.welcome_linearLayout);
+//		welcomelLayout.setOnClickListener(welcomeClickListener);
 		
 		settingLayout = (LinearLayout) findViewById(R.id.settingLinearlayout);
 		settingLayout.setOnClickListener(settingsClickListener);
@@ -101,8 +104,8 @@ public class MainActivity extends Activity {
 		cityLayout = (LinearLayout) findViewById(R.id.selectCityLinearLayout);
 		cityLayout.setOnClickListener(selectCityClickListener);
 
-		accountLayout = (LinearLayout) findViewById(R.id.accountLinearLayout);
-		accountLayout.setOnClickListener(accountClickListener);
+		mycarLayout = (LinearLayout) findViewById(R.id.accountLinearLayout);
+		mycarLayout.setOnClickListener(mycarClickListener);
 
 		addImageButton = (ImageButton) findViewById(R.id.addCar_btn);
 		addImageButton.setOnClickListener(addCarClickListener);
@@ -124,7 +127,28 @@ public class MainActivity extends Activity {
 			break;
 		}
 		//testJson();
+		//jpushSetAlias();
 
+	}
+	private void jpushSetAlias(){
+		if(!UserUtil.isLogin(this))return;
+		System.out.println("start");
+		JPushInterface.setAlias(this, "user"+UserUtil.getUserId(this), new TagAliasCallback() {
+			
+			@Override
+			public void gotResult(int arg0, String arg1, Set<String> arg2) {
+				// TODO Auto-generated method stub
+				System.out.print("set success:"+arg1);
+//				if(arg0==0){
+//					Toast toast = Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT);
+//					toast.show();
+//				}else{
+//					Toast toast = Toast.makeText(SignInActivity.this, "登录失败", Toast.LENGTH_SHORT);
+//					toast.show();
+//				}
+//				
+			}
+		});
 	}
 	void testJson(){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
@@ -189,7 +213,7 @@ public class MainActivity extends Activity {
 //			//menu.toggle();
 //		}
 //	};
-	protected OnClickListener accountClickListener = new OnClickListener() {
+	protected OnClickListener mycarClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View arg0) {
@@ -217,18 +241,18 @@ public class MainActivity extends Activity {
 		}
 		
 	};
-	protected OnClickListener welcomeClickListener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-			//logoutLayout.setVisibility(View.GONE);
-			//addImageButton.setVisibility(View.VISIBLE);
-			switchFragment(new WelcomeFragment());
-			setMyTitle("首页");
-			menu.toggle();
-		}
-	};
+//	protected OnClickListener welcomeClickListener = new OnClickListener() {
+//		
+//		@Override
+//		public void onClick(View arg0) {
+//			// TODO Auto-generated method stub
+//			//logoutLayout.setVisibility(View.GONE);
+//			//addImageButton.setVisibility(View.VISIBLE);
+//			switchFragment(new WelcomeFragment());
+//			setMyTitle("首页");
+//			menu.toggle();
+//		}
+//	};
 	protected OnClickListener addCarClickListener = new OnClickListener() {
 
 		@Override

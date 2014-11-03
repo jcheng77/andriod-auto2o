@@ -70,24 +70,27 @@ public class SettingsFragment extends Fragment{
 					getActivity());
 			if(myCookieStore==null)return;
 			myCookieStore.clear();
-			JPushInterface.setAlias(getActivity(), "1", new TagAliasCallback() {
-				
-				@Override
-				public void gotResult(int arg0, String arg1, Set<String> arg2) {
-					// TODO Auto-generated method stub
-					System.out.print("set success:"+arg1);
-					if(arg0==0){
-						Toast toast = Toast.makeText(getActivity(), "注销成功", Toast.LENGTH_SHORT);
-						toast.show();
-						onResume();
-					}else{
-						Toast toast = Toast.makeText(getActivity(), "注销失败", Toast.LENGTH_SHORT);
-						toast.show();
-						onResume();
-					}
-					
-				}
-			});
+			Toast toast = Toast.makeText(getActivity(), "注销成功", Toast.LENGTH_SHORT);
+			toast.show();
+			onResume();
+//			JPushInterface.setAlias(getActivity(), null, new TagAliasCallback() {
+//				
+//				@Override
+//				public void gotResult(int arg0, String arg1, Set<String> arg2) {
+//					// TODO Auto-generated method stub
+//					System.out.print("set success:"+arg1);
+//					if(arg0==0){
+//						Toast toast = Toast.makeText(getActivity(), "注销成功", Toast.LENGTH_SHORT);
+//						toast.show();
+//						onResume();
+//					}else{
+//						Toast toast = Toast.makeText(getActivity(), "注销失败", Toast.LENGTH_SHORT);
+//						toast.show();
+//						onResume();
+//					}
+//					
+//				}
+//			});
 			
 		}
 	};

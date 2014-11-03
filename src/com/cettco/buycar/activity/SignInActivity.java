@@ -128,17 +128,7 @@ public class SignInActivity extends Activity{
 					}					
 					UserUtil.login(SignInActivity.this);
 					UserUtil.setUserId(SignInActivity.this, id);
-					Toast toast = Toast.makeText(SignInActivity.this, "登录成功", Toast.LENGTH_SHORT);
-					toast.show();
 					SignInActivity.this.finish();
-					JPushInterface.setAlias(getApplicationContext(), id, new TagAliasCallback() {
-						
-						@Override
-						public void gotResult(int arg0, String arg1, Set<String> arg2) {
-							// TODO Auto-generated method stub
-							System.out.print("set success:"+arg1);
-						}
-					});
 					
 				}
 				

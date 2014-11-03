@@ -55,7 +55,7 @@
             android:layout_height="1dp"
             android:background="#ffffff" />
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:id="@+id/welcome_linearLayout"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/slidingmenu_row_height"
@@ -76,7 +76,7 @@
                 android:padding="10dp"
                 android:text="首页"
                 android:textSize="20sp" />
-        </LinearLayout>
+        </LinearLayout> -->
 
         <ImageView
             android:layout_width="fill_parent"
