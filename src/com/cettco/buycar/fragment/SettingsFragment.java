@@ -100,14 +100,15 @@ public class SettingsFragment extends Fragment{
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			if(UserUtil.isLogin(getActivity())){
-				UserUtil.logout(getActivity());
-				PersistentCookieStore myCookieStore = new PersistentCookieStore(
-						getActivity());
-				if(myCookieStore==null)return;
-				myCookieStore.clear();
-				loginTextView.setText("请登录");
-				Toast toast = Toast.makeText(getActivity(), "注销成功", Toast.LENGTH_SHORT);
-				toast.show();
+//				UserUtil.logout(getActivity());
+//				PersistentCookieStore myCookieStore = new PersistentCookieStore(
+//						getActivity());
+//				if(myCookieStore==null)return;
+//				myCookieStore.clear();
+//				loginTextView.setText("请登录");
+//				Toast toast = Toast.makeText(getActivity(), "注销成功", Toast.LENGTH_SHORT);
+//				toast.show();
+				return;
 			}
 			else{
 				Intent intent = new Intent();
