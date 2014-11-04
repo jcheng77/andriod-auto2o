@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="颜色" />
+                        android:text="选择了0种颜色" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="选择可接受4s店" />
+                        android:text="选择了0家4s店" />
 
                     <ImageView
                         android:layout_width="wrap_content"

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,7 @@ public class BargainActivity extends Activity {
 
 	private TextView colorTextView;
 	private RelativeLayout colorLayout;
+	private ArrayList<String> colors = new ArrayList<String>();
 
 	private TextView getCarTimeTextView;
 	private RelativeLayout getcarTimeLayout;
@@ -82,6 +84,7 @@ public class BargainActivity extends Activity {
 	private int plateSelection = 0;
 
 	private RelativeLayout shopLayout;
+	private TextView shoptexTextView;
 	private int tender_id;
 
 	private RelativeLayout progressLayout;
@@ -91,9 +94,9 @@ public class BargainActivity extends Activity {
 	private int order_id;
 	private String model_id;
 	private String trim_id;
-	private String colors;
 	private ArrayList<String>dealers = new ArrayList<String>();
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +143,8 @@ public class BargainActivity extends Activity {
 		shopLayout = (RelativeLayout) findViewById(R.id.activity_bargain_4s_layout);
 		shopLayout.setOnClickListener(shopBtnClickListener);
 		
+		shoptexTextView = (TextView)findViewById(R.id.activity_bargain_4s_textview);
+		
 		priceEditText = (EditText)findViewById(R.id.activity_bargain_myprice_textview);
 
 	}
@@ -162,6 +167,8 @@ public class BargainActivity extends Activity {
 		loantTextView.setText(loanList.get(loanSelection));
 		locationTextView.setText(locationList.get(locationSelection));
 		plateTextView.setText(plateList.get(plateSelection));
+		shoptexTextView.setText(Html.fromHtml("已选择<font color='#ff0033'>"+dealers.size()+"</font>家4s店"));
+		colorTextView.setText(Html.fromHtml("已选择<font color='#ff0033'>"+colors.size()+"</font>种颜色"));
 	}
 
 	protected OnClickListener submitBtnClickListener = new OnClickListener() {
@@ -210,35 +217,6 @@ public class BargainActivity extends Activity {
 	};
 
 	private void submit() {
-		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
-		String price = priceEditText.getText().toString();
-		Tender tender = new Tender();
-		tender.setColors_id(colors);
-		tender.setGot_licence(String.valueOf(plateSelection));
-		tender.setLoan_option(String.valueOf(loanSelection));
-		tender.setModel("111");
-		tender.setTrim_id(trim_id);
-		tender.setPickup_time(String.valueOf(getcarTimeSelection));
-		tender.setLicense_location(String.valueOf(locationSelection));
-		tender.setPrice(price);
-		Map<String, String> shops = new HashMap<>();
-		for(int i=0;i<dealers.size();i++){
-			shops.put(dealers.get(i), "1");
-		}
-		tender.setShops(shops);
-		TenderEntity tenderEntity = new TenderEntity();
-		tenderEntity.setTender(tender);
-		
-		Gson gson = new Gson();
-		System.out.println(gson.toJson(tenderEntity).toString());
-		StringEntity entity = null;
-		try {
-			//System.out.println(gson.toJson(bargainEntity).toString());
-			entity = new StringEntity(gson.toJson(tenderEntity).toString());
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		String cookieStr = null;
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
@@ -266,6 +244,62 @@ public class BargainActivity extends Activity {
 			startActivity(intent);
 			return;
 		}
+		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
+		String price = priceEditText.getText().toString();
+		if(price==null||price.equals("")){
+			Toast toast = Toast.makeText(BargainActivity.this,
+					"请填写价格", Toast.LENGTH_SHORT);
+			toast.show();
+			return;
+		}
+		if(colors==null||colors.size()==0){
+			Toast toast = Toast.makeText(BargainActivity.this,
+					"至少选择一种颜色", Toast.LENGTH_SHORT);
+			toast.show();
+			return;
+		}
+		if(dealers==null||dealers.size()==0){
+			Toast toast = Toast.makeText(BargainActivity.this,
+					"至少选择一家4s店", Toast.LENGTH_SHORT);
+			toast.show();
+			return;
+		}
+		Tender tender = new Tender();
+		StringBuffer buffer = new StringBuffer();
+		for(int i=0;i<colors.size();i++){
+			buffer.append(colors.get(i) + ",");
+		}
+		if (buffer != null && buffer.length() > 0) {
+			buffer.deleteCharAt(buffer.length() - 1);
+		}
+		
+		tender.setColors_id(buffer.toString());
+		tender.setGot_licence(String.valueOf(plateSelection));
+		tender.setLoan_option(String.valueOf(loanSelection));
+		tender.setModel("111");
+		tender.setTrim_id(trim_id);
+		tender.setPickup_time(String.valueOf(getcarTimeSelection));
+		tender.setLicense_location(String.valueOf(locationSelection));
+		tender.setPrice(price);
+		Map<String, String> shops = new HashMap<>();
+		for(int i=0;i<dealers.size();i++){
+			shops.put(dealers.get(i), "1");
+		}
+		tender.setShops(shops);
+		TenderEntity tenderEntity = new TenderEntity();
+		tenderEntity.setTender(tender);
+		
+		Gson gson = new Gson();
+		System.out.println(gson.toJson(tenderEntity).toString());
+		StringEntity entity = null;
+		try {
+			//System.out.println(gson.toJson(bargainEntity).toString());
+			entity = new StringEntity(gson.toJson(tenderEntity).toString());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		progressLayout.setVisibility(View.VISIBLE);
 		HttpConnection.getClient().addHeader("Cookie",
 				cookieName + "=" + cookieStr);
@@ -352,6 +386,7 @@ public class BargainActivity extends Activity {
 			intent.putExtra("name", "选择颜色");
 			intent.putExtra("tag", 1);
 			intent.putExtra("model_id", model_id);
+			//intent.putStringArrayListExtra("selected_colors", colors);
 			startActivityForResult(intent, 0);
 		}
 	};
@@ -434,7 +469,7 @@ public class BargainActivity extends Activity {
 			// data为B中回传的Intent
 			//int position = b.getInt("result");
 			if (requestCode == RESULT_COLOR) {
-				colors = b.getString("colors");
+				colors = b.getStringArrayList("colors");
 			} else if (requestCode == RESULT_TIME) {
 				getcarTimeSelection = b.getInt("result");
 			} else if (requestCode == RESULT_LOAN) {
