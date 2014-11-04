@@ -77,6 +77,7 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity>{
 		CarColorEntity carColorEntity = list.get(position);
 		holder.imageView.setBackgroundColor(Color.parseColor(carColorEntity.getCode()));
 		holder.textView.setText(carColorEntity.getName());
+		holder.checkBox.setChecked(isSelected.get(position));
 		return convertView;
 	}
 	private static class ViewHolder
