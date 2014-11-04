@@ -6,11 +6,13 @@ import java.util.List;
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.DealerEntity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class SelectDealerAdapter extends ArrayAdapter<DealerEntity>{
@@ -18,6 +20,7 @@ public class SelectDealerAdapter extends ArrayAdapter<DealerEntity>{
 	private HashMap<Integer, Boolean> isSelected; 
 	private Context context;
 	private List<DealerEntity> list;
+	@SuppressLint("UseSparseArrays")
 	public SelectDealerAdapter(Context context, int resource,
 			List<DealerEntity> objects) {
 		super(context, resource, objects);
@@ -28,13 +31,14 @@ public class SelectDealerAdapter extends ArrayAdapter<DealerEntity>{
 		initDate();
 	}
 	private void initDate() {  
-        for (int i = 0; i < list.size(); i++) {  
+        for (int i = 0; i < this.list.size(); i++) {  
             getIsSelected().put(i, false);  
         }  
     } 
 	public void updateList(List<DealerEntity> list){
 		this.list = list;
 		notifyDataSetChanged();
+		initDate();
 	}
 	public  HashMap<Integer, Boolean> getIsSelected() {  
         return isSelected;  
@@ -65,6 +69,7 @@ public class SelectDealerAdapter extends ArrayAdapter<DealerEntity>{
 			holder.nameTextView = (TextView)convertView.findViewById(R.id.selectshop_name_text);
 			//
 			holder.addressTextView = (TextView)convertView.findViewById(R.id.selectshop_address_text);
+			holder.checkBox = (CheckBox)convertView.findViewById(R.id.selectshop_checkBox);
 			convertView.setTag(holder);
 ;
 		}else {
@@ -73,6 +78,7 @@ public class SelectDealerAdapter extends ArrayAdapter<DealerEntity>{
 		DealerEntity entity = list.get(position);
 		holder.nameTextView.setText(entity.getName());
 		holder.addressTextView.setText(entity.getAddress());
+		holder.checkBox.setChecked(isSelected.get(position));
 		return convertView;
 		//return super.getView(position, convertView, parent);
 	}
@@ -80,6 +86,7 @@ public class SelectDealerAdapter extends ArrayAdapter<DealerEntity>{
     {
 		TextView nameTextView;
 		TextView addressTextView;
+		CheckBox checkBox;
     }
 
 }

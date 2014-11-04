@@ -63,21 +63,13 @@ public class SelectDealerActivity extends Activity{
 		System.out.println("trim_id:"+trim_id);
 		name= intent.getStringExtra("name");
 		titleTextView.setText(name);
-//		name = intent.getStringExtra("name");
-//		tag = intent.getIntExtra("tag",0);
-//		titleTextView.setText(name);
 		listView = (ListView) findViewById(R.id.selectshop_listview);
 		dealerList = new ArrayList<DealerEntity>();
-//		for (int i = 0; i < 20; i++) {
-//			DealerEntity dealerEntity = new DealerEntity();
-//			dealerList.add(dealerEntity);
-//		}
 		dealerListAdapter = new SelectDealerAdapter(this, R.layout.item_selectshop,
 				dealerList);
 		listView.setAdapter(dealerListAdapter);
 		listView.setOnItemClickListener(dealerListClickListener);
 		getData();
-		//listView.setOnItemLongClickListener(dealerlistLongClickListener);
 	}
 	protected OnItemClickListener dealerListClickListener = new OnItemClickListener() {
 
@@ -166,11 +158,6 @@ public class SelectDealerActivity extends Activity{
 		};
 	};
 	public void exitClick(View view){
-		//intent.putExtra("result", position);
-//		int size = mycarColorAdapter.getIsSelected().size();
-//		for(int i = 0;i<size;i++){
-//			mycarColorAdapter.getIsSelected().get(i);
-//		}
 		ArrayList<String>dealers = new ArrayList<String>();
 		Iterator<Integer> iter = dealerListAdapter.getIsSelected().keySet().iterator();
 		while (iter.hasNext()) {  
