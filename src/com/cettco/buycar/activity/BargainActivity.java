@@ -1,6 +1,7 @@
 package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,15 +89,14 @@ public class BargainActivity extends Activity {
 	private int tender_id;
 
 	private RelativeLayout progressLayout;
-	
+
 	private EditText priceEditText;
 
 	private int order_id;
 	private String model_id;
 	private String trim_id;
-	private ArrayList<String>dealers = new ArrayList<String>();
+	private ArrayList<String> dealers = new ArrayList<String>();
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -142,10 +142,10 @@ public class BargainActivity extends Activity {
 
 		shopLayout = (RelativeLayout) findViewById(R.id.activity_bargain_4s_layout);
 		shopLayout.setOnClickListener(shopBtnClickListener);
-		
-		shoptexTextView = (TextView)findViewById(R.id.activity_bargain_4s_textview);
-		
-		priceEditText = (EditText)findViewById(R.id.activity_bargain_myprice_textview);
+
+		shoptexTextView = (TextView) findViewById(R.id.activity_bargain_4s_textview);
+
+		priceEditText = (EditText) findViewById(R.id.activity_bargain_myprice_textview);
 
 	}
 
@@ -167,8 +167,10 @@ public class BargainActivity extends Activity {
 		loantTextView.setText(loanList.get(loanSelection));
 		locationTextView.setText(locationList.get(locationSelection));
 		plateTextView.setText(plateList.get(plateSelection));
-		shoptexTextView.setText(Html.fromHtml("已选择<font color='#ff0033'>"+dealers.size()+"</font>家4s店"));
-		colorTextView.setText(Html.fromHtml("已选择<font color='#ff0033'>"+colors.size()+"</font>种颜色"));
+		shoptexTextView.setText(Html.fromHtml("已选择<font color='#ff0033'>"
+				+ dealers.size() + "</font>家4s店"));
+		colorTextView.setText(Html.fromHtml("已选择<font color='#ff0033'>"
+				+ colors.size() + "</font>种颜色"));
 	}
 
 	protected OnClickListener submitBtnClickListener = new OnClickListener() {
@@ -203,20 +205,21 @@ public class BargainActivity extends Activity {
 			// });
 			// // Create the AlertDialog object and return it
 			// builder.create().show();
-//			String url = "http://wappaygw.alipay.com/service/rest.htm?req_data=<direct_trade_create_req><subject>12121212</subject><out_trade_no>12121021</out_trade_no><total_fee>1</total_fee><seller_account_name>che12121</seller_account_name><notify_url>http://www.alipay.com/waptest0504/servlet/NotifyReceiver</notify_url><out_user>outID123</out_user><merchant_url>http://www.alipay.com</merchant_url><pay_expire>10</pay_expire></direct_trade_create_req>&service=alipay.wap.trade.create.direct&sec_id=0001&partner=12112&req_id=11121212&sign=bDfw5%2Bctc3pxzl7emPxqOod4EiPu3BkE0 Um54g4whHT22CwLbOn1gzyE%2BU5SIleGPke2rNQ%3D&format=xml&v=2.0";
-//			Intent intent = new Intent();
-//			String url2 = "https://wappaygw.alipay.com/service/rest.htm";
-//			intent.setClass(BargainActivity.this, AlipayWebActivity.class);
-//			intent.putExtra("url", url2);
-//			startActivity(intent);
+			// String url =
+			// "http://wappaygw.alipay.com/service/rest.htm?req_data=<direct_trade_create_req><subject>12121212</subject><out_trade_no>12121021</out_trade_no><total_fee>1</total_fee><seller_account_name>che12121</seller_account_name><notify_url>http://www.alipay.com/waptest0504/servlet/NotifyReceiver</notify_url><out_user>outID123</out_user><merchant_url>http://www.alipay.com</merchant_url><pay_expire>10</pay_expire></direct_trade_create_req>&service=alipay.wap.trade.create.direct&sec_id=0001&partner=12112&req_id=11121212&sign=bDfw5%2Bctc3pxzl7emPxqOod4EiPu3BkE0 Um54g4whHT22CwLbOn1gzyE%2BU5SIleGPke2rNQ%3D&format=xml&v=2.0";
+			// Intent intent = new Intent();
+			// String url2 = "https://wappaygw.alipay.com/service/rest.htm";
+			// intent.setClass(BargainActivity.this, AlipayWebActivity.class);
+			// intent.putExtra("url", url2);
+			// startActivity(intent);
 			submit();
-//			Intent intent = new Intent();
-//			intent.setClass(BargainActivity.this, AliPayActivity.class);
-//			startActivity(intent);
+			// Intent intent = new Intent();
+			// intent.setClass(BargainActivity.this, AliPayActivity.class);
+			// startActivity(intent);
 		}
 	};
 
-	private void submit() {
+	private void submit(){
 		String cookieStr = null;
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
@@ -236,8 +239,8 @@ public class BargainActivity extends Activity {
 			}
 		}
 		if (cookieStr == null || cookieStr.equals("")) {
-			Toast toast = Toast.makeText(BargainActivity.this,
-					"请先登录", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(BargainActivity.this, "请先登录",
+					Toast.LENGTH_SHORT);
 			toast.show();
 			Intent intent = new Intent();
 			intent.setClass(BargainActivity.this, SignInActivity.class);
@@ -246,27 +249,27 @@ public class BargainActivity extends Activity {
 		}
 		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
 		String price = priceEditText.getText().toString();
-		if(price==null||price.equals("")){
-			Toast toast = Toast.makeText(BargainActivity.this,
-					"请填写价格", Toast.LENGTH_SHORT);
+		if (price == null || price.equals("")) {
+			Toast toast = Toast.makeText(BargainActivity.this, "请填写价格",
+					Toast.LENGTH_SHORT);
 			toast.show();
 			return;
 		}
-		if(colors==null||colors.size()==0){
-			Toast toast = Toast.makeText(BargainActivity.this,
-					"至少选择一种颜色", Toast.LENGTH_SHORT);
+		if (colors == null || colors.size() == 0) {
+			Toast toast = Toast.makeText(BargainActivity.this, "至少选择一种颜色",
+					Toast.LENGTH_SHORT);
 			toast.show();
 			return;
 		}
-		if(dealers==null||dealers.size()==0){
-			Toast toast = Toast.makeText(BargainActivity.this,
-					"至少选择一家4s店", Toast.LENGTH_SHORT);
+		if (dealers == null || dealers.size() == 0) {
+			Toast toast = Toast.makeText(BargainActivity.this, "至少选择一家4s店",
+					Toast.LENGTH_SHORT);
 			toast.show();
 			return;
 		}
 		Tender tender = new Tender();
 		StringBuffer buffer = new StringBuffer();
-		for(int i=0;i<colors.size();i++){
+		for (int i = 0; i < colors.size(); i++) {
 			buffer.append(colors.get(i) + ",");
 		}
 		if (buffer != null && buffer.length() > 0) {
@@ -275,35 +278,39 @@ public class BargainActivity extends Activity {
 		System.out.println(buffer.toString());
 		tender.setColors_id(buffer.toString());
 		tender.setGot_licence(String.valueOf(plateSelection));
-		tender.setLoan_option(String.valueOf(loanSelection+1));
+		tender.setLoan_option(String.valueOf(loanSelection + 1));
 		tender.setModel("111");
 		tender.setTrim_id(trim_id);
 		tender.setPickup_time(String.valueOf(getcarTimeSelection));
-		//tender.setLicense_location(String.valueOf(locationSelection));
-		String locationString="";
-		if(locationSelection==0)locationString = "上海";
-		else if(locationSelection==1)locationString="北京";
+		// tender.setLicense_location(String.valueOf(locationSelection));
+		String locationString = "";
+		if (locationSelection == 0)
+			locationString = "上海";
+		else if (locationSelection == 1)
+			locationString = "北京";
+		;
 		tender.setLicense_location(locationString);
 		tender.setPrice(price);
 		Map<String, String> shops = new HashMap<>();
-		for(int i=0;i<dealers.size();i++){
+		for (int i = 0; i < dealers.size(); i++) {
 			shops.put(dealers.get(i), "1");
 		}
 		tender.setShops(shops);
 		TenderEntity tenderEntity = new TenderEntity();
 		tenderEntity.setTender(tender);
-		
+
 		Gson gson = new Gson();
 		System.out.println(gson.toJson(tenderEntity).toString());
 		StringEntity entity = null;
 		try {
-			//System.out.println(gson.toJson(bargainEntity).toString());
-			entity = new StringEntity(gson.toJson(tenderEntity).toString());
+			// System.out.println(gson.toJson(bargainEntity).toString());
+			entity = new StringEntity(gson.toJson(tenderEntity).toString(),
+					"utf-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		progressLayout.setVisibility(View.VISIBLE);
 		HttpConnection.getClient().addHeader("Cookie",
 				cookieName + "=" + cookieStr);
@@ -354,11 +361,13 @@ public class BargainActivity extends Activity {
 						// }
 						System.out.println("response:" + response);
 						if (statusCode == 201) {
-							
+
 							try {
 								orderItemEntity.setId(response.getString("id"));
-								orderItemEntity.setState(response.getString("state"));
-								DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(BargainActivity.this);
+								orderItemEntity.setState(response
+										.getString("state"));
+								DatabaseHelperOrder orderHelper = DatabaseHelperOrder
+										.getHelper(BargainActivity.this);
 								orderHelper.getDao().update(orderItemEntity);
 							} catch (JSONException | SQLException e) {
 								// TODO Auto-generated catch block
@@ -380,6 +389,7 @@ public class BargainActivity extends Activity {
 				});
 
 	}
+
 	protected OnClickListener colorLayoutClickListener = new OnClickListener() {
 
 		@Override
@@ -390,7 +400,7 @@ public class BargainActivity extends Activity {
 			intent.putExtra("name", "选择颜色");
 			intent.putExtra("tag", 1);
 			intent.putExtra("model_id", model_id);
-			//intent.putStringArrayListExtra("selected_colors", colors);
+			// intent.putStringArrayListExtra("selected_colors", colors);
 			startActivityForResult(intent, 0);
 		}
 	};
@@ -458,10 +468,11 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, SelectDealerActivity.class);
 			intent.putExtra("name", "选择4s店");
 			intent.putExtra("trim_id", trim_id);
-			startActivityForResult(intent,5);
+			startActivityForResult(intent, 5);
 
 		}
 	};
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (data == null)
 			return;
@@ -471,7 +482,7 @@ public class BargainActivity extends Activity {
 		switch (resultCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
 		case RESULT_OK:
 			// data为B中回传的Intent
-			//int position = b.getInt("result");
+			// int position = b.getInt("result");
 			if (requestCode == RESULT_COLOR) {
 				colors = b.getStringArrayList("colors");
 			} else if (requestCode == RESULT_TIME) {
@@ -484,7 +495,7 @@ public class BargainActivity extends Activity {
 				plateSelection = b.getInt("result");
 			} else if (requestCode == RESULT_SHOP) {
 				dealers = b.getStringArrayList("dealers");
-				System.out.println("dealer size:"+dealers.size());
+				System.out.println("dealer size:" + dealers.size());
 			}
 			break;
 		default:

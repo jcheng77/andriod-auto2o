@@ -73,6 +73,7 @@ public class CarDetailActivity extends Activity {
 	
 	private String trim_id;
 	private String trim_name;
+	private int trim_selection=0;
 	
 	private int[] mColors = new int[] { R.color.vordiplom_1, R.color.vordiplom_2, R.color.vordiplom_3 };
 	
@@ -247,6 +248,7 @@ public class CarDetailActivity extends Activity {
 		@Override
 		public void onPageSelected(int index) {
 			// TODO Auto-generated method stub
+			trim_selection = index;
 			trim_id = trimList.get(index).getId();
 			trim_name = trimList.get(index).getName();
 		}
@@ -375,7 +377,7 @@ public class CarDetailActivity extends Activity {
 //			progressLayout.setVisibility(View.VISIBLE);
 			orderItemEntity.setState("begain");
 			orderItemEntity.setTrim_id(trim_id);
-			orderItemEntity.setModel(orderItemEntity.getModel()+" : "+trim_name);
+			orderItemEntity.setModel(orderItemEntity.getModel()+" : "+(trimList.size()>0?trimList.get(trim_selection).getName():""));
 			orderItemEntity.setTime(new Date());
 			DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(CarDetailActivity.this);
 			try {
