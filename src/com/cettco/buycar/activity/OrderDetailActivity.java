@@ -36,6 +36,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class OrderDetailActivity extends Activity {
 
@@ -57,6 +58,7 @@ public class OrderDetailActivity extends Activity {
 	private TextView licenseLocationTextView;
 	private TextView gotLicenseTextView;
 	private TextView loanTextView;
+	private TextView trimTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +72,13 @@ public class OrderDetailActivity extends Activity {
 		qRcodeLayout = (LinearLayout) findViewById(R.id.activity_order_detail_qrcode);
 		stateTextView = (TextView)findViewById(R.id.order_detail_state);
 		carImageView = (ImageView)findViewById(R.id.order_detail_car_imageview);
-		modelTextView = (TextView)findViewById(R.id.order_detail_model_textview);
+		modelTextView = (TextView)findViewById(R.id.order_detail_brandmakermodel_textview);
 		priceTextView = (TextView)findViewById(R.id.order_detail_price_textview);
 		pickupTimeTextView = (TextView)findViewById(R.id.order_detail_pickup_time_textview);
 		licenseLocationTextView = (TextView)findViewById(R.id.order_detail_license_location_textview);
 		gotLicenseTextView = (TextView)findViewById(R.id.order_detail_got_licence_textview);
 		loanTextView = (TextView)findViewById(R.id.order_detail_loan_option_textview);
+		trimTextView = (TextView)findViewById(R.id.order_detail_trim_textview);
 		id = getIntent().getStringExtra("id");
 		mMapView = (MapView) findViewById(R.id.order_has_dealer_bmapView);
 		mBaiduMap = mMapView.getMap();
@@ -129,6 +132,9 @@ public class OrderDetailActivity extends Activity {
 					Throwable arg3) {
 				// TODO Auto-generated method stub
 				System.out.println("fail");
+				Message message = new Message();
+				message.what = 2;
+				mHandler.sendMessage(message);
 			}
 
 			@Override
@@ -168,6 +174,10 @@ public class OrderDetailActivity extends Activity {
 				// dealerListAdapter.updateList(dealerList);
 				updateUI();
 				break;
+			case 2:
+				Toast toast = Toast.makeText(OrderDetailActivity.this, "获取订单详情失败", Toast.LENGTH_SHORT);
+				toast.show();
+				break;
 			}
 		};
 	};
@@ -193,8 +203,14 @@ public class OrderDetailActivity extends Activity {
 			}
 
 		}
+		System.out.println("pic:"+detailEntity.getPic_url());
 		Data.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
-		modelTextView.setText(detailEntity.getTrim().getName());
+		String brandName= detailEntity.getBrand().getName();
+		String makerName = detailEntity.getMaker().getName();
+		String modelName = detailEntity.getModel().getName();
+		String trimName = detailEntity.getTrim().getName();
+		modelTextView.setText(brandName+"("+makerName+") "+modelName);
+		trimTextView.setText(trimName);
 		priceTextView.setText(detailEntity.getPrice());
 		pickupTimeTextView.setText(detailEntity.getPickup_time());
 		licenseLocationTextView.setText(detailEntity.getLicense_location());
