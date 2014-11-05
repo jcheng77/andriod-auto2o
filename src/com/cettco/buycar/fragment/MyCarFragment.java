@@ -113,13 +113,6 @@ public class MyCarFragment extends Fragment {
 		adapter = new MyOrderAdapter(getActivity(), R.layout.item_my_order,
 				list);
 		listView.setAdapter(adapter);
-		adapter.updateList(list);
-		// currentButton =
-		// (Button)fragmentView.findViewById(R.id.currentOrderBtn);
-		// historyButton =
-		// (Button)fragmentView.findViewById(R.id.cancledOrderBtn);
-		// currentButton.setOnClickListener(currentClickListener);
-		// historyButton.setOnClickListener(historyClickListener);
 		return fragmentView;
 	}
 
@@ -249,6 +242,7 @@ public class MyCarFragment extends Fragment {
 		}
 	}
 	private void getData() {
+		System.out.println("getdata");
 		String cookieStr = null;
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(

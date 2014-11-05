@@ -2,7 +2,6 @@ package com.cettco.buycar.entity;
 
 public class OrderDetailEntity {
 	private String id;
-	private String model;
 	private String trim_id;
 	private String price;
 	private String pickup_time;
@@ -10,6 +9,37 @@ public class OrderDetailEntity {
 	private String got_licence;
 	private String loan_option;
 	private String pic_url;
+	private String description;
+	private String state;
+	private String verfiy_code;
+	private CarBrandEntity brand;
+	public CarBrandEntity getBrand() {
+		return brand;
+	}
+	public void setBrand(CarBrandEntity brand) {
+		this.brand = brand;
+	}
+	public CarMakerEntity getMaker() {
+		return maker;
+	}
+	public void setMaker(CarMakerEntity maker) {
+		this.maker = maker;
+	}
+	public CarModelEntity getModel() {
+		return model;
+	}
+	public void setModel(CarModelEntity model) {
+		this.model = model;
+	}
+	public CarTrimEntity getTrim() {
+		return trim;
+	}
+	public void setTrim(CarTrimEntity trim) {
+		this.trim = trim;
+	}
+	private CarMakerEntity maker;
+	private CarModelEntity model;
+	private CarTrimEntity trim;
 	public String getPic_url() {
 		return pic_url;
 	}
@@ -21,12 +51,6 @@ public class OrderDetailEntity {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getModel() {
-		return model;
-	}
-	public void setModel(String model) {
-		this.model = model;
 	}
 	public String getTrim_id() {
 		return trim_id;
@@ -82,7 +106,4 @@ public class OrderDetailEntity {
 	public void setVerfiy_code(String verfiy_code) {
 		this.verfiy_code = verfiy_code;
 	}
-	private String description;
-	private String state;
-	private String verfiy_code;
 }

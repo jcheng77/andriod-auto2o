@@ -272,7 +272,7 @@ public class BargainActivity extends Activity {
 		if (buffer != null && buffer.length() > 0) {
 			buffer.deleteCharAt(buffer.length() - 1);
 		}
-		
+		System.out.println(buffer.toString());
 		tender.setColors_id(buffer.toString());
 		tender.setGot_licence(String.valueOf(plateSelection));
 		tender.setLoan_option(String.valueOf(loanSelection));

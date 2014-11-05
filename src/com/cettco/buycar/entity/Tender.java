@@ -5,7 +5,7 @@ import java.util.Map;
 public class Tender {
 	private String model;
 	private String trim_id;
-	private String colors_id;
+	private String colors_ids;
 	private String pickup_time;
 	private String license_location;
 	private String got_licence;
@@ -31,10 +31,10 @@ public class Tender {
 		this.trim_id = trim_id;
 	}
 	public String getColors_id() {
-		return colors_id;
+		return colors_ids;
 	}
 	public void setColors_id(String colors_id) {
-		this.colors_id = colors_id;
+		this.colors_ids = colors_id;
 	}
 	public String getPickup_time() {
 		return pickup_time;

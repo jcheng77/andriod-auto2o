@@ -69,7 +69,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		}
 		OrderItemEntity entity = list.get(position);
 		//System.out.println(entity.getPic_url());
-		holder.modeltextView.setText(entity.getName());
+		holder.modeltextView.setText(entity.getModel());
 		holder.pricetextView.setText(entity.getPrice());
 		Data.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());

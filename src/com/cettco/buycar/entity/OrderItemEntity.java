@@ -31,7 +31,15 @@ public class OrderItemEntity {
 	private Date time;
 	@DatabaseField
 	private String pic_url;
+	@DatabaseField
+	private String model;
 	
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
 	private String updated_at;
 	
 	public Date getTime() {

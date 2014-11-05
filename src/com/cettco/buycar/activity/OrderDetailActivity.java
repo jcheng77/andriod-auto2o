@@ -194,7 +194,7 @@ public class OrderDetailActivity extends Activity {
 
 		}
 		Data.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
-		modelTextView.setText(detailEntity.getModel());
+		modelTextView.setText(detailEntity.getTrim().getName());
 		priceTextView.setText(detailEntity.getPrice());
 		pickupTimeTextView.setText(detailEntity.getPickup_time());
 		licenseLocationTextView.setText(detailEntity.getLicense_location());
