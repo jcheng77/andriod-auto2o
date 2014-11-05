@@ -54,8 +54,10 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 					false);
 			holder.stateTextView = (TextView) convertView
 					.findViewById(R.id.my_order_status_textview);
-			holder.modeltextView = (TextView) convertView
-					.findViewById(R.id.my_order_model_textview);
+			holder.brandMakerModelTextView = (TextView) convertView
+					.findViewById(R.id.my_order_brandmakermodel_textview);
+			holder.trimTextView=  (TextView) convertView
+					.findViewById(R.id.my_order_trim_textview);
 			holder.pricetextView = (TextView) convertView
 					.findViewById(R.id.my_order_price_textview);
 			holder.stateLayout = (LinearLayout) convertView
@@ -69,7 +71,12 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		}
 		OrderItemEntity entity = list.get(position);
 		//System.out.println(entity.getPic_url());
-		holder.modeltextView.setText(entity.getModel());
+		String[] name_array = entity.getModel().split(" : ");
+		//System.out.println(name_array);
+		if(name_array.length==5){
+			holder.brandMakerModelTextView.setText(name_array[0]+" "+name_array[1]+" "+name_array[2]);
+			holder.trimTextView.setText(name_array[3]);
+		}		
 		holder.pricetextView.setText(entity.getPrice());
 		Data.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());
@@ -100,7 +107,8 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 
 	private static class ViewHolder {
 		TextView stateTextView;
-		TextView modeltextView;
+		TextView brandMakerModelTextView;
+		TextView trimTextView;
 		TextView pricetextView;
 		LinearLayout stateLayout;
 		ImageView imageView;

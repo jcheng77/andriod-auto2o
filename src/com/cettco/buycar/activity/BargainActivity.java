@@ -275,11 +275,15 @@ public class BargainActivity extends Activity {
 		System.out.println(buffer.toString());
 		tender.setColors_id(buffer.toString());
 		tender.setGot_licence(String.valueOf(plateSelection));
-		tender.setLoan_option(String.valueOf(loanSelection));
+		tender.setLoan_option(String.valueOf(loanSelection+1));
 		tender.setModel("111");
 		tender.setTrim_id(trim_id);
 		tender.setPickup_time(String.valueOf(getcarTimeSelection));
-		tender.setLicense_location(String.valueOf(locationSelection));
+		//tender.setLicense_location(String.valueOf(locationSelection));
+		String locationString="";
+		if(locationSelection==0)locationString = "上海";
+		else if(locationSelection==1)locationString="北京";
+		tender.setLicense_location(locationString);
 		tender.setPrice(price);
 		Map<String, String> shops = new HashMap<>();
 		for(int i=0;i<dealers.size();i++){
