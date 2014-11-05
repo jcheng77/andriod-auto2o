@@ -73,10 +73,13 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		//System.out.println(entity.getPic_url());
 		String[] name_array = entity.getModel().split(" : ");
 		//System.out.println(name_array);
-		if(name_array.length==5){
+		if(name_array!=null&&name_array.length>=4){
 			holder.brandMakerModelTextView.setText(name_array[0]+" "+name_array[1]+" "+name_array[2]);
 			holder.trimTextView.setText(name_array[3]);
-		}		
+		}if(name_array!=null&&name_array.length==3){
+			holder.brandMakerModelTextView.setText(name_array[0]+" "+name_array[1]+" "+name_array[2]);
+			//holder.trimTextView.setText(name_array[3]);
+		}
 		holder.pricetextView.setText(entity.getPrice());
 		Data.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());

@@ -243,6 +243,8 @@ public class CarListActivity extends Activity {
 			OrderItemEntity orderItemEntity = new OrderItemEntity();
 			orderItemEntity.setPic_url(modelEntity.getPic_url());
 			orderItemEntity.setState("viewed");
+			String model_name = carBrandEntities.get(brandPosition).getName()+" : "+makerEntities.get(groupPosition).getName()+" : "+modelEntity.getName();
+			orderItemEntity.setModel(model_name);
 			orderItemEntity.setModel_id(modelEntity.getId());
 			orderItemEntity.setTime(new Date());
 			//orderItemEntity.setTrim(trim);
