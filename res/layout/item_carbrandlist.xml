@@ -10,13 +10,13 @@
         android:layout_alignParentLeft="true"
         android:orientation="horizontal"
         >
-        <ImageView 
+        <!-- <ImageView 
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="#666666"
-            />
+            /> -->
         <TextView
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_gravity="center"
             android:id="@+id/carBrandText"
             android:layout_width="match_parent"

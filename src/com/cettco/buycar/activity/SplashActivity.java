@@ -1,11 +1,13 @@
 package com.cettco.buycar.activity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cn.jpush.android.api.JPushInterface;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTrimViewPagerAdapter;
+import com.cettco.buycar.utils.db.DataBaseUtil;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -30,6 +33,13 @@ public class SplashActivity extends Activity{
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putBoolean("first", false);
 			editor.commit();
+			//
+			copyDataBaseToPhone("ormliteandroid_brand");
+			copyDataBaseToPhone("ormliteandroid_color");
+			copyDataBaseToPhone("ormliteandroid_maker");
+			copyDataBaseToPhone("ormliteandroid_model");
+			copyDataBaseToPhone("ormliteandroid_trim");
+			//
 			Intent intent = new Intent();
 			intent.setClass(SplashActivity.this, IntroductionActivity.class);
 			startActivity(intent);
@@ -65,4 +75,20 @@ public class SplashActivity extends Activity{
 		JPushInterface.onResume(this);
 	}
 
+	private void copyDataBaseToPhone(String dbName) {  
+        DataBaseUtil util = new DataBaseUtil(this);  
+        // 判断数据库是否存在  
+        util.setDataBaseName(dbName);
+        boolean dbExist = util.checkDataBase();  
+  
+        if (dbExist) {  
+            Log.i("tag", "The database is exist.");  
+        } else {// 不存在就把raw里的数据库写入手机  
+            try {  
+                util.copyDataBase();  
+            } catch (IOException e) {  
+                throw new Error("Error copying database");  
+            }  
+        }  
+    }
 }
