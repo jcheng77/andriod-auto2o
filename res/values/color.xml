@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-     <color name="actionbar_main">#33cccc</color>
+     <color name="actionbar_main">#0C8398</color>
      <color name="actionbar_back">#cccccc</color>
       <color name="actionbar_main_text">#ffffff</color>
-      <color name="slidingmenu">#111111</color> 
+      <color name="slidingmenu">#0C8398</color> 
       <color name="slidingmenu_text">#ffffff</color>
       <color name="car_detail_background">#cccccc</color>
       <color name="car_detail_front">#ffffff</color>

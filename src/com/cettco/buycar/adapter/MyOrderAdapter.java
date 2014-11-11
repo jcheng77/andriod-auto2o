@@ -7,6 +7,7 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.Data;
 
+import android.R.bool;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -38,9 +39,10 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return list == null ? 0 : this.list.size();
+		if(list==null||list.size()==0)return 1;
+		return list.size();
 	}
-
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
@@ -64,11 +66,22 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 					.findViewById(R.id.my_order_status_layout);
 			holder.imageView = (ImageView) convertView
 					.findViewById(R.id.my_order_imageview);
+			holder.hasdataLayout = (LinearLayout)convertView
+					.findViewById(R.id.my_order_has_data_layout);
+			holder.nodataLayout = (LinearLayout)convertView
+					.findViewById(R.id.my_order_no_data_layout);
 			convertView.setTag(holder);
 			;
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		if(list==null||list.size()==0){
+			holder.hasdataLayout.setVisibility(View.GONE);
+			holder.nodataLayout.setVisibility(View.VISIBLE);
+			return convertView;
+		}
+		holder.hasdataLayout.setVisibility(View.VISIBLE);
+		holder.nodataLayout.setVisibility(View.GONE);
 		OrderItemEntity entity = list.get(position);
 		//System.out.println(entity.getPic_url());
 		String[] name_array = entity.getModel().split(" : ");
@@ -115,6 +128,8 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		TextView pricetextView;
 		LinearLayout stateLayout;
 		ImageView imageView;
+		LinearLayout nodataLayout;
+		LinearLayout hasdataLayout;
 	}
 
 }

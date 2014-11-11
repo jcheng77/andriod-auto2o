@@ -44,14 +44,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -74,11 +76,14 @@ public class MyCarFragment extends Fragment {
 	private ListView listView;
 	private PullToRefreshListView pullToRefreshView;
 	private MyOrderAdapter adapter;
-	private ArrayList<OrderItemEntity> list = new ArrayList<OrderItemEntity>();
+	// private ArrayList<OrderItemEntity> list = new
+	// ArrayList<OrderItemEntity>();
 	// private Button currentButton;
 	// private Button historyButton;
 	private LinearLayout mycarBgLayout;
-	private List<OrderItemEntity> orderItems;
+	private List<OrderItemEntity> orderItems = new ArrayList<OrderItemEntity>();
+
+	private int global_page = 1;
 
 	// private List<E>
 
@@ -94,24 +99,31 @@ public class MyCarFragment extends Fragment {
 				.findViewById(R.id.carlist_bg_layout);
 		pullToRefreshView = (PullToRefreshListView) fragmentView
 				.findViewById(R.id.pull_to_refresh_listview);
+		pullToRefreshView.setMode(Mode.BOTH);
 		pullToRefreshView
-				.setOnRefreshListener(new OnRefreshListener<ListView>() {
+				.setOnRefreshListener(new OnRefreshListener2<ListView>() {
+
+					// 下拉Pulling Down
 					@Override
-					public void onRefresh(
+					public void onPullDownToRefresh(
 							PullToRefreshBase<ListView> refreshView) {
-						// Do work to refresh the list here.
-						new GetDataTask().execute();
+						// 下拉的时候数据重置
+						new GetDataTask(1).execute();
+					}
+
+					// 上拉Pulling Up
+					@Override
+					public void onPullUpToRefresh(
+							PullToRefreshBase<ListView> refreshView) {
+						// 上拉的时候添加选项
+						new GetDataTask(global_page + 1).execute();
 					}
 
 				});
 		listView = pullToRefreshView.getRefreshableView();
 		listView.setOnItemClickListener(itemClickListener);
-		for (int i = 0; i < 5; i++) {
-			OrderItemEntity entity = new OrderItemEntity();
-			list.add(entity);
-		}
 		adapter = new MyOrderAdapter(getActivity(), R.layout.item_my_order,
-				list);
+				orderItems);
 		listView.setAdapter(adapter);
 		return fragmentView;
 	}
@@ -120,8 +132,8 @@ public class MyCarFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		pullToRefreshView.setRefreshing(true);
 		getCachedData();
+		pullToRefreshView.setRefreshing(true);
 
 	}
 
@@ -131,7 +143,8 @@ public class MyCarFragment extends Fragment {
 				.getHelper(getActivity());
 		if (UserUtil.isLogin(getActivity())) {
 			try {
-				orderItems = helper.getDao().queryBuilder().orderBy("time", false).query();
+				orderItems = helper.getDao().queryBuilder()
+						.orderBy("time", false).query();
 				adapter.updateList(orderItems);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -139,8 +152,9 @@ public class MyCarFragment extends Fragment {
 			}
 		} else {
 			try {
-				orderItems = helper.getDao().queryBuilder().orderBy("time", false).where()
-						.eq("state", "viewed").or().eq("state", "begain").query();
+				orderItems = helper.getDao().queryBuilder()
+						.orderBy("time", false).where().eq("state", "viewed")
+						.or().eq("state", "begain").query();
 				adapter.updateList(orderItems);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -153,30 +167,38 @@ public class MyCarFragment extends Fragment {
 	private void updateDB() {
 		DatabaseHelperOrder helper = DatabaseHelperOrder
 				.getHelper(getActivity());
-		for (int i = 0; i < list.size(); i++) {
-			OrderItemEntity entity = list.get(i);
+		for (int i = 0; i < orderItems.size(); i++) {
+			OrderItemEntity entity = orderItems.get(i);
+			System.out.println("id:"+entity.getId());
 			try {
 				OrderItemEntity tmp = helper.getDao().queryBuilder().where()
-						.eq("id",entity.getId()).queryForFirst();
+						.eq("id", entity.getId()).queryForFirst();
 				if (tmp != null) {
 					tmp.setState(entity.getState());
-					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");  
-					try {  
-					    Date date = format.parse(entity.getUpdated_at());  
-					    tmp.setTime(date);
-					} catch (ParseException e) {  
-					    // TODO Auto-generated catch block  
-					    e.printStackTrace();  
+					if (entity.getUpdated_at() != null) {
+						SimpleDateFormat format = new SimpleDateFormat(
+								"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+						try {
+							System.out.println("formate:"
+									+ entity.getUpdated_at());
+							Date date = format.parse(entity.getUpdated_at());
+							System.out.println("formate2");
+							tmp.setTime(date);
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
-					
+
 				} else {
-					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");  
-					try {  
-					    Date date = format.parse(entity.getUpdated_at());  
-					    entity.setTime(date);
-					} catch (ParseException e) {  
-					    // TODO Auto-generated catch block  
-					    e.printStackTrace();  
+					SimpleDateFormat format = new SimpleDateFormat(
+							"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+					try {
+						Date date = format.parse(entity.getUpdated_at());
+						entity.setTime(date);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 					helper.getDao().create(entity);
 				}
@@ -185,7 +207,7 @@ public class MyCarFragment extends Fragment {
 				e.printStackTrace();
 			}
 		}
-		//getCachedData();
+		// getCachedData();
 	}
 
 	protected OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -197,7 +219,7 @@ public class MyCarFragment extends Fragment {
 			int position = arg2 - 1;
 			OrderItemEntity orderItemEntity = orderItems.get(position);
 			String state = orderItemEntity.getState();
-			System.out.println("order:"+state);
+			System.out.println("order:" + state);
 			if (state.equals("viewed")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
@@ -216,8 +238,7 @@ public class MyCarFragment extends Fragment {
 						AliPayActivity.class);
 				startActivity(intent);
 
-			} 
-			else {
+			} else {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
 						OrderDetailActivity.class);
@@ -227,7 +248,14 @@ public class MyCarFragment extends Fragment {
 
 		}
 	};
+
 	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
+		private int page;
+
+		public GetDataTask(int page) {
+			this.page = page;
+		}
+
 		@Override
 		protected void onPostExecute(String[] result) {
 			// Call onRefreshComplete when the list has been refreshed.
@@ -237,11 +265,12 @@ public class MyCarFragment extends Fragment {
 
 		@Override
 		protected String[] doInBackground(Void... arg0) {
-			getData();
+			getData(page);
 			return null;
 		}
 	}
-	private void getData() {
+
+	private void getData(int page) {
 		System.out.println("getdata");
 		String cookieStr = null;
 		String cookieName = null;
@@ -260,7 +289,10 @@ public class MyCarFragment extends Fragment {
 			return;
 		}
 		HttpClient httpclient = new DefaultHttpClient();
-		String uri = GlobalData.getBaseUrl() + "/tenders.json";
+		String url = GlobalData.getBaseUrl() + "/tenders.json";
+		Uri.Builder builder = Uri.parse(url).buildUpon();
+		builder.appendQueryParameter("page", String.valueOf(page));
+		String uri = builder.build().toString();
 		HttpGet get = new HttpGet(uri);
 		// 添加http头信息
 		get.addHeader("Cookie", cookieName + "=" + cookieStr);
@@ -273,8 +305,13 @@ public class MyCarFragment extends Fragment {
 				String result = EntityUtils.toString(response.getEntity());
 				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
 				}.getType();
-				list = new Gson().fromJson(result, listType);
-				updateDB();
+				List<OrderItemEntity> tmpEntities = new Gson().fromJson(result,
+						listType);
+				if (tmpEntities != null) {
+					global_page = global_page + 1;
+					orderItems.addAll(tmpEntities);
+					updateDB();
+				}
 				Message message = new Message();
 				message.what = 1;
 				mHandler.sendMessage(message);
@@ -284,10 +321,8 @@ public class MyCarFragment extends Fragment {
 				mHandler.sendMessage(message);
 			}
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -299,7 +334,7 @@ public class MyCarFragment extends Fragment {
 			switch (msg.what) {
 			case 1:
 				// updateTitle();
-				//adapter.updateList(list);
+				// adapter.updateList(list);
 				getCachedData();
 				break;
 			case 2:

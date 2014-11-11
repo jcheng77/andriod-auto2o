@@ -6,73 +6,96 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/my_order_status_layout"
+         android:id="@+id/my_order_no_data_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/order_status"
-        android:gravity="center_vertical" >
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center" >
 
         <TextView
-            android:id="@+id/my_order_status_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="开始一口价购买"
-            android:textColor="@color/white"
+            android:text="暂无数据"
             android:textSize="20sp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/my_order_imageview"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:background="#ffffff" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="#000000" />
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/my_order_has_data_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp" >
+        android:orientation="vertical"
+         >
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:orientation="vertical" >
+            android:id="@+id/my_order_status_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/order_status"
+            android:gravity="center_vertical" >
 
             <TextView
-                android:id="@+id/my_order_brandmakermodel_textview"
+                android:id="@+id/my_order_status_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="沃尔沃V40"
+                android:layout_marginLeft="10dp"
+                android:text="开始一口价购买"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/my_order_trim_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2015 1.4 智能"
-                android:textColor="@color/my_order_gray" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/my_order_price_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+        <ImageView
+            android:id="@+id/my_order_imageview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:background="#ffffff" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:text="10000"
-            android:textColor="#fa6810" />
-    </RelativeLayout>
+            android:background="#000000" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/my_order_brandmakermodel_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="沃尔沃V40"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/my_order_trim_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015 1.4 智能"
+                    android:textColor="@color/my_order_gray" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/my_order_price_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="10000"
+                android:textColor="#fa6810" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
