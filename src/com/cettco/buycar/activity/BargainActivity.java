@@ -374,12 +374,18 @@ public class BargainActivity extends Activity {
 								e.printStackTrace();
 							}
 							Toast toast = Toast.makeText(BargainActivity.this,
-									"提交成功,请支付", Toast.LENGTH_SHORT);
+									"提交成功", Toast.LENGTH_SHORT);
 							toast.show();
+//							Intent intent = new Intent();
+//							// intent.putExtra("tenderId", id);
+//							intent.setClass(BargainActivity.this,
+//									AliPayActivity.class);
+//							startActivity(intent);
 							Intent intent = new Intent();
 							// intent.putExtra("tenderId", id);
 							intent.setClass(BargainActivity.this,
-									AliPayActivity.class);
+									MainActivity.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 							startActivity(intent);
 
 						}
