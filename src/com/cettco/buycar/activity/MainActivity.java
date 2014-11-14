@@ -3,53 +3,27 @@ package com.cettco.buycar.activity;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
-import cn.trinea.android.common.entity.HttpResponse;
-
 import com.cettco.buycar.R;
-import com.cettco.buycar.R.dimen;
-import com.cettco.buycar.R.drawable;
-import com.cettco.buycar.R.id;
-import com.cettco.buycar.R.layout;
-import com.cettco.buycar.R.menu;
-import com.cettco.buycar.entity.DealerEntity;
-import com.cettco.buycar.entity.DealerListEntity;
-import com.cettco.buycar.entity.OrderItemEntity;
-import com.cettco.buycar.entity.OrderItemListEntity;
 import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
-import com.cettco.buycar.fragment.WelcomeFragment;
-import com.cettco.buycar.utils.Data;
 import com.cettco.buycar.utils.HttpConnection;
-import com.cettco.buycar.utils.UserUtil;
-import com.google.gson.Gson;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
-
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -129,26 +103,6 @@ public class MainActivity extends Activity {
 		//testJson();
 		//jpushSetAlias();
 
-	}
-	private void jpushSetAlias(){
-		if(!UserUtil.isLogin(this))return;
-		System.out.println("start");
-		JPushInterface.setAlias(this, "user"+UserUtil.getUserId(this), new TagAliasCallback() {
-			
-			@Override
-			public void gotResult(int arg0, String arg1, Set<String> arg2) {
-				// TODO Auto-generated method stub
-				System.out.print("set success:"+arg1);
-//				if(arg0==0){
-//					Toast toast = Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT);
-//					toast.show();
-//				}else{
-//					Toast toast = Toast.makeText(SignInActivity.this, "登录失败", Toast.LENGTH_SHORT);
-//					toast.show();
-//				}
-//				
-			}
-		});
 	}
 	void testJson(){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");

@@ -14,7 +14,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.OrderDetailEntity;
-import com.cettco.buycar.utils.Data;
+import com.cettco.buycar.utils.MyApplication;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.google.gson.Gson;
@@ -204,7 +204,7 @@ public class OrderDetailActivity extends Activity {
 
 		}
 		System.out.println("pic:"+detailEntity.getPic_url());
-		Data.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
+		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
 		String brandName= detailEntity.getBrand().getName();
 		String makerName = detailEntity.getMaker().getName();
 		String modelName = detailEntity.getModel().getName();
@@ -214,8 +214,18 @@ public class OrderDetailActivity extends Activity {
 		priceTextView.setText(detailEntity.getPrice());
 		pickupTimeTextView.setText(detailEntity.getPickup_time());
 		licenseLocationTextView.setText(detailEntity.getLicense_location());
-		gotLicenseTextView.setText(detailEntity.getGot_licence());
-		loanTextView.setText(detailEntity.getLoan_option());
+		if (detailEntity.getGot_licence().equals("0")) {
+			gotLicenseTextView.setText("否");
+		} else if (detailEntity.getGot_licence().equals("1")) {
+			gotLicenseTextView.setText("是");
+		}
+		if (detailEntity.getLoan_option().equals("0")) {
+			loanTextView.setText("贷款");
+		} else if (detailEntity.getLoan_option().equals("1")) {
+			loanTextView.setText("全款");
+		} else if (detailEntity.getLoan_option().equals("2")) {
+			loanTextView.setText("均可");
+		}
 		
 	}
 

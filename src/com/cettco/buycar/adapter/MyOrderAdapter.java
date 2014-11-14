@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.OrderItemEntity;
-import com.cettco.buycar.utils.Data;
+import com.cettco.buycar.utils.MyApplication;
 
 import android.R.bool;
 import android.content.Context;
@@ -94,7 +94,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 			//holder.trimTextView.setText(name_array[3]);
 		}
 		holder.pricetextView.setText(entity.getPrice());
-		Data.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
+		MyApplication.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
 			holder.stateTextView.setText("以看车型");

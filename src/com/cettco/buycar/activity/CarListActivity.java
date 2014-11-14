@@ -74,6 +74,8 @@ public class CarListActivity extends Activity {
 	private CarBrandListEntity carBrandListEntity = new CarBrandListEntity();
 	private int brandPosition = 0;
 	private List<CarMakerEntity> makerEntities;
+	
+	private TextView titleTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

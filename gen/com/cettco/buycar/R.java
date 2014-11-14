@@ -1516,13 +1516,14 @@ containing a value of this type.
         public static final int refresh_push=0x7f020086;
         public static final int round_view=0x7f020087;
         public static final int shadow=0x7f020088;
-        public static final int star_off=0x7f020089;
-        public static final int star_on=0x7f02008a;
-        public static final int status_circle=0x7f02008b;
-        public static final int submitorder_btn_style=0x7f02008c;
-        public static final int title=0x7f02008d;
-        public static final int title_background=0x7f02008e;
-        public static final int welcome=0x7f02008f;
+        public static final int simple_notification_icon=0x7f020089;
+        public static final int star_off=0x7f02008a;
+        public static final int star_on=0x7f02008b;
+        public static final int status_circle=0x7f02008c;
+        public static final int submitorder_btn_style=0x7f02008d;
+        public static final int title=0x7f02008e;
+        public static final int title_background=0x7f02008f;
+        public static final int welcome=0x7f020090;
     }
     public static final class id {
         public static final int AlipayTitle=0x7f0a00c1;
@@ -1531,7 +1532,7 @@ containing a value of this type.
         public static final int RelativeLayout01=0x7f0a00bb;
         public static final int about_version_code=0x7f0a0037;
         public static final int accountLinearLayout=0x7f0a0102;
-        public static final int action_add=0x7f0a011b;
+        public static final int action_add=0x7f0a011f;
         public static final int action_bar=0x7f0a003b;
         public static final int action_bar_activity_content=0x7f0a001a;
         public static final int action_bar_container=0x7f0a003a;
@@ -1539,12 +1540,12 @@ containing a value of this type.
         public static final int action_bar_root=0x7f0a0039;
         public static final int action_bar_subtitle=0x7f0a0042;
         public static final int action_bar_title=0x7f0a0041;
-        public static final int action_carAdd=0x7f0a0119;
+        public static final int action_carAdd=0x7f0a011d;
         public static final int action_context_bar=0x7f0a003c;
         public static final int action_menu_divider=0x7f0a001b;
         public static final int action_menu_presenter=0x7f0a001c;
         public static final int action_mode_close_button=0x7f0a0043;
-        public static final int action_settings=0x7f0a011a;
+        public static final int action_settings=0x7f0a011e;
         public static final int actionbar_done_btn=0x7f0a005c;
         public static final int actionbar_drawer=0x7f0a00a0;
         public static final int actionbar_main=0x7f0a009f;
@@ -1668,7 +1669,7 @@ containing a value of this type.
         public static final int findpwd_data_layout=0x7f0a009b;
         public static final int findpwd_logo_layout=0x7f0a009a;
         public static final int findpwd_text=0x7f0a00b3;
-        public static final int fl_inner=0x7f0a010e;
+        public static final int fl_inner=0x7f0a0112;
         public static final int flip=0x7f0a0027;
         public static final int fullscreen=0x7f0a0003;
         public static final int gridview=0x7f0a0028;
@@ -1711,6 +1712,10 @@ containing a value of this type.
         public static final int never=0x7f0a000f;
         public static final int none=0x7f0a0004;
         public static final int normal=0x7f0a0006;
+        public static final int notification_icon=0x7f0a010e;
+        public static final int notification_text=0x7f0a0110;
+        public static final int notification_time=0x7f0a0111;
+        public static final int notification_title=0x7f0a010f;
         public static final int order_detail_brandmakermodel_textview=0x7f0a0106;
         public static final int order_detail_car_imageview=0x7f0a0105;
         public static final int order_detail_got_licence_textview=0x7f0a010b;
@@ -1732,11 +1737,11 @@ containing a value of this type.
         public static final int pullFromEnd=0x7f0a0021;
         public static final int pullFromStart=0x7f0a0020;
         public static final int pullUpFromBottom=0x7f0a0025;
-        public static final int pull_to_refresh_image=0x7f0a010f;
+        public static final int pull_to_refresh_image=0x7f0a0113;
         public static final int pull_to_refresh_listview=0x7f0a00d2;
-        public static final int pull_to_refresh_progress=0x7f0a0110;
-        public static final int pull_to_refresh_sub_text=0x7f0a0112;
-        public static final int pull_to_refresh_text=0x7f0a0111;
+        public static final int pull_to_refresh_progress=0x7f0a0114;
+        public static final int pull_to_refresh_sub_text=0x7f0a0116;
+        public static final int pull_to_refresh_text=0x7f0a0115;
         public static final int quit=0x7f0a0032;
         public static final int radio=0x7f0a004e;
         public static final int restart_preview=0x7f0a0033;
@@ -1781,14 +1786,14 @@ containing a value of this type.
         public static final int signup_data_layout=0x7f0a00b6;
         public static final int signup_logo_layout=0x7f0a00b5;
         public static final int slidingmenulayout=0x7f0a00ff;
-        public static final int slidingmenumain=0x7f0a0113;
+        public static final int slidingmenumain=0x7f0a0117;
         public static final int split=0x7f0a0038;
         public static final int split_action_bar=0x7f0a003d;
-        public static final int star0Button=0x7f0a0114;
-        public static final int star1Button=0x7f0a0115;
-        public static final int star2Button=0x7f0a0116;
-        public static final int star3Button=0x7f0a0117;
-        public static final int star4Button=0x7f0a0118;
+        public static final int star0Button=0x7f0a0118;
+        public static final int star1Button=0x7f0a0119;
+        public static final int star2Button=0x7f0a011a;
+        public static final int star3Button=0x7f0a011b;
+        public static final int star4Button=0x7f0a011c;
         public static final int status_circle_img=0x7f0a00f2;
         public static final int submit_area=0x7f0a0058;
         public static final int submit_bargain_price_btn=0x7f0a007c;
@@ -1918,11 +1923,12 @@ containing a value of this type.
         public static final int module_order_detail_car_info=0x7f03004c;
         public static final int module_order_detail_customer_intention=0x7f03004d;
         public static final int module_order_detail_dealer_info=0x7f03004e;
-        public static final int pull_to_refresh_header_horizontal=0x7f03004f;
-        public static final int pull_to_refresh_header_vertical=0x7f030050;
-        public static final int slidingmenumain=0x7f030051;
-        public static final int star=0x7f030052;
-        public static final int support_simple_spinner_dropdown_item=0x7f030053;
+        public static final int notification_custom_builder=0x7f03004f;
+        public static final int pull_to_refresh_header_horizontal=0x7f030050;
+        public static final int pull_to_refresh_header_vertical=0x7f030051;
+        public static final int slidingmenumain=0x7f030052;
+        public static final int star=0x7f030053;
+        public static final int support_simple_spinner_dropdown_item=0x7f030054;
     }
     public static final class menu {
         public static final int actionbar_main=0x7f0e0000;

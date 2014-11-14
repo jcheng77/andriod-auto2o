@@ -2,9 +2,6 @@ package com.cettco.buycar.fragment;
 
 import java.util.Set;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
-
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.MainActivity;
 import com.cettco.buycar.activity.SignInActivity;

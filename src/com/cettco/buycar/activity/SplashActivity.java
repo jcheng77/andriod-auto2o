@@ -3,10 +3,11 @@ package com.cettco.buycar.activity;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import cn.jpush.android.api.JPushInterface;
-
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTrimViewPagerAdapter;
+import com.cettco.buycar.utils.BaiduPushUtils;
 import com.cettco.buycar.utils.db.DataBaseUtil;
 
 import android.app.Activity;
@@ -28,6 +29,7 @@ public class SplashActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
+		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,BaiduPushUtils.getMetaValue(SplashActivity.this, "api_key"));
 		SharedPreferences settings = getSharedPreferences("installed", 0);
 		if (settings.getBoolean("first", true)) {
 			SharedPreferences.Editor editor = settings.edit();
@@ -65,14 +67,12 @@ public class SplashActivity extends Activity{
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		JPushInterface.onPause(this);
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		JPushInterface.onResume(this);
 	}
 
 	private void copyDataBaseToPhone(String dbName) {  

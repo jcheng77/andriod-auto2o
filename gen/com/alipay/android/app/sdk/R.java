@@ -36,8 +36,8 @@ public final class R {
 		public static final int refresh = 0x7f020084;
 		public static final int refresh_button = 0x7f020085;
 		public static final int refresh_push = 0x7f020086;
-		public static final int title = 0x7f02008d;
-		public static final int title_background = 0x7f02008e;
+		public static final int title = 0x7f02008e;
+		public static final int title_background = 0x7f02008f;
 	}
 	public static final class id {
 		public static final int AlipayTitle = 0x7f0a00c1;

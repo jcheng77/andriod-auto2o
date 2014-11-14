@@ -5,7 +5,7 @@ import java.util.List;
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.CarMakerEntity;
 import com.cettco.buycar.entity.CarModelEntity;
-import com.cettco.buycar.utils.Data;
+import com.cettco.buycar.utils.MyApplication;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -58,7 +58,7 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 		carTypetTextView.setText(carTypeEntity.getName());
 		ImageView imageView = (ImageView)convertView.findViewById(R.id.list_car_type_img);
 		//System.out.println("img url:"+carTypeEntity.getPic_url());
-		Data.IMAGE_CACHE.get(carTypeEntity.getPic_url(), imageView);
+		MyApplication.IMAGE_CACHE.get(carTypeEntity.getPic_url(), imageView);
 		return convertView;
 	}
 

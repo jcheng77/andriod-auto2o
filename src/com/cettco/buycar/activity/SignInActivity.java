@@ -8,13 +8,10 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
-
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.User;
 import com.cettco.buycar.entity.UserEntity;
-import com.cettco.buycar.utils.Data;
+import com.cettco.buycar.utils.MyApplication;
 import com.cettco.buycar.utils.GetLocation;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;

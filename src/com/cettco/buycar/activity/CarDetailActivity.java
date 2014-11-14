@@ -40,7 +40,7 @@ import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.entity.Tender;
 import com.cettco.buycar.entity.TenderEntity;
 import com.cettco.buycar.entity.CarTrimEntity;
-import com.cettco.buycar.utils.Data;
+import com.cettco.buycar.utils.MyApplication;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.db.DatabaseHelperModel;
@@ -171,7 +171,7 @@ public class CarDetailActivity extends Activity {
 		Button beginBiddingBtn = (Button) findViewById(R.id.begin_bid);
 		beginBiddingBtn.setOnClickListener(beginBiddingClickListener);
 		
-		Data.IMAGE_CACHE.get(carTypeEntity.getPic_url(),carImageView);
+		MyApplication.IMAGE_CACHE.get(carTypeEntity.getPic_url(),carImageView);
 		//orderItemEntity.setPic_url(carTypeEntity.getPic_url());
 	}
 	@Override
