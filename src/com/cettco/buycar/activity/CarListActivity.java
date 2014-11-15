@@ -88,6 +88,8 @@ public class CarListActivity extends Activity {
 		// carBrandListView = (ListView)findViewById(R.id.carBrandListView);
 		// carBrandList = new ArrayList<CarBrandEntity>();
 		// Test data
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("选择车型");
 		carBrandEntities = new ArrayList<CarBrandEntity>();
 		makerEntities = new ArrayList<CarMakerEntity>();
 
