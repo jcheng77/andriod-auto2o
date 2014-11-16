@@ -176,6 +176,10 @@
         
         <!-- 在百度开发者中心查询应用的API Key -->
         <meta-data android:name="api_key" android:value="P3PaK4AeUtAlx2yX1yVkYuyo" />
+        
+        <service
+            android:name=".service.RegisterBaiduId"
+            android:exported="false"/>
     </application>
 
 </manifest>
