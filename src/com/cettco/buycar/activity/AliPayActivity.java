@@ -10,6 +10,7 @@ import com.alipay.android.msp.Keys;
 import com.alipay.android.msp.Result;
 import com.alipay.android.msp.Rsa;
 import com.cettco.buycar.R;
+import com.cettco.buycar.utils.GlobalData;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -83,47 +84,50 @@ public class AliPayActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			intent.setClass(AliPayActivity.this, OrderDetailActivity.class);
-			startActivity(intent);
-			// try {
-			// Log.i("ExternalPartner", "onItemClick");
-			// String info = getNewOrderInfo(0);
-			// String sign = Rsa.sign(info, Keys.PRIVATE);
-			// sign = URLEncoder.encode(sign,"UTF-8");
-			// info += "&sign=\"" + sign + "\"&" + getSignType();
-			// Log.i("ExternalPartner", "start pay");
-			// // start the pay.
-			// Log.i(TAG, "info = " + info);
-			//
-			// final String orderInfo = info;
-			// new Thread() {
-			// public void run() {
-			// AliPay alipay = new AliPay(AliPayActivity.this, mHandler);
-			//
-			// //设置为沙箱模式，不设置默认为线上环境
-			// //alipay.setSandBox(true);
-			//
-			// String result = alipay.pay(orderInfo);
-			//
-			// Log.i(TAG, "result = " + result);
-			// Message msg = new Message();
-			// msg.what = RQF_PAY;
-			// msg.obj = result;
-			// mHandler.sendMessage(msg);
-			// }
-			// }.start();
-			//
-			// } catch (Exception ex) {
-			// ex.printStackTrace();
-			// //Toast.makeText(ExternalPartner.this,
-			// R.string.remote_call_failed,
-			// //Toast.LENGTH_SHORT).show();
-			// }
+//			Intent intent = new Intent();
+//			intent.setClass(AliPayActivity.this, OrderDetailActivity.class);
+//			startActivity(intent);
+			 try {
+			 Log.i("ExternalPartner", "onItemClick");
+			 Product p = new Product();
+			 p.subject = "拍立行定金支付";
+			 p.body= "拍立行定金支付";
+			 p.price="0.01";
+			 String info = getNewOrderInfo(p);
+			 String sign = Rsa.sign(info, Keys.PRIVATE);
+			 sign = URLEncoder.encode(sign,"UTF-8");
+			 info += "&sign=\"" + sign + "\"&" + getSignType();
+			 Log.i("ExternalPartner", "start pay");
+			 // start the pay.
+			 Log.i(TAG, "info = " + info);
+			
+			 final String orderInfo = info;
+			 new Thread() {
+			 public void run() {
+			 AliPay alipay = new AliPay(AliPayActivity.this, mHandler);
+			
+			 //设置为沙箱模式，不设置默认为线上环境
+			 //alipay.setSandBox(true);
+			
+			 String result = alipay.pay(orderInfo);
+			
+			 Log.i(TAG, "result = " + result);
+			 Message msg = new Message();
+			 msg.what = RQF_PAY;
+			 msg.obj = result;
+			 mHandler.sendMessage(msg);
+			 }
+			 }.start();
+			
+			 } catch (Exception ex) {
+			 ex.printStackTrace();
+			 //Toast.makeText(ExternalPartner.this, R.string.remote_call_failed,
+			 //Toast.LENGTH_SHORT).show();
+			 }
 		}
 	};
 
-	private String getNewOrderInfo(int position)
+	private String getNewOrderInfo(Product product)
 			throws UnsupportedEncodingException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("partner=\"");
@@ -131,15 +135,16 @@ public class AliPayActivity extends Activity {
 		sb.append("\"&out_trade_no=\"");
 		sb.append(getOutTradeNo());
 		sb.append("\"&subject=\"");
-		// sb.append(sProducts[position].subject);
+		sb.append(product.subject);
 		sb.append("\"&body=\"");
-		// sb.append(sProducts[position].body);
+		sb.append(product.body);
 		sb.append("\"&total_fee=\"");
-		// sb.append(sProducts[position].price.replace("一口价:", ""));
+		sb.append(product.price);
 		sb.append("\"&notify_url=\"");
 
 		// 网址需要做URL编码
-		sb.append(URLEncoder.encode("http://notify.java.jpxx.org/index.jsp",
+		String url =GlobalData.getBaseUrl()+"/deposits/alipay_notify.json";
+		sb.append(URLEncoder.encode(url,
 				"UTF-8"));
 		sb.append("\"&service=\"mobile.securitypay.pay");
 		sb.append("\"&_input_charset=\"UTF-8");
@@ -150,7 +155,7 @@ public class AliPayActivity extends Activity {
 		sb.append(Keys.DEFAULT_SELLER);
 
 		// 如果show_url值为空，可不传
-		// sb.append("\"&show_url=\"");
+		sb.append("\"&show_url=\"");
 		sb.append("\"&it_b_pay=\"1m");
 		sb.append("\"");
 

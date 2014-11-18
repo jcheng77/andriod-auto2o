@@ -113,7 +113,7 @@ public class SelectDealerActivity extends Activity{
 		// httpCache.clear();
 		String url=GlobalData.getBaseUrl()+"/shops.json";
 		RequestParams params = new RequestParams();
-		params.put("trim", trim_id);
+		params.put("trim_id", trim_id);
 		System.out.println("trim_url:"+url);
 		HttpConnection.get(url,params,new AsyncHttpResponseHandler(){
 

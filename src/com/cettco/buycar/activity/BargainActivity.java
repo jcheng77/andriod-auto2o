@@ -212,10 +212,10 @@ public class BargainActivity extends Activity {
 			// intent.setClass(BargainActivity.this, AlipayWebActivity.class);
 			// intent.putExtra("url", url2);
 			// startActivity(intent);
-			submit();
-			// Intent intent = new Intent();
-			// intent.setClass(BargainActivity.this, AliPayActivity.class);
-			// startActivity(intent);
+			//submit();
+			 Intent intent = new Intent();
+			 intent.setClass(BargainActivity.this, AliPayActivity.class);
+			 startActivity(intent);
 		}
 	};
 
@@ -376,17 +376,17 @@ public class BargainActivity extends Activity {
 							Toast toast = Toast.makeText(BargainActivity.this,
 									"提交成功", Toast.LENGTH_SHORT);
 							toast.show();
-//							Intent intent = new Intent();
-//							// intent.putExtra("tenderId", id);
-//							intent.setClass(BargainActivity.this,
-//									AliPayActivity.class);
-//							startActivity(intent);
 							Intent intent = new Intent();
 							// intent.putExtra("tenderId", id);
 							intent.setClass(BargainActivity.this,
-									MainActivity.class);
-							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									AliPayActivity.class);
 							startActivity(intent);
+//							Intent intent = new Intent();
+//							// intent.putExtra("tenderId", id);
+//							intent.setClass(BargainActivity.this,
+//									MainActivity.class);
+//							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//							startActivity(intent);
 
 						}
 
