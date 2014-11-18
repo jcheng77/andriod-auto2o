@@ -212,10 +212,10 @@ public class BargainActivity extends Activity {
 			// intent.setClass(BargainActivity.this, AlipayWebActivity.class);
 			// intent.putExtra("url", url2);
 			// startActivity(intent);
-			//submit();
-			 Intent intent = new Intent();
-			 intent.setClass(BargainActivity.this, AliPayActivity.class);
-			 startActivity(intent);
+			submit();
+//			 Intent intent = new Intent();
+//			 intent.setClass(BargainActivity.this, AliPayActivity.class);
+//			 startActivity(intent);
 		}
 	};
 
@@ -360,9 +360,11 @@ public class BargainActivity extends Activity {
 						// System.out.println(headers[0]);
 						// }
 						System.out.println("response:" + response);
+						String tender_id = "";
 						if (statusCode == 201) {
 
 							try {
+								tender_id = response.getString("id");
 								orderItemEntity.setId(response.getString("id"));
 								orderItemEntity.setState(response
 										.getString("state"));
@@ -380,6 +382,7 @@ public class BargainActivity extends Activity {
 							// intent.putExtra("tenderId", id);
 							intent.setClass(BargainActivity.this,
 									AliPayActivity.class);
+							intent.putExtra("tender_id", tender_id);
 							startActivity(intent);
 //							Intent intent = new Intent();
 //							// intent.putExtra("tenderId", id);
