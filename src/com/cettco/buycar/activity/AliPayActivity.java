@@ -2,18 +2,29 @@ package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+
+import org.apache.http.Header;
+
 import com.alipay.android.msp.Keys;
 import com.alipay.android.msp.Result;
 import com.alipay.android.msp.Rsa;
 import com.alipay.android.msp.SignUtils;
 import com.alipay.sdk.app.PayTask;
 import com.cettco.buycar.R;
+import com.cettco.buycar.entity.OrderDetailEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.GlobalData;
+import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.MyApplication;
 import com.cettco.buycar.utils.UserUtil;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,43 +38,70 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AliPayActivity extends Activity {
 
 	public static final String TAG = "alipay-sdk";
-
-	private static final int RQF_PAY = 1;
-
-	private static final int RQF_LOGIN = 2;
+	private static final int DATA_SUCCESS = 5;
+	private static final int DATA_FAIL = 6;
 	private Button submitButton;
 
 	private int selection = 0;
 
-	private RelativeLayout webLayout;
+	//private RelativeLayout webLayout;
 	private RelativeLayout clientLayout;
 	private CheckBox webCheckBox;
 	private CheckBox clientCheckBox;
 	
 	private String tender_id;
+	
+	private TextView titleTextView;
+	private OrderDetailEntity detailEntity;
+	
+	private TextView brandTextView;
+	private TextView trimTextView;
+	private ImageView carImageView;
+	private OrderItemEntity orderItemEntity = new OrderItemEntity();
+	
+	private RelativeLayout progressLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alipay);
-		webCheckBox = (CheckBox) findViewById(R.id.alipay_web_checkbox);
+		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
+		//progressLayout.setVisibility(View.VISIBLE);
+		brandTextView = (TextView)findViewById(R.id.alipay_car_brand_textview);
+		trimTextView = (TextView)findViewById(R.id.alipay_car_trim_textview);
+		carImageView = (ImageView)findViewById(R.id.alipay_car_img_imageview);
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("支付");
+		//webCheckBox = (CheckBox) findViewById(R.id.alipay_web_checkbox);
 		clientCheckBox = (CheckBox) findViewById(R.id.alipay_client_checkbox);
 		clientLayout = (RelativeLayout) findViewById(R.id.alipay_client_layout);
 		clientLayout.setOnClickListener(clientClickListener);
 
-		webLayout = (RelativeLayout) findViewById(R.id.alipay_web_layout);
-		webLayout.setOnClickListener(webClickListener);
+		//webLayout = (RelativeLayout) findViewById(R.id.alipay_web_layout);
+		//webLayout.setOnClickListener(webClickListener);
 		submitButton = (Button) findViewById(R.id.alipay_submit_btn);
 		submitButton.setOnClickListener(payClickListener);
+		submitButton.setVisibility(View.GONE);
 		
 		tender_id = getIntent().getStringExtra("tender_id");
+		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
+		try {
+			orderItemEntity = orderHelper.getDao().queryBuilder().where()
+					.eq("id", tender_id).queryForFirst();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		getData();
 	}
 
 	private OnClickListener webClickListener = new OnClickListener() {
@@ -92,7 +130,8 @@ public class AliPayActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			pay("","","");
+			String bodyString= detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName();
+			pay("定金支付",bodyString,"0.01");
 		}
 	};
 
@@ -111,6 +150,15 @@ public class AliPayActivity extends Activity {
 				if (TextUtils.equals(resultStatus, "9000")) {
 					Toast.makeText(AliPayActivity.this, "支付成功",
 							Toast.LENGTH_SHORT).show();
+					orderItemEntity.setState("qualified");
+					DatabaseHelperOrder orderHelper = DatabaseHelperOrder
+							.getHelper(AliPayActivity.this);
+					try {
+						orderHelper.getDao().update(orderItemEntity);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					Intent intent = new Intent();
 					// intent.putExtra("tenderId", id);
 					intent.setClass(AliPayActivity.this,
@@ -137,11 +185,26 @@ public class AliPayActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
+			case DATA_SUCCESS:{
+				updateUI();
+			}
+			case DATA_FAIL:{
+//				System.out.println("44444");
+//				Toast toast = Toast.makeText(AliPayActivity.this, "获取详情失败", Toast.LENGTH_SHORT);
+//				toast.show();
+			}
 			default:
 				break;
 			}
 		};
 	};
+	private void updateUI(){
+		brandTextView.setText(detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName());
+		trimTextView.setText(detailEntity.getTrim().getName());
+		System.out.println("pic:"+detailEntity.getPic_url());
+		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
+		submitButton.setVisibility(View.VISIBLE);
+	}
 
 	/**
 	 * call alipay sdk pay. 调用SDK支付
@@ -158,7 +221,7 @@ public class AliPayActivity extends Activity {
 		}
 		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
 				+ getSignType();
-
+		System.out.println("payInfo:"+payInfo);
 		Runnable payRunnable = new Runnable() {
 
 			@Override
@@ -238,7 +301,7 @@ public class AliPayActivity extends Activity {
 		orderInfo += "&total_fee=" + "\"" + price + "\"";
 
 		// 服务器异步通知页面路径
-		orderInfo += "&notify_url=" + "\"" + GlobalData.getBaseUrl()+"/deposits/alipay_notify"
+		orderInfo += "&notify_url=" + "\"" + GlobalData.getBaseUrl()+"/deposits/alipay_app_notify"
 				+ "\"";
 
 		// 接口名称， 固定值
@@ -279,8 +342,9 @@ public class AliPayActivity extends Activity {
 //		Random r = new Random();
 //		key = key + r.nextInt();
 //		key = key.substring(0, 15);
-		String key = UserUtil.getUserId(AliPayActivity.this)+":"+tender_id;
-		return key;
+		//String key = UserUtil.getUserId(AliPayActivity.this)+" "+tender_id;
+		return tender_id;
+		//return key;
 	}
 
 	/**
@@ -301,6 +365,47 @@ public class AliPayActivity extends Activity {
 		return "sign_type=\"RSA\"";
 	}
 
+	protected void getData() {
+		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
+		// httpCache.clear();
+		progressLayout.setVisibility(View.VISIBLE);
+		String url = GlobalData.getBaseUrl() + "/tenders/" + tender_id + ".json";
+		HttpConnection.setCookie(getApplicationContext());
+		HttpConnection.get(url, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				System.out.println("fail");
+				progressLayout.setVisibility(View.GONE);
+				Message message = new Message();
+				message.what = DATA_FAIL;
+				mHandler.sendMessage(message);
+			}
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				System.out.println("seccuss");
+				progressLayout.setVisibility(View.GONE);
+				try {
+					String result = new String(arg2, "UTF-8");
+					System.out.println("result:" + result);
+					Gson gson = new Gson();
+					detailEntity = gson.fromJson(result,
+							OrderDetailEntity.class);
+					Message message = new Message();
+					message.what = DATA_SUCCESS;
+					mHandler.sendMessage(message);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
+	}
 
 	public void exitClick(View view) {
 		this.finish();

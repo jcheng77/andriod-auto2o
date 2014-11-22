@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -50,6 +51,7 @@ public class SelectDealerActivity extends Activity{
 	private int tag;
 	private String trim_id;
 	private HttpCache httpCache;
+	private ProgressBar progressBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -58,6 +60,7 @@ public class SelectDealerActivity extends Activity{
 		//getActionBar().hide();
 		httpCache = new HttpCache(this);
 		TextView titleTextView = (TextView)findViewById(R.id.title_text);
+		progressBar = (ProgressBar)findViewById(R.id.activity_selectshop_progressbar);
 		intent = getIntent();
 		trim_id = intent.getStringExtra("trim_id");
 		System.out.println("trim_id:"+trim_id);
@@ -115,6 +118,7 @@ public class SelectDealerActivity extends Activity{
 		RequestParams params = new RequestParams();
 		params.put("trim_id", trim_id);
 		System.out.println("trim_url:"+url);
+		progressBar.setProgress(40);
 		HttpConnection.get(url,params,new AsyncHttpResponseHandler(){
 
 			@Override
@@ -122,12 +126,15 @@ public class SelectDealerActivity extends Activity{
 					Throwable arg3) {
 				// TODO Auto-generated method stub
 				System.out.println("fail");
+				Message message = new Message();
+				message.what = 2;
+				mHandler.sendMessage(message);
 			}
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
-				System.out.println("seccuss");
+				progressBar.setProgress(80);
 				try {
 					String result= new String(arg2,"UTF-8");
 					Type listType = new TypeToken<ArrayList<DealerEntity>>() {
@@ -152,7 +159,12 @@ public class SelectDealerActivity extends Activity{
 			switch (msg.what) {
 			case 1:
 				System.out.println("update");
+				progressBar.setProgress(100);
+				progressBar.setVisibility(View.GONE);
 				dealerListAdapter.updateList(dealerList);
+				break;
+			case 2:
+				Toast toast = Toast.makeText(SelectDealerActivity.this, "获取商家列表失败", Toast.LENGTH_SHORT);
 				break;
 			}
 		};

@@ -13,6 +13,20 @@ public class OrderDetailEntity {
 	private String state;
 	private String verfiy_code;
 	private CarBrandEntity brand;
+	private Dealer dealer;
+	private Shop shop;
+	public Shop getShop() {
+		return shop;
+	}
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+	public Dealer getDealer() {
+		return dealer;
+	}
+	public void setDealer(Dealer dealer) {
+		this.dealer = dealer;
+	}
 	public CarBrandEntity getBrand() {
 		return brand;
 	}

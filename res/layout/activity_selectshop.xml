@@ -5,6 +5,17 @@
     android:background="@color/white"
     android:orientation="vertical" >
     <include layout="@layout/actionbar"/>
+    <ProgressBar
+        android:id="@+id/activity_selectshop_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_detail_actionbar"
+        android:max="100"
+        android:maxHeight="5dip"
+        android:minHeight="5dip"
+        android:progress="30"
+        android:progressDrawable="@drawable/bar_color" />
     <ListView 
         android:id="@+id/selectshop_listview"
         android:layout_width="match_parent"

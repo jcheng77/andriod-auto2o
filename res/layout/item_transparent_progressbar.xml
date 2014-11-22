@@ -3,6 +3,7 @@
     android:id="@+id/progressbar_relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_below="@id/actionbar_linearlayout"
     android:clickable="true"
     android:visibility="gone"
     android:background="#a0000000" >

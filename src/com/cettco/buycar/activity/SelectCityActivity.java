@@ -24,12 +24,15 @@ public class SelectCityActivity extends Activity{
 	private ArrayList<String> arrayList;
 	private ListView listView;
 	private TextView currentCitytTextView;
+	private TextView titleTextView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selectcity);
 		//getActionBar().hide();
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("选择城市");
 		listView = (ListView)findViewById(R.id.city_listview);
 		arrayList = new ArrayList<String>();
 		arrayList.add("上海");

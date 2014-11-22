@@ -38,9 +38,10 @@
                 android:text="销售员" />
 
             <TextView
+                android:id="@+id/order_detail_dealer_info_phone_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="188*******" />
+                android:text="*********" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,11 +67,13 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/order_detail_shop_info_name_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="上海旗舰店" />
 
             <TextView
+                android:id="@+id/order_detail_shop_info_address_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="浦东新区" />

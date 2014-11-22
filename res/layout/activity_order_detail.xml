@@ -1,64 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1f1f1"
-    android:orientation="vertical" >
+    android:background="#f1f1f1" >
 
     <include layout="@layout/actionbar" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@id/actionbar_linearlayout"
+        android:background="#f1f1f1"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent" >
 
             <LinearLayout
-                android:id="@+id/activity_order_detail_car_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <include layout="@layout/module_order_detail_car_info" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/activity_order_detail_dealer_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <include layout="@layout/module_order_detail_dealer_info" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/activity_order_detail_customer_intention"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <include layout="@layout/module_order_detail_customer_intention" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/activity_order_detail_qrcode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/order_has_dealer_qr_image"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/activity_order_detail_car_info"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:orientation="vertical" >
 
-</LinearLayout>
+                    <include layout="@layout/module_order_detail_car_info" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/activity_order_detail_dealer_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <include layout="@layout/module_order_detail_dealer_info" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/activity_order_detail_customer_intention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <include layout="@layout/module_order_detail_customer_intention" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/activity_order_detail_qrcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/order_has_dealer_qr_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <include layout="@layout/item_null_data" />
+
+    <include layout="@layout/item_opacity_progressbar" />
+
+</RelativeLayout>

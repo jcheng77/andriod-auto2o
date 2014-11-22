@@ -180,35 +180,9 @@ public class CarListActivity extends Activity {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
-			// System.out.println("size:");
-			// Toast.makeText(this, carBrandList.size(), Toast.LENGTH_SHORT);
+			if(carBrandEntities==null||carBrandEntities.size()==0)return;
+			System.out.println("brand size:"+carBrandEntities.size());
 			int position = arg2 - 1;
-			// System.out.println("index:"+arg2);
-			// if(toggle==0)
-			// {
-			// // ArrayList<CarBrandEntity> tmpArrayList = new
-			// ArrayList<CarBrandEntity>();
-			// // CarBrandEntity tmpBrandEntity =
-			// carBrandEntities.get(position);
-			// // tmpArrayList.add(tmpBrandEntity);
-			// // carBrandListAdapter.updateList(tmpArrayList);
-			// //pullToRefreshView.no
-			// carExpandedView.setVisibility(View.VISIBLE);
-			// currentBrandLayout.setVisibility(View.VISIBLE);
-			// pullToRefreshView.setVisibility(View.GONE);
-			//
-			// //carExpandableListAdapter.updateList(carBrandEntities.get(position).getList());
-			// toggle = 1;
-			// }
-			// else if(toggle==1)
-			// {
-			// //carBrandListAdapter.updateList(carBrandEntities);
-			// carExpandedView.setVisibility(View.GONE);
-			// currentBrandLayout.setVisibility(View.GONE);
-			// pullToRefreshView.setVisibility(View.VISIBLE);
-			//
-			// toggle = 0;
-			// }
 			brandPosition = position;
 			try {
 				getChildData(brandPosition);
@@ -243,6 +217,7 @@ public class CarListActivity extends Activity {
 			// carBrandEntities.get(brandPosition)
 			// .getMakers().get(groupPosition).getModels()
 			// .get(childPosition);
+			//if(makerEntities==null||makerEntities.size()==0)return false;
 			System.out.println("maker size:" + makerEntities.size());
 			System.out.println("group position:" + groupPosition);
 			System.out.println("model size:"

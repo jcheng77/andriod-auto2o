@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class SignUpActivity extends Activity{
 
@@ -34,13 +35,16 @@ public class SignUpActivity extends Activity{
 	private Button checkcodeButton;
 	private EditText checkcodeEditText;
 	private RelativeLayout progressLayout;
+	
+	private TextView titleTextView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup);
 		//getActionBar().hide();
-		
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("注册");
 		signupButton = (Button)findViewById(R.id.signupBtn);
 		signupButton.setOnClickListener(signupBtnClickListener);
 		

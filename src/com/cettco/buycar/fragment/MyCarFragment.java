@@ -82,6 +82,7 @@ public class MyCarFragment extends Fragment {
 	// private Button historyButton;
 	private LinearLayout mycarBgLayout;
 	private List<OrderItemEntity> orderItems = new ArrayList<OrderItemEntity>();
+	private List<OrderItemEntity> pageItems = new ArrayList<OrderItemEntity>();
 
 	private int global_page = 1;
 
@@ -167,8 +168,8 @@ public class MyCarFragment extends Fragment {
 	private void updateDB() {
 		DatabaseHelperOrder helper = DatabaseHelperOrder
 				.getHelper(getActivity());
-		for (int i = 0; i < orderItems.size(); i++) {
-			OrderItemEntity entity = orderItems.get(i);
+		for (int i = 0; i < pageItems.size(); i++) {
+			OrderItemEntity entity = pageItems.get(i);
 			System.out.println("id:"+entity.getId());
 			try {
 				OrderItemEntity tmp = helper.getDao().queryBuilder().where()
@@ -179,10 +180,10 @@ public class MyCarFragment extends Fragment {
 						SimpleDateFormat format = new SimpleDateFormat(
 								"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 						try {
-							System.out.println("formate:"
-									+ entity.getUpdated_at());
+//							System.out.println("formate:"
+//									+ entity.getUpdated_at());
 							Date date = format.parse(entity.getUpdated_at());
-							System.out.println("formate2");
+							//System.out.println("formate2");
 							tmp.setTime(date);
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
@@ -216,6 +217,7 @@ public class MyCarFragment extends Fragment {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
+			if(orderItems==null||orderItems.size()==0)return;
 			int position = arg2 - 1;
 			OrderItemEntity orderItemEntity = orderItems.get(position);
 			String state = orderItemEntity.getState();
@@ -236,6 +238,7 @@ public class MyCarFragment extends Fragment {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
 						AliPayActivity.class);
+				intent.putExtra("tender_id", orderItemEntity.getId());
 				startActivity(intent);
 
 			} else {
@@ -303,15 +306,17 @@ public class MyCarFragment extends Fragment {
 			int code = response.getStatusLine().getStatusCode();
 			if (code == 200) {
 				String result = EntityUtils.toString(response.getEntity());
+				System.out.println("page:"+result);
 				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
 				}.getType();
-				List<OrderItemEntity> tmpEntities = new Gson().fromJson(result,
+				pageItems = new Gson().fromJson(result,
 						listType);
-				if (tmpEntities != null) {
-					global_page = global_page + 1;
-					orderItems.addAll(tmpEntities);
-					updateDB();
-				}
+				updateDB();
+//				if (tmpEntities != null) {
+//					global_page = global_page + 1;
+//					orderItems.addAll(tmpEntities);
+//					updateDB();
+//				}
 				Message message = new Message();
 				message.what = 1;
 				mHandler.sendMessage(message);

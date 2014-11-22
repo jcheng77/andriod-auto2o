@@ -67,12 +67,12 @@
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Sign Up"
+                android:text="注册"
                 android:textSize="20sp"
                 />
         </LinearLayout>
         
     </LinearLayout>
-    <include layout="@layout/item_progressbar"/>
+    <include layout="@layout/item_transparent_progressbar"/>
 
 </RelativeLayout>

@@ -41,7 +41,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="2"
-                android:text="Account"
+                android:text="手机号"
                 android:textSize="16dp" />
 
             <EditText
@@ -71,7 +71,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="2"
-                android:text="Password"
+                android:text="密码"
                 android:textSize="16dp" />
 
             <EditText
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Sign In"
+                android:text="登录"
                 android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_data_layout"
-        android:text="Forgot password?"
+        android:text="忘记密码?"
         android:textSize="10sp" />
 
     <TextView
@@ -117,9 +117,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Sign Up"
+        android:text="注册"
         android:textSize="15sp" />
 
-    <include layout="@layout/item_progressbar"/>
+    <include layout="@layout/item_transparent_progressbar"/>
 
 </RelativeLayout>

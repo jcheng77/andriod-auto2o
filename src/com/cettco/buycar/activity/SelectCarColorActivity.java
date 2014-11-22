@@ -31,6 +31,7 @@ public class SelectCarColorActivity extends Activity {
 	private Intent intent;
 	private String name;
 	private String model_id;
+	private TextView titleTextView;
 	//private ArrayList<String> selected_colors;
 
 	// private int tag;
@@ -39,6 +40,8 @@ public class SelectCarColorActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_color);
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("选择颜色");
 		TextView titleTextView = (TextView) findViewById(R.id.title_text);
 		intent = getIntent();
 		name = intent.getStringExtra("name");

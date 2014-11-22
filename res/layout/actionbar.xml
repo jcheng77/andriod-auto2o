@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionbar_height"
     android:background="@color/actionbar_main"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" 
+    android:id="@+id/actionbar_linearlayout"
+    >
 
     <RelativeLayout
         android:layout_width="fill_parent"

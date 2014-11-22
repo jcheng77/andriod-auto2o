@@ -28,12 +28,14 @@ public class IntroductionActivity extends Activity{
 		viewPager = (ViewPager) findViewById(R.id.introduction_Pager);
 		pagerList = new ArrayList<View>();
 		
-		for (int i = 0; i < 1; i++) {
+		for (int i = 1; i <=2; i++) {
 			LayoutInflater inflater = getLayoutInflater().from(this);
 			View view = inflater
 					.inflate(R.layout.introduction_background_item, null);
 			ImageView imageView = (ImageView)view.findViewById(R.id.introImgview);
-			imageView.setBackgroundResource(R.drawable.intro_bg1);
+			String bgName = "intro_bg"+i;
+			imageView.setBackgroundResource(this.getResources().getIdentifier(bgName,
+		            "drawable", this.getPackageName()));
 			view.getHeight();
 			pagerList.add(view);
 		}
@@ -41,7 +43,7 @@ public class IntroductionActivity extends Activity{
 		View view = inflater
 				.inflate(R.layout.introduction_background_item, null);
 		ImageView imageView = (ImageView)view.findViewById(R.id.introImgview);
-		imageView.setBackgroundResource(R.drawable.intro_bg2);
+		imageView.setBackgroundResource(R.drawable.intro_bg3);
 		Button enterButton=(Button)view.findViewById(R.id.intro_enterBtn);
 		enterButton.setVisibility(View.VISIBLE);
 		enterButton.setOnClickListener(enterClickListener);

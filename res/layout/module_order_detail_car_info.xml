@@ -10,7 +10,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="#cc6600" >
+        android:background="#0C8398" >
 
         <TextView
             android:id="@+id/order_detail_state"

@@ -98,25 +98,25 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		//System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
 			holder.stateTextView.setText("以看车型");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6600"));
+			//holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6600"));
 		} else if (entity.getState().equals("begain")) {
 			holder.stateTextView.setText("决定购买车型");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#66cc66"));
+			//holder.stateLayout.setBackgroundColor(Color.parseColor("#66cc66"));
 		} else if (entity.getState().equals("determined")) {
 			holder.stateTextView.setText("已提交订单,待支付");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#ccff00"));
+			//holder.stateLayout.setBackgroundColor(Color.parseColor("#D20F20"));
 		} else if (entity.getState().equals("qualified")) {
-			holder.stateTextView.setText("已支付");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#99ccff"));
+			holder.stateTextView.setText("已支付,等待4s店接受订单");
+			//holder.stateLayout.setBackgroundColor(Color.parseColor("#9F5E98"));
 		} else if (entity.getState().equals("timeout")) {
 			holder.stateTextView.setText("超时");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6666"));
+			//holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6666"));
 		} else if (entity.getState().equals("deal_made")) {
 			holder.stateTextView.setText("已有4s店接单");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#0099cc"));
+			//holder.stateLayout.setBackgroundColor(Color.parseColor("#0099cc"));
 		} else if (entity.getState().equals("final_deal_closed")) {
 			holder.stateTextView.setText("最终成交");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
+			//holder.stateLayout.setBackgroundColor(Color.parseColor("#FF0033"));
 		}
 		return convertView;
 	}

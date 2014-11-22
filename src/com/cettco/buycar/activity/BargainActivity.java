@@ -97,12 +97,14 @@ public class BargainActivity extends Activity {
 	private String trim_id;
 	private ArrayList<String> dealers = new ArrayList<String>();
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
-
+	private TextView titleTextView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bargain);
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("购车需求");
 		progressLayout = (RelativeLayout) findViewById(R.id.progressbar_relativeLayout);
 		order_id = getIntent().getIntExtra("order_id", -1);
 		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
@@ -364,6 +366,7 @@ public class BargainActivity extends Activity {
 						if (statusCode == 201) {
 
 							try {
+								System.out.println("id:"+response.getString("id"));
 								tender_id = response.getString("id");
 								orderItemEntity.setId(response.getString("id"));
 								orderItemEntity.setState(response
