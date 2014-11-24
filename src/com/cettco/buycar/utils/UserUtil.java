@@ -15,6 +15,10 @@ public class UserUtil {
 		editor.putString("phone", phone);
 		editor.commit();
 	}
+	public static String getPhone(Context context){
+		SharedPreferences settings = context.getSharedPreferences("user", 0);
+		return settings.getString("phone", "****");
+	}
 	public static void login(Context context){
 		SharedPreferences settings = context.getSharedPreferences("user", 0);
 		SharedPreferences.Editor editor = settings.edit();

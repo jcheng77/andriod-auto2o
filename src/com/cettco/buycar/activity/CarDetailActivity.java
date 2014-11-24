@@ -98,9 +98,12 @@ public class CarDetailActivity extends Activity {
 		// selectCarTypeLayout.setOnClickListener(selectCartypeClickListener);
 
 		
-		initChart();
-		view4sLayout = (RelativeLayout)findViewById(R.id.view4sLinearLayout);
-		view4sLayout.setOnClickListener(view4sClickListener);
+		//initChart();
+		
+		//view4sLayout = (RelativeLayout)findViewById(R.id.view4sLinearLayout);
+		//view4sLayout.setOnClickListener(view4sClickListener);
+		
+		
 		
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText("选择车型");
@@ -147,9 +150,12 @@ public class CarDetailActivity extends Activity {
 			view.getHeight();
 			ImageView preImageView = (ImageView)view.findViewById(R.id.trim_previous_item);
 			ImageView nextImageView = (ImageView)view.findViewById(R.id.trim_next_item);
-			if(i==0){
+			if(i==0&&trimList.size()>1){
 				preImageView.setVisibility(View.INVISIBLE);
 				nextImageView.setVisibility(View.VISIBLE);
+			}else if(i==0&&trimList.size()==1){
+				preImageView.setVisibility(View.INVISIBLE);
+				nextImageView.setVisibility(View.INVISIBLE);
 			}
 			else if (i==trimList.size()-1) {
 				preImageView.setVisibility(View.VISIBLE);
@@ -157,8 +163,10 @@ public class CarDetailActivity extends Activity {
 			}
 			TextView trimNameTextView = (TextView)view.findViewById(R.id.trim_name);
 			TextView  trimPriceTextView = (TextView)view.findViewById(R.id.trim_guidePrice);
+			//TextView trimLowestPricetexTextView = (TextView)view.findViewById(R.id.trim_lowestPrice);
 			trimNameTextView.setText(trimList.get(i).getName());
 			trimPriceTextView.setText(trimList.get(i).getGuide_price());
+			//trimLowestPricetexTextView.setText(trimList.get(i).getLowest_price());
 			pagerList.add(view);
 		}
 		if(trimList.size()>0){
@@ -179,26 +187,26 @@ public class CarDetailActivity extends Activity {
 		super.onResume();
 		
 	}
-	protected void initChart(){
-		mChart = (LineChart) findViewById(R.id.car_price_chart);
-		mChart.setDrawYValues(false);
-
-        // enable value highlighting
-        mChart.setHighlightEnabled(false);
-
-        // enable touch gestures
-        mChart.setTouchEnabled(false);
-
-        // enable scaling and dragging
-        mChart.setDragScaleEnabled(false);
-
-        // if disabled, scaling can be done on x- and y-axis separately
-        mChart.setPinchZoom(false);
-        updateChart();
-//        Legend l = mChart.getLegend();
-//        l.setPosition(LegendPosition.BELOW_CHART_CENTER);
-        
-	}
+//	protected void initChart(){
+//		mChart = (LineChart) findViewById(R.id.car_price_chart);
+//		mChart.setDrawYValues(false);
+//
+//        // enable value highlighting
+//        mChart.setHighlightEnabled(false);
+//
+//        // enable touch gestures
+//        mChart.setTouchEnabled(false);
+//
+//        // enable scaling and dragging
+//        mChart.setDragScaleEnabled(false);
+//
+//        // if disabled, scaling can be done on x- and y-axis separately
+//        mChart.setPinchZoom(false);
+//        updateChart();
+////        Legend l = mChart.getLegend();
+////        l.setPosition(LegendPosition.BELOW_CHART_CENTER);
+//        
+//	}
 	protected void updateChart(){
 		ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {

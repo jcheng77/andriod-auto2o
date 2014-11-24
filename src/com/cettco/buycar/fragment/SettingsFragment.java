@@ -1,11 +1,17 @@
 package com.cettco.buycar.fragment;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.activity.CarListActivity;
 import com.cettco.buycar.activity.MainActivity;
 import com.cettco.buycar.activity.SignInActivity;
+import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.UserUtil;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Fragment;
@@ -50,7 +56,7 @@ public class SettingsFragment extends Fragment{
 		// TODO Auto-generated method stub
 		super.onResume();
 		if(UserUtil.isLogin(getActivity())){
-			loginTextView.setText("188*****");
+			loginTextView.setText(UserUtil.getPhone(getActivity()));
 			logoutLayout.setVisibility(View.VISIBLE);
 		}else {
 			loginTextView.setText("请登录");
@@ -62,6 +68,17 @@ public class SettingsFragment extends Fragment{
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			HttpConnection.getClient().removeHeader("Cookie");
+			DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(getActivity());
+			try {
+				List<OrderItemEntity> list = helper.getDao().queryForAll();
+				helper.getDao().delete(list);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return;
+			}
+			//HttpConnection.getClient().removeHeader("Cookie");
 			UserUtil.logout(getActivity());
 			PersistentCookieStore myCookieStore = new PersistentCookieStore(
 					getActivity());

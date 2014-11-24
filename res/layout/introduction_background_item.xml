@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:padding="10dp"
+        android:textColor="@color/white"
         android:background="@drawable/intro_enter_btn_style"
         android:text="开始购车"
         />

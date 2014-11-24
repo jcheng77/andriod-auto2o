@@ -11,6 +11,7 @@
 
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:divider="@color/gray"
             android:id="@+id/pull_to_refresh_listview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />

@@ -170,12 +170,12 @@ public class MyCarFragment extends Fragment {
 				.getHelper(getActivity());
 		for (int i = 0; i < pageItems.size(); i++) {
 			OrderItemEntity entity = pageItems.get(i);
-			System.out.println("id:"+entity.getId());
 			try {
 				OrderItemEntity tmp = helper.getDao().queryBuilder().where()
 						.eq("id", entity.getId()).queryForFirst();
 				if (tmp != null) {
 					tmp.setState(entity.getState());
+					tmp.setPrice(entity.getPrice());
 					if (entity.getUpdated_at() != null) {
 						SimpleDateFormat format = new SimpleDateFormat(
 								"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -190,8 +190,10 @@ public class MyCarFragment extends Fragment {
 							e.printStackTrace();
 						}
 					}
+					 helper.getDao().update(tmp);
 
 				} else {
+					System.out.println("null");
 					SimpleDateFormat format = new SimpleDateFormat(
 							"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 					try {

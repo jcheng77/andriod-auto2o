@@ -120,12 +120,15 @@ public class SignInActivity extends Activity{
 					System.out.println("response:"+response);
 					progressLayout.setVisibility(View.GONE);
 					String id=null;
+					String phone = null;
 					try {
 						 id = response.getString("id");
+						 phone = response.getString("phone");
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}					
+					}
+					UserUtil.setPhone(SignInActivity.this, phone);
 					UserUtil.login(SignInActivity.this);
 					UserUtil.setUserId(SignInActivity.this, id);
 					SignInActivity.this.finish();

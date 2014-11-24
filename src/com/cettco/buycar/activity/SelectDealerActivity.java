@@ -161,10 +161,15 @@ public class SelectDealerActivity extends Activity{
 				System.out.println("update");
 				progressBar.setProgress(100);
 				progressBar.setVisibility(View.GONE);
+				if(dealerList==null||dealerList.size()==0){
+					Toast toast = Toast.makeText(SelectDealerActivity.this, "获取商家列表失败", Toast.LENGTH_SHORT);
+					toast.show();
+				}
 				dealerListAdapter.updateList(dealerList);
 				break;
 			case 2:
 				Toast toast = Toast.makeText(SelectDealerActivity.this, "获取商家列表失败", Toast.LENGTH_SHORT);
+				toast.show();
 				break;
 			}
 		};

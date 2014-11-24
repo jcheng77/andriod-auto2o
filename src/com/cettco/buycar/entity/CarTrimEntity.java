@@ -17,6 +17,14 @@ public class CarTrimEntity {
 	private String name;
 	@DatabaseField
 	private String guide_price;
+//	@DatabaseField
+//	private String lowest_price;
+//	public String getLowest_price() {
+//		return lowest_price;
+//	}
+//	public void setLowest_price(String lowest_price) {
+//		this.lowest_price = lowest_price;
+//	}
 	@DatabaseField(id=true)
 	private String id;
 	public String getId() {

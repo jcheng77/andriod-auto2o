@@ -269,7 +269,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 
 		Intent intent = new Intent();
 		intent.setClass(context.getApplicationContext(), MainActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.getApplicationContext().startActivity(intent);
 	}
 	
