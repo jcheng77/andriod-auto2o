@@ -42,7 +42,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:ems="10"
-                    android:hint="输入期望成交价"
+                    android:hint="输入期望成交价,单位元"
                     android:inputType="number"
                     android:singleLine="true" />
             </LinearLayout>

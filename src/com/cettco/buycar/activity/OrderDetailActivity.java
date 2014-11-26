@@ -49,6 +49,7 @@ public class OrderDetailActivity extends Activity {
 
 	private LinearLayout carInfoLayout;
 	private LinearLayout dealerInfoLayout;
+	private LinearLayout dealerIntentionLayout;
 	private LinearLayout intentionLayout;
 	private LinearLayout qRcodeLayout;
 	private TextView stateTextView;
@@ -60,15 +61,23 @@ public class OrderDetailActivity extends Activity {
 	private TextView gotLicenseTextView;
 	private TextView loanTextView;
 	private TextView trimTextView;
-	
+	private TextView colorTextView;
+
 	private TextView dealerPhoneTextView;
 	private TextView shopNameTextView;
 	private TextView shopAddressTextView;
-	
+
 	private TextView titleTextView;
-	
+
 	private RelativeLayout progressLayout;
 	private RelativeLayout nullDataLayout;
+
+	// bid info
+	private TextView insuranceTextView;
+	private TextView purTaxTextView;
+	private TextView licFeeTextView;
+	private TextView miscFeeTextView;
+	private TextView desTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,27 +85,36 @@ public class OrderDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_order_detail);
-		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView = (TextView) findViewById(R.id.title_text);
 		titleTextView.setText("订单详情");
-		progressLayout = (RelativeLayout)findViewById(R.id.opacity_progressbar_relativeLayout);
+		progressLayout = (RelativeLayout) findViewById(R.id.opacity_progressbar_relativeLayout);
 		progressLayout.setVisibility(View.VISIBLE);
-		nullDataLayout = (RelativeLayout)findViewById(R.id.null_data_relativeLayout);
-		dealerPhoneTextView = (TextView)findViewById(R.id.order_detail_dealer_info_phone_textview);
-		shopAddressTextView = (TextView)findViewById(R.id.order_detail_shop_info_address_textview);
-		shopNameTextView = (TextView)findViewById(R.id.order_detail_shop_info_name_textview);
+		nullDataLayout = (RelativeLayout) findViewById(R.id.null_data_relativeLayout);
+		dealerPhoneTextView = (TextView) findViewById(R.id.order_detail_dealer_info_phone_textview);
+		shopAddressTextView = (TextView) findViewById(R.id.order_detail_shop_info_address_textview);
+		shopNameTextView = (TextView) findViewById(R.id.order_detail_shop_info_name_textview);
 		carInfoLayout = (LinearLayout) findViewById(R.id.activity_order_detail_car_info);
 		dealerInfoLayout = (LinearLayout) findViewById(R.id.activity_order_detail_dealer_info);
+		dealerIntentionLayout = (LinearLayout) findViewById(R.id.activity_order_detail_dealer_intention);
 		intentionLayout = (LinearLayout) findViewById(R.id.activity_order_detail_customer_intention);
 		qRcodeLayout = (LinearLayout) findViewById(R.id.activity_order_detail_qrcode);
-		stateTextView = (TextView)findViewById(R.id.order_detail_state);
-		carImageView = (ImageView)findViewById(R.id.order_detail_car_imageview);
-		modelTextView = (TextView)findViewById(R.id.order_detail_brandmakermodel_textview);
-		priceTextView = (TextView)findViewById(R.id.order_detail_price_textview);
-		pickupTimeTextView = (TextView)findViewById(R.id.order_detail_pickup_time_textview);
-		licenseLocationTextView = (TextView)findViewById(R.id.order_detail_license_location_textview);
-		gotLicenseTextView = (TextView)findViewById(R.id.order_detail_got_licence_textview);
-		loanTextView = (TextView)findViewById(R.id.order_detail_loan_option_textview);
-		trimTextView = (TextView)findViewById(R.id.order_detail_trim_textview);
+		stateTextView = (TextView) findViewById(R.id.order_detail_state);
+		carImageView = (ImageView) findViewById(R.id.order_detail_car_imageview);
+		modelTextView = (TextView) findViewById(R.id.order_detail_brandmakermodel_textview);
+		priceTextView = (TextView) findViewById(R.id.order_detail_price_textview);
+		pickupTimeTextView = (TextView) findViewById(R.id.order_detail_pickup_time_textview);
+		licenseLocationTextView = (TextView) findViewById(R.id.order_detail_license_location_textview);
+		gotLicenseTextView = (TextView) findViewById(R.id.order_detail_got_licence_textview);
+		loanTextView = (TextView) findViewById(R.id.order_detail_loan_option_textview);
+		trimTextView = (TextView) findViewById(R.id.order_detail_trim_textview);
+		colorTextView = (TextView) findViewById(R.id.order_detail_color_textview);
+		// bid info
+		insuranceTextView = (TextView) findViewById(R.id.order_detail_bid_insurance_textview);
+		purTaxTextView = (TextView) findViewById(R.id.order_detail_bid_purchase_tax_textview);
+		licFeeTextView = (TextView) findViewById(R.id.order_detail_bid_license_fee_textview);
+		miscFeeTextView = (TextView) findViewById(R.id.order_detail_bid_misc_fee_textview);
+		desTextView = (TextView) findViewById(R.id.order_detail_bid_description_textview);
+		//
 		id = getIntent().getStringExtra("id");
 		mMapView = (MapView) findViewById(R.id.order_has_dealer_bmapView);
 		mBaiduMap = mMapView.getMap();
@@ -197,7 +215,8 @@ public class OrderDetailActivity extends Activity {
 			case 2:
 				nullDataLayout.setVisibility(View.VISIBLE);
 				progressLayout.setVisibility(View.GONE);
-				Toast toast = Toast.makeText(OrderDetailActivity.this, "获取订单详情失败", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(OrderDetailActivity.this,
+						"获取订单详情失败", Toast.LENGTH_SHORT);
 				toast.show();
 				break;
 			}
@@ -211,9 +230,16 @@ public class OrderDetailActivity extends Activity {
 		} else if (state.equals("deal_made")) {
 			stateTextView.setText("已有4s店接受报价");
 			dealerInfoLayout.setVisibility(View.VISIBLE);
+			dealerIntentionLayout.setVisibility(View.VISIBLE);
 			dealerPhoneTextView.setText(detailEntity.getDealer().getPhone());
 			shopAddressTextView.setText(detailEntity.getShop().getAddress());
 			shopNameTextView.setText(detailEntity.getShop().getName());
+			//bid info
+			insuranceTextView.setText(detailEntity.getBid().getInsurance());
+			purTaxTextView.setText(detailEntity.getBid().getPurchase_tax());
+			licFeeTextView.setText(detailEntity.getBid().getLicense_fee());
+			miscFeeTextView.setText(detailEntity.getBid().getMisc_fee());
+			desTextView.setText(detailEntity.getBid().getDescription());
 			qRcodeLayout.setVisibility(View.VISIBLE);
 			try {
 				qrImageView.setImageBitmap(Create2DCode(detailEntity
@@ -226,37 +252,42 @@ public class OrderDetailActivity extends Activity {
 		} else if (state.equals("final_deal_closed")) {
 			stateTextView.setText("最终成交");
 			dealerInfoLayout.setVisibility(View.VISIBLE);
+			dealerIntentionLayout.setVisibility(View.VISIBLE);
 			dealerPhoneTextView.setText(detailEntity.getDealer().getPhone());
 			shopAddressTextView.setText(detailEntity.getShop().getAddress());
 			shopNameTextView.setText(detailEntity.getShop().getName());
+			//bid info
+			insuranceTextView.setText(detailEntity.getBid().getInsurance());
+			purTaxTextView.setText(detailEntity.getBid().getPurchase_tax());
+			licFeeTextView.setText(detailEntity.getBid().getLicense_fee());
+			miscFeeTextView.setText(detailEntity.getBid().getMisc_fee());
+			desTextView.setText(detailEntity.getBid().getDescription());
 			qRcodeLayout.setVisibility(View.GONE);
-//			try {
-//				qrImageView.setImageBitmap(Create2DCode(detailEntity
-//						.getVerfiy_code()));
-//			} catch (WriterException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
+			// try {
+			// qrImageView.setImageBitmap(Create2DCode(detailEntity
+			// .getVerfiy_code()));
+			// } catch (WriterException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 
 		}
-		System.out.println("pic:"+detailEntity.getPic_url());
-		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
-		String brandName= detailEntity.getBrand().getName();
+		System.out.println("pic:" + detailEntity.getPic_url());
+		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(), carImageView);
+		String brandName = detailEntity.getBrand().getName();
 		String makerName = detailEntity.getMaker().getName();
 		String modelName = detailEntity.getModel().getName();
 		String trimName = detailEntity.getTrim().getName();
-		//detailEntity.
-		modelTextView.setText(brandName+"("+makerName+") "+modelName);
+		// detailEntity.
+		modelTextView.setText(brandName + "(" + makerName + ") " + modelName);
 		trimTextView.setText(trimName);
 		priceTextView.setText(detailEntity.getPrice());
-		//pickupTimeTextView.setText(detailEntity.getPickup_time());
+		// pickupTimeTextView.setText(detailEntity.getPickup_time());
 		if (detailEntity.getPickup_time().equals("0")) {
 			pickupTimeTextView.setText("7天");
 		} else if (detailEntity.getPickup_time().equals("1")) {
 			pickupTimeTextView.setText("14天");
-		}
-		else if (detailEntity.getPickup_time().equals("2")) {
+		} else if (detailEntity.getPickup_time().equals("2")) {
 			pickupTimeTextView.setText("21天后");
 		}
 		licenseLocationTextView.setText(detailEntity.getLicense_location());
@@ -272,7 +303,7 @@ public class OrderDetailActivity extends Activity {
 		} else if (detailEntity.getLoan_option().equals("2")) {
 			loanTextView.setText("均可");
 		}
-		
+
 	}
 
 	public Bitmap Create2DCode(String str) throws WriterException {

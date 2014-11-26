@@ -287,10 +287,12 @@ public class MyCarFragment extends Fragment {
 			cookieName = name;
 			if (name.equals("_JustBidIt_session")) {
 				cookieStr = cookie.getValue();
+				System.out.println("cookie");
 				break;
 			}
 		}
 		if (cookieStr == null || cookieStr.equals("")) {
+			System.out.println("cookie null");
 			return;
 		}
 		HttpClient httpclient = new DefaultHttpClient();
@@ -322,7 +324,7 @@ public class MyCarFragment extends Fragment {
 				Message message = new Message();
 				message.what = 1;
 				mHandler.sendMessage(message);
-			} else if (code == 401) {
+			} else  {
 				Message message = new Message();
 				message.what = 2;
 				mHandler.sendMessage(message);

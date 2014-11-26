@@ -93,7 +93,9 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 			holder.brandMakerModelTextView.setText(name_array[0]+" "+name_array[1]+" "+name_array[2]);
 			//holder.trimTextView.setText(name_array[3]);
 		}
-		holder.pricetextView.setText(entity.getPrice());
+		if(entity.getPrice()==null)
+			holder.pricetextView.setText("");
+		else holder.pricetextView.setText(entity.getPrice()+"元");
 		MyApplication.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {

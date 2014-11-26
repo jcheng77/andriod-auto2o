@@ -165,7 +165,7 @@ public class CarDetailActivity extends Activity {
 			TextView  trimPriceTextView = (TextView)view.findViewById(R.id.trim_guidePrice);
 			//TextView trimLowestPricetexTextView = (TextView)view.findViewById(R.id.trim_lowestPrice);
 			trimNameTextView.setText(trimList.get(i).getName());
-			trimPriceTextView.setText(trimList.get(i).getGuide_price());
+			trimPriceTextView.setText(trimList.get(i).getLowest_price()+"~"+trimList.get(i).getGuide_price()+"万");
 			//trimLowestPricetexTextView.setText(trimList.get(i).getLowest_price());
 			pagerList.add(view);
 		}

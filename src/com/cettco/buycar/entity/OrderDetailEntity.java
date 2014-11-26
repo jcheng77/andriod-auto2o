@@ -1,5 +1,7 @@
 package com.cettco.buycar.entity;
 
+import java.util.List;
+
 public class OrderDetailEntity {
 	private String id;
 	private String trim_id;
@@ -15,6 +17,20 @@ public class OrderDetailEntity {
 	private CarBrandEntity brand;
 	private Dealer dealer;
 	private Shop shop;
+	private BidEntity bid;
+	private List<ColorEntity> colors;
+	public List<ColorEntity> getColors() {
+		return colors;
+	}
+	public void setColors(List<ColorEntity> colors) {
+		this.colors = colors;
+	}
+	public BidEntity getBid() {
+		return bid;
+	}
+	public void setBid(BidEntity bid) {
+		this.bid = bid;
+	}
 	public Shop getShop() {
 		return shop;
 	}

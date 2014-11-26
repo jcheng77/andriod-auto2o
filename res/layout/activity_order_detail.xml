@@ -40,7 +40,15 @@
 
                     <include layout="@layout/module_order_detail_dealer_info" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/activity_order_detail_dealer_intention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical" >
 
+                    <include layout="@layout/module_order_detail_dealer_intention" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/activity_order_detail_customer_intention"
                     android:layout_width="match_parent"

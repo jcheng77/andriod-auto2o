@@ -225,30 +225,38 @@ public class CarListActivity extends Activity {
 			System.out.println("child position:" + childPosition);
 			CarModelEntity modelEntity = makerEntities.get(groupPosition)
 					.getModels().get(childPosition);
-			OrderItemEntity orderItemEntity = new OrderItemEntity();
-			orderItemEntity.setPic_url(modelEntity.getPic_url());
-			orderItemEntity.setState("viewed");
-			String model_name = carBrandEntities.get(brandPosition).getName()
-					+ " : " + makerEntities.get(groupPosition).getName()
-					+ " : " + modelEntity.getName();
-			orderItemEntity.setModel(model_name);
-			orderItemEntity.setModel_id(modelEntity.getId());
-			orderItemEntity.setTime(new Date());
+			
 			// orderItemEntity.setTrim(trim);
+			int  order_id = -1;
 			DatabaseHelperOrder helper = DatabaseHelperOrder
 					.getHelper(CarListActivity.this);
 			try {
-				int i = helper.getDao().create(orderItemEntity);
-				System.out.println("i is:" + i);
-				System.out.println("primary id:"
-						+ orderItemEntity.getOrder_id());
+				OrderItemEntity tmp = helper.getDao().queryBuilder().where().eq("model_id", modelEntity.getId()).and().eq("state", "viewed").queryForFirst();
+				if(tmp!=null){
+					order_id = tmp.getOrder_id();
+					tmp.setState("viewed");
+					tmp.setTime(new Date());
+					helper.getDao().update(tmp);
+				}else{
+					OrderItemEntity orderItemEntity = new OrderItemEntity();
+					orderItemEntity.setPic_url(modelEntity.getPic_url());
+					orderItemEntity.setState("viewed");
+					String model_name = carBrandEntities.get(brandPosition).getName()
+							+ " : " + makerEntities.get(groupPosition).getName()
+							+ " : " + modelEntity.getName();
+					orderItemEntity.setModel(model_name);
+					orderItemEntity.setModel_id(modelEntity.getId());
+					orderItemEntity.setTime(new Date());
+					int i = helper.getDao().create(orderItemEntity);
+					order_id = orderItemEntity.getOrder_id();
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			Intent intent = new Intent();
 			intent.setClass(CarListActivity.this, CarDetailActivity.class);
-			intent.putExtra("order_id", orderItemEntity.getOrder_id());
+			intent.putExtra("order_id", order_id);
 			// intent.putExtra("model", new Gson().toJson(carTypeEntity));
 			// intent.putExtra("name", car);
 			// intent.putExtra("id", new Gson().toJson(carTypeEntity));
