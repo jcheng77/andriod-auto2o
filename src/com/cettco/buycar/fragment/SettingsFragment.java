@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,12 +36,14 @@ public class SettingsFragment extends Fragment{
 	private View fragmentView;
 	private LinearLayout logoutLayout;
 	private Button logouButton;
+	private ImageView loginArrow;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		//return super.onCreateView(inflater, container, savedInstanceState);
 		fragmentView = inflater.inflate(R.layout.fragment_settings, container,false);
+		loginArrow = (ImageView)fragmentView.findViewById(R.id.settings_login_arrow);
 		loginLayout = (RelativeLayout)fragmentView.findViewById(R.id.settings_login_layout);
 		loginLayout.setOnClickListener(loginClickListener);
 		loginTextView = (TextView)fragmentView.findViewById(R.id.settings_login_textView);
@@ -58,6 +61,7 @@ public class SettingsFragment extends Fragment{
 		if(UserUtil.isLogin(getActivity())){
 			loginTextView.setText(UserUtil.getPhone(getActivity()));
 			logoutLayout.setVisibility(View.VISIBLE);
+			loginArrow.setVisibility(View.GONE);
 		}else {
 			loginTextView.setText("请登录");
 			logoutLayout.setVisibility(View.GONE);

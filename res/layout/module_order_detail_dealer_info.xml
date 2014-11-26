@@ -103,7 +103,7 @@
         android:background="@color/white"
         android:clickable="true" />
 
-    <LinearLayout
+   <!--  <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -145,7 +145,7 @@
                 android:text="23333"
                 android:textColor="@color/orange" />
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout> -->
 
     <ImageView
         android:id="@+id/order_has_dealer_qr_image"

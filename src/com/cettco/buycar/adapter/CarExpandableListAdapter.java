@@ -58,7 +58,9 @@ public class CarExpandableListAdapter extends BaseExpandableListAdapter {
 		carTypetTextView.setText(carTypeEntity.getName());
 		ImageView imageView = (ImageView)convertView.findViewById(R.id.list_car_type_img);
 		//System.out.println("img url:"+carTypeEntity.getPic_url());
-		MyApplication.IMAGE_CACHE.get(carTypeEntity.getPic_url(), imageView);
+		if(!MyApplication.IMAGE_CACHE.get(carTypeEntity.getPic_url(), imageView)){
+			imageView.setBackgroundResource(R.drawable.default_car);
+		}
 		return convertView;
 	}
 

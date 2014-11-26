@@ -202,7 +202,9 @@ public class AliPayActivity extends Activity {
 		brandTextView.setText(detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName());
 		trimTextView.setText(detailEntity.getTrim().getName());
 		System.out.println("pic:"+detailEntity.getPic_url());
-		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
+		if(!MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView)){
+			carImageView.setBackgroundResource(R.drawable.default_car);
+		}
 		submitButton.setVisibility(View.VISIBLE);
 	}
 

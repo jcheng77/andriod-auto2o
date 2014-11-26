@@ -62,6 +62,7 @@
             android:background="@color/gray" />
 
         <RelativeLayout
+            android:layout_marginBottom="10dp"
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

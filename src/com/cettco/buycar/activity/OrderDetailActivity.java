@@ -235,11 +235,11 @@ public class OrderDetailActivity extends Activity {
 			shopAddressTextView.setText(detailEntity.getShop().getAddress());
 			shopNameTextView.setText(detailEntity.getShop().getName());
 			//bid info
-			insuranceTextView.setText(detailEntity.getBid().getInsurance());
-			purTaxTextView.setText(detailEntity.getBid().getPurchase_tax());
-			licFeeTextView.setText(detailEntity.getBid().getLicense_fee());
-			miscFeeTextView.setText(detailEntity.getBid().getMisc_fee());
-			desTextView.setText(detailEntity.getBid().getDescription());
+			insuranceTextView.setText(detailEntity.getBid().getInsurance()+" 元");
+			purTaxTextView.setText(detailEntity.getBid().getPurchase_tax()+" 元");
+			licFeeTextView.setText(detailEntity.getBid().getLicense_fee()+" 元");
+			miscFeeTextView.setText(detailEntity.getBid().getMisc_fee()+" 元");
+			desTextView.setText(detailEntity.getBid().getDescription()+" 元");
 			qRcodeLayout.setVisibility(View.VISIBLE);
 			try {
 				qrImageView.setImageBitmap(Create2DCode(detailEntity
@@ -257,11 +257,11 @@ public class OrderDetailActivity extends Activity {
 			shopAddressTextView.setText(detailEntity.getShop().getAddress());
 			shopNameTextView.setText(detailEntity.getShop().getName());
 			//bid info
-			insuranceTextView.setText(detailEntity.getBid().getInsurance());
-			purTaxTextView.setText(detailEntity.getBid().getPurchase_tax());
-			licFeeTextView.setText(detailEntity.getBid().getLicense_fee());
-			miscFeeTextView.setText(detailEntity.getBid().getMisc_fee());
-			desTextView.setText(detailEntity.getBid().getDescription());
+			insuranceTextView.setText(detailEntity.getBid().getInsurance()+" 元");
+			purTaxTextView.setText(detailEntity.getBid().getPurchase_tax()+" 元");
+			licFeeTextView.setText(detailEntity.getBid().getLicense_fee()+" 元");
+			miscFeeTextView.setText(detailEntity.getBid().getMisc_fee()+" 元");
+			desTextView.setText(detailEntity.getBid().getDescription()+" 元");
 			qRcodeLayout.setVisibility(View.GONE);
 			// try {
 			// qrImageView.setImageBitmap(Create2DCode(detailEntity
@@ -273,7 +273,9 @@ public class OrderDetailActivity extends Activity {
 
 		}
 		System.out.println("pic:" + detailEntity.getPic_url());
-		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(), carImageView);
+		if(!MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(), carImageView)){
+			carImageView.setBackgroundResource(R.drawable.default_car);
+		}
 		String brandName = detailEntity.getBrand().getName();
 		String makerName = detailEntity.getMaker().getName();
 		String modelName = detailEntity.getModel().getName();
