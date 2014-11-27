@@ -52,7 +52,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:background="#ffffff" />
+            android:background="@drawable/default_car" />
 
         <ImageView
             android:layout_width="match_parent"

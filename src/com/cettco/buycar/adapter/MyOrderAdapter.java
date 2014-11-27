@@ -96,9 +96,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		if(entity.getPrice()==null)
 			holder.pricetextView.setText("");
 		else holder.pricetextView.setText(entity.getPrice()+"元");
-		if(!MyApplication.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView)){
-			holder.imageView.setBackgroundResource(R.drawable.default_car);
-		}
+		MyApplication.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
 			holder.stateTextView.setText("以看车型");

@@ -8,7 +8,7 @@
         android:id="@+id/list_car_type_img"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="#ffffff" />
+        android:background="@drawable/default_car" />
 
     <TextView
         android:layout_gravity="center"

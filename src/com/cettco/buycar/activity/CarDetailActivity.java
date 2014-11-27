@@ -179,9 +179,7 @@ public class CarDetailActivity extends Activity {
 		Button beginBiddingBtn = (Button) findViewById(R.id.begin_bid);
 		beginBiddingBtn.setOnClickListener(beginBiddingClickListener);
 		
-		if(!MyApplication.IMAGE_CACHE.get(carTypeEntity.getPic_url(),carImageView)){
-			carImageView.setBackgroundResource(R.drawable.default_car);
-		}
+		MyApplication.IMAGE_CACHE.get(carTypeEntity.getPic_url(),carImageView);
 		//orderItemEntity.setPic_url(carTypeEntity.getPic_url());
 	}
 	@Override

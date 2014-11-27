@@ -28,6 +28,7 @@
                 android:background="@color/car_detail_front" >
 
                 <ImageView
+                    android:background="@drawable/default_car"
                     android:id="@+id/carDetail_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

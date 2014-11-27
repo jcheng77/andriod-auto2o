@@ -273,9 +273,7 @@ public class OrderDetailActivity extends Activity {
 
 		}
 		System.out.println("pic:" + detailEntity.getPic_url());
-		if(!MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(), carImageView)){
-			carImageView.setBackgroundResource(R.drawable.default_car);
-		}
+		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(), carImageView);
 		String brandName = detailEntity.getBrand().getName();
 		String makerName = detailEntity.getMaker().getName();
 		String modelName = detailEntity.getModel().getName();

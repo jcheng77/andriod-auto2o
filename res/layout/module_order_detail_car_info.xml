@@ -33,7 +33,7 @@
             android:layout_height="150dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white" />
+            android:background="@drawable/default_car" />
 
         <TextView
             android:id="@+id/order_detail_brandmakermodel_textview"
