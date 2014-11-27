@@ -136,7 +136,7 @@ public final class R {
 		public static final int abc_split_action_bar_is_narrow = 0x7f0b0002;
 	}
 	public static final class color {
-		public static final int abc_search_url_text_holo = 0x7f060041;
+		public static final int abc_search_url_text_holo = 0x7f060042;
 		public static final int abc_search_url_text_normal = 0x7f060028;
 		public static final int abc_search_url_text_pressed = 0x7f06002a;
 		public static final int abc_search_url_text_selected = 0x7f060029;

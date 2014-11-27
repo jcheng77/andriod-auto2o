@@ -21,4 +21,5 @@
       <color name="deep_gray">#ff555555</color>
       <color name="light_gray">#EFF3F7</color>
       <color name="order_status">#ff6600</color>
+      <color name="bargain_seperator">#cee3f2</color>
 </resources>

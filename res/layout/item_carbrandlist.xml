@@ -4,23 +4,51 @@
     android:layout_height="45dp" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent" 
-        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:orientation="horizontal"
-        >
-        <!-- <ImageView 
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <!--
+             <ImageView 
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:background="#666666"
-            /> -->
+            android:background="#666666"  />    -->
+
         <TextView
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center"
+            android:id="@+id/carBrandCatalog"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="#E0E0E0"
+            android:paddingBottom="5dip"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dip"
+            android:text="A"
+            android:textColor="#454545" />
+
+        <!--
+             <TextView
             android:id="@+id/carBrandText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp" />    -->
+
+        <TextView
+            android:id="@+id/carBrandText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dip"
+            android:layout_weight="1.0"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dip"
+            android:text="hhhh"
+            android:textColor="#336598" />
     </LinearLayout>
-    
+
 </RelativeLayout>

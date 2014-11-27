@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/white" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,10 +11,59 @@
 
         <include layout="@layout/actionbar" />
 
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
+        <!--
+             <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/car_list_pull_to_refresh_listview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
+        -->
+
+        <LinearLayout
+            android:id="@+id/brand_sort_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <com.example.sortlistview.ClearEditText
+                android:id="@+id/filter_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/search_bar_edit_selector"
+                android:drawableLeft="@drawable/search_bar_icon_normal"
+                android:hint="请输入关键字"
+                android:singleLine="true"
+                android:textSize="15.0dip" />
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <com.handmark.pulltorefresh.library.PullToRefreshListView
+                    android:id="@+id/car_list_pull_to_refresh_listview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:divider="@null" />
+
+                <TextView
+                    android:id="@+id/dialog"
+                    android:layout_width="80.0dip"
+                    android:layout_height="80.0dip"
+                    android:layout_gravity="center"
+                    android:background="@drawable/show_head_toast_bg"
+                    android:gravity="center"
+                    android:textColor="#ffffffff"
+                    android:textSize="30.0dip"
+                    android:visibility="invisible" />
+
+                <com.example.sortlistview.SideBar
+                    android:id="@+id/sidrbar"
+                    android:layout_width="30.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right|center" />
+            </FrameLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/current_car_brand_reletavielayout"
@@ -23,21 +72,21 @@
             android:visibility="gone" >
 
             <TextView
-                android:layout_marginLeft="20dp"
                 android:id="@+id/curent_car_brand_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
                 android:text="test" />
 
             <ImageView
                 android:id="@+id/current_car_brand_cancle"
-                android:layout_marginRight="10dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/close_icon_style" />
         </RelativeLayout>
 
@@ -48,25 +97,27 @@
             android:visibility="gone" >
         </ExpandableListView>
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressbar_carlist"
         style="@android:style/Widget.ProgressBar.Large"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginRight="5dp" />
-    <LinearLayout 
+        android:layout_marginRight="5dp"
+        android:visibility="gone" />
+
+    <LinearLayout
         android:id="@+id/carlist_nodata_layout"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        >
-        <TextView 
+        android:visibility="gone" >
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="没有数据"
-            />
+            android:text="没有数据" />
     </LinearLayout>
+
 </RelativeLayout>

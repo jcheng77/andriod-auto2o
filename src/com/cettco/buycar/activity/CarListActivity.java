@@ -3,6 +3,7 @@ package com.cettco.buycar.activity;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,12 @@ import com.cettco.buycar.utils.db.DatabaseHelperMaker;
 import com.cettco.buycar.utils.db.DatabaseHelperModel;
 import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.cettco.buycar.utils.db.DatabaseHelperTrim;
+import com.example.sortlistview.CharacterParser;
+import com.example.sortlistview.ClearEditText;
+import com.example.sortlistview.PinyinComparator;
+import com.example.sortlistview.SideBar;
+import com.example.sortlistview.SortAdapter;
+import com.example.sortlistview.SideBar.OnTouchingLetterChangedListener;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -40,6 +47,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -58,7 +68,7 @@ public class CarListActivity extends Activity {
 
 	private PullToRefreshListView pullToRefreshView;
 	private int toggle = 0;
-	private CarBrandListAdapter carBrandListAdapter;
+	private SortAdapter carBrandListAdapter;
 	// private ArrayList<CarBrandEntity> carBrandList;
 	private List<CarBrandEntity> carBrandEntities;
 	private ExpandableListView carExpandedView;
@@ -76,6 +86,15 @@ public class CarListActivity extends Activity {
 	private List<CarMakerEntity> makerEntities;
 	
 	private TextView titleTextView;
+	
+	//sort list view
+	private LinearLayout sortBrandLayout;
+	private SideBar sideBar;
+	private TextView dialog;
+	private ClearEditText mClearEditText;
+	private CharacterParser characterParser;
+	private List<CarBrandEntity> SourceDateList;
+	private PinyinComparator pinyinComparator;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +102,7 @@ public class CarListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_carlist);
 		// getActionBar().hide();
+		sortBrandLayout = (LinearLayout)findViewById(R.id.brand_sort_layout);
 		progressBar = (ProgressBar) findViewById(R.id.progressbar_carlist);
 		httpCache = new HttpCache(this);
 		// carBrandListView = (ListView)findViewById(R.id.carBrandListView);
@@ -111,12 +131,10 @@ public class CarListActivity extends Activity {
 					}
 
 				});
+		
 		carBrandListView = pullToRefreshView.getRefreshableView();
-		carBrandListAdapter = new CarBrandListAdapter(this,
-				R.layout.item_carbrandlist, carBrandEntities);
-		carBrandListView.setAdapter(carBrandListAdapter);
 		carBrandListView.setOnItemClickListener(carBrandListener);
-
+		initViews();
 		carExpandedView = (ExpandableListView) findViewById(R.id.carExpandedList);
 		carExpandedView.setGroupIndicator(null);
 		carExpandableListAdapter = new CarExpandableListAdapter(this, null);
@@ -124,14 +142,130 @@ public class CarListActivity extends Activity {
 		carExpandedView.setOnChildClickListener(carChildClickListener);
 
 		// getCacheData();
+		//initViews();
 	}
 
+	private void initViews() {
+		characterParser = CharacterParser.getInstance();
+		
+		pinyinComparator = new PinyinComparator();
+		
+		sideBar = (SideBar) findViewById(R.id.sidrbar);
+		dialog = (TextView) findViewById(R.id.dialog);
+		sideBar.setTextView(dialog);
+		
+		//�����Ҳഥ������
+		sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
+			
+			@Override
+			public void onTouchingLetterChanged(String s) {
+				//����ĸ�״γ��ֵ�λ��
+				int position = carBrandListAdapter.getPositionForSection(s.charAt(0));
+				if(position != -1){
+					carBrandListView.setSelection(position);
+				}
+				
+			}
+		});
+		
+		//carBrandListView = (ListView) findViewById(R.id.country_lvcountry);
+//		carBrandListView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//				//����Ҫ����adapter.getItem(position)����ȡ��ǰposition���Ӧ�Ķ���
+//				//Toast.makeText(getApplication(), ((CarBrandEntity)carBrandListAdapter.getItem(position)).getName(), Toast.LENGTH_SHORT).show();
+//			}
+//		});
+		getCachedData();
+		
+		SourceDateList = filledData(carBrandEntities);
+		
+		// ���a-z��������Դ���
+		Collections.sort(SourceDateList, pinyinComparator);
+		carBrandListAdapter = new SortAdapter(this, SourceDateList);
+		carBrandListView.setAdapter(carBrandListAdapter);
+		
+		
+		mClearEditText = (ClearEditText) findViewById(R.id.filter_edit);
+		
+		//������������ֵ�ĸı�����������
+		mClearEditText.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				//������������ֵΪ�գ�����Ϊԭ�����б?����Ϊ��������б�
+				filterData(s.toString());
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+		});
+	}
+
+
+	/**
+	 * ΪListView������
+	 * @param date
+	 * @return
+	 */
+	private List<CarBrandEntity> filledData(List<CarBrandEntity> origin){
+		List<CarBrandEntity> mSortList = new ArrayList<CarBrandEntity>();
+		
+		for(int i=0; i<origin.size(); i++){
+			CarBrandEntity brandEntity =origin.get(i);
+//			brandEntity.setName(origin.get(i).getName());
+			//����ת����ƴ��
+			String pinyin = characterParser.getSelling(brandEntity.getName());
+			String sortString = pinyin.substring(0, 1).toUpperCase();
+			if(sortString.matches("[A-Z]")){
+				brandEntity.setSortLetters(sortString.toUpperCase());
+			}else{
+				brandEntity.setSortLetters("#");
+			}			
+			mSortList.add(brandEntity);
+		}
+		return mSortList;
+		
+	}
+	
+	/**
+	 * ���������е�ֵ��������ݲ�����ListView
+	 * @param filterStr
+	 */
+	private void filterData(String filterStr){
+		List<CarBrandEntity> filterDateList = new ArrayList<CarBrandEntity>();
+		
+		if(TextUtils.isEmpty(filterStr)){
+			filterDateList = SourceDateList;
+		}else{
+			filterDateList.clear();
+			for(CarBrandEntity sortModel : SourceDateList){
+				String name = sortModel.getName();
+				if(name.indexOf(filterStr.toString()) != -1 || characterParser.getSelling(name).startsWith(filterStr.toString())){
+					filterDateList.add(sortModel);
+				}
+			}
+		}
+		
+		// ���a-z��������
+		Collections.sort(filterDateList, pinyinComparator);
+		carBrandListAdapter.updateListView(filterDateList);
+	}
 	@Override
 	protected void onResume() {
 		// carExpandedView.set
 		// pullToRefreshView.
 		super.onResume();
-		getCachedData();
+		//getCachedData();
 	}
 
 	// protected void getData() {
@@ -148,7 +282,8 @@ public class CarListActivity extends Activity {
 			// TODO Auto-generated method stub
 			carExpandedView.setVisibility(View.GONE);
 			currentBrandLayout.setVisibility(View.GONE);
-			pullToRefreshView.setVisibility(View.VISIBLE);
+			//pullToRefreshView.setVisibility(View.VISIBLE);
+			sortBrandLayout.setVisibility(View.VISIBLE);
 			// pullToRefreshView.setr
 		}
 	};
@@ -194,9 +329,10 @@ public class CarListActivity extends Activity {
 			carExpandableListAdapter.updateList(makerEntities);
 			carExpandedView.setVisibility(View.VISIBLE);
 			currentBrandLayout.setVisibility(View.VISIBLE);
+			sortBrandLayout.setVisibility(View.GONE);
 			currentBrandNameTextView.setText(carBrandEntities.get(position)
 					.getName());
-			pullToRefreshView.setVisibility(View.GONE);
+			//pullToRefreshView.setVisibility(View.GONE);
 			// carExpandableListAdapter.updateList(carBrandEntities.get(position)
 			// .getMakers());
 			// carExpandedView.setVisibility(View.VISIBLE);
@@ -271,7 +407,7 @@ public class CarListActivity extends Activity {
 			case 1:
 				// updateTitle();
 				// carBrandListAdapter.notifyDataSetChanged();
-				carBrandListAdapter.updateList(carBrandEntities);
+				carBrandListAdapter.updateListView(carBrandEntities);
 				try {
 					writeCacheData();
 				} catch (SQLException e) {
@@ -280,7 +416,7 @@ public class CarListActivity extends Activity {
 				}
 				break;
 			case 2:
-				carBrandListAdapter.updateList(carBrandEntities);
+				carBrandListAdapter.updateListView(carBrandEntities);
 			}
 		};
 	};
@@ -343,7 +479,7 @@ public class CarListActivity extends Activity {
 			} else {
 				//System.out.println("cached");
 				carBrandEntities = nums;
-				carBrandListAdapter.updateList(carBrandEntities);
+				//carBrandListAdapter.updateListView(carBrandEntities);
 			}
 
 		} catch (SQLException e) {
@@ -409,7 +545,7 @@ public class CarListActivity extends Activity {
 
 	private void getChildData(int n) throws SQLException {
 		DatabaseHelperMaker helperMaker = DatabaseHelperMaker.getHelper(this);
-		CarBrandEntity brandEntity = carBrandEntities.get(n);
+		CarBrandEntity brandEntity = SourceDateList.get(n);
 		//System.out.println("brand_id:" + brandEntity.getId());
 		List<CarMakerEntity> tmp = helperMaker.getDao().queryBuilder().query();
 		//System.out.println("tmp size:" + tmp.size());

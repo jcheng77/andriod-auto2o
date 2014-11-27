@@ -17,6 +17,13 @@ public class CarBrandEntity {
 	}
 	@DatabaseField
 	private String name;
+	private String sortLetters;
+	public String getSortLetters() {
+		return sortLetters;
+	}
+	public void setSortLetters(String sortLetters) {
+		this.sortLetters = sortLetters;
+	}
 	private String url;
 	public String getUrl() {
 		return url;
