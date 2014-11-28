@@ -325,12 +325,13 @@ public class CarListActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("maker size:" + makerEntities.size());
+//			System.out.println("position:"+position);
+//			System.out.println("maker size:" + makerEntities.size());
 			carExpandableListAdapter.updateList(makerEntities);
 			carExpandedView.setVisibility(View.VISIBLE);
 			currentBrandLayout.setVisibility(View.VISIBLE);
 			sortBrandLayout.setVisibility(View.GONE);
-			currentBrandNameTextView.setText(carBrandEntities.get(position)
+			currentBrandNameTextView.setText(SourceDateList.get(position)
 					.getName());
 			//pullToRefreshView.setVisibility(View.GONE);
 			// carExpandableListAdapter.updateList(carBrandEntities.get(position)
