@@ -10,6 +10,7 @@ import com.cettco.buycar.activity.MainActivity;
 import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UpdateManager;
 import com.cettco.buycar.utils.UserUtil;
 import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.loopj.android.http.PersistentCookieStore;
@@ -37,6 +38,8 @@ public class SettingsFragment extends Fragment{
 	private LinearLayout logoutLayout;
 	private Button logouButton;
 	private ImageView loginArrow;
+	
+	private RelativeLayout checkUpdateLayout;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +54,9 @@ public class SettingsFragment extends Fragment{
 		logoutLayout = (LinearLayout)fragmentView.findViewById(R.id.logout_layout);		
 		logouButton = (Button)fragmentView.findViewById(R.id.logout_button);
 		logouButton.setOnClickListener(logoutClickListener);
+		
+		checkUpdateLayout = (RelativeLayout)fragmentView.findViewById(R.id.settings_check_update_layout);
+		checkUpdateLayout.setOnClickListener(checkUpdateClickListener);
 		return fragmentView;
 	}
 	
@@ -67,6 +73,16 @@ public class SettingsFragment extends Fragment{
 			logoutLayout.setVisibility(View.GONE);
 		}
 	}
+	private OnClickListener checkUpdateClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			UpdateManager manager = new UpdateManager(getActivity());  
+			// 检查软件更新  
+			manager.checkUpdate();
+		}
+	};
 	private OnClickListener logoutClickListener = new OnClickListener() {
 		
 		@Override
