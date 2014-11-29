@@ -95,6 +95,8 @@ public class CarListActivity extends Activity {
 	private CharacterParser characterParser;
 	private List<CarBrandEntity> SourceDateList;
 	private PinyinComparator pinyinComparator;
+	
+	private List<CarBrandEntity> filterDateList = new ArrayList<CarBrandEntity>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +161,6 @@ public class CarListActivity extends Activity {
 			
 			@Override
 			public void onTouchingLetterChanged(String s) {
-				//����ĸ�״γ��ֵ�λ��
 				int position = carBrandListAdapter.getPositionForSection(s.charAt(0));
 				if(position != -1){
 					carBrandListView.setSelection(position);
@@ -184,6 +185,7 @@ public class CarListActivity extends Activity {
 		
 		// ���a-z��������Դ���
 		Collections.sort(SourceDateList, pinyinComparator);
+		filterDateList.addAll(SourceDateList);
 		carBrandListAdapter = new SortAdapter(this, SourceDateList);
 		carBrandListView.setAdapter(carBrandListAdapter);
 		
@@ -242,16 +244,15 @@ public class CarListActivity extends Activity {
 	 * @param filterStr
 	 */
 	private void filterData(String filterStr){
-		List<CarBrandEntity> filterDateList = new ArrayList<CarBrandEntity>();
 		
 		if(TextUtils.isEmpty(filterStr)){
-			filterDateList = SourceDateList;
+			filterDateList.addAll(SourceDateList);
 		}else{
 			filterDateList.clear();
-			for(CarBrandEntity sortModel : SourceDateList){
-				String name = sortModel.getName();
+			for(CarBrandEntity model : SourceDateList){
+				String name = model.getName();
 				if(name.indexOf(filterStr.toString()) != -1 || characterParser.getSelling(name).startsWith(filterStr.toString())){
-					filterDateList.add(sortModel);
+					filterDateList.add(model);
 				}
 			}
 		}
@@ -331,7 +332,7 @@ public class CarListActivity extends Activity {
 			carExpandedView.setVisibility(View.VISIBLE);
 			currentBrandLayout.setVisibility(View.VISIBLE);
 			sortBrandLayout.setVisibility(View.GONE);
-			currentBrandNameTextView.setText(SourceDateList.get(position)
+			currentBrandNameTextView.setText(filterDateList.get(position)
 					.getName());
 			//pullToRefreshView.setVisibility(View.GONE);
 			// carExpandableListAdapter.updateList(carBrandEntities.get(position)
@@ -378,7 +379,7 @@ public class CarListActivity extends Activity {
 					OrderItemEntity orderItemEntity = new OrderItemEntity();
 					orderItemEntity.setPic_url(modelEntity.getPic_url());
 					orderItemEntity.setState("viewed");
-					String model_name = SourceDateList.get(brandPosition).getName()
+					String model_name = filterDateList.get(brandPosition).getName()
 							+ " : " + makerEntities.get(groupPosition).getName()
 							+ " : " + modelEntity.getName();
 					orderItemEntity.setModel(model_name);
@@ -546,7 +547,7 @@ public class CarListActivity extends Activity {
 
 	private void getChildData(int n) throws SQLException {
 		DatabaseHelperMaker helperMaker = DatabaseHelperMaker.getHelper(this);
-		CarBrandEntity brandEntity = SourceDateList.get(n);
+		CarBrandEntity brandEntity = filterDateList.get(n);
 		//System.out.println("brand_id:" + brandEntity.getId());
 		List<CarMakerEntity> tmp = helperMaker.getDao().queryBuilder().query();
 		//System.out.println("tmp size:" + tmp.size());
