@@ -12,6 +12,7 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UpdateManager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import android.app.Activity;
@@ -100,8 +101,14 @@ public class MainActivity extends Activity {
 		default:
 			break;
 		}
+//		Intent intent = new Intent("com.cettco.buycar.checkupdate");  
+//	    //intent.putExtra("msg", "hello receiver.");  
+//	    sendBroadcast(intent);
 		//testJson();
 		//jpushSetAlias();
+		UpdateManager manager = new UpdateManager(this);  
+		// 检查软件更新  
+		manager.checkUpdate();
 
 	}
 	void testJson(){

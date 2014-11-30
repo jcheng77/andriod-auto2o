@@ -98,6 +98,8 @@ public class BargainActivity extends Activity {
 	private ArrayList<String> dealers = new ArrayList<String>();
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 	private TextView titleTextView;
+	
+	private EditText userNameEditText;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -148,6 +150,8 @@ public class BargainActivity extends Activity {
 		shoptexTextView = (TextView) findViewById(R.id.activity_bargain_4s_textview);
 
 		priceEditText = (EditText) findViewById(R.id.activity_bargain_myprice_textview);
+		
+		userNameEditText = (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
 
 	}
 
@@ -251,6 +255,7 @@ public class BargainActivity extends Activity {
 		}
 		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
 		String price = priceEditText.getText().toString();
+		String userName = userNameEditText.getText().toString();
 		if (price == null || price.equals("")) {
 			Toast toast = Toast.makeText(BargainActivity.this, "请填写价格",
 					Toast.LENGTH_SHORT);
@@ -265,6 +270,12 @@ public class BargainActivity extends Activity {
 		}
 		if (dealers == null || dealers.size() == 0) {
 			Toast toast = Toast.makeText(BargainActivity.this, "至少选择一家4s店",
+					Toast.LENGTH_SHORT);
+			toast.show();
+			return;
+		}
+		if (userName == null || userName.equals("")) {
+			Toast toast = Toast.makeText(BargainActivity.this, "请填写购买者姓名",
 					Toast.LENGTH_SHORT);
 			toast.show();
 			return;
@@ -284,6 +295,7 @@ public class BargainActivity extends Activity {
 		tender.setModel("111");
 		tender.setTrim_id(trim_id);
 		tender.setPickup_time(String.valueOf(getcarTimeSelection));
+		tender.setUser_name(userName);
 		// tender.setLicense_location(String.valueOf(locationSelection));
 		String locationString = "";
 		if (locationSelection == 0)

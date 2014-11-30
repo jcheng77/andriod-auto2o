@@ -18,6 +18,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,8 @@ public class SettingsFragment extends Fragment{
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		//return super.onCreateView(inflater, container, savedInstanceState);
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 		fragmentView = inflater.inflate(R.layout.fragment_settings, container,false);
 		loginArrow = (ImageView)fragmentView.findViewById(R.id.settings_login_arrow);
 		loginLayout = (RelativeLayout)fragmentView.findViewById(R.id.settings_login_layout);

@@ -1,5 +1,6 @@
 package com.cettco.buycar.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;  
 import java.io.FileOutputStream;  
 import java.io.IOException;  
@@ -9,7 +10,11 @@ import java.net.MalformedURLException;
 import java.net.URL;  
 import java.util.HashMap;  
 
+import org.apache.http.Header;
+
 import com.cettco.buycar.R;
+import com.cettco.buycar.service.UpdateService;
+import com.loopj.android.http.AsyncHttpResponseHandler;
   
 import android.app.AlertDialog;  
 import android.app.AlertDialog.Builder;  
@@ -33,7 +38,8 @@ public class UpdateManager
     /* 下载中 */  
     private static final int DOWNLOAD = 1;  
     /* 下载结束 */  
-    private static final int DOWNLOAD_FINISH = 2;  
+    private static final int DOWNLOAD_FINISH = 2; 
+    private static final int ISLATEST = 3;
     /* 保存解析的XML信息 */  
     HashMap<String, String> mHashMap;  
     /* 下载保存路径 */  
@@ -62,7 +68,10 @@ public class UpdateManager
             case DOWNLOAD_FINISH:  
                 // 安装文件  
                 installApk();  
-                break;  
+                break; 
+            case ISLATEST:
+            	Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();  
+            	break;
             default:  
                 break;  
             }  
@@ -79,14 +88,16 @@ public class UpdateManager
      */  
     public void checkUpdate()  
     {  
-        if (isUpdate())  
+        /*if (isUpdate())  
         {  
             // 显示提示对话框  
             showNoticeDialog();  
+        	//UpdateService service = new UpdateService();
         } else  
         {  
             Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();  
-        }  
+        } */
+        isUpdate();
     }  
   
     /** 
@@ -94,37 +105,71 @@ public class UpdateManager
      *  
      * @return 
      */  
-    private boolean isUpdate()  
+    private void  isUpdate()  
     {  
-        // 获取当前软件版本  
-        int versionCode = getVersionCode(mContext);  
+        // 获取当前软件版本   
         // 把version.xml放到网络上，然后获取文件信息  
         //InputStream inStream = ParseXmlService.class.getClassLoader().getResourceAsStream("version.xml");  
         // 解析XML文件。 由于XML文件比较小，因此使用DOM方式进行解析  
-        ParseXmlService service = new ParseXmlService();  
-        try  
-        {  
-            String path = GlobalData.getBaseUrl()+"/version.xml";  
-            URL url = new URL(path);  
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();  
-            conn.setReadTimeout(5*1000);  
-            conn.setRequestMethod("GET");  
-            InputStream inStream = conn.getInputStream();  
-            mHashMap = service.parseXml(inStream);  
-        } catch (Exception e)  
-        {  
-            e.printStackTrace();  
-        }  
-        if (null != mHashMap)  
-        {  
-            int serviceCode = Integer.valueOf(mHashMap.get("version"));  
-            // 版本判断  
-            if (serviceCode > versionCode)  
-            {  
-                return true;  
-            }  
-        }  
-        return false;  
+         
+//        try  
+//        {  
+//            String path = GlobalData.getBaseUrl()+"/version.xml";  
+//            URL url = new URL(path);  
+//            HttpURLConnection conn = (HttpURLConnection)url.openConnection();  
+//            conn.setReadTimeout(5*1000);  
+//            conn.setRequestMethod("GET");  
+//            InputStream inStream = conn.getInputStream();  
+//            mHashMap = service.parseXml(inStream);  
+//        } catch (Exception e)  
+//        {  
+//            e.printStackTrace();  
+//        }  
+        String path = GlobalData.getBaseUrl()+"/version.xml";  
+        HttpConnection.get(path, new AsyncHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				System.out.println("update success");
+				InputStream inStream = new ByteArrayInputStream(arg2);
+				ParseXmlService service = new ParseXmlService(); 
+	            try {
+					mHashMap = service.parseXml(inStream);
+					if (null != mHashMap)  
+			        {  
+						System.out.println("map:"+mHashMap.get("url"));
+			            int serviceCode = Integer.valueOf(mHashMap.get("version")); 
+			            int versionCode = getVersionCode(mContext); 
+			            // 版本判断  
+			            if (serviceCode > versionCode)  
+			            {  
+			            	showNoticeDialog();  
+			            }
+			            else {
+							Message msg = new Message();
+							msg.what=ISLATEST;
+							mHandler.sendMessage(msg);
+						}
+			        }
+					else {
+						Message msg = new Message();
+						msg.what=ISLATEST;
+						mHandler.sendMessage(msg);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+	            
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				System.out.println("update fail");
+			}
+		}); 
     }  
   
     /** 
@@ -164,7 +209,11 @@ public class UpdateManager
             {  
                 dialog.dismiss();  
                 // 显示下载对话框  
-                showDownloadDialog();  
+                //showDownloadDialog();  
+                Intent intent = new Intent();
+            	intent.setClass(UpdateManager.this.mContext,UpdateService.class);
+            	intent.putExtra("url", mHashMap.get("url"));
+            	UpdateManager.this.mContext.startService(intent);
             }  
         });  
         // 稍后更新  
