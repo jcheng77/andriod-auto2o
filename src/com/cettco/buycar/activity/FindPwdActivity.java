@@ -18,12 +18,16 @@ import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class FindPwdActivity extends Activity{
 
@@ -34,6 +38,9 @@ public class FindPwdActivity extends Activity{
 	private Button checkcodeButton;
 	private EditText checkcodeEditText;
 	private RelativeLayout progressLayout;
+	private TextView titleTextView;
+	private static final int SENDSUCCESS = 1;
+	private static final int SENDFAILURE = 2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -42,6 +49,7 @@ public class FindPwdActivity extends Activity{
 		//getActionBar().hide();
 		
 		signupButton = (Button)findViewById(R.id.signupBtn);
+		signupButton.setText("发送密码");
 		signupButton.setOnClickListener(signupBtnClickListener);
 		
 		signupPhoneEditText = (EditText)findViewById(R.id.signupPhoneEditText);
@@ -53,6 +61,8 @@ public class FindPwdActivity extends Activity{
 //		
 //		checkcodeEditText = (EditText)findViewById(R.id.signupCheckcodeEditText);
 		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("找回密码");
 		
 	}
 //	protected OnClickListener checkcodeBtnClickListener = new OnClickListener() {
@@ -91,7 +101,7 @@ public class FindPwdActivity extends Activity{
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			String url = GlobalData.getBaseUrl()+"/users/password.json";
+			String url = GlobalData.getBaseUrl()+"/users/reset_pwd.json";
 			String phone = signupPhoneEditText.getText().toString();
 			User user = new User();
 			user.setPhone(phone);
@@ -106,41 +116,50 @@ public class FindPwdActivity extends Activity{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			HttpConnection.post(FindPwdActivity.this, url, null, entity, "application/json", new JsonHttpResponseHandler(){
-
+			HttpConnection.post(FindPwdActivity.this, url, null, entity, "application/json", new AsyncHttpResponseHandler() {
+				
 				@Override
-				public void onFailure(int statusCode, Header[] headers,
-						Throwable throwable, JSONObject errorResponse) {
-					// TODO Auto-generated method stub
-					super.onFailure(statusCode, headers, throwable, errorResponse);
+				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 					progressLayout.setVisibility(View.GONE);
-					System.out.println("error");
-					System.out.println("statusCode:"+statusCode);
-					System.out.println("headers:"+headers);
-					for(int i = 0;i<headers.length;i++){
-						System.out.println(headers[i]);
-					}
-					System.out.println("response:"+errorResponse);
-				}
-
-				@Override
-				public void onSuccess(int statusCode, Header[] headers,
-						JSONObject response) {
 					// TODO Auto-generated method stub
-					super.onSuccess(statusCode, headers, response);
-					progressLayout.setVisibility(View.GONE);
-					System.out.println("success");
-					System.out.println("statusCode:"+statusCode);
-					System.out.println("headers:"+headers);
-					for(int i = 0;i<headers.length;i++){
-						System.out.println(headers[i]);
-					}
-					System.out.println("response:"+response);
+					Message msg = new Message();
+					msg.what = SENDFAILURE;
+					mHandler.sendMessage(msg);
 				}
 				
+				@Override
+				public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+					progressLayout.setVisibility(View.GONE);
+					// TODO Auto-generated method stub
+					Message msg = new Message();
+					msg.what = SENDSUCCESS;
+					mHandler.sendMessage(msg);
+					
+				}
 			});
 			progressLayout.setVisibility(View.VISIBLE);
 		}
+	};
+	Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch (msg.what) {
+			case SENDSUCCESS:
+				Toast toast = Toast.makeText(FindPwdActivity.this, "发送验证码成功", Toast.LENGTH_SHORT);
+				toast.show();
+				break;
+			case SENDFAILURE:
+				Toast toast2 = Toast.makeText(FindPwdActivity.this, "发送验证码失败", Toast.LENGTH_SHORT);
+				toast2.show();
+				break;
+
+			default:
+				break;
+			}
+		}
+		
 	};
 	public void exitClick(View view)
 	{

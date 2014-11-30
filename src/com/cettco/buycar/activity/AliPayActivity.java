@@ -131,7 +131,7 @@ public class AliPayActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			String bodyString= detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName();
-			pay("定金支付",bodyString,"99");
+			pay("定金支付",bodyString,"0.01");
 		}
 	};
 
@@ -318,7 +318,7 @@ public class AliPayActivity extends Activity {
 		// 取值范围：1m～15d。
 		// m-分钟，h-小时，d-天，1c-当天（无论交易何时创建，都在0点关闭）。
 		// 该参数数值不接受小数点，如1.5h，可转换为90m。
-		orderInfo += "&it_b_pay=\"30m\"";
+		orderInfo += "&it_b_pay=\"1m\"";
 
 		// 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
 		orderInfo += "&return_url=\"m.alipay.com\"";
