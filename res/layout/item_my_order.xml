@@ -3,16 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray"
-    android:paddingBottom="15dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="15dp" 
+    android:descendantFocusability="blocksDescendants" 
+    >
 
     <LinearLayout
-        android:background="@color/light_gray"
-         android:id="@+id/my_order_no_data_layout"
+        android:id="@+id/my_order_no_data_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:gravity="center" >
+        android:background="@color/light_gray"
+        android:gravity="center"
+        android:visibility="gone" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,12 +26,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="@color/white"
         android:id="@+id/my_order_has_data_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-         >
+        android:background="@color/white"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/my_order_status_layout"
@@ -62,12 +64,12 @@
             android:background="@color/gray" />
 
         <RelativeLayout
-            android:layout_marginBottom="10dp"
-            android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
+            android:paddingBottom="5dp"
             android:paddingLeft="10dp" >
 
             <LinearLayout
@@ -93,16 +95,37 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginLeft="5dp"
                 android:id="@+id/my_order_price_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:text="10000"
                 android:textColor="#fa6810" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:gravity="center"
+            >
+
+            <Button
+                android:focusable="false"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:id="@+id/my_order_cancel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cancelbtn_bg"
+                android:text="删除订单" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

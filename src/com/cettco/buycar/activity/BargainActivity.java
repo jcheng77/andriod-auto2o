@@ -20,12 +20,14 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.entity.Bargain;
 import com.cettco.buycar.entity.BargainEntity;
 import com.cettco.buycar.entity.CarColorListEntity;
+import com.cettco.buycar.entity.CarTrimEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.entity.Tender;
 import com.cettco.buycar.entity.TenderEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.db.DatabaseHelperOrder;
+import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
@@ -109,6 +111,7 @@ public class BargainActivity extends Activity {
 		titleTextView.setText("购车需求");
 		progressLayout = (RelativeLayout) findViewById(R.id.progressbar_relativeLayout);
 		order_id = getIntent().getIntExtra("order_id", -1);
+		priceEditText = (EditText) findViewById(R.id.activity_bargain_myprice_textview);
 		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
 		try {
 			orderItemEntity = orderHelper.getDao().queryBuilder().where()
@@ -118,6 +121,18 @@ public class BargainActivity extends Activity {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+		//String trim_id =
+		DatabaseHelperTrim helperTrim = DatabaseHelperTrim
+				.getHelper(this);
+		try {
+			CarTrimEntity trimEntity = helperTrim.getDao().queryBuilder().where()
+					.eq("id",trim_id).queryForFirst();
+			int price = (int) (Double.parseDouble(trimEntity.getGuide_price())*10000);
+			priceEditText.setText(String.valueOf(price));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		getArray();
 
@@ -149,7 +164,7 @@ public class BargainActivity extends Activity {
 
 		shoptexTextView = (TextView) findViewById(R.id.activity_bargain_4s_textview);
 
-		priceEditText = (EditText) findViewById(R.id.activity_bargain_myprice_textview);
+		
 		
 		userNameEditText = (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
 

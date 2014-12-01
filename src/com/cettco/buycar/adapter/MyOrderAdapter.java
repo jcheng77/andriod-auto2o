@@ -1,22 +1,31 @@
 
 package com.cettco.buycar.adapter;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import com.baidu.mapapi.search.poi.PoiBoundSearchOption;
 import com.cettco.buycar.R;
+import com.cettco.buycar.activity.CancleReasonActivity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.MyApplication;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 
 import android.R.bool;
+import android.R.integer;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 
@@ -71,6 +80,8 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 			holder.nodataLayout = (LinearLayout)convertView
 					.findViewById(R.id.my_order_no_data_layout);
 			convertView.setTag(holder);
+			holder.cancelButton = (Button)convertView
+					.findViewById(R.id.my_order_cancel_btn);
 			;
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -82,7 +93,8 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		}
 		holder.hasdataLayout.setVisibility(View.VISIBLE);
 		holder.nodataLayout.setVisibility(View.GONE);
-		OrderItemEntity entity = list.get(position);
+		final OrderItemEntity entity = list.get(position);
+		final int mPosition = position;
 		//System.out.println(entity.getPic_url());
 		String[] name_array = entity.getModel().split(" : ");
 		//System.out.println(name_array);
@@ -120,6 +132,31 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 			holder.stateTextView.setText("最终成交");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
 		}
+		holder.cancelButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+//				Toast toast = Toast.makeText(context, "cancel click", Toast.LENGTH_SHORT);
+//				toast.show();
+				if(entity.getState().equals("viewed")||entity.getState().equals("begain")){
+					DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(context);
+					try {
+						helper.getDao().delete(entity);
+						list.remove(mPosition);
+						notifyDataSetChanged();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					Intent intent = new Intent();
+					intent.setClass(context, CancleReasonActivity.class);
+					intent.putExtra("tender_id", entity.getId());
+					context.startActivity(intent);
+				}
+			}
+		});
 		return convertView;
 	}
 
@@ -132,6 +169,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		ImageView imageView;
 		LinearLayout nodataLayout;
 		LinearLayout hasdataLayout;
+		Button cancelButton;
 	}
 
 }

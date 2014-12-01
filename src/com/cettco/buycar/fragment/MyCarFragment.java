@@ -51,6 +51,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 
+import android.R.integer;
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
@@ -211,6 +212,30 @@ public class MyCarFragment extends Fragment {
 			}
 		}
 		// getCachedData();
+		//deleteLocalUselessData();
+	}
+	protected void deleteLocalUselessData() {
+		for(int i = 0;i<orderItems.size();i++){
+			OrderItemEntity orderItemEntity = orderItems.get(i);
+			int j = 0;
+			for(;j<pageItems.size();i++){
+				if(orderItemEntity.getId()!=null){
+					if(orderItemEntity.getId().equals(pageItems.get(j).getId())){
+						break;
+					}
+				}else break;
+			}
+			if(j==pageItems.size()){
+				DatabaseHelperOrder helper = DatabaseHelperOrder
+						.getHelper(getActivity());
+				try {
+					helper.getDao().delete(orderItemEntity);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	protected OnItemClickListener itemClickListener = new OnItemClickListener() {
