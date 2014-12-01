@@ -24,12 +24,11 @@
     </string-array>
     <string-array name="location_array">
         <item>本市</item>
-        <item>周边城市即可</item>
         <item>外省</item>
     </string-array>
     <string-array name="plate_array">
-        <item>本地牌照</item>
-        <item>外地牌照</item>
+        <item>有牌照</item>
+        <item>无牌照</item>
     </string-array>
     <string-array name="state">
         <item>intention</item>

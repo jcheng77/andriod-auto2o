@@ -37,6 +37,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -179,6 +180,10 @@ public class BargainActivity extends Activity {
 		loanList = new ArrayList<String>(Arrays.asList(tmp));
 		tmp = res.getStringArray(R.array.location_array);
 		locationList = new ArrayList<String>(Arrays.asList(tmp));
+		SharedPreferences settings = getSharedPreferences("city_selection", 0);
+		int selection = settings.getInt("city", 0);
+		if(selection==0) locationList.set(0, locationList.get(0)+"(上海)");
+		else if(selection==1) locationList.set(0, locationList.get(0)+"(外地)");
 		tmp = res.getStringArray(R.array.plate_array);
 		plateList = new ArrayList<String>(Arrays.asList(tmp));
 	}
@@ -198,45 +203,7 @@ public class BargainActivity extends Activity {
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-
-			// AlertDialog.Builder builder = new AlertDialog.Builder(
-			// BargainActivity.this);
-			// builder.setTitle(R.string.alerttitle);
-			// builder.setMessage(R.string.alertmsg)
-			// .setPositiveButton("同意并继续",
-			// new DialogInterface.OnClickListener() {
-			// public void onClick(DialogInterface dialog,
-			// int id) {
-			// // FIRE ZE MISSILES!
-			// dialog.dismiss();
-			// // Intent intent = new Intent();
-			// // intent.setClass(BargainActivity.this, AliPayActivity.class);
-			// // startActivity(intent);
-			// submit();
-			// }
-			// })
-			// .setNegativeButton("取消",
-			// new DialogInterface.OnClickListener() {
-			// public void onClick(DialogInterface dialog,
-			// int id) {
-			// // User cancelled the dialog
-			// dialog.dismiss();
-			// }
-			// });
-			// // Create the AlertDialog object and return it
-			// builder.create().show();
-			// String url =
-			// "http://wappaygw.alipay.com/service/rest.htm?req_data=<direct_trade_create_req><subject>12121212</subject><out_trade_no>12121021</out_trade_no><total_fee>1</total_fee><seller_account_name>che12121</seller_account_name><notify_url>http://www.alipay.com/waptest0504/servlet/NotifyReceiver</notify_url><out_user>outID123</out_user><merchant_url>http://www.alipay.com</merchant_url><pay_expire>10</pay_expire></direct_trade_create_req>&service=alipay.wap.trade.create.direct&sec_id=0001&partner=12112&req_id=11121212&sign=bDfw5%2Bctc3pxzl7emPxqOod4EiPu3BkE0 Um54g4whHT22CwLbOn1gzyE%2BU5SIleGPke2rNQ%3D&format=xml&v=2.0";
-			// Intent intent = new Intent();
-			// String url2 = "https://wappaygw.alipay.com/service/rest.htm";
-			// intent.setClass(BargainActivity.this, AlipayWebActivity.class);
-			// intent.putExtra("url", url2);
-			// startActivity(intent);
 			submit();
-//			 Intent intent = new Intent();
-//			 intent.setClass(BargainActivity.this, AliPayActivity.class);
-//			 startActivity(intent);
 		}
 	};
 
@@ -307,7 +274,7 @@ public class BargainActivity extends Activity {
 		tender.setColors_id(buffer.toString());
 		tender.setGot_licence(String.valueOf(plateSelection));
 		tender.setLoan_option(String.valueOf(loanSelection + 1));
-		tender.setModel("111");
+		//tender.setModel("111");
 		tender.setTrim_id(trim_id);
 		tender.setPickup_time(String.valueOf(getcarTimeSelection));
 		tender.setUser_name(userName);
@@ -448,9 +415,6 @@ public class BargainActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			ArrayList<String> arrayList = new ArrayList<String>();
-			arrayList.add("有牌照）");
-			arrayList.add("无牌照");
 			Intent intent = new Intent();
 			intent.setClass(BargainActivity.this, MyBaseListActivity.class);
 			intent.putExtra("name", "提车时间");
