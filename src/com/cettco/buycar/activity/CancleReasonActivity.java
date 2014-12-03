@@ -1,6 +1,7 @@
 package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,8 +15,10 @@ import org.json.JSONObject;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CancleReasonAdapter;
 import com.cettco.buycar.entity.OrderDetailEntity;
+import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -201,6 +204,7 @@ public class CancleReasonActivity extends Activity {
 			switch (msg.what) {
 			case 1:
 				progressLayout.setVisibility(View.GONE);
+				//deleteDB();
 				Toast toast = Toast.makeText(CancleReasonActivity.this,
 						"删除成功", Toast.LENGTH_SHORT);
 				toast.show();
@@ -215,7 +219,18 @@ public class CancleReasonActivity extends Activity {
 			}
 		};
 	};
-
+//	private void deleteDB(){
+//		DatabaseHelperOrder helper = DatabaseHelperOrder
+//				.getHelper(CancleReasonActivity.this);
+//		try {
+//			OrderItemEntity entity = helper.getDao().queryBuilder().where().eq("id", tender_id).queryForFirst();
+//			if(entity!=null){System.out.println("not null");}
+//				helper.getDao().delete(entity);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	public void exitClick(View view) {
 		this.finish();
 	}

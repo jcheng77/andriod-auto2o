@@ -79,6 +79,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 					.findViewById(R.id.my_order_has_data_layout);
 			holder.nodataLayout = (LinearLayout)convertView
 					.findViewById(R.id.my_order_no_data_layout);
+			holder.cancellaLayout = (LinearLayout)convertView.findViewById(R.id.cancel_linearlayout);
 			convertView.setTag(holder);
 			holder.cancelButton = (Button)convertView
 					.findViewById(R.id.my_order_cancel_btn);
@@ -111,25 +112,36 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		MyApplication.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
+			holder.cancellaLayout.setVisibility(View.VISIBLE);
 			holder.stateTextView.setText("以看车型");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
 		} else if (entity.getState().equals("begain")) {
+			holder.cancellaLayout.setVisibility(View.VISIBLE);
 			holder.stateTextView.setText("决定购买车型");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
 		} else if (entity.getState().equals("determined")) {
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("已提交订单,待支付");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
 		} else if (entity.getState().equals("qualified")) {
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("已支付,等待4s店接受订单");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#0C8398"));
 		} else if (entity.getState().equals("timeout")) {
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("超时");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
 		} else if (entity.getState().equals("deal_made")) {
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("已有4s店接单");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
 		} else if (entity.getState().equals("final_deal_closed")) {
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("最终成交");
+			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
+		}else if (entity.getState().equals("canceled")) {
+			holder.stateTextView.setText("取消交易");
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
 		}
 		holder.cancelButton.setOnClickListener(new OnClickListener() {
@@ -170,6 +182,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		LinearLayout nodataLayout;
 		LinearLayout hasdataLayout;
 		Button cancelButton;
+		LinearLayout cancellaLayout;
 	}
 
 }

@@ -33,6 +33,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -44,7 +45,7 @@ public class OrderDetailActivity extends Activity {
 	private MapView mMapView = null;
 	private BaiduMap mBaiduMap;
 	private ImageView qrImageView;
-	private String id;
+	private String tender_id;
 	private OrderDetailEntity detailEntity;
 
 	private LinearLayout carInfoLayout;
@@ -78,6 +79,8 @@ public class OrderDetailActivity extends Activity {
 	private TextView licFeeTextView;
 	private TextView miscFeeTextView;
 	private TextView desTextView;
+	
+	private Button cancelButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,8 @@ public class OrderDetailActivity extends Activity {
 		setContentView(R.layout.activity_order_detail);
 		titleTextView = (TextView) findViewById(R.id.title_text);
 		titleTextView.setText("订单详情");
+		cancelButton = (Button)findViewById(R.id.order_detail_cancel_btn);
+		cancelButton.setOnClickListener(cancelClickListener);
 		progressLayout = (RelativeLayout) findViewById(R.id.opacity_progressbar_relativeLayout);
 		progressLayout.setVisibility(View.VISIBLE);
 		nullDataLayout = (RelativeLayout) findViewById(R.id.null_data_relativeLayout);
@@ -115,7 +120,7 @@ public class OrderDetailActivity extends Activity {
 		miscFeeTextView = (TextView) findViewById(R.id.order_detail_bid_misc_fee_textview);
 		desTextView = (TextView) findViewById(R.id.order_detail_bid_description_textview);
 		//
-		id = getIntent().getStringExtra("id");
+		tender_id = getIntent().getStringExtra("tender_id");
 		mMapView = (MapView) findViewById(R.id.order_has_dealer_bmapView);
 		mBaiduMap = mMapView.getMap();
 		// 普通地图
@@ -132,7 +137,7 @@ public class OrderDetailActivity extends Activity {
 		mBaiduMap.addOverlay(option);
 
 		qrImageView = (ImageView) findViewById(R.id.order_has_dealer_qr_image);
-		getData();
+		//getData();
 	}
 
 	@Override
@@ -147,6 +152,7 @@ public class OrderDetailActivity extends Activity {
 		super.onResume();
 		// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
 		mMapView.onResume();
+		getData();
 	}
 
 	@Override
@@ -155,11 +161,23 @@ public class OrderDetailActivity extends Activity {
 		// 在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
 		mMapView.onPause();
 	}
+	
+	private OnClickListener cancelClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(OrderDetailActivity.this, CancleReasonActivity.class);
+			intent.putExtra("tender_id", tender_id);
+			startActivity(intent);
+		}
+	};
 
 	protected void getData() {
 		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
 		// httpCache.clear();
-		String url = GlobalData.getBaseUrl() + "/tenders/" + id + ".json";
+		String url = GlobalData.getBaseUrl() + "/tenders/" + tender_id + ".json";
 		HttpConnection.setCookie(getApplicationContext());
 		HttpConnection.get(url, new AsyncHttpResponseHandler() {
 
@@ -227,8 +245,11 @@ public class OrderDetailActivity extends Activity {
 		String state = detailEntity.getState();
 		if (state.equals("qualified")) {
 			stateTextView.setText("已支付,等待4s店接受报价");
+			cancelButton.setVisibility(View.VISIBLE);
+			qRcodeLayout.setVisibility(View.GONE);
 		} else if (state.equals("deal_made")) {
 			stateTextView.setText("已有4s店接受报价");
+			cancelButton.setVisibility(View.VISIBLE);
 			dealerInfoLayout.setVisibility(View.VISIBLE);
 			dealerIntentionLayout.setVisibility(View.VISIBLE);
 			dealerPhoneTextView.setText(detailEntity.getDealer().getPhone());
@@ -250,6 +271,7 @@ public class OrderDetailActivity extends Activity {
 			}
 
 		} else if (state.equals("final_deal_closed")) {
+			cancelButton.setVisibility(View.GONE);
 			stateTextView.setText("最终成交");
 			dealerInfoLayout.setVisibility(View.VISIBLE);
 			dealerIntentionLayout.setVisibility(View.VISIBLE);
@@ -271,6 +293,10 @@ public class OrderDetailActivity extends Activity {
 			// e.printStackTrace();
 			// }
 
+		}else if(state.equals("canceled")){
+			cancelButton.setVisibility(View.GONE);
+			stateTextView.setText("订单取消");
+			qRcodeLayout.setVisibility(View.GONE);
 		}
 		System.out.println("pic:" + detailEntity.getPic_url());
 		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(), carImageView);

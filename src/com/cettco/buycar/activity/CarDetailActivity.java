@@ -141,6 +141,7 @@ public class CarDetailActivity extends Activity {
 		}
 		//carTypeEntity.get
 		viewPager = (ViewPager) findViewById(R.id.pager);
+		viewPager.setOnPageChangeListener(viewChangeListener);
 		pagerList = new ArrayList<View>();
 		LayoutInflater inflater = getLayoutInflater().from(this);
 		

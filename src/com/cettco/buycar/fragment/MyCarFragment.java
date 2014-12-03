@@ -181,17 +181,17 @@ public class MyCarFragment extends Fragment {
 						SimpleDateFormat format = new SimpleDateFormat(
 								"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 						try {
-//							System.out.println("formate:"
-//									+ entity.getUpdated_at());
+							// System.out.println("formate:"
+							// + entity.getUpdated_at());
 							Date date = format.parse(entity.getUpdated_at());
-							//System.out.println("formate2");
+							// System.out.println("formate2");
 							tmp.setTime(date);
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
-					 helper.getDao().update(tmp);
+					helper.getDao().update(tmp);
 
 				} else {
 					System.out.println("null");
@@ -212,23 +212,41 @@ public class MyCarFragment extends Fragment {
 			}
 		}
 		// getCachedData();
-		//deleteLocalUselessData();
+		// deleteLocalUselessData();
 	}
+
 	protected void deleteLocalUselessData() {
-		for(int i = 0;i<orderItems.size();i++){
-			OrderItemEntity orderItemEntity = orderItems.get(i);
-			int j = 0;
-			for(;j<pageItems.size();i++){
-				if(orderItemEntity.getId()!=null){
-					if(orderItemEntity.getId().equals(pageItems.get(j).getId())){
+		DatabaseHelperOrder helper = DatabaseHelperOrder
+				.getHelper(getActivity());
+		List<OrderItemEntity> tmp = new ArrayList<OrderItemEntity>();
+		try {
+			tmp = helper.getDao().queryBuilder().orderBy("time", false).query();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("tmp size:" + tmp.size());
+		for (int i = 0; i < tmp.size(); i++) {
+			OrderItemEntity orderItemEntity = tmp.get(i);
+			boolean notExist = true;
+			System.out.println("id:" + orderItemEntity.getId());
+			// System.out.println("l:"+orderItemEntity.getId());
+			if (orderItemEntity.getId() != null) {
+				for (int j = 0; j < pageItems.size();j++) {
+					// pageItems.get(j).getId();
+					System.out.println("page id:" + pageItems.get(j).getId());
+					if (orderItemEntity.getId()
+							.equals(pageItems.get(j).getId())) {
+						notExist = false;
 						break;
 					}
-				}else break;
+				}
 			}
-			if(j==pageItems.size()){
-				DatabaseHelperOrder helper = DatabaseHelperOrder
-						.getHelper(getActivity());
+			System.out.println("judeg:" + notExist);
+
+			if (notExist) {
 				try {
+					System.out.println("delete:" + orderItemEntity.getId());
 					helper.getDao().delete(orderItemEntity);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -244,7 +262,8 @@ public class MyCarFragment extends Fragment {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
-			if(orderItems==null||orderItems.size()==0)return;
+			if (orderItems == null || orderItems.size() == 0)
+				return;
 			int position = arg2 - 1;
 			OrderItemEntity orderItemEntity = orderItems.get(position);
 			String state = orderItemEntity.getState();
@@ -268,11 +287,19 @@ public class MyCarFragment extends Fragment {
 				intent.putExtra("tender_id", orderItemEntity.getId());
 				startActivity(intent);
 
-			} else {
+			} else if (state.equals("canceled")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
 						OrderDetailActivity.class);
-				intent.putExtra("id", orderItemEntity.getId());
+				intent.putExtra("tender_id", orderItemEntity.getId());
+				startActivity(intent);
+
+			}
+			else {
+				Intent intent = new Intent();
+				intent.setClass(MyCarFragment.this.getActivity(),
+						OrderDetailActivity.class);
+				intent.putExtra("tender_id", orderItemEntity.getId());
 				startActivity(intent);
 			}
 
@@ -335,21 +362,20 @@ public class MyCarFragment extends Fragment {
 			int code = response.getStatusLine().getStatusCode();
 			if (code == 200) {
 				String result = EntityUtils.toString(response.getEntity());
-				System.out.println("page:"+result);
+				System.out.println("page:" + result);
 				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
 				}.getType();
-				pageItems = new Gson().fromJson(result,
-						listType);
+				pageItems = new Gson().fromJson(result, listType);
 				updateDB();
-//				if (tmpEntities != null) {
-//					global_page = global_page + 1;
-//					orderItems.addAll(tmpEntities);
-//					updateDB();
-//				}
+				// if (tmpEntities != null) {
+				// global_page = global_page + 1;
+				// orderItems.addAll(tmpEntities);
+				// updateDB();
+				// }
 				Message message = new Message();
 				message.what = 1;
 				mHandler.sendMessage(message);
-			} else  {
+			} else {
 				Message message = new Message();
 				message.what = 2;
 				mHandler.sendMessage(message);
@@ -369,6 +395,7 @@ public class MyCarFragment extends Fragment {
 			case 1:
 				// updateTitle();
 				// adapter.updateList(list);
+				//deleteLocalUselessData();
 				getCachedData();
 				break;
 			case 2:
