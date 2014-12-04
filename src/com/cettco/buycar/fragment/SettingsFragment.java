@@ -3,6 +3,8 @@ package com.cettco.buycar.fragment;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.CarListActivity;
@@ -17,6 +19,7 @@ import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -41,6 +44,7 @@ public class SettingsFragment extends Fragment{
 	private ImageView loginArrow;
 	
 	private RelativeLayout checkUpdateLayout;
+	private LinearLayout phonelLayout;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class SettingsFragment extends Fragment{
 		
 		checkUpdateLayout = (RelativeLayout)fragmentView.findViewById(R.id.settings_check_update_layout);
 		checkUpdateLayout.setOnClickListener(checkUpdateClickListener);
+		
+		phonelLayout = (LinearLayout)fragmentView.findViewById(R.id.settings_phone_linearlayout);
+		phonelLayout.setOnClickListener(phoneClickListener);
 		return fragmentView;
 	}
 	
@@ -76,6 +83,23 @@ public class SettingsFragment extends Fragment{
 			logoutLayout.setVisibility(View.GONE);
 		}
 	}
+	private OnClickListener phoneClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			String num="4000320092";
+			Pattern p = Pattern.compile("\\d+?");
+			Matcher match = p.matcher(num);
+			//正则验证输入的是否为数字
+			if(match.matches()){
+				Intent intent=new Intent("android.intent.action.CALL",Uri.parse("tel:"+num));
+				startActivity(intent);
+			}else{
+				Toast.makeText(getActivity(), "号码不对",Toast.LENGTH_LONG).show();
+			}
+		}
+	};
 	private OnClickListener checkUpdateClickListener = new OnClickListener() {
 		
 		@Override

@@ -123,7 +123,7 @@ public class FindPwdActivity extends Activity{
 					progressLayout.setVisibility(View.GONE);
 					// TODO Auto-generated method stub
 					Message msg = new Message();
-					msg.what = SENDFAILURE;
+					msg.what = SENDSUCCESS;
 					mHandler.sendMessage(msg);
 				}
 				
@@ -132,7 +132,7 @@ public class FindPwdActivity extends Activity{
 					progressLayout.setVisibility(View.GONE);
 					// TODO Auto-generated method stub
 					Message msg = new Message();
-					msg.what = SENDSUCCESS;
+					msg.what = SENDFAILURE;
 					mHandler.sendMessage(msg);
 					
 				}

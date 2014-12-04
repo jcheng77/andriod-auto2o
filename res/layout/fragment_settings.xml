@@ -38,11 +38,12 @@
                 android:background="@drawable/ic_action_next_item" />
         </RelativeLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_below="@id/settings_login_linearlayout"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/settings_login_linearlayout"
+        android:layout_marginTop="10dp"
         android:background="@color/light_gray"
         android:orientation="vertical" >
 
@@ -71,6 +72,47 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/ic_action_next_item" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/settings_phone_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="拍立行客服"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="4000320092"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ic_phone" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -79,7 +121,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:background="@color/car_detail_front"
         android:gravity="center" >
 
         <Button

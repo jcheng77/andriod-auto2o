@@ -147,15 +147,15 @@ public class UpdateManager
 			            	showNoticeDialog();  
 			            }
 			            else {
-							Message msg = new Message();
-							msg.what=ISLATEST;
-							mHandler.sendMessage(msg);
+//							Message msg = new Message();
+//							msg.what=ISLATEST;
+//							mHandler.sendMessage(msg);
 						}
 			        }
 					else {
-						Message msg = new Message();
-						msg.what=ISLATEST;
-						mHandler.sendMessage(msg);
+//						Message msg = new Message();
+//						msg.what=ISLATEST;
+//						mHandler.sendMessage(msg);
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

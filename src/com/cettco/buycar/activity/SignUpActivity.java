@@ -18,6 +18,8 @@ import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SignUpActivity extends Activity{
 
@@ -35,6 +38,8 @@ public class SignUpActivity extends Activity{
 	private Button checkcodeButton;
 	private EditText checkcodeEditText;
 	private RelativeLayout progressLayout;
+	private static final int SENDSUCCESS = 1;
+	private static final int SENDFAILURE = 2;
 	
 	private TextView titleTextView;
 	@Override
@@ -118,13 +123,16 @@ public class SignUpActivity extends Activity{
 					// TODO Auto-generated method stub
 					super.onFailure(statusCode, headers, throwable, errorResponse);
 					progressLayout.setVisibility(View.GONE);
-					System.out.println("error");
-					System.out.println("statusCode:"+statusCode);
-					System.out.println("headers:"+headers);
-					for(int i = 0;i<headers.length;i++){
-						System.out.println(headers[i]);
-					}
-					System.out.println("response:"+errorResponse);
+//					System.out.println("error");
+//					System.out.println("statusCode:"+statusCode);
+//					System.out.println("headers:"+headers);
+//					for(int i = 0;i<headers.length;i++){
+//						System.out.println(headers[i]);
+//					}
+//					System.out.println("response:"+errorResponse);
+					Message msg = new Message();
+					msg.what = SENDFAILURE;
+					mHandler.sendMessage(msg);
 				}
 
 				@Override
@@ -133,18 +141,42 @@ public class SignUpActivity extends Activity{
 					// TODO Auto-generated method stub
 					super.onSuccess(statusCode, headers, response);
 					progressLayout.setVisibility(View.GONE);
-					System.out.println("success");
-					System.out.println("statusCode:"+statusCode);
-					System.out.println("headers:"+headers);
-					for(int i = 0;i<headers.length;i++){
-						System.out.println(headers[i]);
-					}
-					System.out.println("response:"+response);
+//					System.out.println("success");
+//					System.out.println("statusCode:"+statusCode);
+//					System.out.println("headers:"+headers);
+//					for(int i = 0;i<headers.length;i++){
+//						System.out.println(headers[i]);
+//					}
+//					System.out.println("response:"+response);
+					Message msg = new Message();
+					msg.what = SENDSUCCESS;
+					mHandler.sendMessage(msg);
 				}
 				
 			});
 			progressLayout.setVisibility(View.VISIBLE);
 		}
+	};
+	Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch (msg.what) {
+			case SENDSUCCESS:
+				Toast toast = Toast.makeText(SignUpActivity.this, "发送验证码成功", Toast.LENGTH_SHORT);
+				toast.show();
+				break;
+			case SENDFAILURE:
+				Toast toast2 = Toast.makeText(SignUpActivity.this, "发送验证码失败", Toast.LENGTH_SHORT);
+				toast2.show();
+				break;
+
+			default:
+				break;
+			}
+		}
+		
 	};
 	public void exitClick(View view)
 	{
