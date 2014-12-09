@@ -158,7 +158,6 @@ public class SelectDealerActivity extends Activity{
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
-				System.out.println("update");
 				progressBar.setProgress(100);
 				progressBar.setVisibility(View.GONE);
 				if(dealerList==null||dealerList.size()==0){
@@ -168,6 +167,8 @@ public class SelectDealerActivity extends Activity{
 				dealerListAdapter.updateList(dealerList);
 				break;
 			case 2:
+				progressBar.setProgress(100);
+				progressBar.setVisibility(View.GONE);
 				Toast toast = Toast.makeText(SelectDealerActivity.this, "获取商家列表失败", Toast.LENGTH_SHORT);
 				toast.show();
 				break;

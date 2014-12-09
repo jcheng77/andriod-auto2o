@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -57,6 +58,7 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
+import com.viewpagerindicator.CirclePageIndicator;
 
 public class CarDetailActivity extends Activity {
 
@@ -149,19 +151,19 @@ public class CarDetailActivity extends Activity {
 			View view = inflater
 					.inflate(R.layout.item_trim, null);
 			view.getHeight();
-			ImageView preImageView = (ImageView)view.findViewById(R.id.trim_previous_item);
-			ImageView nextImageView = (ImageView)view.findViewById(R.id.trim_next_item);
-			if(i==0&&trimList.size()>1){
-				preImageView.setVisibility(View.INVISIBLE);
-				nextImageView.setVisibility(View.VISIBLE);
-			}else if(i==0&&trimList.size()==1){
-				preImageView.setVisibility(View.INVISIBLE);
-				nextImageView.setVisibility(View.INVISIBLE);
-			}
-			else if (i==trimList.size()-1) {
-				preImageView.setVisibility(View.VISIBLE);
-				nextImageView.setVisibility(View.INVISIBLE);
-			}
+//			ImageView preImageView = (ImageView)view.findViewById(R.id.trim_previous_item);
+//			ImageView nextImageView = (ImageView)view.findViewById(R.id.trim_next_item);
+//			if(i==0&&trimList.size()>1){
+//				preImageView.setVisibility(View.INVISIBLE);
+//				nextImageView.setVisibility(View.VISIBLE);
+//			}else if(i==0&&trimList.size()==1){
+//				preImageView.setVisibility(View.INVISIBLE);
+//				nextImageView.setVisibility(View.INVISIBLE);
+//			}
+//			else if (i==trimList.size()-1) {
+//				preImageView.setVisibility(View.VISIBLE);
+//				nextImageView.setVisibility(View.INVISIBLE);
+//			}
 			TextView trimNameTextView = (TextView)view.findViewById(R.id.trim_name);
 			TextView  trimPriceTextView = (TextView)view.findViewById(R.id.trim_guidePrice);
 			//TextView trimLowestPricetexTextView = (TextView)view.findViewById(R.id.trim_lowestPrice);
@@ -176,6 +178,17 @@ public class CarDetailActivity extends Activity {
 		CarTrimViewPagerAdapter carTypeViewPagerAdapter = new CarTrimViewPagerAdapter(
 				pagerList);
 		viewPager.setAdapter(carTypeViewPagerAdapter);
+		
+		CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.indicator);
+        //mIndicator = indicator;
+        indicator.setViewPager(viewPager);
+        //indicator.setBackgroundColor(0xCCCCFF);
+        //indicator.setRadius(10 * density);
+        indicator.setPageColor(Color.WHITE);
+        indicator.setFillColor(Color.GRAY);
+        indicator.setStrokeColor(Color.BLACK);
+        //indicator.setStrokeWidth(2 * density);
+		//viewPager.isi
 
 		Button beginBiddingBtn = (Button) findViewById(R.id.begin_bid);
 		beginBiddingBtn.setOnClickListener(beginBiddingClickListener);

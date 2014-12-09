@@ -23,8 +23,8 @@
         <item>都可以</item>
     </string-array>
     <string-array name="location_array">
-        <item>本市</item>
-        <item>外省</item>
+        <item>本地</item>
+        <item>外地</item>
     </string-array>
     <string-array name="plate_array">
         <item>有牌照</item>

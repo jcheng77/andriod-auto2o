@@ -7,6 +7,7 @@
     <include
         android:id="@+id/activity_bargin_actionbar"
         layout="@layout/actionbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
                     android:hint="输入期望成交价"
                     android:inputType="number"
                     android:singleLine="true" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -237,12 +239,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/car_detail_front"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/co_buyername" />
+
+                <EditText
+                    android:id="@+id/activity_bargain_user_name_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:ems="10"
+                    android:hint="请填写车主姓名"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/car_detail_front"
                 android:orientation="vertical" >
 
                 <TextView
+                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:text="附加说明" />
 
                 <EditText
@@ -255,37 +284,10 @@
                     android:ems="10"
                     android:gravity="top"
                     android:hint="输入"
-                    android:minLines="3" />
+                    android:minLines="3"
+                    android:text="无" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/car_detail_front"
-                android:descendantFocusability="beforeDescendants"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="购车人姓名:"
-                    android:textColor="@color/orange" />
-
-                <EditText
-                    android:id="@+id/activity_bargain_user_name_edittext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:ems="10"
-                    android:hint="姓名"
-
-                    android:singleLine="true" />
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -295,6 +297,7 @@
                 android:gravity="center" >
 
                 <Button
+                    android:textColor="@color/button_color"
                     android:id="@+id/submit_bargain_price_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -22,4 +22,5 @@
       <color name="light_gray">#EFF3F7</color>
       <color name="order_status">#ff6600</color>
       <color name="bargain_seperator">#cee3f2</color>
+      <color name="button_color">#ffffff</color>
 </resources>

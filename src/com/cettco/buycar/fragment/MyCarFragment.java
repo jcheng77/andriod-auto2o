@@ -407,4 +407,11 @@ public class MyCarFragment extends Fragment {
 		};
 	};
 
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		HttpConnection.getClient().cancelRequests(getActivity(), true);
+	}
+
 }

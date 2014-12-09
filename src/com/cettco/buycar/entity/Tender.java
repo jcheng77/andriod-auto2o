@@ -13,6 +13,13 @@ public class Tender {
 	private String price;
 	private Map<String, String> shops;
 	private String user_name;
+	private String description;
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getUser_name() {
 		return user_name;
 	}

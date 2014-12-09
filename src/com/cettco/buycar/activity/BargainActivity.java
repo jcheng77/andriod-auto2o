@@ -90,6 +90,8 @@ public class BargainActivity extends Activity {
 	private RelativeLayout shopLayout;
 	private TextView shoptexTextView;
 	private int tender_id;
+	
+	private EditText descriptionEditText;
 
 	private RelativeLayout progressLayout;
 
@@ -165,7 +167,7 @@ public class BargainActivity extends Activity {
 
 		shoptexTextView = (TextView) findViewById(R.id.activity_bargain_4s_textview);
 
-		
+		descriptionEditText = (EditText)findViewById(R.id.activity_bargain_otherDescription_edittext);
 		
 		userNameEditText = (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
 
@@ -270,23 +272,18 @@ public class BargainActivity extends Activity {
 		if (buffer != null && buffer.length() > 0) {
 			buffer.deleteCharAt(buffer.length() - 1);
 		}
-		System.out.println(buffer.toString());
 		tender.setColors_id(buffer.toString());
 		tender.setGot_licence(String.valueOf(plateSelection));
 		tender.setLoan_option(String.valueOf(loanSelection + 1));
-		//tender.setModel("111");
 		tender.setTrim_id(trim_id);
 		tender.setPickup_time(String.valueOf(getcarTimeSelection));
 		tender.setUser_name(userName);
-		// tender.setLicense_location(String.valueOf(locationSelection));
-		String locationString = "";
-		if (locationSelection == 0)
-			locationString = "上海";
-		else if (locationSelection == 1)
-			locationString = "北京";
-		;
+		String locationString = locationList.get(locationSelection);
 		tender.setLicense_location(locationString);
 		tender.setPrice(price);
+		String description = descriptionEditText.getText().toString();
+		//tender.setde
+		tender.setDescription(description);
 		Map<String, String> shops = new HashMap<>();
 		for (int i = 0; i < dealers.size(); i++) {
 			shops.put(dealers.get(i), "1");

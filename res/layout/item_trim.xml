@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <ImageView
+        <!-- <ImageView
             android:id="@+id/trim_previous_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,15 +35,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/ic_action_next_item" />
+            android:background="@drawable/ic_action_next_item" /> -->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerVertical="false"
-            android:layout_toLeftOf="@id/trim_next_item"
-            android:layout_toRightOf="@id/trim_previous_item" >
+            android:layout_centerVertical="false" >
 
             <LinearLayout
                 android:layout_width="match_parent"
