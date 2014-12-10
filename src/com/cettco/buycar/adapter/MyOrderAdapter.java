@@ -112,11 +112,11 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		MyApplication.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		//System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("以看车型");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
 		} else if (entity.getState().equals("begain")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("决定购买车型");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
 		} else if (entity.getState().equals("determined")) {
@@ -144,31 +144,31 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
 		}
-		holder.cancelButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-//				Toast toast = Toast.makeText(context, "cancel click", Toast.LENGTH_SHORT);
-//				toast.show();
-				if(entity.getState().equals("viewed")||entity.getState().equals("begain")){
-					DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(context);
-					try {
-						helper.getDao().delete(entity);
-						list.remove(mPosition);
-						notifyDataSetChanged();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}else {
-					Intent intent = new Intent();
-					intent.setClass(context, CancleReasonActivity.class);
-					intent.putExtra("tender_id", entity.getId());
-					context.startActivity(intent);
-				}
-			}
-		});
+//		holder.cancelButton.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				// TODO Auto-generated method stub
+////				Toast toast = Toast.makeText(context, "cancel click", Toast.LENGTH_SHORT);
+////				toast.show();
+//				if(entity.getState().equals("viewed")||entity.getState().equals("begain")){
+//					DatabaseHelperOrder helper = DatabaseHelperOrder.getHelper(context);
+//					try {
+//						helper.getDao().delete(entity);
+//						list.remove(mPosition);
+//						notifyDataSetChanged();
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}else {
+//					Intent intent = new Intent();
+//					intent.setClass(context, CancleReasonActivity.class);
+//					intent.putExtra("tender_id", entity.getId());
+//					context.startActivity(intent);
+//				}
+//			}
+//		});
 		return convertView;
 	}
 
