@@ -5,6 +5,11 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,9 @@ import android.widget.TextView;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.CarColorEntity;
+import com.cettco.buycar.view.CircleView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CarColorAdapter extends ArrayAdapter<CarColorEntity> {
 
@@ -80,12 +88,37 @@ public class CarColorAdapter extends ArrayAdapter<CarColorEntity> {
 		// false);
 		CarColorEntity carColorEntity = list.get(position);
 		try {
-			if (carColorEntity.getCode().startsWith(" "))
-				holder.imageView.setBackgroundColor(Color
-						.parseColor(carColorEntity.getCode().substring(1)));
-			else
-				holder.imageView.setBackgroundColor(Color
-						.parseColor(carColorEntity.getCode()));
+			if (carColorEntity.getCode().startsWith(" ")){
+//				Drawable myIcon = context.getResources().getDrawable( R.drawable.ic_launcher); 
+//			    ColorFilter filter = new LightingColorFilter( Color.BLACK, Color.BLACK);
+//			    myIcon.setColorFilter(filter);
+//			    holder.imageView.setImageDrawable(myIcon);
+//				holder.imageView.setBackgroundColor(Color
+//						.parseColor(carColorEntity.getCode().substring(1)));
+//				holder.imageView.invalidate();
+				//holder.imageView.changeColor(Color.parseColor(carColorEntity.getCode().substring(1)));
+//				ShapeDrawable shapeDrawable = (ShapeDrawable)holder.imageView.getBackground();
+//				shapeDrawable.getPaint().setColor(Color.parseColor(carColorEntity.getCode().substring(1)));
+				GradientDrawable shapeDrawable = (GradientDrawable)holder.imageView.getBackground();
+				//shapeDrawable.getPaint().setColor(Color.parseColor(carColorEntity.getCode()));
+				//shapeDrawable.setColor(Color.parseColor(Color.parseColor(carColorEntity.getCode().substring(1)));
+				shapeDrawable.setColor(Color.parseColor(carColorEntity.getCode().substring(1)));
+			}
+				
+			else{
+//				Drawable myIcon = context.getResources().getDrawable( R.drawable.ic_launcher); 
+//			    ColorFilter filter = new LightingColorFilter( Color.BLACK, Color.BLACK);
+//			    myIcon.setColorFilter(filter);
+//			    holder.imageView.setImageDrawable(myIcon);
+//				holder.imageView.setBackgroundColor(Color
+//						.parseColor(carColorEntity.getCode()));
+//				holder.imageView.invalidate();
+				//holder.imageView.changeColor(Color.parseColor(carColorEntity.getCode()));
+				GradientDrawable shapeDrawable = (GradientDrawable)holder.imageView.getBackground();
+				//shapeDrawable.getPaint().setColor(Color.parseColor(carColorEntity.getCode()));
+				shapeDrawable.setColor(Color.parseColor(carColorEntity.getCode()));
+			}
+				
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("error reason:" + e);

@@ -113,7 +113,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		//System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
 			holder.cancellaLayout.setVisibility(View.GONE);
-			holder.stateTextView.setText("以看车型");
+			holder.stateTextView.setText("已看车型");
 			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
 		} else if (entity.getState().equals("begain")) {
 			holder.cancellaLayout.setVisibility(View.GONE);

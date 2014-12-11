@@ -73,12 +73,25 @@
                     android:background="@drawable/item_click"
                     android:padding="10dp" >
 
-                    <TextView
-                        android:id="@+id/activity_bargain_color_textview"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="选择了0种颜色" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/co_demand_color" />
+
+                        <TextView
+                            android:id="@+id/activity_bargain_color_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="选择了0种颜色" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -101,12 +114,25 @@
                     android:background="@drawable/item_click"
                     android:padding="10dp" >
 
-                    <TextView
-                        android:id="@+id/activity_bargain_getcarTime_textview"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="提车时间" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/co_demand_plan" />
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/activity_bargain_getcarTime_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="提车时间" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -129,12 +155,25 @@
                     android:background="@drawable/item_click"
                     android:padding="10dp" >
 
-                    <TextView
-                        android:id="@+id/activity_bargain_loan_textview"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="贷款" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/co_demand_loan" />
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/activity_bargain_loan_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="贷款" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -157,12 +196,25 @@
                     android:background="@drawable/item_click"
                     android:padding="10dp" >
 
-                    <TextView
-                        android:id="@+id/activity_bargain_platelocation_textview"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="上牌地" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/co_demand_plate" />
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/activity_bargain_platelocation_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="上牌地" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -185,12 +237,25 @@
                     android:background="@drawable/item_click"
                     android:padding="10dp" >
 
-                    <TextView
-                        android:id="@+id/activity_bargain_haveplate_textview"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="有无牌照" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/co_demand_has_plate" />
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/activity_bargain_haveplate_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="有无牌照" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -269,9 +334,9 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="附加说明" />
 
                 <EditText
@@ -297,7 +362,6 @@
                 android:gravity="center" >
 
                 <Button
-                    android:textColor="@color/button_color"
                     android:id="@+id/submit_bargain_price_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -309,6 +373,7 @@
                     android:paddingRight="25dp"
                     android:paddingTop="8dp"
                     android:text="提交订单"
+                    android:textColor="@color/button_color"
                     android:textSize="25sp" />
             </LinearLayout>
         </LinearLayout>
