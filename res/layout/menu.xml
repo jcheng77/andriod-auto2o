@@ -23,9 +23,8 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
                     android:padding="0dp"
                     android:src="@drawable/car_icon" />
@@ -104,6 +103,7 @@
             android:orientation="horizontal" >
 
             <ImageView
+                android:layout_marginLeft="20dp"
                 android:layout_width="@dimen/slidingmenu_row_icon_size"
                 android:layout_height="@dimen/slidingmenu_row_icon_size"
                 android:padding="5dp"
@@ -125,6 +125,7 @@
             android:background="#ffffff" />
 
         <LinearLayout
+            
             android:id="@+id/settingLinearlayout"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/slidingmenu_row_height"
@@ -132,6 +133,7 @@
             android:orientation="horizontal" >
 
             <ImageView
+                android:layout_marginLeft="20dp"
                 android:layout_width="@dimen/slidingmenu_row_icon_size"
                 android:layout_height="@dimen/slidingmenu_row_icon_size"
                 android:padding="5dp"
@@ -160,6 +162,7 @@
             android:orientation="horizontal" >
 
             <ImageView
+                android:layout_marginLeft="20dp"
                 android:layout_width="@dimen/slidingmenu_row_icon_size"
                 android:layout_height="@dimen/slidingmenu_row_icon_size"
                 android:padding="5dp"

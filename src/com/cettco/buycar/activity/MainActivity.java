@@ -9,6 +9,7 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.fragment.GuideFragment;
 import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
 import com.cettco.buycar.utils.HttpConnection;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
 	private ImageButton drawerButton;
 	private LinearLayout cityLayout;
 	private LinearLayout mycarLayout;
+	private LinearLayout guideLayout;
 	private ImageButton addImageButton;
 	private TextView titleTextView;
 	
@@ -72,6 +74,9 @@ public class MainActivity extends Activity {
 		
 		settingLayout = (LinearLayout) findViewById(R.id.settingLinearlayout);
 		settingLayout.setOnClickListener(settingsClickListener);
+		
+		guideLayout = (LinearLayout) findViewById(R.id.guideLinearlayout);
+		guideLayout.setOnClickListener(guideClickListener);
 		
 		drawerButton = (ImageButton) findViewById(R.id.actionbar_drawer);
 		drawerButton.setOnClickListener(drawerClickListener);
@@ -257,6 +262,22 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			switchFragment(new SettingsFragment());
 			setMyTitle("设置");
+			//menu.
+			//System.out.println(menu.isActivated());
+			menu.toggle();
+			//System.out.println(menu.isActivated());
+//			Intent intent = new Intent();
+//			intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
+//			startActivity(intent);
+		}
+	};
+	protected OnClickListener guideClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			switchFragment(new GuideFragment());
+			setMyTitle("买车指南");
 			//menu.
 			//System.out.println(menu.isActivated());
 			menu.toggle();

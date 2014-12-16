@@ -54,6 +54,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import android.R.integer;
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -66,6 +67,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -86,6 +88,8 @@ public class MyCarFragment extends Fragment {
 	private List<OrderItemEntity> pageItems = new ArrayList<OrderItemEntity>();
 
 	private int global_page = 1;
+	
+	//private ImageView guideImage;
 
 	// private List<E>
 
@@ -127,6 +131,7 @@ public class MyCarFragment extends Fragment {
 		adapter = new MyOrderAdapter(getActivity(), R.layout.item_my_order,
 				orderItems);
 		listView.setAdapter(adapter);
+		//guideImage = (ImageView)fragmentView.findViewById(R.id.mycar_guide_imageview);
 		return fragmentView;
 	}
 
@@ -162,6 +167,13 @@ public class MyCarFragment extends Fragment {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		if(orderItems==null||orderItems.size()==0){
+			mycarBgLayout.setVisibility(View.VISIBLE);
+			//pullToRefreshView.setBackgroundColor(getResources().getColor(R.color.white));
+		}else{
+			mycarBgLayout.setVisibility(View.GONE);
+			//pullToRefreshView.setBackgroundColor(getResources().getColor(R.color.light_gray));
 		}
 
 	}

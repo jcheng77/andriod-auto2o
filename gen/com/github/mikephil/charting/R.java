@@ -54,7 +54,7 @@ public final class R {
 		public static final int activity_vertical_margin = 0x7f0a000e;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f02007e;
+		public static final int ic_launcher = 0x7f020080;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f0c0000;

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 import org.apache.http.Header;
@@ -13,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -87,6 +90,10 @@ public class CarDetailActivity extends Activity {
 	private String model_id;
 	private int order_id;
 	private OrderItemEntity orderItemEntity;
+	
+	private TextView brandMakerTextView;
+	private TextView modelTextView;
+	private TextView buyerCountTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +117,9 @@ public class CarDetailActivity extends Activity {
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText("选择车型");
 		carImageView = (ImageView)findViewById(R.id.carDetail_img);
+		buyerCountTextView = (TextView)findViewById(R.id.car_detail_buyer_count);
+		String countStr = "现在有<font color='red'>"+new Random().nextInt(50)+"</font>位小伙伴";
+		buyerCountTextView.setText(Html.fromHtml(countStr));
 //		carTypeEntity = new Gson().fromJson(getIntent().getStringExtra("model"), CarModelEntity.class);
 //		trimList = carTypeEntity.getTrims();
 		
@@ -118,6 +128,20 @@ public class CarDetailActivity extends Activity {
 		try {
 			orderItemEntity=orderHelper.getDao().queryBuilder().where().eq("order_id", order_id).queryForFirst();
 			model_id = orderItemEntity.getModel_id();
+			String[] name_array = orderItemEntity.getModel().split(" : ");
+			//System.out.println(name_array);
+			brandMakerTextView = (TextView)findViewById(R.id.carDetail_brandMaker_textview);
+			modelTextView = (TextView)findViewById(R.id.carDetail_model_textview);
+			brandMakerTextView.setText(name_array[0]+" "+name_array[1]);
+			modelTextView.setText(name_array[2]);
+//			if(name_array!=null&&name_array.length>=4){
+//				brandMakerTextView.setText(name_array[0]+" "+name_array[1]+" "+name_array[2]);
+//				//holder.trimTextView.setText(name_array[3]);
+//			}if(name_array!=null&&name_array.length==3){
+//				brandMakerTextView.setText(name_array[0]+" "+name_array[1]);
+//				modelTextView.setText(name_array[2]);
+//				//holder.trimTextView.setText(name_array[3]);
+//			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -166,9 +190,13 @@ public class CarDetailActivity extends Activity {
 //			}
 			TextView trimNameTextView = (TextView)view.findViewById(R.id.trim_name);
 			TextView  trimPriceTextView = (TextView)view.findViewById(R.id.trim_guidePrice);
+			TextView  benefitTextView = (TextView)view.findViewById(R.id.trim_benefit);
 			//TextView trimLowestPricetexTextView = (TextView)view.findViewById(R.id.trim_lowestPrice);
 			trimNameTextView.setText(trimList.get(i).getName());
-			trimPriceTextView.setText(trimList.get(i).getLowest_price()+"~"+trimList.get(i).getGuide_price()+"万");
+			trimPriceTextView.setText(trimList.get(i).getGuide_price()+"万");
+			double guide = Double.valueOf((trimList.get(i).getGuide_price()));
+			double low = Double.valueOf((trimList.get(i).getLowest_price()));
+			benefitTextView.setText(String.format("%.1f", guide-low)+" 万");
 			//trimLowestPricetexTextView.setText(trimList.get(i).getLowest_price());
 			pagerList.add(view);
 		}

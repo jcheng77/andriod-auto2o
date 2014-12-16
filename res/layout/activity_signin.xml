@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
-     >
+    android:background="@color/light_gray" >
 
     <include layout="@layout/actionbar" />
 
@@ -10,14 +9,14 @@
         android:id="@+id/login_logo_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/actionbar_linearlayout"
         android:gravity="center"
         android:orientation="horizontal" >
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/car_icon" />
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/ic_login_icon" />
     </LinearLayout>
 
     <LinearLayout
@@ -25,101 +24,162 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_logo_layout"
+        android:layout_marginTop="20dp"
         android:orientation="vertical" >
+
+       <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0" >
+
+            <TableRow
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp" >
+
+                <EditText
+                    android:id="@+id/signinPhoneEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="手机号"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/signUpText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注册"
+                    android:textColor="#0000FF"
+                    android:textSize="10sp" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp" >
+                <EditText
+                android:id="@+id/signinPasswordEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="密码"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/findpwd_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码?"
+                android:textColor="#0000FF"
+                android:textSize="10sp" />
+            </TableRow>
+        </TableLayout>
+
+        <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:layout_weight="3"
+                android:id="@+id/signinPhoneEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ems="10"
+                android:hint="手机号"
+                android:inputType="phone"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/signUpText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="注册"
+                android:textColor="#98CAD2"
+                android:textSize="10sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="2"
-                android:text="手机号"
-                android:textSize="16dp" />
-
             <EditText
-                android:id="@+id/signinPhoneEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="phone"
-                android:singleLine="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="2"
-                android:text="密码"
-                android:textSize="16dp" />
-
-            <EditText
+                android:layout_weight="3"
                 android:id="@+id/signinPasswordEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_weight="1"
                 android:ems="10"
+                android:hint="密码"
                 android:inputType="textPassword"
                 android:singleLine="true" />
-        </LinearLayout>
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/findpwd_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码?"
+                android:textColor="#98CAD2"
+                android:textSize="10sp" />
+        </LinearLayout> -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center" >
 
             <Button
                 android:id="@+id/signinBtn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:background="@drawable/signin_btn_style"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="登录"
+                android:textColor="#000000"
                 android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/findpwd_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login_data_layout"
-        android:text="忘记密码?"
-        android:textSize="10sp" />
-
-    <TextView
-        android:id="@+id/signUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="注册"
+        android:text="2014拍立行"
         android:textSize="15sp" />
 
-    <include layout="@layout/item_transparent_progressbar"/>
+    <include layout="@layout/item_transparent_progressbar" />
 
 </RelativeLayout>

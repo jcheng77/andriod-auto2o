@@ -36,7 +36,7 @@ public class MyBaseListActivity extends Activity{
 		titleTextView.setText(name);
 		arrayList = intent.getStringArrayListExtra("list");
 		listView = (ListView)findViewById(R.id.myBaseListview);
-		adapter = new MyBaseListAdapter(this,android.R.layout.simple_list_item_1, arrayList);
+		adapter = new MyBaseListAdapter(this,R.layout.item_my_base_list, arrayList);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listItemClickListener);
 	}

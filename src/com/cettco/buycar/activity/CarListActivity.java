@@ -356,11 +356,6 @@ public class CarListActivity extends Activity {
 			// .getMakers().get(groupPosition).getModels()
 			// .get(childPosition);
 			//if(makerEntities==null||makerEntities.size()==0)return false;
-			System.out.println("maker size:" + makerEntities.size());
-			System.out.println("group position:" + groupPosition);
-			System.out.println("model size:"
-					+ makerEntities.get(groupPosition).getModels().size());
-			System.out.println("child position:" + childPosition);
 			CarModelEntity modelEntity = makerEntities.get(groupPosition)
 					.getModels().get(childPosition);
 			

@@ -45,7 +45,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="#000000" />
+            android:background="@color/gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
+                android:textColor="#000000"
                 android:text="定金金额" />
 
             <ImageView
@@ -67,12 +68,14 @@
                 android:background="#000000" />
 
             <TextView
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:text="¥:" />
 
             <TextView
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -87,6 +90,7 @@
                 android:background="#000000" />
 
             <TextView
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -101,6 +105,7 @@
                 android:background="#000000" />
 
             <TextView
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -114,26 +119,37 @@
         </LinearLayout>
 
         <ImageView
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="#000000" />
+            android:background="@color/gray" />
 
         <LinearLayout
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/gray" >
+            android:background="@color/light_gray" >
 
             <TextView
+                android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="选择支付方式"
                 android:textColor="#000000" />
         </LinearLayout>
 
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/gray" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,7 +211,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#000000" />
+                android:background="@color/gray" />
         </LinearLayout>
 
         <RelativeLayout
@@ -205,6 +221,7 @@
             android:layout_marginRight="20dp" >
 
             <TextView
+                android:textColor="#000000"
                 android:id="@+id/alipay_actual_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -212,6 +229,7 @@
                 android:text="99 " />
 
             <TextView
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/alipay_actual_price"
