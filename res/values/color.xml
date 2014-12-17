@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-     <color name="actionbar_main">#0C8398</color>
-     <color name="actionbar_back">#cccccc</color>
-      <color name="actionbar_main_text">#ffffff</color>
-      <color name="slidingmenu">#0C8398</color> 
-      <color name="slidingmenu_text">#ffffff</color>
-      <color name="car_detail_background">#EFF3F7</color>
-      <color name="car_detail_front">#ffffff</color>
-      <color name="car_detail_text">#000000</color>
-      <color name="white">#ffffff</color>
-      <color name="blue">#0098fa</color>
-      <color name="orange">#e36300</color>
-      <color name="gray">#cccccc</color>
-      <color name="my_order_gray">#b19f96</color>
-      
-      <color name="result_view">#b0000000</color>
-      <color name="viewfinder_mask">#60000000</color>
-      <color name="possible_result_points">#c0ffff00</color> 
-      <color name="deep_gray">#ff555555</color>
-      <color name="light_gray">#EFF3F7</color>
-      <color name="order_status">#ff6600</color>
-      <color name="bargain_seperator">#cee3f2</color>
-      <color name="button_color">#ffffff</color>
+    <color name="actionbar_main">#0C8398</color>
+    <color name="actionbar_back">#cccccc</color>
+    <color name="actionbar_main_text">#ffffff</color>
+    <color name="slidingmenu">#0C8398</color>
+    <color name="slidingmenu_text">#ffffff</color>
+    <color name="car_detail_background">#EFF3F7</color>
+    <color name="car_detail_front">#ffffff</color>
+    <color name="car_detail_text">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="blue">#0098fa</color>
+    <color name="orange">#e36300</color>
+    <color name="gray">#cccccc</color>
+    <color name="my_order_gray">#b19f96</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="deep_gray">#ff555555</color>
+    <color name="light_gray">#EFF3F7</color>
+    <color name="order_status">#ff6600</color>
+    <color name="bargain_seperator">#cee3f2</color>
+    <color name="button_color">#ffffff</color>
+    
+    
+    <color name="default_screen_bg">#f9f9f9</color>
+    <color name="rounded_container_bg">#222222</color>
+    <color name="rounded_container_border">#3b3f44</color>
+    <color name="light_gray_header_color">#C6C6C6</color>
+
 </resources>

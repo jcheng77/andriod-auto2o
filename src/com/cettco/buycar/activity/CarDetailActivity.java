@@ -118,8 +118,8 @@ public class CarDetailActivity extends Activity {
 		titleTextView.setText("选择车型");
 		carImageView = (ImageView)findViewById(R.id.carDetail_img);
 		buyerCountTextView = (TextView)findViewById(R.id.car_detail_buyer_count);
-		String countStr = "现在有<font color='red'>"+new Random().nextInt(50)+"</font>位小伙伴";
-		buyerCountTextView.setText(Html.fromHtml(countStr));
+		//String countStr = "现在有<font color='red'>"+new Random().nextInt(50)+"</font>位小伙伴";
+		buyerCountTextView.setText(String.valueOf(new Random().nextInt(50)));
 //		carTypeEntity = new Gson().fromJson(getIntent().getStringExtra("model"), CarModelEntity.class);
 //		trimList = carTypeEntity.getTrims();
 		
@@ -193,10 +193,10 @@ public class CarDetailActivity extends Activity {
 			TextView  benefitTextView = (TextView)view.findViewById(R.id.trim_benefit);
 			//TextView trimLowestPricetexTextView = (TextView)view.findViewById(R.id.trim_lowestPrice);
 			trimNameTextView.setText(trimList.get(i).getName());
-			trimPriceTextView.setText(trimList.get(i).getGuide_price()+"万");
+			trimPriceTextView.setText(trimList.get(i).getGuide_price());
 			double guide = Double.valueOf((trimList.get(i).getGuide_price()));
 			double low = Double.valueOf((trimList.get(i).getLowest_price()));
-			benefitTextView.setText(String.format("%.1f", guide-low)+" 万");
+			benefitTextView.setText(String.format("%.1f", guide-low));
 			//trimLowestPricetexTextView.setText(trimList.get(i).getLowest_price());
 			pagerList.add(view);
 		}

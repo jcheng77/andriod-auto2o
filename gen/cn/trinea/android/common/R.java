@@ -13,52 +13,52 @@ public final class R {
 		public static final int isOnBottomStyle = 0x7f01009c;
 	}
 	public static final class color {
-		public static final int drop_down_list_footer_font_color = 0x7f07003e;
-		public static final int drop_down_list_header_font_color = 0x7f07003c;
-		public static final int drop_down_list_header_second_font_color = 0x7f07003d;
+		public static final int drop_down_list_footer_font_color = 0x7f06003e;
+		public static final int drop_down_list_header_font_color = 0x7f06003c;
+		public static final int drop_down_list_header_second_font_color = 0x7f06003d;
 	}
 	public static final class dimen {
-		public static final int dp_40 = 0x7f0a002b;
-		public static final int drop_down_list_footer_button_height = 0x7f0a002a;
-		public static final int drop_down_list_footer_button_margin_left = 0x7f0a0029;
-		public static final int drop_down_list_footer_progress_bar_height = 0x7f0a0028;
-		public static final int drop_down_list_header_padding_bottom = 0x7f0a0025;
-		public static final int drop_down_list_header_padding_top = 0x7f0a0024;
-		public static final int drop_down_list_header_progress_bar_height = 0x7f0a0027;
-		public static final int drop_down_list_header_release_min_distance = 0x7f0a0026;
+		public static final int dp_40 = 0x7f09002b;
+		public static final int drop_down_list_footer_button_height = 0x7f09002a;
+		public static final int drop_down_list_footer_button_margin_left = 0x7f090029;
+		public static final int drop_down_list_footer_progress_bar_height = 0x7f090028;
+		public static final int drop_down_list_header_padding_bottom = 0x7f090025;
+		public static final int drop_down_list_header_padding_top = 0x7f090024;
+		public static final int drop_down_list_header_progress_bar_height = 0x7f090027;
+		public static final int drop_down_list_header_release_min_distance = 0x7f090026;
 	}
 	public static final class drawable {
 		public static final int drop_down_list_arrow = 0x7f02006e;
 	}
 	public static final class id {
-		public static final int drop_down_list_footer_button = 0x7f0600d0;
-		public static final int drop_down_list_footer_progress_bar = 0x7f0600cf;
-		public static final int drop_down_list_header_default_text = 0x7f0600d4;
-		public static final int drop_down_list_header_default_text_layout = 0x7f0600d2;
-		public static final int drop_down_list_header_image = 0x7f0600d3;
-		public static final int drop_down_list_header_progress_bar = 0x7f0600d1;
-		public static final int drop_down_list_header_second_text = 0x7f0600d5;
+		public static final int drop_down_list_footer_button = 0x7f0c00d1;
+		public static final int drop_down_list_footer_progress_bar = 0x7f0c00d0;
+		public static final int drop_down_list_header_default_text = 0x7f0c00d5;
+		public static final int drop_down_list_header_default_text_layout = 0x7f0c00d3;
+		public static final int drop_down_list_header_image = 0x7f0c00d4;
+		public static final int drop_down_list_header_progress_bar = 0x7f0c00d2;
+		public static final int drop_down_list_header_second_text = 0x7f0c00d6;
 	}
 	public static final class layout {
 		public static final int drop_down_list_footer = 0x7f030035;
 		public static final int drop_down_list_header = 0x7f030036;
 	}
 	public static final class string {
-		public static final int drop_down_list_footer_default_text = 0x7f0c0012;
-		public static final int drop_down_list_footer_loading_text = 0x7f0c0013;
-		public static final int drop_down_list_footer_no_more_text = 0x7f0c0014;
-		public static final int drop_down_list_header_default_text = 0x7f0c000e;
-		public static final int drop_down_list_header_loading_text = 0x7f0c0011;
-		public static final int drop_down_list_header_pull_text = 0x7f0c000f;
-		public static final int drop_down_list_header_release_text = 0x7f0c0010;
-		public static final int image_content = 0x7f0c0015;
+		public static final int drop_down_list_footer_default_text = 0x7f0b0012;
+		public static final int drop_down_list_footer_loading_text = 0x7f0b0013;
+		public static final int drop_down_list_footer_no_more_text = 0x7f0b0014;
+		public static final int drop_down_list_header_default_text = 0x7f0b000e;
+		public static final int drop_down_list_header_loading_text = 0x7f0b0011;
+		public static final int drop_down_list_header_pull_text = 0x7f0b000f;
+		public static final int drop_down_list_header_release_text = 0x7f0b0010;
+		public static final int image_content = 0x7f0b0015;
 	}
 	public static final class style {
-		public static final int drop_down_list_footer_font_style = 0x7f0b0096;
-		public static final int drop_down_list_footer_progress_bar_style = 0x7f0b0093;
-		public static final int drop_down_list_header_font_style = 0x7f0b0094;
-		public static final int drop_down_list_header_progress_bar_style = 0x7f0b0092;
-		public static final int drop_down_list_header_second_font_style = 0x7f0b0095;
+		public static final int drop_down_list_footer_font_style = 0x7f0a0096;
+		public static final int drop_down_list_footer_progress_bar_style = 0x7f0a0093;
+		public static final int drop_down_list_header_font_style = 0x7f0a0094;
+		public static final int drop_down_list_header_progress_bar_style = 0x7f0a0092;
+		public static final int drop_down_list_header_second_font_style = 0x7f0a0095;
 	}
 	public static final class styleable {
 		public static final int[] drop_down_list_attr = { 0x7f01009b, 0x7f01009c, 0x7f01009d };

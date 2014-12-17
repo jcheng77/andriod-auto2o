@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -47,6 +48,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -105,6 +108,9 @@ public class BargainActivity extends Activity {
 	private TextView titleTextView;
 	
 	private EditText userNameEditText;
+	
+	private SeekBar priceSeekBar;
+	private int price;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -131,7 +137,7 @@ public class BargainActivity extends Activity {
 		try {
 			CarTrimEntity trimEntity = helperTrim.getDao().queryBuilder().where()
 					.eq("id",trim_id).queryForFirst();
-			int price = (int) (Double.parseDouble(trimEntity.getGuide_price())*10000);
+			price = (int) (Double.parseDouble(trimEntity.getGuide_price())*10000);
 			priceEditText.setText(String.valueOf(price));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -170,6 +176,9 @@ public class BargainActivity extends Activity {
 		descriptionEditText = (EditText)findViewById(R.id.activity_bargain_otherDescription_edittext);
 		
 		userNameEditText = (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
+		
+		priceSeekBar = (SeekBar)findViewById(R.id.price_seekbar);
+		priceSeekBar.setOnSeekBarChangeListener(priceBarChangeListener);
 
 	}
 
@@ -201,6 +210,29 @@ public class BargainActivity extends Activity {
 				+ colors.size() + "</font>种颜色"));
 	}
 
+	private OnSeekBarChangeListener priceBarChangeListener =new OnSeekBarChangeListener() {
+		
+		@Override
+		public void onStopTrackingTouch(SeekBar seekBar) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onStartTrackingTouch(SeekBar seekBar) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onProgressChanged(SeekBar seekBar, int progress,
+				boolean fromUser) {
+			// TODO Auto-generated method stub
+			int now = (progress-50)*5000+price;
+			priceEditText.setText(String.valueOf(now));
+			
+		}
+	};
 	protected OnClickListener submitBtnClickListener = new OnClickListener() {
 
 		@Override

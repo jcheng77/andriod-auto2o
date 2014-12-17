@@ -54,6 +54,17 @@
                     android:textColor="@color/orange" />
             </LinearLayout>
 
+            <SeekBar
+                android:background="@color/white"
+                android:id="@+id/price_seekbar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:max="100"
+                android:progressDrawable="@drawable/price_progressbar"
+                android:thumb="@drawable/thumb"
+                android:progress="50" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,10 +138,10 @@
                             android:background="@drawable/co_demand_plan" />
 
                         <TextView
-                            android:layout_marginLeft="5dp"
                             android:id="@+id/activity_bargain_getcarTime_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="提车时间" />
                     </LinearLayout>
 
@@ -168,10 +179,10 @@
                             android:background="@drawable/co_demand_loan" />
 
                         <TextView
-                            android:layout_marginLeft="5dp"
                             android:id="@+id/activity_bargain_loan_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="贷款" />
                     </LinearLayout>
 
@@ -209,10 +220,10 @@
                             android:background="@drawable/co_demand_plate" />
 
                         <TextView
-                            android:layout_marginLeft="5dp"
                             android:id="@+id/activity_bargain_platelocation_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="上牌地" />
                     </LinearLayout>
 
@@ -250,10 +261,10 @@
                             android:background="@drawable/co_demand_has_plate" />
 
                         <TextView
-                            android:layout_marginLeft="5dp"
                             android:id="@+id/activity_bargain_haveplate_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="有无牌照" />
                     </LinearLayout>
 
