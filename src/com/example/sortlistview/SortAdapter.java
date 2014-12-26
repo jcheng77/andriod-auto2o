@@ -4,12 +4,15 @@ import java.util.List;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.CarBrandEntity;
+import com.cettco.buycar.utils.GlobalData;
+import com.cettco.buycar.utils.MyApplication;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -51,6 +54,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 			view = LayoutInflater.from(mContext).inflate(R.layout.item_carbrandlist, null);
 			viewHolder.tvTitle = (TextView) view.findViewById(R.id.carBrandText);
 			viewHolder.tvLetter = (TextView) view.findViewById(R.id.carBrandCatalog);
+			viewHolder.brandImageView = (ImageView)view.findViewById(R.id.car_brand_imageview);
 			view.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) view.getTag();
@@ -66,7 +70,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 		}else{
 			viewHolder.tvLetter.setVisibility(View.GONE);
 		}
-	
+	    MyApplication.IMAGE_CACHE.get(this.list.get(position).getLogo_url(),viewHolder.brandImageView);
 		viewHolder.tvTitle.setText(this.list.get(position).getName());
 		
 		return view;
@@ -78,6 +82,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 	final static class ViewHolder {
 		TextView tvLetter;
 		TextView tvTitle;
+		ImageView brandImageView;
 	}
 
 

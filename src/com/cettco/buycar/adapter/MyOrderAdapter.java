@@ -88,6 +88,8 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 			convertView.setTag(holder);
 			holder.cancelButton = (Button) convertView
 					.findViewById(R.id.my_order_cancel_btn);
+			holder.priceLayout = (LinearLayout)convertView
+					.findViewById(R.id.my_order_price_linearlayout);
 			;
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -105,53 +107,58 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		String[] name_array = entity.getModel().split(" : ");
 		// System.out.println(name_array);
 		if (name_array != null && name_array.length >= 4) {
-			holder.brandMakerModelTextView.setText(name_array[0] + " "
-					+ name_array[1] + " " + name_array[2]);
+//			holder.brandMakerModelTextView.setText(name_array[0] + " "
+//					+ name_array[1] + " " + name_array[2]);
+			holder.brandMakerModelTextView.setText(name_array[2]);
 			holder.trimTextView.setText(name_array[3]);
 		}
 		if (name_array != null && name_array.length == 3) {
-			holder.brandMakerModelTextView.setText(name_array[0] + " "
-					+ name_array[1] + " " + name_array[2]);
+//			holder.brandMakerModelTextView.setText(name_array[0] + " "
+//					+ name_array[1] + " " + name_array[2]);
 			// holder.trimTextView.setText(name_array[3]);
+			holder.brandMakerModelTextView.setText(name_array[2]);
 		}
 		if (entity.getPrice() == null)
 			holder.pricetextView.setText("");
 		else
-			holder.pricetextView.setText(entity.getPrice() + "元");
+			holder.pricetextView.setText(entity.getPrice() + "万");
 		MyApplication.IMAGE_CACHE.get(entity.getPic_url(), holder.imageView);
 		// System.out.println("state:"+entity.getState());
 		if (entity.getState().equals("viewed")) {
 			holder.cancellaLayout.setVisibility(View.VISIBLE);
 			holder.stateTextView.setText("已看车型");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
-		} else if (entity.getState().equals("begain")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
-			holder.stateTextView.setText("决定购买车型");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
-		} else if (entity.getState().equals("determined")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
-			holder.stateTextView.setText("已提交订单,待支付");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#FF6201"));
+			holder.stateLayout.setBackgroundColor(context.getResources().getColor(R.color.order_color_viewed));
+			holder.priceLayout.setVisibility(View.GONE);
+		}else if (entity.getState().equals("determined")) {
+			holder.priceLayout.setVisibility(View.VISIBLE);
+			holder.cancellaLayout.setVisibility(View.GONE);
+			holder.stateTextView.setText("已提交订单,等待支付");
+			holder.stateLayout.setBackgroundColor(context.getResources().getColor(R.color.order_color_determined));
 		} else if (entity.getState().equals("qualified")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
+			holder.priceLayout.setVisibility(View.VISIBLE);
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("已支付,等待4s店接受订单");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#0C8398"));
+			holder.stateLayout.setBackgroundColor(context.getResources().getColor(R.color.order_color_qualified));
 		} else if (entity.getState().equals("timeout")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
+			holder.priceLayout.setVisibility(View.VISIBLE);
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("超时");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
+			holder.stateLayout.setBackgroundColor(context.getResources().getColor(R.color.order_color_timeout));
 		} else if (entity.getState().equals("deal_made")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
-			holder.stateTextView.setText("已有4s店接单");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
+			holder.priceLayout.setVisibility(View.VISIBLE);
+			holder.cancellaLayout.setVisibility(View.GONE);
+			holder.stateTextView.setText("已有4s店接单,请到店提车");
+			holder.stateLayout.setBackgroundColor(context.getResources().getColor(R.color.order_color_deal_made));
 		} else if (entity.getState().equals("final_deal_closed")) {
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
+			holder.priceLayout.setVisibility(View.VISIBLE);
+			holder.cancellaLayout.setVisibility(View.GONE);
 			holder.stateTextView.setText("最终成交");
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
+			holder.stateLayout.setBackgroundColor(context.getResources().getColor(R.color.order_color_final_deal_closed));
 		} else if (entity.getState().equals("canceled")) {
+			holder.priceLayout.setVisibility(View.VISIBLE);
 			holder.stateTextView.setText("取消交易");
-			holder.cancellaLayout.setVisibility(View.VISIBLE);
-			holder.stateLayout.setBackgroundColor(Color.parseColor("#939393"));
+			holder.cancellaLayout.setVisibility(View.GONE);
+			holder.stateLayout.setBackgroundColor(context.getResources().getColor(R.color.order_color_canceled));
 		}
 		holder.cancelButton.setTag(R.id.popup_menu_myorder_position, position);
 		holder.cancelButton.setOnClickListener(optionClickListener);
@@ -215,6 +222,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		LinearLayout hasdataLayout;
 		Button cancelButton;
 		RelativeLayout cancellaLayout;
+		LinearLayout priceLayout;
 	}
 
 }

@@ -2,28 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="#f1f1f1"
-        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="客户意向" />
+            android:layout_gravity="center"
+            android:text="我的购车计划"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_size_middle" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="3dp"
             android:paddingTop="3dp" >
@@ -31,20 +32,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="外观颜色:" />
+                android:text="外观颜色:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:id="@+id/order_detail_color_textview"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="暂无" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/order_detail_color_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="暂无"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="3dp"
             android:paddingTop="3dp" >
@@ -52,20 +67,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="提车时间:" />
+                android:text="提车时间:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:id="@+id/order_detail_pickup_time_textview"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="暂无" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/order_detail_pickup_time_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="暂无"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="3dp"
             android:paddingTop="3dp" >
@@ -73,20 +102,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="上牌地点:" />
+                android:text="上牌地点:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:id="@+id/order_detail_license_location_textview"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="暂无" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/order_detail_license_location_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="暂无"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="3dp"
             android:paddingTop="3dp" >
@@ -94,20 +137,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="已有牌照:" />
+                android:text="已有牌照:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:id="@+id/order_detail_got_licence_textview"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="暂无" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/order_detail_got_licence_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="暂无"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="3dp"
             android:paddingTop="3dp" >
@@ -115,14 +172,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="贷款或全款" />
+                android:text="贷款或全款:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:id="@+id/order_detail_loan_option_textview"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="暂无" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/order_detail_loan_option_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="暂无"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

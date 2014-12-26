@@ -4,15 +4,15 @@
     <item android:state_pressed="true">  
         <shape>  
              <!--色值-->  
-            <solid android:color="@color/gray" />  
+            <solid android:color="@color/slidingmenu" />  
             <!--圆角-->  
             <corners android:radius="2dp" />  
         </shape>  
     </item>  
     <!--默认背景-->  
     <item>  
-        <shape>  
-            <solid android:color="#ffffff" />  
+        <shape> 
+            <solid android:color="@color/actionbar_main" />  
             <corners android:radius="2dp" />  
         </shape>  
     </item>  

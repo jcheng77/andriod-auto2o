@@ -4,7 +4,7 @@
     <item android:state_pressed="true">  
         <shape>  
              <!--色值-->  
-            <solid android:color="#0e97b0" />  
+            <solid android:color="@color/slidingmenu" />  
             <!--圆角-->  
             <corners android:radius="1dp" />  
         </shape>  
@@ -12,7 +12,7 @@
     <!--默认背景-->  
     <item>  
         <shape>  
-            <solid android:color="#0C8398" />  
+            <solid android:color="@color/actionbar_main" />  
             <corners android:radius="1dp" />  
         </shape>  
     </item>  

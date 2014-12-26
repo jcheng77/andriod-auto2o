@@ -4,11 +4,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.alipay.android.msp.Keys;
 import com.alipay.android.msp.Result;
@@ -16,6 +21,7 @@ import com.alipay.android.msp.Rsa;
 import com.alipay.android.msp.SignUtils;
 import com.alipay.sdk.app.PayTask;
 import com.cettco.buycar.R;
+import com.cettco.buycar.entity.CarTrimEntity;
 import com.cettco.buycar.entity.OrderDetailEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.utils.GlobalData;
@@ -23,9 +29,11 @@ import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.MyApplication;
 import com.cettco.buycar.utils.UserUtil;
 import com.cettco.buycar.utils.db.DatabaseHelperOrder;
+import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,26 +56,44 @@ public class AliPayActivity extends Activity {
 	public static final String TAG = "alipay-sdk";
 	private static final int DATA_SUCCESS = 5;
 	private static final int DATA_FAIL = 6;
+	private static final int PAYMENT_SUCCESS=7;
 	private Button submitButton;
 
 	private int selection = 0;
 
 	//private RelativeLayout webLayout;
 	private RelativeLayout clientLayout;
-	private CheckBox webCheckBox;
-	private CheckBox clientCheckBox;
+//	private CheckBox webCheckBox;
+//	private CheckBox clientCheckBox;
 	
 	private String tender_id;
 	
 	private TextView titleTextView;
 	private OrderDetailEntity detailEntity;
 	
-	private TextView brandTextView;
-	private TextView trimTextView;
+//	private TextView brandTextView;
+//	private TextView trimTextView;
 	private ImageView carImageView;
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 	
 	private RelativeLayout progressLayout;
+	
+	private TextView brandMakerTextView;
+	private TextView modelTextView;
+	
+	private TextView trim1TextView;
+	private TextView trim2TextView;
+	private TextView guidePriceTextView;
+	private TextView benefitPriceTextView;
+	
+	private int amount;
+	private int discount=0;
+	private int actual;
+	private List<Integer> discountList;
+	
+	private TextView amountTextView;
+	private TextView discountTextView;
+	private TextView actualTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +102,13 @@ public class AliPayActivity extends Activity {
 		setContentView(R.layout.activity_alipay);
 		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
 		//progressLayout.setVisibility(View.VISIBLE);
-		brandTextView = (TextView)findViewById(R.id.alipay_car_brand_textview);
-		trimTextView = (TextView)findViewById(R.id.alipay_car_trim_textview);
+//		brandTextView = (TextView)findViewById(R.id.alipay_car_brand_textview);
+//		trimTextView = (TextView)findViewById(R.id.alipay_car_trim_textview);
 		carImageView = (ImageView)findViewById(R.id.alipay_car_img_imageview);
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText("支付");
 		//webCheckBox = (CheckBox) findViewById(R.id.alipay_web_checkbox);
-		clientCheckBox = (CheckBox) findViewById(R.id.alipay_client_checkbox);
+		//clientCheckBox = (CheckBox) findViewById(R.id.alipay_client_checkbox);
 		clientLayout = (RelativeLayout) findViewById(R.id.alipay_client_layout);
 		clientLayout.setOnClickListener(clientClickListener);
 
@@ -93,14 +119,32 @@ public class AliPayActivity extends Activity {
 		submitButton.setVisibility(View.GONE);
 		
 		tender_id = getIntent().getStringExtra("tender_id");
+		//trim,brand
+		brandMakerTextView = (TextView)findViewById(R.id.alipay_brandMaker_textview);
+		modelTextView = (TextView)findViewById(R.id.alipay_model_textview);
+		trim1TextView = (TextView)findViewById(R.id.alipay_trim1_textview);
+		trim2TextView = (TextView)findViewById(R.id.alipay_trim2_textview);
+		
+		guidePriceTextView=(TextView)findViewById(R.id.alipay_guide_price_textview);
+		benefitPriceTextView=(TextView)findViewById(R.id.alipay_benefit_textview);
+		
+		amountTextView = (TextView)findViewById(R.id.alipay_amount_textview);
+		discountTextView= (TextView)findViewById(R.id.alipay_discount_textview);
+		actualTextView= (TextView)findViewById(R.id.alipay_actual_price);
+		
 		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
 		try {
 			orderItemEntity = orderHelper.getDao().queryBuilder().where()
 					.eq("id", tender_id).queryForFirst();
+			String[] name_array = orderItemEntity.getModel().split(" : ");
+			brandMakerTextView.setText(name_array[0]+" "+name_array[1]);
+			modelTextView.setText(name_array[2]);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
 		getData();
 	}
 
@@ -109,9 +153,9 @@ public class AliPayActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			clientCheckBox.setChecked(false);
-			webCheckBox.setChecked(true);
-			selection=1;
+//			clientCheckBox.setChecked(false);
+//			webCheckBox.setChecked(true);
+//			selection=1;
 		}
 	};
 	private OnClickListener clientClickListener = new OnClickListener() {
@@ -120,8 +164,8 @@ public class AliPayActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			selection = 0;
-			clientCheckBox.setChecked(true);
-			webCheckBox.setChecked(false);
+//			clientCheckBox.setChecked(true);
+//			webCheckBox.setChecked(false);
 		}
 	};
 
@@ -131,7 +175,7 @@ public class AliPayActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			String bodyString= detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName();
-			pay("定金支付",bodyString,"99");
+			pay("定金支付",bodyString,String.valueOf(actual));
 		}
 	};
 
@@ -187,11 +231,25 @@ public class AliPayActivity extends Activity {
 			}
 			case DATA_SUCCESS:{
 				updateUI();
+				getPaymentData();
+				break;
 			}
 			case DATA_FAIL:{
 //				System.out.println("44444");
-//				Toast toast = Toast.makeText(AliPayActivity.this, "获取详情失败", Toast.LENGTH_SHORT);
-//				toast.show();
+				Toast toast = Toast.makeText(AliPayActivity.this, "获取数据失败", Toast.LENGTH_SHORT);
+				toast.show();
+				break;
+			}
+			case PAYMENT_SUCCESS:{
+				amountTextView.setText(String.valueOf(amount));
+				if(discountList.size()>0){
+					discount = discountList.get(0);
+					discountTextView.setText(String.valueOf(discountList.get(0)));
+				}
+				actual = amount-discount;
+				actualTextView.setText(String.valueOf(actual));
+				submitButton.setVisibility(View.VISIBLE);
+				break;
 			}
 			default:
 				break;
@@ -199,11 +257,31 @@ public class AliPayActivity extends Activity {
 		};
 	};
 	private void updateUI(){
-		brandTextView.setText(detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName());
-		trimTextView.setText(detailEntity.getTrim().getName());
+		brandMakerTextView.setText(detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName());
+		modelTextView.setText(detailEntity.getModel().getName());
+//		String[] trim_array = detailEntity.getTrim().getName().split(" ");
+//		System.out.println("trim:"+trim_array.length+" "+detailEntity.getTrim());
+//		System.out.println("trim name:"+trim_array[1]);
+//		if(trim_array.length==3){
+//			trim1TextView.setText(trim_array[0]+" "+trim_array[1]);
+//			trim2TextView.setText(trim_array[2]);
+//		}
+		trim1TextView.setText(detailEntity.getTrim().getName());
+		DatabaseHelperTrim helperTrim = DatabaseHelperTrim
+				.getHelper(this);
+		try {
+			CarTrimEntity trimEntity= helperTrim.getDao().queryBuilder().where()
+					.eq("id",detailEntity.getTrim_id()).queryForFirst();
+			guidePriceTextView.setText(trimEntity.getGuide_price()+"万");
+			double guide = Double.valueOf((trimEntity.getGuide_price()));
+			double myPrice = Double.valueOf(detailEntity.getPrice());
+			benefitPriceTextView.setText(String.format("%.1f", guide-myPrice)+"万");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("pic:"+detailEntity.getPic_url());
 		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
-		submitButton.setVisibility(View.VISIBLE);
 	}
 
 	/**
@@ -334,16 +412,21 @@ public class AliPayActivity extends Activity {
 	 * 
 	 */
 	public String getOutTradeNo() {
-//		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
 //				Locale.getDefault());
 //		Date date = new Date();
 //		String key = format.format(date);
+//		key = key+tender_id;
+		Long tsLong = System.currentTimeMillis()/1000;
+		String ts = tsLong.toString();
+		String key = ts+tender_id;
+		System.out.println("key:"+key);
 //
 //		Random r = new Random();
 //		key = key + r.nextInt();
 //		key = key.substring(0, 15);
 		//String key = UserUtil.getUserId(AliPayActivity.this)+" "+tender_id;
-		return tender_id;
+		return key;
 		//return key;
 	}
 
@@ -399,6 +482,55 @@ public class AliPayActivity extends Activity {
 					message.what = DATA_SUCCESS;
 					mHandler.sendMessage(message);
 				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
+	}
+	protected void getPaymentData() {
+		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
+		// httpCache.clear();
+		progressLayout.setVisibility(View.VISIBLE);
+		String url = GlobalData.getBaseUrl() + "/deposits/amount_and_discount.json";
+		HttpConnection.setCookie(getApplicationContext());
+		HttpConnection.get(url, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				System.out.println("fail");
+				progressLayout.setVisibility(View.GONE);
+				Message message = new Message();
+				message.what = DATA_FAIL;
+				mHandler.sendMessage(message);
+			}
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				System.out.println("succuss");
+				progressLayout.setVisibility(View.GONE);
+				try {
+					String result = new String(arg2, "UTF-8");
+					JSONObject object = new JSONObject(result);
+					amount = object.getInt("amount");
+					JSONArray array =object.getJSONArray("discount");
+					String[] strArr = new String[array.length()];
+					discountList = new ArrayList<Integer>();
+					System.out.println("array lenght:"+array.length());
+					for(int i=0;i<array.length();i++){
+						discountList.add(array.getInt(i));
+					}
+					Message message = new Message();
+					message.what = PAYMENT_SUCCESS;
+					mHandler.sendMessage(message);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

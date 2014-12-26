@@ -20,6 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
@@ -40,6 +42,7 @@ import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CarTrimViewPagerAdapter;
 import com.cettco.buycar.entity.CarColorListEntity;
 import com.cettco.buycar.entity.CarModelEntity;
+import com.cettco.buycar.entity.OrderDetailEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
 import com.cettco.buycar.entity.Tender;
 import com.cettco.buycar.entity.TenderEntity;
@@ -59,8 +62,10 @@ import com.github.mikephil.charting.utils.Legend.LegendPosition;
 import com.google.gson.Gson;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.stmt.Where;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
 import com.viewpagerindicator.CirclePageIndicator;
 
 public class CarDetailActivity extends Activity {
@@ -167,7 +172,6 @@ public class CarDetailActivity extends Activity {
 		}
 		//carTypeEntity.get
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		viewPager.setOnPageChangeListener(viewChangeListener);
 		pagerList = new ArrayList<View>();
 		LayoutInflater inflater = getLayoutInflater().from(this);
 		
@@ -207,14 +211,16 @@ public class CarDetailActivity extends Activity {
 				pagerList);
 		viewPager.setAdapter(carTypeViewPagerAdapter);
 		
+		
 		CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.indicator);
         //mIndicator = indicator;
         indicator.setViewPager(viewPager);
         //indicator.setBackgroundColor(0xCCCCFF);
         //indicator.setRadius(10 * density);
-        indicator.setPageColor(Color.WHITE);
-        indicator.setFillColor(Color.GRAY);
-        indicator.setStrokeColor(Color.BLACK);
+        indicator.setPageColor(getResources().getColor(R.color.white));
+        indicator.setFillColor(getResources().getColor(R.color.gray));
+        indicator.setStrokeColor(getResources().getColor(R.color.deep_gray));
+        indicator.setOnPageChangeListener(viewChangeListener);
         //indicator.setStrokeWidth(2 * density);
 		//viewPager.isi
 
@@ -227,6 +233,7 @@ public class CarDetailActivity extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		getData();
 		
 	}
 //	protected void initChart(){
@@ -298,21 +305,24 @@ public class CarDetailActivity extends Activity {
 		@Override
 		public void onPageSelected(int index) {
 			// TODO Auto-generated method stub
+			System.out.println("index:"+index);
+			
 			trim_selection = index;
 			trim_id = trimList.get(index).getId();
+			System.out.println("trim_id:"+trim_id);
 			trim_name = trimList.get(index).getName();
 		}
 
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
 			// TODO Auto-generated method stub
-
+			System.out.println("scrolled");
 		}
 
 		@Override
 		public void onPageScrollStateChanged(int arg0) {
 			// TODO Auto-generated method stub
-
+			System.out.println("state changed");
 		}
 	};
 	protected OnClickListener beginBiddingClickListener = new OnClickListener() {
@@ -320,112 +330,6 @@ public class CarDetailActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			
-//			String tenderUrl=GlobalData.getBaseUrl()+"/tenders.json";
-//			Gson gson = new Gson();
-//			Tender tender = new Tender();
-//			tender.setDescription("test1");
-//			tender.setModel("宝马");
-//			tender.setColor_id(carTypeEntity.getColors().get(0).getId());
-//			tender.setTrim_id(trim_id);
-//			TenderEntity tenderEntity = new TenderEntity();
-//			tenderEntity.setTender(tender);
-//	        StringEntity entity = null;
-//	        try {
-//	        	System.out.println(gson.toJson(tenderEntity).toString());
-//				entity = new StringEntity(gson.toJson(tenderEntity).toString());
-//			} catch (UnsupportedEncodingException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//	        String cookieStr=null;
-//			String cookieName=null;
-//			PersistentCookieStore myCookieStore = new PersistentCookieStore(
-//					CarDetailActivity.this);
-//			if(myCookieStore==null){System.out.println("cookie store null");return;}
-//			List<Cookie> cookies = myCookieStore.getCookies();
-//			for (Cookie cookie : cookies) {
-//				String name =cookie.getName();
-//				cookieName=name;
-//				System.out.println(name);
-//				if(name.equals("_JustBidIt_session")){
-//					cookieStr=cookie.getValue();
-//					System.out.println("value:"+cookieStr);
-//					break;
-//				}
-//			}
-//			if(cookieStr==null||cookieStr.equals("")){
-//				Toast toast = Toast.makeText(CarDetailActivity.this, "未登录或登录信息失效，请重新登录", Toast.LENGTH_SHORT);
-//				toast.show();
-//				System.out.println("cookie null");
-//				return;
-//				}
-//			HttpConnection.getClient().addHeader("Cookie", cookieName+"="+cookieStr);
-//			HttpConnection.post(CarDetailActivity.this, tenderUrl, null, entity, "application/json;charset=utf-8", new JsonHttpResponseHandler(){
-//
-//				@Override
-//				public void onFailure(int statusCode, Header[] headers,
-//						Throwable throwable, JSONObject errorResponse) {
-//					// TODO Auto-generated method stub
-//					super.onFailure(statusCode, headers, throwable, errorResponse);
-//					progressLayout.setVisibility(View.GONE);
-//					System.out.println("error");
-//					System.out.println("statusCode:"+statusCode);
-//					System.out.println("headers:"+headers);
-//				}
-//				
-//				@Override
-//				public void onFailure(int statusCode, Header[] headers,
-//						String responseString, Throwable throwable) {
-//					// TODO Auto-generated method stub
-//					super.onFailure(statusCode, headers, responseString, throwable);
-//					progressLayout.setVisibility(View.GONE);
-//					Toast toast = Toast.makeText(CarDetailActivity.this, "提交失败", Toast.LENGTH_SHORT);
-//					toast.show();
-//				}
-//
-//				@Override
-//				public void onSuccess(int statusCode, Header[] headers,
-//						JSONObject response) {
-//					// TODO Auto-generated method stub
-//					super.onSuccess(statusCode, headers, response);
-//					progressLayout.setVisibility(View.GONE);
-//					System.out.println("success");
-//					System.out.println("statusCode:"+statusCode);
-//					
-////					for(int i=0;i<headers.length;i++){
-////						System.out.println(headers[0]);
-////					}
-//					System.out.println("response:"+response);
-//					if(statusCode==201){
-//						try {
-//							Toast toast = Toast.makeText(CarDetailActivity.this, "提交成功", Toast.LENGTH_SHORT);
-//							toast.show();
-//							int id = response.getInt("id");
-//							Intent intent = new Intent();
-//							CarColorListEntity colorListEntity = new CarColorListEntity();
-//							colorListEntity.setColors(carTypeEntity.getColors());
-//							intent.putExtra("color", new Gson().toJson(colorListEntity));
-//							intent.putExtra("tender_id", id);
-//							intent.setClass(CarDetailActivity.this, BargainActivity.class);
-//							startActivity(intent);
-////							
-////							Intent intent = new Intent();
-////							intent.putExtra("tenderId", id);
-////							intent.setClass(CarDetailActivity.this, MyOrderStatusActivity.class);
-////							startActivity(intent);
-//						} catch (JSONException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//						
-//					}
-//					
-//				}
-//				
-//			});
-//			progressLayout.setVisibility(View.VISIBLE);
-			orderItemEntity.setState("begain");
 			orderItemEntity.setTrim_id(trim_id);
 			orderItemEntity.setModel(orderItemEntity.getModel()+" : "+(trimList.size()>0?trimList.get(trim_selection).getName():""));
 			orderItemEntity.setTime(new Date());
@@ -437,7 +341,7 @@ public class CarDetailActivity extends Activity {
 				e.printStackTrace();
 			}
 			Intent intent = new Intent();
-			intent.setClass(CarDetailActivity.this, BargainActivity.class);
+			intent.setClass(CarDetailActivity.this, BargainPriceActivity.class);
 			intent.putExtra("order_id", order_id);
 			startActivity(intent);
 		}
@@ -456,6 +360,57 @@ public class CarDetailActivity extends Activity {
 	public void exitClick(View view) {
 		finish();
 	}
+	protected void getData() {
+		String url = GlobalData.getBaseUrl() + "/cars/trims.json";
+		RequestParams params = new RequestParams();
+		params.put("model_id", model_id);
+		
+		HttpConnection.setCookie(getApplicationContext());
+		HttpConnection.get(url,params,new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				System.out.println("fail");
+				Message message = new Message();
+				message.what = 2;
+				mHandler.sendMessage(message);
+			}
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				System.out.println("seccuss");
+				try {
+					String result = new String(arg2, "UTF-8");
+					System.out.println("count:"+result);
+					Message message = new Message();
+					message.what = 1;
+					mHandler.sendMessage(message);
+					// System.out.println("result:"+result);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
+	}
+
+	private Handler mHandler = new Handler() {
+
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				// dealerListAdapter.updateList(dealerList);
+				//updateUI();
+				break;
+			case 2:
+				break;
+			}
+		};
+	};
 	private void updateDatabase(){
 		OrderItemEntity orderItemEntity = new OrderItemEntity();
 		orderItemEntity.setPic_url(carTypeEntity.getPic_url());

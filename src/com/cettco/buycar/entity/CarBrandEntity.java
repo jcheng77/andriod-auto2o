@@ -24,12 +24,13 @@ public class CarBrandEntity {
 	public void setSortLetters(String sortLetters) {
 		this.sortLetters = sortLetters;
 	}
-	private String url;
-	public String getUrl() {
-		return url;
+	@DatabaseField
+	private String logo_url;
+	public String getLogo_url() {
+		return logo_url;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setLogo_url(String logo_url) {
+		this.logo_url = logo_url;
 	}
 	private List<CarMakerEntity> makers;
 	public String getName() {

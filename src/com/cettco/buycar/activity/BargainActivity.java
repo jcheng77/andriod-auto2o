@@ -98,7 +98,7 @@ public class BargainActivity extends Activity {
 
 	private RelativeLayout progressLayout;
 
-	private EditText priceEditText;
+	
 
 	private int order_id;
 	private String model_id;
@@ -107,9 +107,10 @@ public class BargainActivity extends Activity {
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 	private TextView titleTextView;
 	
-	private EditText userNameEditText;
+	//private EditText priceEditText;
+	//private EditText userNameEditText;
 	
-	private SeekBar priceSeekBar;
+	//private SeekBar priceSeekBar;
 	private int price;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class BargainActivity extends Activity {
 		titleTextView.setText("购车需求");
 		progressLayout = (RelativeLayout) findViewById(R.id.progressbar_relativeLayout);
 		order_id = getIntent().getIntExtra("order_id", -1);
-		priceEditText = (EditText) findViewById(R.id.activity_bargain_myprice_textview);
+		//priceEditText = (EditText) findViewById(R.id.activity_bargain_myprice_textview);
 		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
 		try {
 			orderItemEntity = orderHelper.getDao().queryBuilder().where()
@@ -138,7 +139,7 @@ public class BargainActivity extends Activity {
 			CarTrimEntity trimEntity = helperTrim.getDao().queryBuilder().where()
 					.eq("id",trim_id).queryForFirst();
 			price = (int) (Double.parseDouble(trimEntity.getGuide_price())*10000);
-			priceEditText.setText(String.valueOf(price));
+			//priceEditText.setText(String.valueOf(price));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,10 +176,10 @@ public class BargainActivity extends Activity {
 
 		descriptionEditText = (EditText)findViewById(R.id.activity_bargain_otherDescription_edittext);
 		
-		userNameEditText = (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
+		//userNameEditText = (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
 		
-		priceSeekBar = (SeekBar)findViewById(R.id.price_seekbar);
-		priceSeekBar.setOnSeekBarChangeListener(priceBarChangeListener);
+//		priceSeekBar = (SeekBar)findViewById(R.id.price_seekbar);
+//		priceSeekBar.setOnSeekBarChangeListener(priceBarChangeListener);
 
 	}
 
@@ -229,7 +230,7 @@ public class BargainActivity extends Activity {
 				boolean fromUser) {
 			// TODO Auto-generated method stub
 			int now = (progress-50)*5000+price;
-			priceEditText.setText(String.valueOf(now));
+			//priceEditText.setText(String.valueOf(now));
 			
 		}
 	};
@@ -270,8 +271,10 @@ public class BargainActivity extends Activity {
 			return;
 		}
 		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
-		String price = priceEditText.getText().toString();
-		String userName = userNameEditText.getText().toString();
+//		String price = priceEditText.getText().toString();
+//		String userName = userNameEditText.getText().toString();
+		String price =orderItemEntity.getPrice();
+		String userName=orderItemEntity.getName();
 		if (price == null || price.equals("")) {
 			Toast toast = Toast.makeText(BargainActivity.this, "请填写价格",
 					Toast.LENGTH_SHORT);

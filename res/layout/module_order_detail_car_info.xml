@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -10,7 +11,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="#0C8398" >
+        android:background="@color/actionbar_main"
+        android:gravity="center" >
 
         <TextView
             android:id="@+id/order_detail_state"
@@ -18,34 +20,40 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="状态:暂无"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle" />
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical" >
 
+        <TextView
+            android:id="@+id/order_detail_brandmakermodel_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂无"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_size_middle" />
+
         <ImageView
             android:id="@+id/order_detail_car_imageview"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/default_car" />
 
         <TextView
-            android:id="@+id/order_detail_brandmakermodel_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="暂无" />
-
-        <TextView
             android:id="@+id/order_detail_trim_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="暂无" />
+            android:text="暂无"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_size_middle" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -54,8 +62,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:background="#000000" />
+            android:background="@color/gray" />
 
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,6 +83,88 @@
                 android:text="暂无"
                 android:textColor="@color/orange" />
         </LinearLayout>
+        -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/guide_price_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="一口价: "
+                        android:textColor="@color/text_gray"
+                        android:textSize="@dimen/text_size_large" />
+
+                    <TextView
+                        android:id="@+id/order_detail_price_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/price_orange_color"
+                        android:textSize="@dimen/text_size_large" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我要优惠: "
+                        android:textColor="@color/text_gray"
+                        android:textSize="@dimen/text_size_large" />
+
+                    <TextView
+                        android:id="@+id/order_detail_benefit_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/price_orange_color"
+                        android:textSize="@dimen/text_size_large" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/gray" />
     </LinearLayout>
 
 </LinearLayout>

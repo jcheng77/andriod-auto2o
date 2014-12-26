@@ -286,13 +286,7 @@ public class MyCarFragment extends Fragment {
 						CarDetailActivity.class);
 				intent.putExtra("order_id", orderItemEntity.getOrder_id());
 				startActivity(intent);
-			} else if (state.equals("begain")) {
-				Intent intent = new Intent();
-				intent.setClass(MyCarFragment.this.getActivity(),
-						BargainActivity.class);
-				intent.putExtra("order_id", orderItemEntity.getOrder_id());
-				startActivity(intent);
-			} else if (state.equals("determined")) {
+			}else if (state.equals("determined")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
 						AliPayActivity.class);
@@ -423,6 +417,20 @@ public class MyCarFragment extends Fragment {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		HttpConnection.getClient().cancelRequests(getActivity(), true);
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		HttpConnection.getClient().cancelRequests(getActivity(), true);
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
 		HttpConnection.getClient().cancelRequests(getActivity(), true);
 	}
 

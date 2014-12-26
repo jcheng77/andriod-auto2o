@@ -156,7 +156,6 @@ public class CarListActivity extends Activity {
 		dialog = (TextView) findViewById(R.id.dialog);
 		sideBar.setTextView(dialog);
 		
-		//�����Ҳഥ������
 		sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
 			
 			@Override
@@ -329,6 +328,8 @@ public class CarListActivity extends Activity {
 //			System.out.println("position:"+position);
 //			System.out.println("maker size:" + makerEntities.size());
 			carExpandableListAdapter.updateList(makerEntities);
+			for(int i=0; i < carExpandableListAdapter.getGroupCount(); i++)
+			    carExpandedView.expandGroup(i);
 			carExpandedView.setVisibility(View.VISIBLE);
 			currentBrandLayout.setVisibility(View.VISIBLE);
 			sortBrandLayout.setVisibility(View.GONE);

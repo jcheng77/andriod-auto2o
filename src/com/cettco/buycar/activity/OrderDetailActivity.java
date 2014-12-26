@@ -1,6 +1,7 @@
 package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 
 import org.apache.http.Header;
 
@@ -13,10 +14,12 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cettco.buycar.R;
+import com.cettco.buycar.entity.CarTrimEntity;
 import com.cettco.buycar.entity.OrderDetailEntity;
 import com.cettco.buycar.utils.MyApplication;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -57,6 +60,7 @@ public class OrderDetailActivity extends Activity {
 	private ImageView carImageView;
 	private TextView modelTextView;
 	private TextView priceTextView;
+	private TextView benefitTextView;
 	private TextView pickupTimeTextView;
 	private TextView licenseLocationTextView;
 	private TextView gotLicenseTextView;
@@ -107,6 +111,7 @@ public class OrderDetailActivity extends Activity {
 		carImageView = (ImageView) findViewById(R.id.order_detail_car_imageview);
 		modelTextView = (TextView) findViewById(R.id.order_detail_brandmakermodel_textview);
 		priceTextView = (TextView) findViewById(R.id.order_detail_price_textview);
+		benefitTextView= (TextView) findViewById(R.id.order_detail_benefit_textview);
 		pickupTimeTextView = (TextView) findViewById(R.id.order_detail_pickup_time_textview);
 		licenseLocationTextView = (TextView) findViewById(R.id.order_detail_license_location_textview);
 		gotLicenseTextView = (TextView) findViewById(R.id.order_detail_got_licence_textview);
@@ -295,19 +300,37 @@ public class OrderDetailActivity extends Activity {
 
 		}else if(state.equals("canceled")){
 			cancelButton.setVisibility(View.GONE);
-			stateTextView.setText("订单取消");
+			stateTextView.setText("订单已取消");
 			qRcodeLayout.setVisibility(View.GONE);
 		}
-		System.out.println("pic:" + detailEntity.getPic_url());
 		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(), carImageView);
 		String brandName = detailEntity.getBrand().getName();
 		String makerName = detailEntity.getMaker().getName();
 		String modelName = detailEntity.getModel().getName();
 		String trimName = detailEntity.getTrim().getName();
+		StringBuffer colorBuffer = new StringBuffer("");
+		for(int i=0;i<detailEntity.getColors().size();i++){
+			colorBuffer.append(detailEntity.getColors().get(i).getName()+",");
+		}
+		colorBuffer.deleteCharAt(colorBuffer.length()-1);
 		// detailEntity.
+		colorTextView.setText(colorBuffer.toString());
 		modelTextView.setText(brandName + "(" + makerName + ") " + modelName);
 		trimTextView.setText(trimName);
-		priceTextView.setText(detailEntity.getPrice());
+		priceTextView.setText(detailEntity.getPrice()+"万");
+		DatabaseHelperTrim helperTrim = DatabaseHelperTrim
+				.getHelper(this);
+		try {
+			CarTrimEntity trimEntity= helperTrim.getDao().queryBuilder().where()
+					.eq("id",detailEntity.getTrim_id()).queryForFirst();
+			double guide = Double.valueOf(trimEntity.getGuide_price());
+			double myPrice = Double.valueOf(detailEntity.getPrice());
+			benefitTextView.setText(String.format("%.1f", guide-myPrice)+"万");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// pickupTimeTextView.setText(detailEntity.getPickup_time());
 		if (detailEntity.getPickup_time().equals("0")) {
 			pickupTimeTextView.setText("7天");

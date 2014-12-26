@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#F0F0EE" >
+    android:background="@color/white" >
 
     <include layout="@layout/actionbar" />
 
@@ -25,72 +25,83 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_logo_layout"
         android:layout_marginTop="20dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:orientation="vertical" >
 
-       <TableLayout
-            android:layout_width="fill_parent"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:stretchColumns="0" >
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp" >
 
-            <TableRow
-                android:gravity="center"
-                android:paddingBottom="20dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="20dp" >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_phone_icon" />
 
-                <EditText
-                    android:id="@+id/signinPhoneEditText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="手机号"
-                    android:inputType="phone"
-                    android:singleLine="true" />
-
-                <TextView
-                    android:id="@+id/signUpText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="注册"
-                    android:textColor="#0000FF"
-                    android:textSize="10sp" />
-            </TableRow>
-
-            <TableRow
-                android:gravity="center"
-                android:paddingBottom="20dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp" >
-                <EditText
-                android:id="@+id/signinPasswordEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/signinPhoneEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:ems="10"
+                android:background="#00000000"
+                android:ems="8"
+                android:hint="手机号"
+                android:inputType="phone"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_pwd_icon" />
+
+            <EditText
+                android:id="@+id/signinPasswordEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#00000000"
+                android:ems="8"
                 android:hint="密码"
                 android:inputType="textPassword"
                 android:singleLine="true" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/findpwd_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="忘记密码?"
-                android:textColor="#0000FF"
-                android:textSize="10sp" />
-            </TableRow>
-        </TableLayout>
-
-        <!-- <LinearLayout
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/gray" />
+        <!--
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -150,7 +161,18 @@
                 android:text="忘记密码?"
                 android:textColor="#98CAD2"
                 android:textSize="10sp" />
-        </LinearLayout> -->
+        </LinearLayout>
+        -->
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/findpwd_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="忘记密码?"
+            android:textColor="#0000FF"
+            android:textSize="10sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,18 +182,41 @@
 
             <Button
                 android:id="@+id/signinBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/signin_btn_style"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="8dp"
                 android:text="登录"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <Button
+        android:layout_marginBottom="10dp"
+        android:id="@+id/signUpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/light_gray"
+        android:text="注册"
+        android:textColor="@color/text_gray"
+        android:textSize="10sp" />
+
+    <!--
+         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -179,6 +224,7 @@
         android:layout_marginBottom="20dp"
         android:text="2014拍立行"
         android:textSize="15sp" />
+    -->
 
     <include layout="@layout/item_transparent_progressbar" />
 

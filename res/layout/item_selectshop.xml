@@ -34,7 +34,7 @@
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="店名"
-            android:textColor="@color/gray"
+            android:textColor="@color/text_gray"
             android:textSize="12sp" />
     </LinearLayout>
 

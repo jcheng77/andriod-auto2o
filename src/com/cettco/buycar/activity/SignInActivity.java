@@ -41,6 +41,7 @@ public class SignInActivity extends Activity{
 	private EditText signinPasswordeEditText;
 	private RelativeLayout progressLayout;
 	private TextView titleTextView;
+	private Button signUpBtn;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -49,8 +50,8 @@ public class SignInActivity extends Activity{
 		//getActionBar().hide();
 		titleTextView = (TextView)findViewById(R.id.title_text);
 		titleTextView.setText("登录");
-		TextView signUpTextView = (TextView)findViewById(R.id.signUpText);
-		signUpTextView.setOnClickListener(signUpClickListener);
+		signUpBtn = (Button)findViewById(R.id.signUpBtn);
+		signUpBtn.setOnClickListener(signUpClickListener);
 		TextView findpwdteTextView = (TextView)findViewById(R.id.findpwd_text);
 		findpwdteTextView.setOnClickListener(findpwdclClickListener);
 		

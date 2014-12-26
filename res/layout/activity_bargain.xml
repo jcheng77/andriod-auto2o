@@ -15,10 +15,13 @@
         android:layout_marginTop="5dp" >
 
         <LinearLayout
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,8 +56,11 @@
                     android:text="元"
                     android:textColor="@color/orange" />
             </LinearLayout>
+            -->
 
-            <SeekBar
+
+            <!--
+                 <SeekBar
                 android:background="@color/white"
                 android:id="@+id/price_seekbar"
                 android:layout_width="fill_parent"
@@ -64,6 +70,7 @@
                 android:progressDrawable="@drawable/price_progressbar"
                 android:thumb="@drawable/thumb"
                 android:progress="50" />
+            -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -311,6 +318,7 @@
                 android:layout_marginRight="@dimen/activity_bargain_left_right"
                 android:background="@color/bargain_seperator" />
 
+            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -337,11 +345,13 @@
                     android:hint="请填写车主姓名"
                     android:singleLine="true" />
             </LinearLayout>
+            -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/car_detail_front"
+                android:layout_marginTop="30dp"
+                android:background="@color/car_detail_front"                
                 android:orientation="vertical" >
 
                 <TextView
@@ -367,16 +377,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
                 android:background="@color/car_detail_front"
                 android:gravity="center" >
 
                 <Button
                     android:id="@+id/submit_bargain_price_btn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/beginbuycar_btn_style"
                     android:paddingBottom="8dp"

@@ -1,9 +1,11 @@
 	package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cettco.buycar.R;
@@ -11,12 +13,14 @@ import com.cettco.buycar.entity.User;
 import com.cettco.buycar.entity.UserEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -65,37 +69,6 @@ public class FindPwdActivity extends Activity{
 		titleTextView.setText("找回密码");
 		
 	}
-//	protected OnClickListener checkcodeBtnClickListener = new OnClickListener() {
-//		
-//		@Override
-//		public void onClick(View arg0) {
-//			// TODO Auto-generated method stub
-//			String url = "";
-//			String phone = signupPhoneEditText.getText().toString();
-//			RequestParams params = new RequestParams();
-//			params.put("dealer[phone]", phone);
-//			HttpConnection.post(url, params, new JsonHttpResponseHandler(){
-//
-//				@Override
-//				public void onFailure(int statusCode, Header[] headers,
-//						Throwable throwable, JSONObject errorResponse) {
-//					// TODO Auto-generated method stub
-//					super.onFailure(statusCode, headers, throwable, errorResponse);
-//					progressLayout.setVisibility(View.GONE);
-//				}
-//
-//				@Override
-//				public void onSuccess(int statusCode, Header[] headers,
-//						JSONObject response) {
-//					// TODO Auto-generated method stub
-//					super.onSuccess(statusCode, headers, response);
-//					progressLayout.setVisibility(View.GONE);
-//				}
-//				
-//			});
-//			progressLayout.setVisibility(View.VISIBLE);
-//		}
-//	};
 	protected OnClickListener signupBtnClickListener =new OnClickListener() {
 		
 		@Override
@@ -116,30 +89,38 @@ public class FindPwdActivity extends Activity{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			HttpConnection.post(FindPwdActivity.this, url, null, entity, "application/json", new AsyncHttpResponseHandler() {
-				
+			HttpConnection.post(FindPwdActivity.this, url, null, entity, "application/json", new JsonHttpResponseHandler(){
 				@Override
-				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-					progressLayout.setVisibility(View.GONE);
+				public void onFailure(int statusCode, Header[] headers,
+						Throwable throwable, JSONObject errorResponse) {
 					// TODO Auto-generated method stub
-					Message msg = new Message();
-					msg.what = SENDSUCCESS;
-					mHandler.sendMessage(msg);
-				}
-				
-				@Override
-				public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+					super.onFailure(statusCode, headers, throwable,
+							errorResponse);
+					System.out.println("fail:");
+					System.out.println("statuscode:"+statusCode);
 					progressLayout.setVisibility(View.GONE);
-					// TODO Auto-generated method stub
 					Message msg = new Message();
 					msg.what = SENDFAILURE;
 					mHandler.sendMessage(msg);
-					
+				}
+
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						JSONObject response) {
+					// TODO Auto-generated method stub
+					super.onSuccess(statusCode, headers, response);
+					System.out.println("success:");
+					System.out.println("statuscode:"+statusCode);
+					progressLayout.setVisibility(View.GONE);
+					Message msg = new Message();
+					msg.what = SENDSUCCESS;
+					mHandler.sendMessage(msg);
 				}
 			});
 			progressLayout.setVisibility(View.VISIBLE);
 		}
 	};
+	
 	Handler mHandler = new Handler(){
 
 		@Override
