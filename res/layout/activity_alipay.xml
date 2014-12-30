@@ -176,7 +176,7 @@
                         android:textColor="@color/text_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="定金金额: "
+                        android:text="订金金额: "
                         android:textSize="@dimen/text_size_middle" />
 
                     <TextView
@@ -407,7 +407,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
-                        android:text="预付款到拍立行"
+                        android:text="订金可退还"
                         android:textColor="@color/text_gray"
                         android:textSize="@dimen/can_icon_textsize" />
                 </LinearLayout>
@@ -427,7 +427,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
-                        android:text="订金可退还"
+                        android:text="可抵购车款"
                         android:textColor="@color/text_gray"
                         android:textSize="@dimen/can_icon_textsize" />
                 </LinearLayout>

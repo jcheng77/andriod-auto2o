@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.cettco.buycar.R;
+import com.cettco.buycar.adapter.MyBaseListAdapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,6 +26,7 @@ public class SelectCityActivity extends Activity{
 	private ListView listView;
 	private TextView currentCitytTextView;
 	private TextView titleTextView;
+	private MyBaseListAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -37,8 +39,7 @@ public class SelectCityActivity extends Activity{
 		arrayList = new ArrayList<String>();
 		arrayList.add("上海");
 		arrayList.add("北京");
-		final StableArrayAdapter adapter = new StableArrayAdapter(this,
-		        android.R.layout.simple_list_item_1, arrayList);
+		adapter = new MyBaseListAdapter(this,R.layout.item_my_base_list, arrayList);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listViewClickListener);
 		

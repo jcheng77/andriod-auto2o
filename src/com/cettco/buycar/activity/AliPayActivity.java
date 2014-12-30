@@ -175,7 +175,7 @@ public class AliPayActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			String bodyString= detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName();
-			pay("定金支付",bodyString,String.valueOf(actual));
+			pay("定金支付",bodyString,"0.01");
 		}
 	};
 

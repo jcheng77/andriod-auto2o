@@ -19,6 +19,7 @@ import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -44,6 +45,7 @@ public class SettingsFragment extends Fragment{
 	private ImageView loginArrow;
 	
 	private RelativeLayout checkUpdateLayout;
+	private TextView checkUpdateTextView;
 	private LinearLayout phonelLayout;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -64,7 +66,17 @@ public class SettingsFragment extends Fragment{
 		
 		checkUpdateLayout = (RelativeLayout)fragmentView.findViewById(R.id.settings_check_update_layout);
 		checkUpdateLayout.setOnClickListener(checkUpdateClickListener);
+		checkUpdateTextView = (TextView)fragmentView.findViewById(R.id.settings_check_update_textView);
 		
+		
+		try {
+			// 获取软件版本号，对应AndroidManifest.xml下android:versionCode
+			String  versionName  = getActivity().getPackageManager().getPackageInfo(
+					"com.cettco.buycar", 0).versionName;
+			checkUpdateTextView.setText("当前版本v"+versionName);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
 		phonelLayout = (LinearLayout)fragmentView.findViewById(R.id.settings_phone_linearlayout);
 		phonelLayout.setOnClickListener(phoneClickListener);
 		return fragmentView;
@@ -105,7 +117,7 @@ public class SettingsFragment extends Fragment{
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			UpdateManager manager = new UpdateManager(getActivity());  
+			UpdateManager manager = new UpdateManager(getActivity(),1);  
 			// 检查软件更新  
 			manager.checkUpdate();
 		}
@@ -129,7 +141,7 @@ public class SettingsFragment extends Fragment{
 			UserUtil.logout(getActivity());
 			PersistentCookieStore myCookieStore = new PersistentCookieStore(
 					getActivity());
-			if(myCookieStore==null)return;
+			if(myCookieStore!=null)
 			myCookieStore.clear();
 			Toast toast = Toast.makeText(getActivity(), "注销成功", Toast.LENGTH_SHORT);
 			toast.show();

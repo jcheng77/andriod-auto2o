@@ -23,20 +23,22 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_marginLeft="15dp"
-                    android:layout_gravity="center"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
                     android:src="@drawable/pailixing_logo" />
 
-                <!-- <TextView
+                <!--
+                     <TextView
                     android:textStyle="bold|italic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:text="拍立行"
                     android:textSize="@dimen/text_size_extra_large"
-                    android:textColor="@color/white" /> -->
+                    android:textColor="@color/white" />
+                -->
             </LinearLayout>
 
             <LinearLayout
@@ -90,7 +92,8 @@
                 android:padding="10dp"
                 android:text="首页"
                 android:textSize="20sp" />
-        </LinearLayout>   -->
+        </LinearLayout>
+        -->
 
         <ImageView
             android:layout_width="fill_parent"
@@ -105,9 +108,9 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:layout_marginLeft="20dp"
                 android:layout_width="@dimen/slidingmenu_row_height"
                 android:layout_height="@dimen/slidingmenu_row_height"
+                android:layout_marginLeft="20dp"
                 android:src="@drawable/ic_action_mycar" />
 
             <TextView
@@ -126,25 +129,24 @@
             android:background="#ffffff" />
 
         <LinearLayout
-            
-            android:id="@+id/settingLinearlayout"
+            android:id="@+id/guideLinearlayout"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/slidingmenu_row_height"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
             <ImageView
-                android:layout_marginLeft="20dp"
-                android:layout_width="@dimen/slidingmenu_row_height"
-                android:layout_height="@dimen/slidingmenu_row_height"
-                android:src="@drawable/ic_action_settings" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="23dp"
+                android:src="@drawable/ic_action_guide" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:text="设置"
+                android:text="买车指南"
                 android:textColor="@color/slidingmenu_text"
                 android:textSize="@dimen/text_size_middle" />
         </LinearLayout>
@@ -155,24 +157,24 @@
             android:background="#ffffff" />
 
         <LinearLayout
-            android:id="@+id/guideLinearlayout"
+            android:id="@+id/settingLinearlayout"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/slidingmenu_row_height"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
             <ImageView
+                android:layout_width="@dimen/slidingmenu_row_height"
+                android:layout_height="@dimen/slidingmenu_row_height"
                 android:layout_marginLeft="20dp"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:src="@drawable/ic_action_guide" />
+                android:src="@drawable/ic_action_settings" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:text="买车指南"
+                android:text="设置"
                 android:textColor="@color/slidingmenu_text"
                 android:textSize="@dimen/text_size_middle" />
         </LinearLayout>

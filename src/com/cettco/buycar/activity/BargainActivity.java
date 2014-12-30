@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HandshakeCompletedListener;
+
 import org.apache.http.Header;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
@@ -26,6 +28,7 @@ import com.cettco.buycar.entity.Tender;
 import com.cettco.buycar.entity.TenderEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UserUtil;
 import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
@@ -41,6 +44,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.View;
@@ -61,6 +66,9 @@ public class BargainActivity extends Activity {
 	public final int RESULT_LOCATION = 3;
 	public final int RESULT_PLATE = 4;
 	public final int RESULT_SHOP = 5;
+	
+	public final int RESULT_UNAUTHORIZED = 6;
+	public final int RESULT_UNPROCESSABLE = 7;
 
 	// private TextView agreementTextView;
 
@@ -319,7 +327,7 @@ public class BargainActivity extends Activity {
 		String description = descriptionEditText.getText().toString();
 		//tender.setde
 		tender.setDescription(description);
-		Map<String, String> shops = new HashMap<>();
+		Map<String, String> shops = new HashMap<String, String>();
 		for (int i = 0; i < dealers.size(); i++) {
 			shops.put(dealers.get(i), "1");
 		}
@@ -356,23 +364,22 @@ public class BargainActivity extends Activity {
 						System.out.println("error");
 						System.out.println("statusCode:" + statusCode);
 						System.out.println("headers:" + headers);
-						Toast toast = Toast.makeText(BargainActivity.this,
-								"提交失败", Toast.LENGTH_SHORT);
-						toast.show();
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						// TODO Auto-generated method stub
-						super.onFailure(statusCode, headers, responseString,
-								throwable);
-						progressLayout.setVisibility(View.GONE);
-						System.out.println("2");
-						Toast toast = Toast.makeText(BargainActivity.this,
-								"提交失败", Toast.LENGTH_SHORT);
-						toast.show();
-					}
+						if(statusCode==401){
+							Message msg = new Message();
+							msg.what = RESULT_UNAUTHORIZED;
+							handler.sendMessage(msg);
+						}
+						else if(statusCode==422){
+							Message msg = new Message();
+							msg.what = RESULT_UNPROCESSABLE;
+							handler.sendMessage(msg);
+						}else{
+							Toast toast = Toast.makeText(BargainActivity.this,
+									"提交失败,请重新提交", Toast.LENGTH_SHORT);
+							toast.show();
+						}
+						
+											}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
@@ -538,6 +545,36 @@ public class BargainActivity extends Activity {
 		}
 	}
 
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case RESULT_UNAUTHORIZED:
+				Toast toast = Toast.makeText(BargainActivity.this,
+						"登陆信息失效，请重新登陆", Toast.LENGTH_SHORT);
+				toast.show();
+				UserUtil.logout(BargainActivity.this);
+				PersistentCookieStore myCookieStore = new PersistentCookieStore(
+						BargainActivity.this);
+				if(myCookieStore!=null)
+				myCookieStore.clear();
+				Intent intent = new Intent();
+				intent.setClass(BargainActivity.this, SignInActivity.class);
+				startActivity(intent);
+				break;
+			case RESULT_UNPROCESSABLE:
+				Toast toast2 = Toast.makeText(BargainActivity.this,
+						"每日订单提交已达上限，请明日再试", Toast.LENGTH_SHORT);
+				toast2.show();
+			default:
+				break;
+			}
+		}
+		
+	};
 	@Override
 	protected void onResume() {
 		super.onResume();

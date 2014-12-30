@@ -48,7 +48,11 @@ public class ParseXmlService
                 else if (("url".equals(childElement.getNodeName())))  
                 {  
                     hashMap.put("url",childElement.getFirstChild().getNodeValue());  
-                }  
+                }
+                else if (("content".equals(childElement.getNodeName())))  
+                {  
+                    hashMap.put("content"+j,childElement.getFirstChild().getNodeValue());  
+                } 
             }  
         }  
         return hashMap;  

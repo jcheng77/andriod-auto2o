@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="裸车价"
+                android:text="裸车价:"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/text_size_large" />
 
@@ -115,7 +115,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="优惠"
+                    android:text="优惠:"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_size_middle" />
 
@@ -154,10 +154,12 @@
             android:orientation="horizontal"
             android:padding="10dp" >
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/co_buyername" />
+                android:text="我的姓名:"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/text_size_large" />
 
             <EditText
                 android:id="@+id/activity_bargain_name_textview"

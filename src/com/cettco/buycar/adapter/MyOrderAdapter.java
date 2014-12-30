@@ -7,6 +7,7 @@ import com.baidu.mapapi.search.poi.PoiBoundSearchOption;
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.CancleReasonActivity;
 import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.minterface.RefreshInterface;
 import com.cettco.buycar.utils.MyApplication;
 import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 
@@ -34,6 +35,7 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 
 	private Context context;
 	private List<OrderItemEntity> list;
+	private RefreshInterface mRefreshInterface ;
 
 	public MyOrderAdapter(Context context, int resource,
 			List<OrderItemEntity> list) {
@@ -191,7 +193,8 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 							try {
 								helper.getDao().delete(entity);
 								list.remove(pos);
-								notifyDataSetChanged();
+								mRefreshInterface.refresh();
+								//notifyDataSetChanged();
 							} catch (SQLException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -223,6 +226,9 @@ public class MyOrderAdapter extends ArrayAdapter<OrderItemEntity> {
 		Button cancelButton;
 		RelativeLayout cancellaLayout;
 		LinearLayout priceLayout;
+	}
+	public void setInterface(RefreshInterface refreshInterface){
+		mRefreshInterface = refreshInterface;
 	}
 
 }

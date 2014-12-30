@@ -18,16 +18,19 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.v4.app.NotificationCompat;
 
 public class UpdateService extends Service{
 
 	private String url = null;  
     // 通知栏  
     private NotificationManager updateNotificationManager = null;  
-    private Notification updateNotification = null;  
+    //private Notification updateNotification = null;  
     private String appName = null;  
     private String fileName = null;  
     private String updateDir = null;  
+    private NotificationCompat.Builder mBuilder;
+    
       
     //通知栏跳转Intent  
       
@@ -43,15 +46,21 @@ public class UpdateService extends Service{
             Intent nullIntent = new Intent();  
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, nullIntent, 0);  
             // 创建文件  
-            updateNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);  
-            updateNotification = new Notification();  
-            updateNotification.icon = R.drawable.ic_launcher;  
-            updateNotification.tickerText = "正在更新" + appName;  
-            updateNotification.setLatestEventInfo(getApplication(), "正在下载"+appName,"0%", null);  
-            updateNotification.defaults = Notification.DEFAULT_SOUND;  
-            updateNotification.flags = Notification.FLAG_AUTO_CANCEL;  
-            updateNotification.contentIntent = pendingIntent;  
-            updateNotificationManager.notify(101, updateNotification);  
+            updateNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE); 
+            mBuilder = new NotificationCompat.Builder(this);
+            mBuilder.setContentTitle("拍立行更新")
+                .setContentText("正在下载")
+                .setSmallIcon(R.drawable.ic_launcher);
+//            updateNotification = new Notification();  
+//            updateNotification.icon = R.drawable.ic_launcher;  
+//            updateNotification.tickerText = "正在更新" + appName;  
+//            updateNotification.setLatestEventInfo(getApplication(), "正在下载"+appName,"0%", null);  
+//            updateNotification.defaults = Notification.DEFAULT_SOUND;  
+//            updateNotification.flags = Notification.FLAG_AUTO_CANCEL;  
+//            updateNotification.contentIntent = pendingIntent;  
+            //updateNotificationManager.notify(101, updateNotification);  
+            mBuilder.setProgress(100, 0, false);
+            updateNotificationManager.notify(101, mBuilder.build());
             //开启线程现在  
             new Thread(new updateRunnable()).start();  
         }  
@@ -96,20 +105,28 @@ public class UpdateService extends Service{
                 installIntent.setDataAndType(Uri.fromFile(new File(updateDir,fileName)),"application/vnd.android.package-archive");  
                 //getApplication().startActivity(installIntent);*/  
                 PendingIntent updatePendingIntent = PendingIntent.getActivity(UpdateService.this, 0, installIntent, 0);  
-                updateNotification.defaults = Notification.DEFAULT_SOUND;// 铃声提醒  
-                updateNotification.flags = Notification.FLAG_AUTO_CANCEL;  
-                updateNotification.setLatestEventInfo(UpdateService.this,appName, "下载完成,点击安装", updatePendingIntent);  
-                updateNotificationManager.notify(101, updateNotification);  
+//                updateNotification.defaults = Notification.DEFAULT_SOUND;// 铃声提醒  
+//                updateNotification.flags = Notification.FLAG_AUTO_CANCEL;  
+//                updateNotification.setLatestEventInfo(UpdateService.this,appName, "下载完成,点击安装", updatePendingIntent);  
+//                updateNotificationManager.notify(101, updateNotification);  
+                mBuilder.setContentText("下载完成").setProgress(0,0,false);
+                mBuilder.setContentIntent(updatePendingIntent);
+                updateNotificationManager.notify(101, mBuilder.build());
                 // 停止服务  
                 stopSelf();  
                 break;  
             case 1:  
-                Intent nullIntent = new Intent();  
-                PendingIntent pendingIntent = PendingIntent.getActivity(UpdateService.this, 10, nullIntent, 0);  
-                // 下载失败  
-                updateNotification.setLatestEventInfo(UpdateService.this,appName, "网络连接不正常，下载失败！", pendingIntent);  
-                updateNotification.flags = Notification.FLAG_AUTO_CANCEL;  
-                updateNotificationManager.notify(101, updateNotification);  
+//                Intent nullIntent = new Intent();  
+//                PendingIntent pendingIntent = PendingIntent.getActivity(UpdateService.this, 10, nullIntent, 0);  
+//                // 下载失败  
+//                updateNotification.setLatestEventInfo(UpdateService.this,appName, "网络连接不正常，下载失败！", pendingIntent);  
+//                updateNotification.flags = Notification.FLAG_AUTO_CANCEL;  
+//                updateNotificationManager.notify(101, updateNotification);  
+                
+                mBuilder.setContentText("网络连接不正常,下载失败!")
+                // Removes the progress bar
+                        .setProgress(0,0,false);
+                updateNotificationManager.notify(101, mBuilder.build());
                 break;  
             default:  
                 stopSelf();  
@@ -149,13 +166,15 @@ public class UpdateService extends Service{
                 fos.write(buffer, 0, readsize);  
                 totalSize += readsize;  
                 //为了防止频繁的通知导致应用吃紧，百分比增加10才通知一次  
-                if((downloadCount == 0)||(int) (totalSize*100/updateTotalSize)-10>downloadCount){   
-                    downloadCount += 10;  
+                if((downloadCount == 0)||(int) (totalSize*100/updateTotalSize)-1>downloadCount){   
+                    downloadCount += 1;  
                     Intent nullIntent = new Intent();  
                     PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, nullIntent, 0);  
-                    updateNotification.contentIntent = pendingIntent;  
-                    updateNotification.setLatestEventInfo(UpdateService.this, appName+"正在下载", (int)totalSize*100/updateTotalSize+"%", null);  
-                    updateNotificationManager.notify(101, updateNotification);  
+//                    updateNotification.contentIntent = pendingIntent;  
+//                    updateNotification.setLatestEventInfo(UpdateService.this, appName+"正在下载", (int)totalSize*100/updateTotalSize+"%", null);  
+//                    updateNotificationManager.notify(101, updateNotification);  
+                    mBuilder.setProgress(100, (int)totalSize*100/updateTotalSize, false);
+                    updateNotificationManager.notify(101, mBuilder.build());
                 }                          
             }  
         } finally {  

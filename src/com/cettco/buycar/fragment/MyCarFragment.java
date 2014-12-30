@@ -36,6 +36,7 @@ import com.cettco.buycar.activity.SignInActivity;
 import com.cettco.buycar.adapter.MyOrderAdapter;
 import com.cettco.buycar.entity.CarBrandListEntity;
 import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.minterface.RefreshInterface;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.UserUtil;
@@ -130,6 +131,14 @@ public class MyCarFragment extends Fragment {
 		listView.setOnItemClickListener(itemClickListener);
 		adapter = new MyOrderAdapter(getActivity(), R.layout.item_my_order,
 				orderItems);
+		adapter.setInterface(new RefreshInterface() {
+			
+			@Override
+			public void refresh() {
+				// TODO Auto-generated method stub
+				onResume();
+			}
+		});
 		listView.setAdapter(adapter);
 		//guideImage = (ImageView)fragmentView.findViewById(R.id.mycar_guide_imageview);
 		return fragmentView;

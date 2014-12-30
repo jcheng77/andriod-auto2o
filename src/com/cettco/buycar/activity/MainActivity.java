@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -38,20 +39,21 @@ public class MainActivity extends Activity {
 	private LinearLayout guideLayout;
 	private ImageButton addImageButton;
 	private TextView titleTextView;
-	
-	//private LinearLayout welcomelLayout;
-	//private LinearLayout logoutLayout;
-	
-	//private ImageView launchingImageView;
+
+	// private LinearLayout welcomelLayout;
+	// private LinearLayout logoutLayout;
+
+	// private ImageView launchingImageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// setMyTitle("Welcome");
 		setContentView(R.layout.activity_main);
-		//getActionBar().hide();
-		//launchingImageView = (ImageView)findViewById(R.id.launching_imageview);
-		titleTextView = (TextView)findViewById(R.id.welcome_actionbar_title_textview);
+		// getActionBar().hide();
+		// launchingImageView =
+		// (ImageView)findViewById(R.id.launching_imageview);
+		titleTextView = (TextView) findViewById(R.id.welcome_actionbar_title_textview);
 
 		menu = new SlidingMenu(this);
 		menu.setMode(SlidingMenu.LEFT);
@@ -63,24 +65,24 @@ public class MainActivity extends Activity {
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 		menu.setMenu(R.layout.menu);
 
-
 		switchFragment(new MyCarFragment());
-		
-//		logoutLayout = (LinearLayout)findViewById(R.id.logoutLayout);
-//		logoutLayout.setOnClickListener(logoutClickListener);
-		
-//		welcomelLayout = (LinearLayout)findViewById(R.id.welcome_linearLayout);
-//		welcomelLayout.setOnClickListener(welcomeClickListener);
-		
+
+		// logoutLayout = (LinearLayout)findViewById(R.id.logoutLayout);
+		// logoutLayout.setOnClickListener(logoutClickListener);
+
+		// welcomelLayout =
+		// (LinearLayout)findViewById(R.id.welcome_linearLayout);
+		// welcomelLayout.setOnClickListener(welcomeClickListener);
+
 		settingLayout = (LinearLayout) findViewById(R.id.settingLinearlayout);
 		settingLayout.setOnClickListener(settingsClickListener);
-		
+
 		guideLayout = (LinearLayout) findViewById(R.id.guideLinearlayout);
 		guideLayout.setOnClickListener(guideClickListener);
-		
+
 		drawerButton = (ImageButton) findViewById(R.id.actionbar_drawer);
 		drawerButton.setOnClickListener(drawerClickListener);
-		
+
 		cityLayout = (LinearLayout) findViewById(R.id.selectCityLinearLayout);
 		cityLayout.setOnClickListener(selectCityClickListener);
 
@@ -89,11 +91,11 @@ public class MainActivity extends Activity {
 
 		addImageButton = (ImageButton) findViewById(R.id.addCar_btn);
 		addImageButton.setOnClickListener(addCarClickListener);
-		
-		currentCitytTextView= (TextView)findViewById(R.id.menuCurrentCityTextView);
-		
-		//Launching view
-		//launchingImageView.setVisibility(View.GONE);
+
+		currentCitytTextView = (TextView) findViewById(R.id.menuCurrentCityTextView);
+
+		// Launching view
+		// launchingImageView.setVisibility(View.GONE);
 		SharedPreferences settings = getSharedPreferences("city_selection", 0);
 		int selection = settings.getInt("city", 0);
 		switch (selection) {
@@ -106,46 +108,60 @@ public class MainActivity extends Activity {
 		default:
 			break;
 		}
-//		Intent intent = new Intent("com.cettco.buycar.checkupdate");  
-//	    //intent.putExtra("msg", "hello receiver.");  
-//	    sendBroadcast(intent);
-		//testJson();
-		//jpushSetAlias();
-		UpdateManager manager = new UpdateManager(this);  
-		// 检查软件更新  
-		manager.checkUpdate();
+		// Intent intent = new Intent("com.cettco.buycar.checkupdate");
+		// //intent.putExtra("msg", "hello receiver.");
+		// sendBroadcast(intent);
+		// testJson();
+		// jpushSetAlias();
+		SharedPreferences updatePreferences = getSharedPreferences("update", 0);
+		SimpleDateFormat format = new SimpleDateFormat(
+				"yyyyMMdd", Locale.getDefault());
+		Date date = new Date();
+		String date_now = format.format(date);
+		String lasted_update= updatePreferences.getString("time", "19700101");
+		if(!date_now.equals(lasted_update)){
+			UpdateManager manager = new UpdateManager(this);
+			// 检查软件更新
+			manager.checkUpdate();
+		}
+		
 
 	}
-	void testJson(){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+
+	void testJson() {
+		DateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:sss'Z'");
 		Date date = new Date();
-		System.out.println("date:"+dateFormat.format(date));
-		String dtStart = "2010-10-15T09:27:37Z";  
-		SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");  
-		try {  
-		    Date date2 = format.parse(dtStart);  
-		    System.out.println("date2:"+date2);  
-		} catch (ParseException e) {  
-		    // TODO Auto-generated catch block  
-		    e.printStackTrace();  
+		System.out.println("date:" + dateFormat.format(date));
+		String dtStart = "2010-10-15T09:27:37Z";
+		SimpleDateFormat format = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:sss'Z'");
+		try {
+			Date date2 = format.parse(dtStart);
+			System.out.println("date2:" + date2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	protected void getData(){
+
+	protected void getData() {
 		String url = "";
-		HttpConnection.get(url, new JsonHttpResponseHandler(){
+		HttpConnection.get(url, new JsonHttpResponseHandler() {
 
 			@Override
 			public void onSuccess(int statusCode, Header[] headers,
 					JSONObject response) {
 				// TODO Auto-generated method stub
 				super.onSuccess(statusCode, headers, response);
-				//Data.IMAGE_CACHE.get
+				// Data.IMAGE_CACHE.get
 			}
-			
+
 		});
 	}
+
 	@Override
-	protected void onResume(){
+	protected void onResume() {
 		super.onResume();
 		SharedPreferences settings = getSharedPreferences("city_selection", 0);
 		int selection = settings.getInt("city", 0);
@@ -160,65 +176,67 @@ public class MainActivity extends Activity {
 			break;
 		}
 	}
-//	protected OnClickListener logoutClickListener = new OnClickListener() {
-//		
-//		@Override
-//		public void onClick(View arg0) {
-//			// TODO Auto-generated method stub
-//			UserUtil.logout(MainActivity.this);
-//			PersistentCookieStore myCookieStore = new PersistentCookieStore(
-//					MainActivity.this);
-//			if(myCookieStore==null)return;
-//			myCookieStore.clear();
-//			switchFragment(new WelcomeFragment());
-//			setMyTitle("Welcome");
-//			logoutLayout.setVisibility(View.GONE);
-//			addImageButton.setVisibility(View.VISIBLE);
-//			Toast toast = Toast.makeText(MainActivity.this, "注销成功", Toast.LENGTH_SHORT);
-//			toast.show();
-//			//menu.toggle();
-//		}
-//	};
+
+	// protected OnClickListener logoutClickListener = new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View arg0) {
+	// // TODO Auto-generated method stub
+	// UserUtil.logout(MainActivity.this);
+	// PersistentCookieStore myCookieStore = new PersistentCookieStore(
+	// MainActivity.this);
+	// if(myCookieStore==null)return;
+	// myCookieStore.clear();
+	// switchFragment(new WelcomeFragment());
+	// setMyTitle("Welcome");
+	// logoutLayout.setVisibility(View.GONE);
+	// addImageButton.setVisibility(View.VISIBLE);
+	// Toast toast = Toast.makeText(MainActivity.this, "注销成功",
+	// Toast.LENGTH_SHORT);
+	// toast.show();
+	// //menu.toggle();
+	// }
+	// };
 	protected OnClickListener mycarClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-//			Intent intent = new Intent();
-//			intent.setClass(MainActivity.this, SignInActivity.class);
-//			startActivity(intent);
-//			if(UserUtil.isLogin(MainActivity.this)){
-//				switchFragment(new MyCarFragment());
-//				setMyTitle("My car");
-//				logoutLayout.setVisibility(View.VISIBLE);
-//				addImageButton.setVisibility(View.GONE);
-//				menu.toggle();
-//			}
-//			else {
-//				Intent intent = new Intent();
-//				intent.setClass(MainActivity.this, SignInActivity.class);
-//				startActivity(intent);
-//			}
+			// Intent intent = new Intent();
+			// intent.setClass(MainActivity.this, SignInActivity.class);
+			// startActivity(intent);
+			// if(UserUtil.isLogin(MainActivity.this)){
+			// switchFragment(new MyCarFragment());
+			// setMyTitle("My car");
+			// logoutLayout.setVisibility(View.VISIBLE);
+			// addImageButton.setVisibility(View.GONE);
+			// menu.toggle();
+			// }
+			// else {
+			// Intent intent = new Intent();
+			// intent.setClass(MainActivity.this, SignInActivity.class);
+			// startActivity(intent);
+			// }
 			switchFragment(new MyCarFragment());
 			setMyTitle("我的车");
-			//logoutLayout.setVisibility(View.VISIBLE);
-			//addImageButton.setVisibility(View.GONE);
+			// logoutLayout.setVisibility(View.VISIBLE);
+			// addImageButton.setVisibility(View.GONE);
 			menu.toggle();
 		}
-		
+
 	};
-//	protected OnClickListener welcomeClickListener = new OnClickListener() {
-//		
-//		@Override
-//		public void onClick(View arg0) {
-//			// TODO Auto-generated method stub
-//			//logoutLayout.setVisibility(View.GONE);
-//			//addImageButton.setVisibility(View.VISIBLE);
-//			switchFragment(new WelcomeFragment());
-//			setMyTitle("首页");
-//			menu.toggle();
-//		}
-//	};
+	// protected OnClickListener welcomeClickListener = new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View arg0) {
+	// // TODO Auto-generated method stub
+	// //logoutLayout.setVisibility(View.GONE);
+	// //addImageButton.setVisibility(View.VISIBLE);
+	// switchFragment(new WelcomeFragment());
+	// setMyTitle("首页");
+	// menu.toggle();
+	// }
+	// };
 	protected OnClickListener addCarClickListener = new OnClickListener() {
 
 		@Override
@@ -227,7 +245,7 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, CarListActivity.class);
 			startActivity(intent);
-			
+
 		}
 	};
 
@@ -238,11 +256,11 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, SelectCityActivity.class);
-//			ArrayList<String> myArrayList = new ArrayList<String>();
-//			myArrayList.add("Beijin");
-//			myArrayList.add("Shanghai");
-//			myArrayList.add("Guangzhou");
-//			intent.putStringArrayListExtra("list", myArrayList);
+			// ArrayList<String> myArrayList = new ArrayList<String>();
+			// myArrayList.add("Beijin");
+			// myArrayList.add("Shanghai");
+			// myArrayList.add("Guangzhou");
+			// intent.putStringArrayListExtra("list", myArrayList);
 			startActivity(intent);
 		}
 	};
@@ -262,13 +280,13 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			switchFragment(new SettingsFragment());
 			setMyTitle("设置");
-			//menu.
-			//System.out.println(menu.isActivated());
+			// menu.
+			// System.out.println(menu.isActivated());
 			menu.toggle();
-			//System.out.println(menu.isActivated());
-//			Intent intent = new Intent();
-//			intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
-//			startActivity(intent);
+			// System.out.println(menu.isActivated());
+			// Intent intent = new Intent();
+			// intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
+			// startActivity(intent);
 		}
 	};
 	protected OnClickListener guideClickListener = new OnClickListener() {
@@ -278,19 +296,20 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			switchFragment(new GuideFragment());
 			setMyTitle("买车指南");
-			//menu.
-			//System.out.println(menu.isActivated());
+			// menu.
+			// System.out.println(menu.isActivated());
 			menu.toggle();
-			//System.out.println(menu.isActivated());
-//			Intent intent = new Intent();
-//			intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
-//			startActivity(intent);
+			// System.out.println(menu.isActivated());
+			// Intent intent = new Intent();
+			// intent.setClass(MainActivity.this, OrderHasDealerActivity.class);
+			// startActivity(intent);
 		}
 	};
 
-	protected void setMyTitle(String title){
+	protected void setMyTitle(String title) {
 		titleTextView.setText(title);
 	}
+
 	protected void switchFragment(Fragment fragment) {
 		getFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
