@@ -32,6 +32,7 @@ import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
 
 import android.R.integer;
 import android.app.Activity;
@@ -47,6 +48,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +96,8 @@ public class AliPayActivity extends Activity {
 	private TextView amountTextView;
 	private TextView discountTextView;
 	private TextView actualTextView;
+	
+	private LinearLayout couponLly;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +136,9 @@ public class AliPayActivity extends Activity {
 		discountTextView= (TextView)findViewById(R.id.alipay_discount_textview);
 		actualTextView= (TextView)findViewById(R.id.alipay_actual_price);
 		
+		couponLly = (LinearLayout)findViewById(R.id.bargain_coupon_lly);
+		couponLly.setOnClickListener(couponClickListener);
+		
 		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
 		try {
 			orderItemEntity = orderHelper.getDao().queryBuilder().where()
@@ -148,6 +155,32 @@ public class AliPayActivity extends Activity {
 		getData();
 	}
 
+	private OnClickListener couponClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(AliPayActivity.this, CouponActivity.class);
+			startActivityForResult(intent, 1);
+		}
+	};
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (data == null)
+			return;
+		System.out.println("resultcode :" + resultCode + " requestcode:"
+				+ requestCode);
+		Bundle b = data.getExtras();
+		switch (resultCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
+		case RESULT_OK:
+			// data为B中回传的Intent
+			// int position = b.getInt("result");
+			discountTextView.setText(String.valueOf(b.getInt("result")));
+			break;
+		default:
+			break;
+		}
+	}
 	private OnClickListener webClickListener = new OnClickListener() {
 
 		@Override
@@ -542,4 +575,12 @@ public class AliPayActivity extends Activity {
 	public void exitClick(View view) {
 		this.finish();
 	}
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+		}
+		public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+		}
 }

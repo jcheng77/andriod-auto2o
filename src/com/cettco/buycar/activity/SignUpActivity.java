@@ -1,4 +1,4 @@
-	package com.cettco.buycar.activity;
+package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
 
@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SignUpActivity extends Activity{
+public class SignUpActivity extends Activity {
 
 	private EditText signupPhoneEditText;
 	private EditText signupPasswordEditText;
@@ -40,135 +41,145 @@ public class SignUpActivity extends Activity{
 	private RelativeLayout progressLayout;
 	private static final int SENDSUCCESS = 1;
 	private static final int SENDFAILURE = 2;
-	
+
 	private TextView titleTextView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup);
-		//getActionBar().hide();
-		titleTextView = (TextView)findViewById(R.id.title_text);
+		// getActionBar().hide();
+		titleTextView = (TextView) findViewById(R.id.title_text);
 		titleTextView.setText("注册");
-		signupButton = (Button)findViewById(R.id.signupBtn);
+		signupButton = (Button) findViewById(R.id.signupBtn);
 		signupButton.setOnClickListener(signupBtnClickListener);
-		
-		signupPhoneEditText = (EditText)findViewById(R.id.signupPhoneEditText);
-//		signupPasswordEditText = (EditText)findViewById(R.id.signupPasswordEdit);
-//		signupRePasswordeEditText = (EditText)findViewById(R.id.signupRePasswordEditText);
-//		
-//		checkcodeButton = (Button)findViewById(R.id.signupCheckcodeBtn);
-//		checkcodeButton.setOnClickListener(checkcodeBtnClickListener);
-//		
-//		checkcodeEditText = (EditText)findViewById(R.id.signupCheckcodeEditText);
-		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
-		
+
+		signupPhoneEditText = (EditText) findViewById(R.id.signupPhoneEditText);
+		// signupPasswordEditText =
+		// (EditText)findViewById(R.id.signupPasswordEdit);
+		// signupRePasswordeEditText =
+		// (EditText)findViewById(R.id.signupRePasswordEditText);
+		//
+		// checkcodeButton = (Button)findViewById(R.id.signupCheckcodeBtn);
+		// checkcodeButton.setOnClickListener(checkcodeBtnClickListener);
+		//
+		// checkcodeEditText =
+		// (EditText)findViewById(R.id.signupCheckcodeEditText);
+		progressLayout = (RelativeLayout) findViewById(R.id.progressbar_relativeLayout);
+
 	}
-//	protected OnClickListener checkcodeBtnClickListener = new OnClickListener() {
-//		
-//		@Override
-//		public void onClick(View arg0) {
-//			// TODO Auto-generated method stub
-//			String url = "";
-//			String phone = signupPhoneEditText.getText().toString();
-//			RequestParams params = new RequestParams();
-//			params.put("dealer[phone]", phone);
-//			HttpConnection.post(url, params, new JsonHttpResponseHandler(){
-//
-//				@Override
-//				public void onFailure(int statusCode, Header[] headers,
-//						Throwable throwable, JSONObject errorResponse) {
-//					// TODO Auto-generated method stub
-//					super.onFailure(statusCode, headers, throwable, errorResponse);
-//					progressLayout.setVisibility(View.GONE);
-//				}
-//
-//				@Override
-//				public void onSuccess(int statusCode, Header[] headers,
-//						JSONObject response) {
-//					// TODO Auto-generated method stub
-//					super.onSuccess(statusCode, headers, response);
-//					progressLayout.setVisibility(View.GONE);
-//				}
-//				
-//			});
-//			progressLayout.setVisibility(View.VISIBLE);
-//		}
-//	};
-	protected OnClickListener signupBtnClickListener =new OnClickListener() {
-		
+
+	// protected OnClickListener checkcodeBtnClickListener = new
+	// OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View arg0) {
+	// // TODO Auto-generated method stub
+	// String url = "";
+	// String phone = signupPhoneEditText.getText().toString();
+	// RequestParams params = new RequestParams();
+	// params.put("dealer[phone]", phone);
+	// HttpConnection.post(url, params, new JsonHttpResponseHandler(){
+	//
+	// @Override
+	// public void onFailure(int statusCode, Header[] headers,
+	// Throwable throwable, JSONObject errorResponse) {
+	// // TODO Auto-generated method stub
+	// super.onFailure(statusCode, headers, throwable, errorResponse);
+	// progressLayout.setVisibility(View.GONE);
+	// }
+	//
+	// @Override
+	// public void onSuccess(int statusCode, Header[] headers,
+	// JSONObject response) {
+	// // TODO Auto-generated method stub
+	// super.onSuccess(statusCode, headers, response);
+	// progressLayout.setVisibility(View.GONE);
+	// }
+	//
+	// });
+	// progressLayout.setVisibility(View.VISIBLE);
+	// }
+	// };
+	protected OnClickListener signupBtnClickListener = new OnClickListener() {
+
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			String url = GlobalData.getBaseUrl()+"/users/register.json";
+			String url = GlobalData.getBaseUrl() + "/users/register.json";
 			String phone = signupPhoneEditText.getText().toString();
 			User user = new User();
 			user.setPhone(phone);
 			UserEntity userEntity = new UserEntity();
 			userEntity.setUser(user);
 			Gson gson = new Gson();
-	        StringEntity entity = null;
-	        try {
-	        	System.out.println(gson.toJson(userEntity).toString());
+			StringEntity entity = null;
+			try {
+				System.out.println(gson.toJson(userEntity).toString());
 				entity = new StringEntity(gson.toJson(userEntity).toString());
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			HttpConnection.post(SignUpActivity.this, url, null, entity, "application/json", new JsonHttpResponseHandler(){
+			HttpConnection.post(SignUpActivity.this, url, null, entity,
+					"application/json", new JsonHttpResponseHandler() {
 
-				@Override
-				public void onFailure(int statusCode, Header[] headers,
-						Throwable throwable, JSONObject errorResponse) {
-					// TODO Auto-generated method stub
-					super.onFailure(statusCode, headers, throwable, errorResponse);
-					progressLayout.setVisibility(View.GONE);
-//					System.out.println("error");
-//					System.out.println("statusCode:"+statusCode);
-//					System.out.println("headers:"+headers);
-//					for(int i = 0;i<headers.length;i++){
-//						System.out.println(headers[i]);
-//					}
-//					System.out.println("response:"+errorResponse);
-					Message msg = new Message();
-					msg.what = SENDFAILURE;
-					mHandler.sendMessage(msg);
-				}
+						@Override
+						public void onFailure(int statusCode, Header[] headers,
+								Throwable throwable, JSONObject errorResponse) {
+							// TODO Auto-generated method stub
+							super.onFailure(statusCode, headers, throwable,
+									errorResponse);
+							progressLayout.setVisibility(View.GONE);
+							// System.out.println("error");
+							// System.out.println("statusCode:"+statusCode);
+							// System.out.println("headers:"+headers);
+							// for(int i = 0;i<headers.length;i++){
+							// System.out.println(headers[i]);
+							// }
+							// System.out.println("response:"+errorResponse);
+							Message msg = new Message();
+							msg.what = SENDFAILURE;
+							mHandler.sendMessage(msg);
+						}
 
-				@Override
-				public void onSuccess(int statusCode, Header[] headers,
-						JSONObject response) {
-					// TODO Auto-generated method stub
-					super.onSuccess(statusCode, headers, response);
-					progressLayout.setVisibility(View.GONE);
-//					System.out.println("success");
-//					System.out.println("statusCode:"+statusCode);
-//					System.out.println("headers:"+headers);
-//					for(int i = 0;i<headers.length;i++){
-//						System.out.println(headers[i]);
-//					}
-//					System.out.println("response:"+response);
-					Message msg = new Message();
-					msg.what = SENDSUCCESS;
-					mHandler.sendMessage(msg);
-				}
-				
-			});
+						@Override
+						public void onSuccess(int statusCode, Header[] headers,
+								JSONObject response) {
+							// TODO Auto-generated method stub
+							super.onSuccess(statusCode, headers, response);
+							progressLayout.setVisibility(View.GONE);
+							// System.out.println("success");
+							// System.out.println("statusCode:"+statusCode);
+							// System.out.println("headers:"+headers);
+							// for(int i = 0;i<headers.length;i++){
+							// System.out.println(headers[i]);
+							// }
+							// System.out.println("response:"+response);
+							Message msg = new Message();
+							msg.what = SENDSUCCESS;
+							mHandler.sendMessage(msg);
+						}
+
+					});
 			progressLayout.setVisibility(View.VISIBLE);
 		}
 	};
-	Handler mHandler = new Handler(){
+	Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case SENDSUCCESS:
-				Toast toast = Toast.makeText(SignUpActivity.this, "发送验证码成功", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(SignUpActivity.this, "发送验证码成功",
+						Toast.LENGTH_SHORT);
 				toast.show();
 				break;
 			case SENDFAILURE:
-				Toast toast2 = Toast.makeText(SignUpActivity.this, "发送验证码失败", Toast.LENGTH_SHORT);
+				Toast toast2 = Toast.makeText(SignUpActivity.this, "发送验证码失败",
+						Toast.LENGTH_SHORT);
 				toast2.show();
 				break;
 
@@ -176,11 +187,21 @@ public class SignUpActivity extends Activity{
 				break;
 			}
 		}
-		
+
 	};
-	public void exitClick(View view)
-	{
+
+	public void exitClick(View view) {
 		this.finish();
 	}
-	
+
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+
 }

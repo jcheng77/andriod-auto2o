@@ -40,6 +40,7 @@ import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -265,6 +266,7 @@ public class CarListActivity extends Activity {
 		// carExpandedView.set
 		// pullToRefreshView.
 		super.onResume();
+		MobclickAgent.onResume(this);
 		//getCachedData();
 	}
 
@@ -631,6 +633,10 @@ public class CarListActivity extends Activity {
 
 	public void exitClick(View view) {
 		finish();
+	}
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 
 }

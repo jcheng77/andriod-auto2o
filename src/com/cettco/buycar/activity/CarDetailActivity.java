@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 
+
 import org.apache.http.Header;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
@@ -66,6 +67,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.CirclePageIndicator;
 
 public class CarDetailActivity extends Activity {
@@ -233,6 +235,7 @@ public class CarDetailActivity extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		MobclickAgent.onResume(this);
 		getData();
 		
 	}
@@ -452,4 +455,8 @@ public class CarDetailActivity extends Activity {
 				.getHelper(this);
 		CarModelEntity modelEntity = helperModel.getDao().queryBuilder().where().eq("id", model_id).queryForFirst();
 	}
+		public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+		}
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray" >
+
+    <include layout="@layout/actionbar" />
+    <LinearLayout
+        android:layout_below="@id/actionbar_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_gray"
+        android:orientation="vertical" >
+
+        <include layout="@layout/actionbar" />
+
+        <ListView
+            android:id="@+id/myBaseListview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:divider="@drawable/list_divider"
+            android:dividerHeight="1dp" >
+        </ListView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+    </LinearLayout>
+    <include layout="@layout/item_null_data" />
+
+    <include layout="@layout/item_opacity_progressbar" />
+
+</RelativeLayout>

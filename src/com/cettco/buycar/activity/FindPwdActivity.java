@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -146,5 +147,13 @@ public class FindPwdActivity extends Activity{
 	{
 		this.finish();
 	}
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+		}
+		public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+		}
 	
 }

@@ -11,6 +11,7 @@ import com.cettco.buycar.entity.CarColorEntity;
 import com.cettco.buycar.entity.CarColorListEntity;
 import com.cettco.buycar.utils.db.DatabaseHelperColor;
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -100,6 +101,19 @@ public class SelectCarColorActivity extends Activity {
 		intent.putStringArrayListExtra("colors", colors);
 		setResult(RESULT_OK, intent);
 		this.finish();
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this);
 	}
 
 }

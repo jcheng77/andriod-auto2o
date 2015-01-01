@@ -23,7 +23,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
 import cn.trinea.android.common.service.HttpCache;
 
 import com.cettco.buycar.R;
@@ -41,6 +40,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 
 public class SelectDealerActivity extends Activity{
 	private ArrayList<DealerEntity> dealerList;
@@ -187,5 +187,18 @@ public class SelectDealerActivity extends Activity{
 		setResult(RESULT_OK, intent);
 		setResult(RESULT_OK, intent);
 		this.finish();
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this);
 	}
 }

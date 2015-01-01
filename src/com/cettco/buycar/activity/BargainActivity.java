@@ -34,6 +34,7 @@ import com.cettco.buycar.utils.db.DatabaseHelperTrim;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
+import com.umeng.analytics.MobclickAgent;
 
 import android.R.integer;
 import android.app.Activity;
@@ -66,7 +67,7 @@ public class BargainActivity extends Activity {
 	public final int RESULT_LOCATION = 3;
 	public final int RESULT_PLATE = 4;
 	public final int RESULT_SHOP = 5;
-	
+
 	public final int RESULT_UNAUTHORIZED = 6;
 	public final int RESULT_UNPROCESSABLE = 7;
 
@@ -101,12 +102,10 @@ public class BargainActivity extends Activity {
 	private RelativeLayout shopLayout;
 	private TextView shoptexTextView;
 	private int tender_id;
-	
+
 	private EditText descriptionEditText;
 
 	private RelativeLayout progressLayout;
-
-	
 
 	private int order_id;
 	private String model_id;
@@ -114,22 +113,24 @@ public class BargainActivity extends Activity {
 	private ArrayList<String> dealers = new ArrayList<String>();
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 	private TextView titleTextView;
-	
-	//private EditText priceEditText;
-	//private EditText userNameEditText;
-	
-	//private SeekBar priceSeekBar;
+
+	// private EditText priceEditText;
+	// private EditText userNameEditText;
+
+	// private SeekBar priceSeekBar;
 	private int price;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bargain);
-		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView = (TextView) findViewById(R.id.title_text);
 		titleTextView.setText("购车需求");
 		progressLayout = (RelativeLayout) findViewById(R.id.progressbar_relativeLayout);
 		order_id = getIntent().getIntExtra("order_id", -1);
-		//priceEditText = (EditText) findViewById(R.id.activity_bargain_myprice_textview);
+		// priceEditText = (EditText)
+		// findViewById(R.id.activity_bargain_myprice_textview);
 		DatabaseHelperOrder orderHelper = DatabaseHelperOrder.getHelper(this);
 		try {
 			orderItemEntity = orderHelper.getDao().queryBuilder().where()
@@ -140,14 +141,13 @@ public class BargainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		//String trim_id =
-		DatabaseHelperTrim helperTrim = DatabaseHelperTrim
-				.getHelper(this);
+		// String trim_id =
+		DatabaseHelperTrim helperTrim = DatabaseHelperTrim.getHelper(this);
 		try {
-			CarTrimEntity trimEntity = helperTrim.getDao().queryBuilder().where()
-					.eq("id",trim_id).queryForFirst();
-			price = (int) (Double.parseDouble(trimEntity.getGuide_price())*10000);
-			//priceEditText.setText(String.valueOf(price));
+			CarTrimEntity trimEntity = helperTrim.getDao().queryBuilder()
+					.where().eq("id", trim_id).queryForFirst();
+			price = (int) (Double.parseDouble(trimEntity.getGuide_price()) * 10000);
+			// priceEditText.setText(String.valueOf(price));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,12 +182,13 @@ public class BargainActivity extends Activity {
 
 		shoptexTextView = (TextView) findViewById(R.id.activity_bargain_4s_textview);
 
-		descriptionEditText = (EditText)findViewById(R.id.activity_bargain_otherDescription_edittext);
-		
-		//userNameEditText = (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
-		
-//		priceSeekBar = (SeekBar)findViewById(R.id.price_seekbar);
-//		priceSeekBar.setOnSeekBarChangeListener(priceBarChangeListener);
+		descriptionEditText = (EditText) findViewById(R.id.activity_bargain_otherDescription_edittext);
+
+		// userNameEditText =
+		// (EditText)findViewById(R.id.activity_bargain_user_name_edittext);
+
+		// priceSeekBar = (SeekBar)findViewById(R.id.price_seekbar);
+		// priceSeekBar.setOnSeekBarChangeListener(priceBarChangeListener);
 
 	}
 
@@ -202,8 +203,10 @@ public class BargainActivity extends Activity {
 		locationList = new ArrayList<String>(Arrays.asList(tmp));
 		SharedPreferences settings = getSharedPreferences("city_selection", 0);
 		int selection = settings.getInt("city", 0);
-		if(selection==0) locationList.set(0, locationList.get(0)+"(上海)");
-		else if(selection==1) locationList.set(0, locationList.get(0)+"(外地)");
+		if (selection == 0)
+			locationList.set(0, locationList.get(0) + "(上海)");
+		else if (selection == 1)
+			locationList.set(0, locationList.get(0) + "(外地)");
 		tmp = res.getStringArray(R.array.plate_array);
 		plateList = new ArrayList<String>(Arrays.asList(tmp));
 	}
@@ -219,27 +222,27 @@ public class BargainActivity extends Activity {
 				+ colors.size() + "</font>种颜色"));
 	}
 
-	private OnSeekBarChangeListener priceBarChangeListener =new OnSeekBarChangeListener() {
-		
+	private OnSeekBarChangeListener priceBarChangeListener = new OnSeekBarChangeListener() {
+
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 			// TODO Auto-generated method stub
-			int now = (progress-50)*5000+price;
-			//priceEditText.setText(String.valueOf(now));
-			
+			int now = (progress - 50) * 5000 + price;
+			// priceEditText.setText(String.valueOf(now));
+
 		}
 	};
 	protected OnClickListener submitBtnClickListener = new OnClickListener() {
@@ -250,7 +253,7 @@ public class BargainActivity extends Activity {
 		}
 	};
 
-	private void submit(){
+	private void submit() {
 		String cookieStr = null;
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
@@ -279,10 +282,10 @@ public class BargainActivity extends Activity {
 			return;
 		}
 		String tenderUrl = GlobalData.getBaseUrl() + "/tenders.json?";
-//		String price = priceEditText.getText().toString();
-//		String userName = userNameEditText.getText().toString();
-		String price =orderItemEntity.getPrice();
-		String userName=orderItemEntity.getName();
+		// String price = priceEditText.getText().toString();
+		// String userName = userNameEditText.getText().toString();
+		String price = orderItemEntity.getPrice();
+		String userName = orderItemEntity.getName();
 		if (price == null || price.equals("")) {
 			Toast toast = Toast.makeText(BargainActivity.this, "请填写价格",
 					Toast.LENGTH_SHORT);
@@ -325,7 +328,7 @@ public class BargainActivity extends Activity {
 		tender.setLicense_location(locationString);
 		tender.setPrice(price);
 		String description = descriptionEditText.getText().toString();
-		//tender.setde
+		// tender.setde
 		tender.setDescription(description);
 		Map<String, String> shops = new HashMap<String, String>();
 		for (int i = 0; i < dealers.size(); i++) {
@@ -364,22 +367,21 @@ public class BargainActivity extends Activity {
 						System.out.println("error");
 						System.out.println("statusCode:" + statusCode);
 						System.out.println("headers:" + headers);
-						if(statusCode==401){
+						if (statusCode == 401) {
 							Message msg = new Message();
 							msg.what = RESULT_UNAUTHORIZED;
 							handler.sendMessage(msg);
-						}
-						else if(statusCode==422){
+						} else if (statusCode == 422) {
 							Message msg = new Message();
 							msg.what = RESULT_UNPROCESSABLE;
 							handler.sendMessage(msg);
-						}else{
+						} else {
 							Toast toast = Toast.makeText(BargainActivity.this,
 									"提交失败,请重新提交", Toast.LENGTH_SHORT);
 							toast.show();
 						}
-						
-											}
+
+					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
@@ -399,7 +401,8 @@ public class BargainActivity extends Activity {
 						if (statusCode == 201) {
 
 							try {
-								System.out.println("id:"+response.getString("id"));
+								System.out.println("id:"
+										+ response.getString("id"));
 								tender_id = response.getString("id");
 								orderItemEntity.setId(response.getString("id"));
 								orderItemEntity.setState(response
@@ -420,12 +423,12 @@ public class BargainActivity extends Activity {
 									AliPayActivity.class);
 							intent.putExtra("tender_id", tender_id);
 							startActivity(intent);
-//							Intent intent = new Intent();
-//							// intent.putExtra("tenderId", id);
-//							intent.setClass(BargainActivity.this,
-//									MainActivity.class);
-//							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//							startActivity(intent);
+							// Intent intent = new Intent();
+							// // intent.putExtra("tenderId", id);
+							// intent.setClass(BargainActivity.this,
+							// MainActivity.class);
+							// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							// startActivity(intent);
 
 						}
 
@@ -545,7 +548,7 @@ public class BargainActivity extends Activity {
 		}
 	}
 
-	private Handler handler = new Handler(){
+	private Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -559,8 +562,8 @@ public class BargainActivity extends Activity {
 				UserUtil.logout(BargainActivity.this);
 				PersistentCookieStore myCookieStore = new PersistentCookieStore(
 						BargainActivity.this);
-				if(myCookieStore!=null)
-				myCookieStore.clear();
+				if (myCookieStore != null)
+					myCookieStore.clear();
 				Intent intent = new Intent();
 				intent.setClass(BargainActivity.this, SignInActivity.class);
 				startActivity(intent);
@@ -573,17 +576,24 @@ public class BargainActivity extends Activity {
 				break;
 			}
 		}
-		
+
 	};
+
 	@Override
 	protected void onResume() {
 		super.onResume();
+		MobclickAgent.onResume(this);
 		updateUI();
 		// Normal case behavior follows
 	}
 
 	public void exitClick(View view) {
 		this.finish();
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 
 }

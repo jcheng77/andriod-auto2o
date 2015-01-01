@@ -51,6 +51,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
+import com.umeng.analytics.MobclickAgent;
 
 import android.R.integer;
 import android.app.Fragment;
@@ -90,6 +91,10 @@ public class MyCarFragment extends Fragment {
 
 	private int global_page = 1;
 	
+	private GetDataTask getDataTask;
+	
+	private HttpClient httpclient;
+	
 	//private ImageView guideImage;
 
 	// private List<E>
@@ -115,7 +120,11 @@ public class MyCarFragment extends Fragment {
 					public void onPullDownToRefresh(
 							PullToRefreshBase<ListView> refreshView) {
 						// 下拉的时候数据重置
-						new GetDataTask(1).execute();
+						if (getDataTask != null && getDataTask.getStatus() != AsyncTask.Status.FINISHED)
+							getDataTask.cancel(true);
+						getDataTask = new GetDataTask(1); //every time create new object, as AsynTask will only be executed one time.
+			            getDataTask.execute();
+						//new GetDataTask(1).execute();
 					}
 
 					// 上拉Pulling Up
@@ -123,7 +132,11 @@ public class MyCarFragment extends Fragment {
 					public void onPullUpToRefresh(
 							PullToRefreshBase<ListView> refreshView) {
 						// 上拉的时候添加选项
-						new GetDataTask(global_page + 1).execute();
+						if (getDataTask != null && getDataTask.getStatus() != AsyncTask.Status.FINISHED)
+							getDataTask.cancel(true);
+						getDataTask = new GetDataTask(global_page+1); //every time create new object, as AsynTask will only be executed one time.
+			            getDataTask.execute();
+						//new GetDataTask(global_page + 1).execute();
 					}
 
 				});
@@ -148,6 +161,7 @@ public class MyCarFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		MobclickAgent.onPageStart("Mycar");
 		getCachedData();
 		pullToRefreshView.setRefreshing(true);
 
@@ -157,10 +171,14 @@ public class MyCarFragment extends Fragment {
 
 		DatabaseHelperOrder helper = DatabaseHelperOrder
 				.getHelper(getActivity());
+		System.out.println("000");
 		if (UserUtil.isLogin(getActivity())) {
+			System.out.println("111");
 			try {
+				System.out.println("222");
 				orderItems = helper.getDao().queryBuilder()
 						.orderBy("time", false).query();
+				System.out.println("333");
 				adapter.updateList(orderItems);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -362,7 +380,12 @@ public class MyCarFragment extends Fragment {
 			System.out.println("cookie null");
 			return;
 		}
-		HttpClient httpclient = new DefaultHttpClient();
+		if(httpclient!=null){
+			httpclient.getConnectionManager().shutdown();
+			
+		}
+		httpclient = new DefaultHttpClient();
+		//HttpClient httpclient = new DefaultHttpClient();
 		String url = GlobalData.getBaseUrl() + "/tenders.json";
 		Uri.Builder builder = Uri.parse(url).buildUpon();
 		builder.appendQueryParameter("page", String.valueOf(page));
@@ -426,21 +449,49 @@ public class MyCarFragment extends Fragment {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		HttpConnection.getClient().cancelRequests(getActivity(), true);
+		System.out.println("destroy");
+//		HttpConnection.getClient().cancelRequests(getActivity(), true);
+//		if (getDataTask != null && getDataTask.getStatus() != AsyncTask.Status.FINISHED)
+//			getDataTask.cancel(true);
+	}
+
+	@Override
+	public void onDetach() {
+		// TODO Auto-generated method stub
+		super.onDetach();
+		System.out.println("detach");
+		//HttpConnection.getClient().cancelRequests(getActivity(), true);
 	}
 
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		HttpConnection.getClient().cancelRequests(getActivity(), true);
+		System.out.println("pause");
+		MobclickAgent.onPageEnd("Mycar"); 
+		//HttpConnection.getClient().cancelRequests(getActivity(), true);
+//		if (getDataTask != null && getDataTask.getStatus() != AsyncTask.Status.FINISHED)
+//			getDataTask.cancel(true);
+	}
+
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+		super.onDestroyView();
+		System.out.println("destroyview");
+		
 	}
 
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		HttpConnection.getClient().cancelRequests(getActivity(), true);
+		System.out.println("stop");
+		if(httpclient!=null){
+			httpclient.getConnectionManager().shutdown();
+			//httpclient = new DefaultHttpClient();
+		}
+		//HttpConnection.getClient().cancelRequests(getActivity(), true);
 	}
 
 }

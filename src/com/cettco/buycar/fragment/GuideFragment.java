@@ -1,6 +1,7 @@
 package com.cettco.buycar.fragment;
 
 import com.cettco.buycar.R;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -17,5 +18,13 @@ public class GuideFragment extends Fragment{
 		// TODO Auto-generated method stub
 		fragmentView = inflater.inflate(R.layout.fragment_guide, container,false);
 		return fragmentView;
+	}
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("guide"); //统计页面
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("guide"); 
 	}
 }

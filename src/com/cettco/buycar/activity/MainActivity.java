@@ -17,6 +17,8 @@ import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.UpdateManager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -37,6 +39,7 @@ public class MainActivity extends Activity {
 	private LinearLayout cityLayout;
 	private LinearLayout mycarLayout;
 	private LinearLayout guideLayout;
+	private LinearLayout couponLly;
 	private ImageButton addImageButton;
 	private TextView titleTextView;
 
@@ -79,6 +82,9 @@ public class MainActivity extends Activity {
 
 		guideLayout = (LinearLayout) findViewById(R.id.guideLinearlayout);
 		guideLayout.setOnClickListener(guideClickListener);
+		
+		couponLly=(LinearLayout) findViewById(R.id.couponLinearlayout);
+		couponLly.setOnClickListener(couponClickListener);
 
 		drawerButton = (ImageButton) findViewById(R.id.actionbar_drawer);
 		drawerButton.setOnClickListener(drawerClickListener);
@@ -163,6 +169,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		MobclickAgent.onResume(this);
 		SharedPreferences settings = getSharedPreferences("city_selection", 0);
 		int selection = settings.getInt("city", 0);
 		switch (selection) {
@@ -175,6 +182,10 @@ public class MainActivity extends Activity {
 		default:
 			break;
 		}
+	}
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 
 	// protected OnClickListener logoutClickListener = new OnClickListener() {
@@ -237,6 +248,16 @@ public class MainActivity extends Activity {
 	// menu.toggle();
 	// }
 	// };
+	protected OnClickListener couponClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, CouponActivity.class);
+			startActivity(intent);
+		}
+	};
 	protected OnClickListener addCarClickListener = new OnClickListener() {
 
 		@Override
