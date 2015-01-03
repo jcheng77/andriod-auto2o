@@ -206,7 +206,7 @@ public class BargainActivity extends Activity {
 		if (selection == 0)
 			locationList.set(0, locationList.get(0) + "(上海)");
 		else if (selection == 1)
-			locationList.set(0, locationList.get(0) + "(外地)");
+			locationList.set(0, locationList.get(0) + "(北京)");
 		tmp = res.getStringArray(R.array.plate_array);
 		plateList = new ArrayList<String>(Arrays.asList(tmp));
 	}

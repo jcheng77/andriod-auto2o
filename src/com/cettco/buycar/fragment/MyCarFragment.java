@@ -94,6 +94,7 @@ public class MyCarFragment extends Fragment {
 	private GetDataTask getDataTask;
 	
 	private HttpClient httpclient;
+	private HttpGet httpget;
 	
 	//private ImageView guideImage;
 
@@ -358,6 +359,16 @@ public class MyCarFragment extends Fragment {
 			getData(page);
 			return null;
 		}
+		@Override
+	    protected void onCancelled() {
+			System.out.println("cancel");
+	        if ( httpget != null )
+	        {
+	        	System.out.println("cancel2");
+	          //httpClient.getConnectionManager().shutdown();
+	          httpget.abort();
+	        }  
+	    } 
 	}
 
 	private void getData(int page) {
@@ -380,23 +391,23 @@ public class MyCarFragment extends Fragment {
 			System.out.println("cookie null");
 			return;
 		}
-		if(httpclient!=null){
-			httpclient.getConnectionManager().shutdown();
-			
-		}
+//		if(httpclient!=null){
+//			httpclient.getConnectionManager().shutdown();
+//			
+//		}
 		httpclient = new DefaultHttpClient();
 		//HttpClient httpclient = new DefaultHttpClient();
 		String url = GlobalData.getBaseUrl() + "/tenders.json";
 		Uri.Builder builder = Uri.parse(url).buildUpon();
 		builder.appendQueryParameter("page", String.valueOf(page));
 		String uri = builder.build().toString();
-		HttpGet get = new HttpGet(uri);
+		HttpGet httpget = new HttpGet(uri);
 		// 添加http头信息
-		get.addHeader("Cookie", cookieName + "=" + cookieStr);
-		get.addHeader("Content-Type", "application/json");
+		httpget.addHeader("Cookie", cookieName + "=" + cookieStr);
+		httpget.addHeader("Content-Type", "application/json");
 		org.apache.http.HttpResponse response;
 		try {
-			response = httpclient.execute(get);
+			response = httpclient.execute(httpget);
 			int code = response.getStatusLine().getStatusCode();
 			if (code == 200) {
 				String result = EntityUtils.toString(response.getEntity());

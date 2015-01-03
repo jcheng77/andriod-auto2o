@@ -162,6 +162,7 @@ public class AliPayActivity extends Activity {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
 			intent.setClass(AliPayActivity.this, CouponActivity.class);
+			intent.putExtra("pay", true);
 			startActivityForResult(intent, 1);
 		}
 	};
@@ -176,6 +177,7 @@ public class AliPayActivity extends Activity {
 			// data为B中回传的Intent
 			// int position = b.getInt("result");
 			discountTextView.setText(String.valueOf(b.getInt("result")));
+			discount = b.getInt("result");
 			break;
 		default:
 			break;
@@ -208,7 +210,8 @@ public class AliPayActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			String bodyString= detailEntity.getBrand().getName()+" "+detailEntity.getMaker().getName()+" "+detailEntity.getModel().getName();
-			pay("定金支付",bodyString,"0.01");
+			actual = amount-discount;
+			pay("定金支付",bodyString,String.valueOf(actual));
 		}
 	};
 
@@ -275,10 +278,12 @@ public class AliPayActivity extends Activity {
 			}
 			case PAYMENT_SUCCESS:{
 				amountTextView.setText(String.valueOf(amount));
-				if(discountList.size()>0){
-					discount = discountList.get(0);
-					discountTextView.setText(String.valueOf(discountList.get(0)));
-				}
+//				if(discountList.size()>0){
+//					discount = discountList.get(0);
+//					discountTextView.setText(String.valueOf(discountList.get(0)));
+//				}
+				discount=0;
+				discountTextView.setText(String.valueOf(0));
 				actual = amount-discount;
 				actualTextView.setText(String.valueOf(actual));
 				submitButton.setVisibility(View.VISIBLE);

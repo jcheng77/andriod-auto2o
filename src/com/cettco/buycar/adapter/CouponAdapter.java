@@ -11,16 +11,27 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CouponAdapter extends ArrayAdapter<String>{
+public class CouponAdapter extends ArrayAdapter<Integer>{
 	private Context context;
-	private List<String> list;
+	private List<Integer> list;
 
 	public CouponAdapter(Context context, int resource,
-			List<String> objects) {
+			List<Integer> objects) {
 		super(context, resource,objects);
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.list = objects;
+	}
+	
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return list==null?0:list.size();
+	}
+
+	public void updateData(List<Integer> list){
+		this.list = list;
+		notifyDataSetChanged();
 	}
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -32,13 +43,13 @@ public class CouponAdapter extends ArrayAdapter<String>{
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.item_coupon, parent,
 					false);
-			holder.textView = (TextView)convertView.findViewById(R.id.item_coupon_date_txtv);
+			holder.textView = (TextView)convertView.findViewById(R.id.item_coupon_discount_txtv);
 			convertView.setTag(holder);
 ;
 		}else {
 			holder = (ViewHolder) convertView.getTag(); 
 		}
-		holder.textView.setText(list.get(position));
+		holder.textView.setText(String.valueOf(list.get(position)));
 		return convertView;
 	}
 	private static class ViewHolder

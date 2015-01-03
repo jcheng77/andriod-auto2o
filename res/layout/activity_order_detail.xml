@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-                    <include layout="@layout/module_order_detail_car_info" />
+                    <include layout="@layout/include_order_detail_car_info" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -38,7 +38,7 @@
                     android:orientation="vertical"
                     android:visibility="gone" >
 
-                    <include layout="@layout/module_order_detail_dealer_info" />
+                    <include layout="@layout/include_order_detail_dealer_info" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -48,7 +48,7 @@
                     android:orientation="vertical"
                     android:visibility="gone" >
 
-                    <include layout="@layout/module_order_detail_dealer_intention" />
+                    <include layout="@layout/include_order_detail_dealer_intention" />
                 </LinearLayout>
 
                 <ImageView
@@ -62,10 +62,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-                    <include layout="@layout/module_order_detail_customer_intention" />
+                    <include layout="@layout/include_order_detail_customer_intention" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:id="@+id/activity_order_detail_qrcode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

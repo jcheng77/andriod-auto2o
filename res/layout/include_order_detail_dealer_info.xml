@@ -21,7 +21,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/head" />
+                android:background="@drawable/name_icon" />
         </LinearLayout>
 
         <LinearLayout

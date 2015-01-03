@@ -2,8 +2,12 @@ package com.cettco.buycar.activity;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.CouponAdapter;
@@ -27,14 +31,18 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class CouponActivity extends Activity {
+	private static final int DATA_FAIL = 2;
+	private static final int DATA_SUCCESS=1;
 	private ListView listView;
 	private CouponAdapter adapter;
-	private ArrayList<String> arrayList = new ArrayList<String>();
+	//private ArrayList<Integer> arrayList = new ArrayList<Integer>();
 	private int tag;
 	private Intent intent;
 	
 	private RelativeLayout progressLayout;
 	private RelativeLayout nullDataLayout;
+	private List<Integer> discountList;
+	private boolean isPay = true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -46,14 +54,13 @@ public class CouponActivity extends Activity {
 		nullDataLayout = (RelativeLayout) findViewById(R.id.null_data_relativeLayout);
 		TextView titleTextView = (TextView)findViewById(R.id.title_text);
 		intent = getIntent();
+		isPay = intent.getBooleanExtra("pay", false);
 		titleTextView.setText("我的优惠券");
-		arrayList.add("1");
-		arrayList.add("2");
 		listView = (ListView)findViewById(R.id.myBaseListview);
-		adapter = new CouponAdapter(this,R.layout.item_coupon, arrayList);
+		adapter = new CouponAdapter(this,R.layout.item_coupon, discountList);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listItemClickListener);
-		getData();
+		getPaymentData();
 	}
 	protected OnItemClickListener listItemClickListener = new OnItemClickListener() {
 
@@ -61,40 +68,56 @@ public class CouponActivity extends Activity {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 				long arg3) {
 			// TODO Auto-generated method stub
-			intent.putExtra("result", Integer.parseInt(arrayList.get(position)));
+			if(!isPay)return;
+			intent.putExtra("result", discountList.get(position));
 			setResult(RESULT_OK, intent);
 			CouponActivity.this.finish();
 		}
 	};
-	protected void getData() {
-		String url = GlobalData.getBaseUrl() + "/cars/trims.json";
-		RequestParams params = new RequestParams();
-		
+	protected void getPaymentData() {
+		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
+		// httpCache.clear();
+		progressLayout.setVisibility(View.VISIBLE);
+		String url = GlobalData.getBaseUrl() + "/deposits/amount_and_discount.json";
 		HttpConnection.setCookie(getApplicationContext());
-		HttpConnection.get(url,params,new AsyncHttpResponseHandler() {
+		HttpConnection.get(url, new AsyncHttpResponseHandler() {
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
 				// TODO Auto-generated method stub
 				System.out.println("fail");
+				progressLayout.setVisibility(View.GONE);
 				Message message = new Message();
-				message.what = 2;
+				message.what = DATA_FAIL;
 				mHandler.sendMessage(message);
 			}
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
-				System.out.println("seccuss");
+				System.out.println("succuss");
+				progressLayout.setVisibility(View.GONE);
 				try {
+					
 					String result = new String(arg2, "UTF-8");
-					System.out.println("count:"+result);
+					System.out.println("result:"+result);
+					JSONObject object = new JSONObject(result);
+					//amount = object.getInt("amount");
+					JSONArray array =object.getJSONArray("discount");
+					String[] strArr = new String[array.length()];
+					discountList = new ArrayList<Integer>();
+					System.out.println("array lenght:"+array.length());
+					for(int i=0;i<array.length();i++){
+						discountList.add(array.getInt(i));
+					}
 					Message message = new Message();
-					message.what = 1;
+					message.what = DATA_SUCCESS;
 					mHandler.sendMessage(message);
-					// System.out.println("result:"+result);
 				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -106,12 +129,13 @@ public class CouponActivity extends Activity {
 
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case 1:
+			case DATA_SUCCESS:
 				System.out.println("update");
 				nullDataLayout.setVisibility(View.GONE);
 				progressLayout.setVisibility(View.GONE);
+				adapter.updateData(discountList);
 				break;
-			case 2:
+			case DATA_FAIL:
 				nullDataLayout.setVisibility(View.VISIBLE);
 				progressLayout.setVisibility(View.GONE);
 				Toast toast = Toast.makeText(CouponActivity.this,
