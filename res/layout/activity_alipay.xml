@@ -67,18 +67,18 @@
                 android:paddingTop="20dp" >
 
                 <LinearLayout
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:id="@+id/guide_price_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:maxEms="6"
                         android:id="@+id/alipay_trim1_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxEms="6"
                         android:text=""
                         android:textColor="@color/text_gray"
                         android:textSize="18sp" />
@@ -100,10 +100,10 @@
                     android:background="@color/gray" />
 
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical" >
 
                     <LinearLayout
@@ -161,26 +161,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal" >
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
 
                     <TextView
-                        android:textColor="@color/text_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="订金金额: "
+                        android:textColor="@color/text_gray"
                         android:textSize="@dimen/text_size_middle" />
 
                     <TextView
-                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
@@ -201,15 +201,15 @@
                 <ImageView
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp"
                     android:background="@color/gray" />
+
                 <LinearLayout
                     android:id="@+id/bargain_coupon_lly"
-                    android:background="@drawable/item_click"
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_click"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
@@ -240,11 +240,11 @@
                         android:text=""
                         android:textColor="@color/price_orange_color"
                         android:textSize="20sp" />
-                      <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_action_next_item" />
-                    
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_action_next_item" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -262,9 +262,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
-                    android:textSize="@dimen/text_size_middle"
                     android:text="选择支付方式"
-                    android:textColor="@color/text_gray" />
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_size_middle" />
             </LinearLayout>
 
             <ImageView
@@ -310,30 +310,28 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_middle"
                             android:layout_marginTop="10dp"
                             android:text="支付宝客户端支付"
-                            android:textColor="@color/text_gray" />
+                            android:textColor="@color/text_gray"
+                            android:textSize="@dimen/text_size_middle" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_small"
                             android:layout_marginBottom="10dp"
                             android:text="推荐安装支付宝客户端用户使用"
-                            android:textColor="@color/text_gray" />
+                            android:textColor="@color/text_gray"
+                            android:textSize="@dimen/text_size_small" />
                     </LinearLayout>
 
-                    <!--
-                         <CheckBox
+                    <!-- <CheckBox
                         android:id="@+id/alipay_client_checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="10dp"
                         android:checked="true"
-                        android:clickable="false" />
-                    -->
+                        android:clickable="false" /> -->
 
                     <ImageView
                         android:layout_width="20dp"
@@ -363,13 +361,14 @@
                     android:textColor="@color/text_gray"
                     android:textSize="20sp" />
 
-                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:text="¥:"
-                        android:textColor="@color/price_orange_color"
-                        android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="¥:"
+                    android:textColor="@color/price_orange_color"
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/alipay_actual_price"
                     android:layout_width="wrap_content"
@@ -471,5 +470,6 @@
     </ScrollView>
 
     <include layout="@layout/item_transparent_progressbar" />
+    <include layout="@layout/item_null_data" />
 
 </RelativeLayout>

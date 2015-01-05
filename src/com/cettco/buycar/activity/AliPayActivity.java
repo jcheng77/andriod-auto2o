@@ -79,6 +79,7 @@ public class AliPayActivity extends Activity {
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 	
 	private RelativeLayout progressLayout;
+	private RelativeLayout nullDataLayout;
 	
 	private TextView brandMakerTextView;
 	private TextView modelTextView;
@@ -105,6 +106,8 @@ public class AliPayActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alipay);
 		progressLayout = (RelativeLayout)findViewById(R.id.progressbar_relativeLayout);
+		//null
+		nullDataLayout = (RelativeLayout) findViewById(R.id.null_data_relativeLayout);
 		//progressLayout.setVisibility(View.VISIBLE);
 //		brandTextView = (TextView)findViewById(R.id.alipay_car_brand_textview);
 //		trimTextView = (TextView)findViewById(R.id.alipay_car_trim_textview);
@@ -266,17 +269,23 @@ public class AliPayActivity extends Activity {
 				break;
 			}
 			case DATA_SUCCESS:{
+				nullDataLayout.setVisibility(View.GONE);
+				progressLayout.setVisibility(View.GONE);
 				updateUI();
 				getPaymentData();
 				break;
 			}
 			case DATA_FAIL:{
 //				System.out.println("44444");
+				nullDataLayout.setVisibility(View.VISIBLE);
+				progressLayout.setVisibility(View.GONE);
 				Toast toast = Toast.makeText(AliPayActivity.this, "获取数据失败", Toast.LENGTH_SHORT);
 				toast.show();
 				break;
 			}
 			case PAYMENT_SUCCESS:{
+				nullDataLayout.setVisibility(View.GONE);
+				progressLayout.setVisibility(View.GONE);
 				amountTextView.setText(String.valueOf(amount));
 //				if(discountList.size()>0){
 //					discount = discountList.get(0);
@@ -489,6 +498,7 @@ public class AliPayActivity extends Activity {
 	protected void getData() {
 		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
 		// httpCache.clear();
+		nullDataLayout.setVisibility(View.GONE);
 		progressLayout.setVisibility(View.VISIBLE);
 		String url = GlobalData.getBaseUrl() + "/tenders/" + tender_id + ".json";
 		HttpConnection.setCookie(getApplicationContext());
@@ -531,6 +541,7 @@ public class AliPayActivity extends Activity {
 		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
 		// httpCache.clear();
 		progressLayout.setVisibility(View.VISIBLE);
+		nullDataLayout.setVisibility(View.GONE);
 		String url = GlobalData.getBaseUrl() + "/deposits/amount_and_discount.json";
 		HttpConnection.setCookie(getApplicationContext());
 		HttpConnection.get(url, new AsyncHttpResponseHandler() {
@@ -579,6 +590,9 @@ public class AliPayActivity extends Activity {
 
 	public void exitClick(View view) {
 		this.finish();
+	}
+	public void refresh(View view){
+		getData();
 	}
 	public void onResume() {
 		super.onResume();

@@ -20,11 +20,15 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -256,6 +260,27 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, CouponActivity.class);
 			startActivity(intent);
+//			new AlertDialog.Builder(MainActivity.this)
+//		    .setTitle("提示")
+//		    .setMessage("请预支付订金到拍立行来锁定此优惠价格.")
+//		    .setPositiveButton("再考虑一下", new DialogInterface.OnClickListener() {
+//		        public void onClick(DialogInterface dialog, int which) { 
+//		            // continue with delete
+//		        }
+//		     })
+//		    .setNegativeButton("去支付", new DialogInterface.OnClickListener() {
+//		        public void onClick(DialogInterface dialog, int which) { 
+//		            // do nothing
+//		        }
+//		     })
+//		    .setIcon(android.R.drawable.ic_dialog_alert)
+//		     .show();
+//			final Dialog dialog = new Dialog(MainActivity.this);
+//			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//			dialog.setCanceledOnTouchOutside(false);
+//			dialog.setContentView(R.layout.popup_accept);
+//			dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//			dialog.show();
 		}
 	};
 	protected OnClickListener addCarClickListener = new OnClickListener() {

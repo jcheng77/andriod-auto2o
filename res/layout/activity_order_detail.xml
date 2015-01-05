@@ -51,6 +51,22 @@
                     <include layout="@layout/include_order_detail_dealer_intention" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:background="@color/white"
+                    android:id="@+id/activity_order_detail_qrcode_lly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/order_has_dealer_qr_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+                
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
@@ -63,22 +79,6 @@
                     android:orientation="vertical" >
 
                     <include layout="@layout/include_order_detail_customer_intention" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:background="@color/white"
-                    android:id="@+id/activity_order_detail_qrcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone" >
-
-                    <ImageView
-                        android:id="@+id/order_has_dealer_qr_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp" />
                 </LinearLayout>
 
                 <LinearLayout

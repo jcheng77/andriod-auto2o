@@ -214,6 +214,7 @@ public class UpdateManager {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.setContentView(R.layout.popup_update);
+		dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		LinearLayout contentLayout = (LinearLayout) dialog
 				.findViewById(R.id.popup_update_content_linearlayout);
 		Iterator<Entry<String, String>> iter = mHashMap.entrySet().iterator();

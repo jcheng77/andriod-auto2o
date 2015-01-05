@@ -8,10 +8,32 @@
     android:clickable="true"
     android:gravity="center" >
 
-    <TextView
+    <LinearLayout
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="无数据" />
+        android:orientation="vertical"
+        android:layout_centerInParent="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加载失败" />
+
+        <Button
+            android:onClick="refresh"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@drawable/cancle_order_btn_style"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/text_size_middle"
+            android:textColor="@color/text_gray"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="刷新" />
+    </LinearLayout>
 
 </RelativeLayout>

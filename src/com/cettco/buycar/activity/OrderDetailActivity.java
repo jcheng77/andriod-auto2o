@@ -29,6 +29,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -97,9 +99,11 @@ public class OrderDetailActivity extends Activity {
 		titleTextView.setText("订单详情");
 		cancelButton = (Button)findViewById(R.id.order_detail_cancel_btn);
 		cancelButton.setOnClickListener(cancelClickListener);
+		//loading
 		progressLayout = (RelativeLayout) findViewById(R.id.opacity_progressbar_relativeLayout);
-		progressLayout.setVisibility(View.VISIBLE);
+		//null
 		nullDataLayout = (RelativeLayout) findViewById(R.id.null_data_relativeLayout);
+		
 		dealerPhoneTextView = (TextView) findViewById(R.id.order_detail_dealer_info_phone_textview);
 		shopAddressTextView = (TextView) findViewById(R.id.order_detail_shop_info_address_textview);
 		shopNameTextView = (TextView) findViewById(R.id.order_detail_shop_info_name_textview);
@@ -107,7 +111,7 @@ public class OrderDetailActivity extends Activity {
 		dealerInfoLayout = (LinearLayout) findViewById(R.id.activity_order_detail_dealer_info);
 		dealerIntentionLayout = (LinearLayout) findViewById(R.id.activity_order_detail_dealer_intention);
 		intentionLayout = (LinearLayout) findViewById(R.id.activity_order_detail_customer_intention);
-		qRcodeLayout = (LinearLayout) findViewById(R.id.activity_order_detail_qrcode);
+		qRcodeLayout = (LinearLayout) findViewById(R.id.activity_order_detail_qrcode_lly);
 		stateTextView = (TextView) findViewById(R.id.order_detail_state);
 		carImageView = (ImageView) findViewById(R.id.order_detail_car_imageview);
 		modelTextView = (TextView) findViewById(R.id.order_detail_brandmakermodel_textview);
@@ -187,6 +191,8 @@ public class OrderDetailActivity extends Activity {
 		// httpCache.clear();
 		String url = GlobalData.getBaseUrl() + "/tenders/" + tender_id + ".json";
 		HttpConnection.setCookie(getApplicationContext());
+		nullDataLayout.setVisibility(View.GONE);
+		progressLayout.setVisibility(View.VISIBLE);
 		HttpConnection.get(url, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -361,7 +367,7 @@ public class OrderDetailActivity extends Activity {
 	public Bitmap Create2DCode(String str) throws WriterException {
 		// 生成二维矩阵,编码时指定大小,不要生成了图片以后再进行缩放,这样会模糊导致识别失败
 		BitMatrix matrix = new MultiFormatWriter().encode(str,
-				BarcodeFormat.QR_CODE, 300, 300);
+				BarcodeFormat.QR_CODE, 500, 500);
 		int width = matrix.getWidth();
 		int height = matrix.getHeight();
 		// 二维矩阵转为一维像素数组,也就是一直横着排了
@@ -402,9 +408,40 @@ public class OrderDetailActivity extends Activity {
 			}
 		}
 	};
+	private void initDialog(){
+		final Dialog dialog = new Dialog(OrderDetailActivity.this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.setContentView(R.layout.popup_accept);
+		dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+		dialog.show();
+		Button cancelBtn = (Button)dialog
+				.findViewById(R.id.popup_accept_cancel_btn);
+		cancelBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		Button payBtn = (Button)dialog
+				.findViewById(R.id.popup_accept_pay_btn);
+		payBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 
 	public void exitClick(View view) {
 		this.finish();
+	}
+	public void refresh(View view){
+		getData();
 	}
 
 }

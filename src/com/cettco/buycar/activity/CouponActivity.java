@@ -50,7 +50,6 @@ public class CouponActivity extends Activity {
 		setContentView(R.layout.activity_coupon);
 		//getActionBar().hide();
 		progressLayout = (RelativeLayout) findViewById(R.id.opacity_progressbar_relativeLayout);
-		progressLayout.setVisibility(View.VISIBLE);
 		nullDataLayout = (RelativeLayout) findViewById(R.id.null_data_relativeLayout);
 		TextView titleTextView = (TextView)findViewById(R.id.title_text);
 		intent = getIntent();
@@ -77,6 +76,7 @@ public class CouponActivity extends Activity {
 	protected void getPaymentData() {
 		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
 		// httpCache.clear();
+		nullDataLayout.setVisibility(View.GONE);
 		progressLayout.setVisibility(View.VISIBLE);
 		String url = GlobalData.getBaseUrl() + "/deposits/amount_and_discount.json";
 		HttpConnection.setCookie(getApplicationContext());
@@ -159,6 +159,11 @@ public class CouponActivity extends Activity {
 		setResult(RESULT_CANCELED, intent);
 		this.finish();
 	}
+	
+	public void refresh(View view){
+		getPaymentData();
+	}
+	
 	public void onResume() {
 		super.onResume();
 		MobclickAgent.onResume(this);

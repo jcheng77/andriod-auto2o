@@ -11,7 +11,7 @@
     <string name="title_selectcar">选车</string>
     <string name="title_car_demand">买车需求</string>
     <string name="alerttitle">同意一口价条款</string>
-    <string name="alertmsg">我已经阅读一口价条款，明白可能存在的违约金支付，愿意继续提交一口价购买订单</string>
+    <string name="alertmsg">  4S店地址和联系方式在您确认之前不可见。确认后请和4S店联系协商到店付款提车时间。如提车流程中因为任何4S店单方面原因无法达成交易,订金可全额退还。</string>
     <string-array name="getcarTime_array">
         <item>7日到店</item>
         <item>14日到店</item>
@@ -49,4 +49,5 @@
     <string name="soft_update_later">稍后更新</string>
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
+    <string name="accpet_term">4S店地址和联系方式在您确认之前不可见。确认后请和4S店联系协商到店付款提车时间。如提车流程中因为任何4S店单方面原因无法达成交易,订金可全额退还。</string>
 </resources>

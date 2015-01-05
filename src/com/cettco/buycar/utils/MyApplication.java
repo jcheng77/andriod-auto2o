@@ -1,9 +1,10 @@
 package com.cettco.buycar.utils;
 
-import com.baidu.frontia.FrontiaApplication;
-
 import cn.trinea.android.common.service.impl.ImageCache;
 import cn.trinea.android.common.util.CacheManager;
+
+import com.baidu.frontia.FrontiaApplication;
+
 import android.app.Application;
 
 public class MyApplication extends Application{
