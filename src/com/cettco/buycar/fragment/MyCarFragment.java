@@ -172,14 +172,10 @@ public class MyCarFragment extends Fragment {
 
 		DatabaseHelperOrder helper = DatabaseHelperOrder
 				.getHelper(getActivity());
-		System.out.println("000");
 		if (UserUtil.isLogin(getActivity())) {
-			System.out.println("111");
 			try {
-				System.out.println("222");
 				orderItems = helper.getDao().queryBuilder()
 						.orderBy("time", false).query();
-				System.out.println("333");
 				adapter.updateList(orderItems);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -234,7 +230,6 @@ public class MyCarFragment extends Fragment {
 					helper.getDao().update(tmp);
 
 				} else {
-					System.out.println("null");
 					SimpleDateFormat format = new SimpleDateFormat(
 							"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 					try {
@@ -265,11 +260,10 @@ public class MyCarFragment extends Fragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("tmp size:" + tmp.size());
 		for (int i = 0; i < tmp.size(); i++) {
 			OrderItemEntity orderItemEntity = tmp.get(i);
 			boolean notExist = true;
-			System.out.println("id:" + orderItemEntity.getId());
+			//System.out.println("id:" + orderItemEntity.getId());
 			// System.out.println("l:"+orderItemEntity.getId());
 			if (orderItemEntity.getId() != null) {
 				for (int j = 0; j < pageItems.size();j++) {
@@ -282,11 +276,11 @@ public class MyCarFragment extends Fragment {
 					}
 				}
 			}
-			System.out.println("judeg:" + notExist);
+			//System.out.println("judeg:" + notExist);
 
 			if (notExist) {
 				try {
-					System.out.println("delete:" + orderItemEntity.getId());
+					//System.out.println("delete:" + orderItemEntity.getId());
 					helper.getDao().delete(orderItemEntity);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -307,7 +301,7 @@ public class MyCarFragment extends Fragment {
 			int position = arg2 - 1;
 			OrderItemEntity orderItemEntity = orderItems.get(position);
 			String state = orderItemEntity.getState();
-			System.out.println("order:" + state);
+			//System.out.println("order:" + state);
 			if (state.equals("viewed")) {
 				Intent intent = new Intent();
 				intent.setClass(MyCarFragment.this.getActivity(),
@@ -361,10 +355,10 @@ public class MyCarFragment extends Fragment {
 		}
 		@Override
 	    protected void onCancelled() {
-			System.out.println("cancel");
+			//System.out.println("cancel");
 	        if ( httpget != null )
 	        {
-	        	System.out.println("cancel2");
+	        	//System.out.println("cancel2");
 	          //httpClient.getConnectionManager().shutdown();
 	          httpget.abort();
 	        }  
@@ -372,7 +366,7 @@ public class MyCarFragment extends Fragment {
 	}
 
 	private void getData(int page) {
-		System.out.println("getdata");
+		//System.out.println("getdata");
 		String cookieStr = null;
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(
@@ -383,12 +377,12 @@ public class MyCarFragment extends Fragment {
 			cookieName = name;
 			if (name.equals("_JustBidIt_session")) {
 				cookieStr = cookie.getValue();
-				System.out.println("cookie");
+				//System.out.println("cookie");
 				break;
 			}
 		}
 		if (cookieStr == null || cookieStr.equals("")) {
-			System.out.println("cookie null");
+			//System.out.println("cookie null");
 			return;
 		}
 //		if(httpclient!=null){
@@ -411,7 +405,7 @@ public class MyCarFragment extends Fragment {
 			int code = response.getStatusLine().getStatusCode();
 			if (code == 200) {
 				String result = EntityUtils.toString(response.getEntity());
-				System.out.println("page:" + result);
+				//System.out.println("page:" + result);
 				Type listType = new TypeToken<ArrayList<OrderItemEntity>>() {
 				}.getType();
 				pageItems = new Gson().fromJson(result, listType);
@@ -460,7 +454,7 @@ public class MyCarFragment extends Fragment {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		System.out.println("destroy");
+		//System.out.println("destroy");
 //		HttpConnection.getClient().cancelRequests(getActivity(), true);
 //		if (getDataTask != null && getDataTask.getStatus() != AsyncTask.Status.FINISHED)
 //			getDataTask.cancel(true);
@@ -470,7 +464,7 @@ public class MyCarFragment extends Fragment {
 	public void onDetach() {
 		// TODO Auto-generated method stub
 		super.onDetach();
-		System.out.println("detach");
+		//System.out.println("detach");
 		//HttpConnection.getClient().cancelRequests(getActivity(), true);
 	}
 
@@ -478,7 +472,7 @@ public class MyCarFragment extends Fragment {
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		System.out.println("pause");
+		//System.out.println("pause");
 		MobclickAgent.onPageEnd("Mycar"); 
 		//HttpConnection.getClient().cancelRequests(getActivity(), true);
 //		if (getDataTask != null && getDataTask.getStatus() != AsyncTask.Status.FINISHED)
@@ -489,7 +483,7 @@ public class MyCarFragment extends Fragment {
 	public void onDestroyView() {
 		// TODO Auto-generated method stub
 		super.onDestroyView();
-		System.out.println("destroyview");
+		//System.out.println("destroyview");
 		
 	}
 
@@ -497,7 +491,7 @@ public class MyCarFragment extends Fragment {
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		System.out.println("stop");
+		//System.out.println("stop");
 		if(httpclient!=null){
 			httpclient.getConnectionManager().shutdown();
 			//httpclient = new DefaultHttpClient();

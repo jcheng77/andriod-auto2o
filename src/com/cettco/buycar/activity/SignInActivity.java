@@ -19,6 +19,7 @@ import com.cettco.buycar.utils.UserUtil;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 
@@ -73,6 +74,12 @@ public class SignInActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			HttpConnection.getClient().removeHeader("Cookie");
+			UserUtil.logout(SignInActivity.this);
+			PersistentCookieStore myCookieStore = new PersistentCookieStore(
+					SignInActivity.this);
+			if (myCookieStore != null)
+				myCookieStore.clear();
 			String url = GlobalData.getBaseUrl() + "/users/sign_in.json";
 			String phone = signinPhoneEditText.getText().toString();
 			String password = signinPasswordeEditText.getText().toString();
@@ -84,7 +91,6 @@ public class SignInActivity extends Activity {
 			Gson gson = new Gson();
 			StringEntity entity = null;
 			try {
-				System.out.println(gson.toJson(userEntity).toString());
 				entity = new StringEntity(gson.toJson(userEntity).toString());
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
@@ -102,13 +108,9 @@ public class SignInActivity extends Activity {
 							super.onFailure(statusCode, headers, throwable,
 									errorResponse);
 							progressLayout.setVisibility(View.GONE);
-							System.out.println("error");
-							System.out.println("statusCode:" + statusCode);
-							System.out.println("headers:" + headers);
 							// for(int i = 0;i<headers.length;i++){
 							// System.out.println(headers[i]);
 							// }
-							System.out.println("response:" + errorResponse);
 							Toast toast = Toast.makeText(SignInActivity.this,
 									"登录失败，重新登录", Toast.LENGTH_SHORT);
 							toast.show();
@@ -119,13 +121,6 @@ public class SignInActivity extends Activity {
 								JSONObject response) {
 							// TODO Auto-generated method stub
 							super.onSuccess(statusCode, headers, response);
-							System.out.println("success");
-							System.out.println("statusCode:" + statusCode);
-
-							for (int i = 0; i < headers.length; i++) {
-								System.out.println(headers[0]);
-							}
-							System.out.println("response:" + response);
 							progressLayout.setVisibility(View.GONE);
 							String id = null;
 							String phone = null;

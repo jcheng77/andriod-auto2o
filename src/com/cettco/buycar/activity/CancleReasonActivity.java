@@ -107,22 +107,22 @@ public class CancleReasonActivity extends Activity {
 		String cookieName = null;
 		PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
 		if (myCookieStore == null) {
-			System.out.println("cookie store null");
+			//System.out.println("cookie store null");
 			return;
 		}
 		List<Cookie> cookies = myCookieStore.getCookies();
 		for (Cookie cookie : cookies) {
 			String name = cookie.getName();
 			cookieName = name;
-			System.out.println(name);
+			//System.out.println(name);
 			if (name.equals("_JustBidIt_session")) {
 				cookieStr = cookie.getValue();
-				System.out.println("value:" + cookieStr);
+				//System.out.println("value:" + cookieStr);
 				break;
 			}
 		}
 		if (cookieStr == null || cookieStr.equals("")) {
-			System.out.println("cookie null");
+			//System.out.println("cookie null");
 			return;
 		}
 		String url = GlobalData.getBaseUrl() + "/tenders/" + tender_id+ "/cancel.json";
@@ -137,7 +137,7 @@ public class CancleReasonActivity extends Activity {
 				reasonBuffer.append(list.get(key)+" ");
 			}
 		}
-		System.out.println("reson:"+reasonBuffer.toString());
+		//System.out.println("reson:"+reasonBuffer.toString());
 		if(reasonBuffer.toString().equals("")){
 			Toast toast = Toast.makeText(CancleReasonActivity.this,
 					"请至少选择一个取消原因", Toast.LENGTH_SHORT);
@@ -157,7 +157,7 @@ public class CancleReasonActivity extends Activity {
 		
 		StringEntity entity = null;
 		try {
-			System.out.println("patch:"+json.toString());
+			//System.out.println("patch:"+json.toString());
 			entity = new StringEntity(json.toString(),"utf-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -173,7 +173,7 @@ public class CancleReasonActivity extends Activity {
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
 				// TODO Auto-generated method stub
-				System.out.println("fail");
+				//System.out.println("fail");
 				Message message = new Message();
 				message.what = 2;
 				mHandler.sendMessage(message);

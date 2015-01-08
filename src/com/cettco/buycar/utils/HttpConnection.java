@@ -8,7 +8,7 @@ public class HttpConnection {
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	static{
-		client.setTimeout(2000);
+		client.setTimeout(8000);
 		client.addHeader("Content-Type", "application/json;charset=utf-8");
 	}
 	  public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

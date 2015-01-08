@@ -318,7 +318,7 @@ public class CarListActivity extends Activity {
 				long arg3) {
 			// TODO Auto-generated method stub
 			if(carBrandEntities==null||carBrandEntities.size()==0)return;
-			System.out.println("brand size:"+carBrandEntities.size());
+			//System.out.println("brand size:"+carBrandEntities.size());
 			int position = arg2 - 1;
 			brandPosition = position;
 			try {

@@ -116,7 +116,6 @@ public class SignUpActivity extends Activity {
 			Gson gson = new Gson();
 			StringEntity entity = null;
 			try {
-				System.out.println(gson.toJson(userEntity).toString());
 				entity = new StringEntity(gson.toJson(userEntity).toString());
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block

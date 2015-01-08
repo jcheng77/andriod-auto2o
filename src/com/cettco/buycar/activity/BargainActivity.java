@@ -265,10 +265,10 @@ public class BargainActivity extends Activity {
 		for (Cookie cookie : cookies) {
 			String name = cookie.getName();
 			cookieName = name;
-			System.out.println(name);
+			//System.out.println(name);
 			if (name.equals("_JustBidIt_session")) {
 				cookieStr = cookie.getValue();
-				System.out.println("value:" + cookieStr);
+				//System.out.println("value:" + cookieStr);
 				break;
 			}
 		}
@@ -339,7 +339,7 @@ public class BargainActivity extends Activity {
 		tenderEntity.setTender(tender);
 
 		Gson gson = new Gson();
-		System.out.println(gson.toJson(tenderEntity).toString());
+		//System.out.println(gson.toJson(tenderEntity).toString());
 		StringEntity entity = null;
 		try {
 			// System.out.println(gson.toJson(bargainEntity).toString());
@@ -364,9 +364,9 @@ public class BargainActivity extends Activity {
 						super.onFailure(statusCode, headers, throwable,
 								errorResponse);
 						progressLayout.setVisibility(View.GONE);
-						System.out.println("error");
-						System.out.println("statusCode:" + statusCode);
-						System.out.println("headers:" + headers);
+						//System.out.println("error");
+						//System.out.println("statusCode:" + statusCode);
+						//System.out.println("headers:" + headers);
 						if (statusCode == 401) {
 							Message msg = new Message();
 							msg.what = RESULT_UNAUTHORIZED;
@@ -390,19 +390,19 @@ public class BargainActivity extends Activity {
 						super.onSuccess(statusCode, headers, response);
 						progressLayout.setVisibility(View.GONE);
 
-						System.out.println("success");
-						System.out.println("statusCode:" + statusCode);
+						//System.out.println("success");
+						//System.out.println("statusCode:" + statusCode);
 
 						// for(int i=0;i<headers.length;i++){
 						// System.out.println(headers[0]);
 						// }
-						System.out.println("response:" + response);
+						//System.out.println("response:" + response);
 						String tender_id = "";
 						if (statusCode == 201) {
 
 							try {
-								System.out.println("id:"
-										+ response.getString("id"));
+								//System.out.println("id:"
+										//+ response.getString("id"));
 								tender_id = response.getString("id");
 								orderItemEntity.setId(response.getString("id"));
 								orderItemEntity.setState(response
@@ -521,8 +521,8 @@ public class BargainActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (data == null)
 			return;
-		System.out.println("resultcode :" + resultCode + " requestcode:"
-				+ requestCode);
+		//System.out.println("resultcode :" + resultCode + " requestcode:"
+				//+ requestCode);
 		Bundle b = data.getExtras();
 		switch (resultCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
 		case RESULT_OK:
@@ -540,7 +540,7 @@ public class BargainActivity extends Activity {
 				plateSelection = b.getInt("result");
 			} else if (requestCode == RESULT_SHOP) {
 				dealers = b.getStringArrayList("dealers");
-				System.out.println("dealer size:" + dealers.size());
+				//System.out.println("dealer size:" + dealers.size());
 			}
 			break;
 		default:

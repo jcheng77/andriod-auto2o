@@ -308,24 +308,24 @@ public class CarDetailActivity extends Activity {
 		@Override
 		public void onPageSelected(int index) {
 			// TODO Auto-generated method stub
-			System.out.println("index:"+index);
+			//System.out.println("index:"+index);
 			
 			trim_selection = index;
 			trim_id = trimList.get(index).getId();
-			System.out.println("trim_id:"+trim_id);
+			//System.out.println("trim_id:"+trim_id);
 			trim_name = trimList.get(index).getName();
 		}
 
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
 			// TODO Auto-generated method stub
-			System.out.println("scrolled");
+			//System.out.println("scrolled");
 		}
 
 		@Override
 		public void onPageScrollStateChanged(int arg0) {
 			// TODO Auto-generated method stub
-			System.out.println("state changed");
+			//System.out.println("state changed");
 		}
 	};
 	protected OnClickListener beginBiddingClickListener = new OnClickListener() {
@@ -375,7 +375,7 @@ public class CarDetailActivity extends Activity {
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
 				// TODO Auto-generated method stub
-				System.out.println("fail");
+				//System.out.println("fail");
 				Message message = new Message();
 				message.what = 2;
 				mHandler.sendMessage(message);
@@ -387,7 +387,7 @@ public class CarDetailActivity extends Activity {
 				System.out.println("seccuss");
 				try {
 					String result = new String(arg2, "UTF-8");
-					System.out.println("count:"+result);
+					//System.out.println("count:"+result);
 					Message message = new Message();
 					message.what = 1;
 					mHandler.sendMessage(message);

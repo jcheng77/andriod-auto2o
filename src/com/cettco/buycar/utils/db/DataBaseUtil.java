@@ -31,7 +31,7 @@ public class DataBaseUtil {
 	public boolean checkDataBase() {
 		SQLiteDatabase db = null;
 		try {
-			String databaseFilename = DATABASE_PATH + dbName+".db";
+			String databaseFilename = DATABASE_PATH + dbName + ".db";
 			db = SQLiteDatabase.openDatabase(databaseFilename, null,
 					SQLiteDatabase.OPEN_READONLY);
 		} catch (SQLiteException e) {
@@ -49,13 +49,14 @@ public class DataBaseUtil {
 	 * @throws IOException
 	 */
 	public void copyDataBase() throws IOException {
-		String databaseFilenames = DATABASE_PATH + dbName+".db";
+		String databaseFilenames = DATABASE_PATH + dbName + ".db";
 		File dir = new File(DATABASE_PATH);
 		if (!dir.exists())// 判断文件夹是否存在，不存在就新建一个
 			dir.mkdir();
 		FileOutputStream os = new FileOutputStream(databaseFilenames);// 得到数据库文件的写入流
-		InputStream is = context.getResources().openRawResource(context.getResources().getIdentifier(dbName,
-	            "raw", context.getPackageName()));// 得到数据库文件的数据流
+		InputStream is = context.getResources().openRawResource(
+				context.getResources().getIdentifier(dbName, "raw",
+						context.getPackageName()));// 得到数据库文件的数据流
 		byte[] buffer = new byte[8192];
 		int count = 0;
 		while ((count = is.read(buffer)) > 0) {
@@ -64,6 +65,20 @@ public class DataBaseUtil {
 		}
 		is.close();
 		os.close();
+	}
+
+	public void deleteDataBase() {
+		System.out.println("delete");
+		String databaseFilenames = DATABASE_PATH + dbName + ".db";
+		File dir = new File(databaseFilenames);
+		if (dir.exists())// 判断文件夹是否存在，不存在就新建一个
+		{
+
+			System.out.println("exit cp1");
+			dir.delete();
+			System.out.println("exit cp2");
+		}
+		System.out.println("delete3");
 	}
 
 	public void setDataBaseName(String name) {

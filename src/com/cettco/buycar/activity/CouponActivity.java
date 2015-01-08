@@ -86,7 +86,7 @@ public class CouponActivity extends Activity {
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
 				// TODO Auto-generated method stub
-				System.out.println("fail");
+				//System.out.println("fail");
 				progressLayout.setVisibility(View.GONE);
 				Message message = new Message();
 				message.what = DATA_FAIL;
@@ -96,18 +96,18 @@ public class CouponActivity extends Activity {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
-				System.out.println("succuss");
+				//System.out.println("succuss");
 				progressLayout.setVisibility(View.GONE);
 				try {
 					
 					String result = new String(arg2, "UTF-8");
-					System.out.println("result:"+result);
+					//System.out.println("result:"+result);
 					JSONObject object = new JSONObject(result);
 					//amount = object.getInt("amount");
 					JSONArray array =object.getJSONArray("discount");
 					String[] strArr = new String[array.length()];
 					discountList = new ArrayList<Integer>();
-					System.out.println("array lenght:"+array.length());
+					//System.out.println("array lenght:"+array.length());
 					for(int i=0;i<array.length();i++){
 						discountList.add(array.getInt(i));
 					}
@@ -130,7 +130,7 @@ public class CouponActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case DATA_SUCCESS:
-				System.out.println("update");
+				//System.out.println("update");
 				nullDataLayout.setVisibility(View.GONE);
 				progressLayout.setVisibility(View.GONE);
 				adapter.updateData(discountList);
@@ -150,7 +150,7 @@ public class CouponActivity extends Activity {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		System.out.println("back pressed");
+		//System.out.println("back pressed");
 		setResult(RESULT_CANCELED, intent);
 		//this.finish();
 	}

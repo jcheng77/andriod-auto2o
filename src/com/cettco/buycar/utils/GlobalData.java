@@ -1,7 +1,7 @@
 package com.cettco.buycar.utils;
 
 public class GlobalData {
-	private static String baseUrl = "http://staging.pailixing.com";
+	private static String baseUrl = "http://pailixing.com";
 
 	public static String getBaseUrl() {
 		return baseUrl;

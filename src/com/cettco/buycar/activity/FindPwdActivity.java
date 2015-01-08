@@ -84,7 +84,6 @@ public class FindPwdActivity extends Activity{
 			Gson gson = new Gson();
 	        StringEntity entity = null;
 	        try {
-	        	System.out.println(gson.toJson(userEntity).toString());
 				entity = new StringEntity(gson.toJson(userEntity).toString());
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
@@ -97,8 +96,6 @@ public class FindPwdActivity extends Activity{
 					// TODO Auto-generated method stub
 					super.onFailure(statusCode, headers, throwable,
 							errorResponse);
-					System.out.println("fail:");
-					System.out.println("statuscode:"+statusCode);
 					progressLayout.setVisibility(View.GONE);
 					Message msg = new Message();
 					msg.what = SENDFAILURE;
@@ -110,8 +107,6 @@ public class FindPwdActivity extends Activity{
 						JSONObject response) {
 					// TODO Auto-generated method stub
 					super.onSuccess(statusCode, headers, response);
-					System.out.println("success:");
-					System.out.println("statuscode:"+statusCode);
 					progressLayout.setVisibility(View.GONE);
 					Message msg = new Message();
 					msg.what = SENDSUCCESS;

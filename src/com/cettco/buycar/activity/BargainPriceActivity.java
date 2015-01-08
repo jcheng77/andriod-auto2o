@@ -57,7 +57,7 @@ public class BargainPriceActivity extends Activity {
 					.eq("order_id", order_id).queryForFirst();
 
 			trim_id = orderItemEntity.getTrim_id();
-			System.out.println("trim id:" + trim_id);
+			//System.out.println("trim id:" + trim_id);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

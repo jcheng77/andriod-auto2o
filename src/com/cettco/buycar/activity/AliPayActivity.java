@@ -172,8 +172,8 @@ public class AliPayActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (data == null)
 			return;
-		System.out.println("resultcode :" + resultCode + " requestcode:"
-				+ requestCode);
+//		System.out.println("resultcode :" + resultCode + " requestcode:"
+//				+ requestCode);
 		Bundle b = data.getExtras();
 		switch (resultCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
 		case RESULT_OK:
@@ -327,7 +327,7 @@ public class AliPayActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("pic:"+detailEntity.getPic_url());
+		//System.out.println("pic:"+detailEntity.getPic_url());
 		MyApplication.IMAGE_CACHE.get(detailEntity.getPic_url(),carImageView);
 	}
 
@@ -346,7 +346,7 @@ public class AliPayActivity extends Activity {
 		}
 		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
 				+ getSignType();
-		System.out.println("payInfo:"+payInfo);
+		//System.out.println("payInfo:"+payInfo);
 		Runnable payRunnable = new Runnable() {
 
 			@Override
@@ -467,7 +467,7 @@ public class AliPayActivity extends Activity {
 		Long tsLong = System.currentTimeMillis()/1000;
 		String ts = tsLong.toString();
 		String key = ts+tender_id;
-		System.out.println("key:"+key);
+		//System.out.println("key:"+key);
 //
 //		Random r = new Random();
 //		key = key + r.nextInt();
@@ -508,7 +508,7 @@ public class AliPayActivity extends Activity {
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
 				// TODO Auto-generated method stub
-				System.out.println("fail");
+				//System.out.println("fail");
 				progressLayout.setVisibility(View.GONE);
 				Message message = new Message();
 				message.what = DATA_FAIL;
@@ -518,11 +518,11 @@ public class AliPayActivity extends Activity {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
-				System.out.println("seccuss");
+				//System.out.println("seccuss");
 				progressLayout.setVisibility(View.GONE);
 				try {
 					String result = new String(arg2, "UTF-8");
-					System.out.println("result:" + result);
+					//System.out.println("result:" + result);
 					Gson gson = new Gson();
 					detailEntity = gson.fromJson(result,
 							OrderDetailEntity.class);
@@ -550,7 +550,7 @@ public class AliPayActivity extends Activity {
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
 				// TODO Auto-generated method stub
-				System.out.println("fail");
+				//System.out.println("fail");
 				progressLayout.setVisibility(View.GONE);
 				Message message = new Message();
 				message.what = DATA_FAIL;
@@ -560,7 +560,7 @@ public class AliPayActivity extends Activity {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
-				System.out.println("succuss");
+				//System.out.println("succuss");
 				progressLayout.setVisibility(View.GONE);
 				try {
 					String result = new String(arg2, "UTF-8");
@@ -569,7 +569,7 @@ public class AliPayActivity extends Activity {
 					JSONArray array =object.getJSONArray("discount");
 					String[] strArr = new String[array.length()];
 					discountList = new ArrayList<Integer>();
-					System.out.println("array lenght:"+array.length());
+					//System.out.println("array lenght:"+array.length());
 					for(int i=0;i<array.length();i++){
 						discountList.add(array.getInt(i));
 					}

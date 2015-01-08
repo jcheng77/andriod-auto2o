@@ -15,6 +15,7 @@ import com.cettco.buycar.fragment.MyCarFragment;
 import com.cettco.buycar.fragment.SettingsFragment;
 import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.UpdateManager;
+import com.cettco.buycar.utils.UserUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.umeng.analytics.MobclickAgent;
@@ -33,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -257,9 +259,14 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, CouponActivity.class);
-			startActivity(intent);
+			if (UserUtil.isLogin(MainActivity.this)) {
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, CouponActivity.class);
+				startActivity(intent);
+			} else {
+				Toast toast = Toast.makeText(MainActivity.this,"请登录", Toast.LENGTH_SHORT);
+				toast.show();
+			}
 //			new AlertDialog.Builder(MainActivity.this)
 //		    .setTitle("提示")
 //		    .setMessage("请预支付订金到拍立行来锁定此优惠价格.")
