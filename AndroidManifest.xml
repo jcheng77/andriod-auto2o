@@ -111,6 +111,13 @@
         </activity>
         <activity android:name="com.cettco.buycar.activity.CouponActivity">
         </activity>
+        
+        <activity android:name=".activity.WebActivity" >
+         </activity>
+         <activity android:name="activity.MyCreditActivity" >
+         </activity>
+         <activity android:name=".activity.FeedBackActivity" >
+         </activity>
 
         <service android:enabled="true" android:name="com.cettco.buycar.service.UpdateService">
         </service>

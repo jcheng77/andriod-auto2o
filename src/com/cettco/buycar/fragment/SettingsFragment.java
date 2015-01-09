@@ -1,38 +1,35 @@
 package com.cettco.buycar.fragment;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Set;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.http.Header;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.cettco.buycar.R;
-import com.cettco.buycar.activity.CarListActivity;
+import com.cettco.buycar.activity.FeedBackActivity;
 import com.cettco.buycar.activity.MainActivity;
+import com.cettco.buycar.activity.MyCreditActivity;
 import com.cettco.buycar.activity.SignInActivity;
-import com.cettco.buycar.entity.OrderItemEntity;
+import com.cettco.buycar.activity.WebActivity;
+import com.cettco.buycar.entity.User;
+import com.cettco.buycar.entity.UserEntity;
+import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
 import com.cettco.buycar.utils.UpdateManager;
 import com.cettco.buycar.utils.UserUtil;
-import com.cettco.buycar.utils.db.DatabaseHelperOrder;
+import com.cettco.buycar.view.SettingsItemView;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.SinaSsoHandler;
-import com.umeng.socialize.sso.TencentWBSsoHandler;
-import com.umeng.socialize.sso.UMQQSsoHandler;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,76 +44,93 @@ import android.widget.Toast;
 
 public class SettingsFragment extends Fragment {
 
-	private RelativeLayout loginLayout;
-	private TextView loginTextView;
-	private View fragmentView;
-	private LinearLayout logoutLayout;
-	private Button logouButton;
-	private ImageView loginArrow;
+	// private RelativeLayout loginLayout;
+	// private TextView loginTextView;
+	//
+	// private LinearLayout logoutLayout;
+	//
+	// private ImageView loginArrowImageView;
+	// // private RelativeLayout progressLayout;
+	// private RelativeLayout checkUpdateLayout;
+	// private LinearLayout phonelLayout;
 
-	private RelativeLayout checkUpdateLayout;
-	private TextView checkUpdateTextView;
+	// new style
+	private View fragmentView;
+	private LinearLayout isLoginLly;
+	private LinearLayout notLoginLly;
+	private TextView loginNameTxv;
+	private TextView loginPhoneTxv;
+	private Button logouButton;
+	private SettingsItemView checkUpdateLayout;
+	//private SettingsItemView creditLy;
+	//private SettingsItemView agreementLy;
+	private SettingsItemView talkToCEOLy;
+	private SettingsItemView aboutPailixingLy;
 	private LinearLayout phonelLayout;
-	private RelativeLayout shareRl;
-	private final UMSocialService mController = UMServiceFactory
-			.getUMSocialService("com.umeng.share");
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		// return super.onCreateView(inflater, container, savedInstanceState);
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
-		StrictMode.setThreadPolicy(policy);
 		fragmentView = inflater.inflate(R.layout.fragment_settings, container,
 				false);
-		loginArrow = (ImageView) fragmentView
-				.findViewById(R.id.settings_login_arrow);
-		loginLayout = (RelativeLayout) fragmentView
-				.findViewById(R.id.settings_login_layout);
-		loginLayout.setOnClickListener(loginClickListener);
-		loginTextView = (TextView) fragmentView
-				.findViewById(R.id.settings_login_textView);
-
-		logoutLayout = (LinearLayout) fragmentView
-				.findViewById(R.id.logout_layout);
+		// progressLayout = (RelativeLayout) fragmentView
+		// .findViewById(R.id.progressbar_relativeLayout);
+		isLoginLly = (LinearLayout) fragmentView
+				.findViewById(R.id.fragment_settings_islogin_lly);
+		notLoginLly = (LinearLayout) fragmentView
+				.findViewById(R.id.fragment_settings_notlogin_lly);
+		notLoginLly.setOnClickListener(loginClickListener);
+		loginNameTxv = (TextView) fragmentView
+				.findViewById(R.id.fragment_settings_login_name_textview);
+		loginPhoneTxv = (TextView) fragmentView
+				.findViewById(R.id.fragment_settings_login_phone_textview);
 		logouButton = (Button) fragmentView.findViewById(R.id.logout_button);
 		logouButton.setOnClickListener(logoutClickListener);
-
-		checkUpdateLayout = (RelativeLayout) fragmentView
-				.findViewById(R.id.settings_check_update_layout);
+		checkUpdateLayout = (SettingsItemView) fragmentView
+				.findViewById(R.id.fragment_settings_checkupdate_ly);
 		checkUpdateLayout.setOnClickListener(checkUpdateClickListener);
-		checkUpdateTextView = (TextView) fragmentView
-				.findViewById(R.id.settings_check_update_textView);
 
-		try {
-			// 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-			String versionName = getActivity().getPackageManager()
-					.getPackageInfo("com.cettco.buycar", 0).versionName;
-			checkUpdateTextView.setText("当前版本v" + versionName);
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
+//		creditLy = (SettingsItemView) fragmentView
+//				.findViewById(R.id.fragment_settings_credit_ly);
+//		creditLy.setOnClickListener(creditClickListner);
+//
+//		agreementLy = (SettingsItemView) fragmentView
+//				.findViewById(R.id.fragment_settings_agreement_ly);
+//		agreementLy.setOnClickListener(agreementClickListner);
+
+		talkToCEOLy = (SettingsItemView) fragmentView
+				.findViewById(R.id.fragment_settings_talktoceo_ly);
+		talkToCEOLy.setOnClickListener(talkToCEOClickListner);
+
+		aboutPailixingLy = (SettingsItemView) fragmentView
+				.findViewById(R.id.fragment_settings_about_pailixing_ly);
+		aboutPailixingLy.setOnClickListener(aboutPailixingClickListner);
+
 		phonelLayout = (LinearLayout) fragmentView
 				.findViewById(R.id.settings_phone_linearlayout);
 		phonelLayout.setOnClickListener(phoneClickListener);
 
-		shareRl = (RelativeLayout) fragmentView
-				.findViewById(R.id.settings_share_layout);
-		shareRl.setOnClickListener(shareClickListener);
-		// final UMSocialService mController =
-		// UMServiceFactory.getUMSocialService("com.umeng.share");
-		// 设置分享内容
-		mController
-				.setShareContent("一口价买车,全城4S店销售抢单。 国内首创以反向定价的形式在线上订购汽车，线下完成消费提车的O2O产品新秀。底价从这里开始，就是这么低。详情请见: http://www.pailixing.com");
-		// 设置分享图片, 参数2为图片的url地址
-		mController.setShareMedia(new UMImage(getActivity(), R.drawable.ic_launcher));
-		// mController.setShareMedia(new UMImage(MainActivity.this,
-		// "http://www.umeng.com/images/pic/banner_module_social.png"));
-		mController.getConfig().removePlatform(SHARE_MEDIA.RENREN,
-				SHARE_MEDIA.DOUBAN);
-		initShare();
+		// loginArrowImageView = (ImageView) fragmentView
+		// .findViewById(R.id.settings_login_arrow_imageview);
+		// loginLayout = (RelativeLayout) fragmentView
+		// .findViewById(R.id.settings_login_layout);
+		// loginLayout.setOnClickListener(loginClickListener);
+		// loginTextView = (TextView) fragmentView
+		// .findViewById(R.id.settings_login_textView);
+		//
+		// logoutLayout = (LinearLayout) fragmentView
+		// .findViewById(R.id.logout_layout);
+		// logouButton = (Button) fragmentView.findViewById(R.id.logout_button);
+		// logouButton.setOnClickListener(logoutClickListener);
+		//
+		// checkUpdateLayout = (RelativeLayout) fragmentView
+		// .findViewById(R.id.settings_checkupdate_linearlayout);
+		// checkUpdateLayout.setOnClickListener(checkUpdateClickListener);
+		// phonelLayout = (LinearLayout) fragmentView
+		// .findViewById(R.id.settings_phone_linearlayout);
+		// phonelLayout.setOnClickListener(phoneClickListener);
 		return fragmentView;
 	}
 
@@ -124,61 +138,69 @@ public class SettingsFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		MobclickAgent.onPageStart("settings"); //统计页面
-
 		if (UserUtil.isLogin(getActivity())) {
-			loginTextView.setText(UserUtil.getPhone(getActivity()));
-			logoutLayout.setVisibility(View.VISIBLE);
-			loginArrow.setVisibility(View.GONE);
+			isLoginLly.setVisibility(View.VISIBLE);
+			notLoginLly.setVisibility(View.GONE);
+			loginPhoneTxv.setText(UserUtil.getPhone(getActivity()));
+			logouButton.setVisibility(View.VISIBLE);
+			// loginTextView.setText(UserUtil.getPhone(getActivity()));
+			// logoutLayout.setVisibility(View.VISIBLE);
+			// loginArrowImageView.setVisibility(View.GONE);
 		} else {
-			loginTextView.setText("请登录");
-			logoutLayout.setVisibility(View.GONE);
+			isLoginLly.setVisibility(View.GONE);
+			notLoginLly.setVisibility(View.VISIBLE);
+			logouButton.setVisibility(View.GONE);
 		}
 	}
-	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("settings"); 
-	}
 
-	private void initShare() {
-		// 微信
-		String appId = "wx967daebe835fbeac";
-		String appSecret = "5fa9e68ca3970e87a1f83e563c8dcbce";
-		// 添加微信平台
-		UMWXHandler wxHandler = new UMWXHandler(getActivity(), appId, appSecret);
-		//wxHandler.set
-		wxHandler.addToSocialSDK();
-		// 添加微信朋友圈
-		UMWXHandler wxCircleHandler = new UMWXHandler(getActivity(), appId,
-				appSecret);
-		//wxCircleHandler.set
-		wxCircleHandler.setToCircle(true);
-		wxCircleHandler.addToSocialSDK();
-
-		// qq
-		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(getActivity(),
-				"100424468", "c7394704798a158208a74ab60104f0ba");
-		qqSsoHandler.setTargetUrl("http://pailixing.com");
-		qqSsoHandler.addToSocialSDK();
-
-		// qq 空间
-		QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(getActivity(),
-				"100424468", "c7394704798a158208a74ab60104f0ba");
-		qZoneSsoHandler.setTargetUrl("http://pailixing.com");
-		qZoneSsoHandler.addToSocialSDK();
-		mController.getConfig().setSsoHandler(new SinaSsoHandler());
-		mController.getConfig().setSsoHandler(new TencentWBSsoHandler());
-	}
-
-	private OnClickListener shareClickListener = new OnClickListener() {
+	private OnClickListener creditClickListner = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			mController.openShare(getActivity(), false);
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), MyCreditActivity.class);
+			startActivity(intent);
+		}
+	};
+	private OnClickListener agreementClickListner = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			System.out.println("aggrenment click");
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), WebActivity.class);
+			intent.putExtra("name", "商家协议");
+			startActivity(intent);
 
 		}
 	};
+	private OnClickListener talkToCEOClickListner = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), FeedBackActivity.class);
+			//intent.putExtra("name", "对话CEO");
+			startActivity(intent);
+
+		}
+	};
+	private OnClickListener aboutPailixingClickListner = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), WebActivity.class);
+			intent.putExtra("name", "关于拍立行");
+			startActivity(intent);
+
+		}
+	};
+
 	private OnClickListener phoneClickListener = new OnClickListener() {
 
 		@Override
@@ -212,18 +234,8 @@ public class SettingsFragment extends Fragment {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			// progressLayout.setVisibility(View.VISIBLE);
 			HttpConnection.getClient().removeHeader("Cookie");
-			DatabaseHelperOrder helper = DatabaseHelperOrder
-					.getHelper(getActivity());
-			try {
-				List<OrderItemEntity> list = helper.getDao().queryForAll();
-				helper.getDao().delete(list);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return;
-			}
-			// HttpConnection.getClient().removeHeader("Cookie");
 			UserUtil.logout(getActivity());
 			PersistentCookieStore myCookieStore = new PersistentCookieStore(
 					getActivity());
@@ -233,28 +245,6 @@ public class SettingsFragment extends Fragment {
 					Toast.LENGTH_SHORT);
 			toast.show();
 			onResume();
-			// JPushInterface.setAlias(getActivity(), null, new
-			// TagAliasCallback() {
-			//
-			// @Override
-			// public void gotResult(int arg0, String arg1, Set<String> arg2) {
-			// // TODO Auto-generated method stub
-			// System.out.print("set success:"+arg1);
-			// if(arg0==0){
-			// Toast toast = Toast.makeText(getActivity(), "注销成功",
-			// Toast.LENGTH_SHORT);
-			// toast.show();
-			// onResume();
-			// }else{
-			// Toast toast = Toast.makeText(getActivity(), "注销失败",
-			// Toast.LENGTH_SHORT);
-			// toast.show();
-			// onResume();
-			// }
-			//
-			// }
-			// });
-
 		}
 	};
 	private OnClickListener loginClickListener = new OnClickListener() {
@@ -263,16 +253,6 @@ public class SettingsFragment extends Fragment {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			if (UserUtil.isLogin(getActivity())) {
-				// UserUtil.logout(getActivity());
-				// PersistentCookieStore myCookieStore = new
-				// PersistentCookieStore(
-				// getActivity());
-				// if(myCookieStore==null)return;
-				// myCookieStore.clear();
-				// loginTextView.setText("请登录");
-				// Toast toast = Toast.makeText(getActivity(), "注销成功",
-				// Toast.LENGTH_SHORT);
-				// toast.show();
 				return;
 			} else {
 				Intent intent = new Intent();
@@ -281,5 +261,77 @@ public class SettingsFragment extends Fragment {
 			}
 		}
 	};
+
+	// private void signOutData(){
+	// String url = GlobalData.getBaseUrl()+"/dealers/sign_in.json";
+	// String phone = signinPhoneEditText.getText().toString();
+	// String password = signinPasswordeEditText.getText().toString();
+	// User user = new User();
+	// user.setPhone(phone);
+	// user.setPassword(password);
+	// UserEntity userEntity = new UserEntity();
+	// userEntity.setDealer(user);
+	// Gson gson = new Gson();
+	// StringEntity entity = null;
+	// try {
+	// System.out.println(gson.toJson(userEntity).toString());
+	// entity = new StringEntity(gson.toJson(userEntity).toString());
+	// } catch (UnsupportedEncodingException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// HttpConnection.setCookie(getApplicationContext());
+	// HttpConnection.post(SignInActivity.this, url, null, entity,
+	// "application/json;charset=utf-8", new JsonHttpResponseHandler(){
+	//
+	// @Override
+	// public void onFailure(int statusCode, Header[] headers,
+	// Throwable throwable, JSONObject errorResponse) {
+	// // TODO Auto-generated method stub
+	// super.onFailure(statusCode, headers, throwable, errorResponse);
+	// progressLayout.setVisibility(View.GONE);
+	// System.out.println("error");
+	// System.out.println("statusCode:"+statusCode);
+	// System.out.println("headers:"+headers);
+	// // for(int i = 0;i<headers.length;i++){
+	// // System.out.println(headers[i]);
+	// // }
+	// System.out.println("response:"+errorResponse);
+	// Toast toast = Toast.makeText(SignInActivity.this, "登录失败，重新登录",
+	// Toast.LENGTH_SHORT);
+	// toast.show();
+	// }
+	//
+	// @Override
+	// public void onSuccess(int statusCode, Header[] headers,
+	// JSONObject response) {
+	// // TODO Auto-generated method stub
+	// super.onSuccess(statusCode, headers, response);
+	// System.out.println("success");
+	// System.out.println("statusCode:"+statusCode);
+	//
+	// for(int i=0;i<headers.length;i++){
+	// System.out.println(headers[0]);
+	// }
+	// System.out.println("response:"+response);
+	// progressLayout.setVisibility(View.GONE);
+	// String id=null;
+	// try {
+	// id = response.getString("id");
+	// } catch (JSONException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// UserUtil.login(SignInActivity.this);
+	// UserUtil.setUserId(SignInActivity.this, id);
+	// Toast toast = Toast.makeText(SignInActivity.this, "登录成功",
+	// Toast.LENGTH_SHORT);
+	// toast.show();
+	// getActivity().finish();
+	//
+	// }
+	//
+	// });
+	// }
 
 }

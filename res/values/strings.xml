@@ -50,4 +50,7 @@
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
     <string name="accpet_term">4S店地址和联系方式在您确认之前不可见。确认后请和4S店联系协商到店付款提车时间。如提车流程中因为任何4S店单方面原因无法达成交易,订金可全额退还。</string>
+    
+    <string name="feedback_top_msg">欢迎您提出宝贵的意见和建议，您留下的每个字都讲用来改善我们的软件。</string>
+    <string name="feedback_edittext_hint_msg">请输入您的反馈意见</string>
 </resources>
