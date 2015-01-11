@@ -35,7 +35,7 @@
             android:background="@color/gray" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
@@ -48,7 +48,7 @@
 
             <EditText
                 android:id="@+id/signupPhoneEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"

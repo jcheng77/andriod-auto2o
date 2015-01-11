@@ -26,6 +26,7 @@
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_extra_large">30sp</dimen>
     
-    <dimen name="settings_seperator_distance">10dp</dimen>
+    <dimen name="settings_seperator_distance">15dp</dimen>
+    <dimen name="order_detail_seg_distance">5dp</dimen>
 
 </resources>

@@ -83,6 +83,18 @@ public class SignInActivity extends Activity {
 			String url = GlobalData.getBaseUrl() + "/users/sign_in.json";
 			String phone = signinPhoneEditText.getText().toString();
 			String password = signinPasswordeEditText.getText().toString();
+			if (phone==null||phone.equals("")) {
+				Toast toast = Toast.makeText(SignInActivity.this,
+						"请输入手机号码", Toast.LENGTH_SHORT);
+				toast.show();
+				return;
+			}
+			if (password==null||password.equals("")) {
+				Toast toast = Toast.makeText(SignInActivity.this,
+						"请输入密码", Toast.LENGTH_SHORT);
+				toast.show();
+				return;
+			}
 			User user = new User();
 			user.setPhone(phone);
 			user.setPassword(password);

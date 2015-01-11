@@ -41,13 +41,16 @@ public class MainActivity extends Activity {
 	private SlidingMenu menu;
 	private TextView currentCitytTextView;
 	private LinearLayout settingLayout;
-	private ImageButton drawerButton;
+	//private ImageButton drawerButton;
 	private LinearLayout cityLayout;
 	private LinearLayout mycarLayout;
 	private LinearLayout guideLayout;
 	private LinearLayout couponLly;
-	private ImageButton addImageButton;
+	//private ImageButton addImageButton;
 	private TextView titleTextView;
+	
+	private LinearLayout addCarLly;
+	private LinearLayout drawerLly;
 
 	// private LinearLayout welcomelLayout;
 	// private LinearLayout logoutLayout;
@@ -92,8 +95,11 @@ public class MainActivity extends Activity {
 		couponLly=(LinearLayout) findViewById(R.id.couponLinearlayout);
 		couponLly.setOnClickListener(couponClickListener);
 
-		drawerButton = (ImageButton) findViewById(R.id.actionbar_drawer);
-		drawerButton.setOnClickListener(drawerClickListener);
+		//drawerButton = (ImageButton) findViewById(R.id.actionbar_drawer);
+		//drawerButton.setOnClickListener(drawerClickListener);
+		
+		drawerLly = (LinearLayout)findViewById(R.id.main_drawer_lly);
+		drawerLly.setOnClickListener(drawerClickListener);
 
 		cityLayout = (LinearLayout) findViewById(R.id.selectCityLinearLayout);
 		cityLayout.setOnClickListener(selectCityClickListener);
@@ -101,8 +107,11 @@ public class MainActivity extends Activity {
 		mycarLayout = (LinearLayout) findViewById(R.id.accountLinearLayout);
 		mycarLayout.setOnClickListener(mycarClickListener);
 
-		addImageButton = (ImageButton) findViewById(R.id.addCar_btn);
-		addImageButton.setOnClickListener(addCarClickListener);
+		//addImageButton = (ImageButton) findViewById(R.id.addCar_btn);
+		//addImageButton.setOnClickListener(addCarClickListener);
+		
+		addCarLly = (LinearLayout)findViewById(R.id.main_add_car_lly);
+		addCarLly.setOnClickListener(addCarClickListener);
 
 		currentCitytTextView = (TextView) findViewById(R.id.menuCurrentCityTextView);
 

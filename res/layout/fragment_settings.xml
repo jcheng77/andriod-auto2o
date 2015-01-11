@@ -17,20 +17,20 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_marginTop="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:background="@color/actionbar_main"
                 android:gravity="center"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/beginbuycar_btn_style"
                     android:id="@+id/fragment_settings_notlogin_lly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/beginbuycar_btn_style"
                     android:gravity="center"
                     android:orientation="vertical" >
 
@@ -41,7 +41,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/name_icon" />
+                        android:background="@drawable/name_icon_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,11 +52,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/fragment_settings_islogin_lly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="vertical" >
 
@@ -67,7 +67,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/name_icon" />
+                        android:background="@drawable/name_icon_white" />
 
                     <TextView
                         android:id="@+id/fragment_settings_login_name_textview"
@@ -88,27 +88,11 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!--  <com.cettco.buycar.view.SettingsItemView
-                android:id="@+id/fragment_settings_credit_ly"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                item:myText="我的积分" >
-            </com.cettco.buycar.view.SettingsItemView>
-
-            <com.cettco.buycar.view.SettingsItemView
-                android:layout_marginTop="@dimen/settings_seperator_distance"
-                android:id="@+id/fragment_settings_agreement_ly"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                item:myText="商家协议" >
-            </com.cettco.buycar.view.SettingsItemView>-->
-
             <com.cettco.buycar.view.SettingsItemView
                 android:id="@+id/fragment_settings_talktoceo_ly"
-                android:layout_marginTop="@dimen/settings_seperator_distance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_seperator_distance"
                 item:myText="对话CEO" >
             </com.cettco.buycar.view.SettingsItemView>
 
@@ -116,6 +100,7 @@
                 android:id="@+id/fragment_settings_about_pailixing_ly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_seperator_distance"
                 item:myText="关于拍立行" >
             </com.cettco.buycar.view.SettingsItemView>
 
@@ -125,171 +110,103 @@
                 android:layout_height="wrap_content"
                 item:myText="检查更新" >
             </com.cettco.buycar.view.SettingsItemView>
+
             <LinearLayout
                 android:id="@+id/settings_phone_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray"
+                android:layout_marginTop="@dimen/settings_seperator_distance"
+                android:background="@color/white"
                 android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
                     android:text="拍立行客服"
                     android:textColor="@color/deep_gray"
                     android:textSize="12sp" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_gray" />
+
                 <RelativeLayout
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/item_click"
                     android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:paddingTop="5dp" >
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="4000320092"
-                        android:textColor="#333333"
-                        android:textSize="@dimen/text_size_middle" />
+                        android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="4000320092"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/text_size_middle" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="周一至周日 (8:00-22:00)"
+                            android:textColor="@color/deep_gray"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_phone" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:background="@color/light_gray" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/ic_phone" />
+                    </LinearLayout>
                 </RelativeLayout>
+
                 <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@color/light_gray" />
             </LinearLayout>
 
-           <!--  <LinearLayout
-                android:id="@+id/settings_login_linearlayou"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/light_gray"
-                android:orientation="vertical" >
-
-                <RelativeLayout
-                    android:id="@+id/settings_login_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/item_click" >
-
-                    <TextView
-                        android:id="@+id/settings_login_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:text="请登录"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/settings_login_arrow_imageview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/ic_action_next_item" />
-                </RelativeLayout>
-            </LinearLayout>
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/light_gray"
-                android:orientation="vertical" >
-
-                <RelativeLayout
-                    android:id="@+id/settings_checkupdate_linearlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/item_click" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:text="检测更新"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/ic_action_next_item" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/settings_phone_linearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_gray"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="拍立行客服"
-                    android:textColor="@color/deep_gray"
-                    android:textSize="12sp" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/item_click"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:text="4000320092"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_phone" />
-                </RelativeLayout>
-            </LinearLayout> -->
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/settings_seperator_distance"
                 android:id="@+id/logout_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/settings_seperator_distance"
                 android:gravity="center" >
 
                 <Button

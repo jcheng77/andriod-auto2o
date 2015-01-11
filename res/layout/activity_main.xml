@@ -2,9 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
     android:background="@color/white"
-    >
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/actionbar_main"
@@ -13,14 +12,21 @@
         android:background="@color/actionbar_main"
         android:gravity="center_vertical" >
 
-        <ImageButton
-            android:layout_marginLeft="10dp"
-            android:id="@+id/actionbar_drawer"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+        <LinearLayout
+            android:id="@+id/main_drawer_lly"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/drawer_btn_style" />
+            android:background="@drawable/back_btn_style"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/actionbar_drawer"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/drawer_btn_style" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/welcome_actionbar_title_textview"
@@ -31,25 +37,28 @@
             android:textColor="@color/actionbar_main_text"
             android:textSize="20sp" />
 
-        <ImageButton
-            android:padding="5dp"
-            android:id="@+id/addCar_btn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+        <LinearLayout
+            android:id="@+id/main_add_car_lly"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/add_btn_style" />
+            android:background="@drawable/back_btn_style"
+            android:gravity="center" >
 
+            <ImageView
+                android:id="@+id/addCar_btn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_action_add_to_queue" />
+        </LinearLayout>
     </RelativeLayout>
-
-
 
     <LinearLayout
         android:id="@+id/content_frame"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
     </LinearLayout>
 
 </LinearLayout>

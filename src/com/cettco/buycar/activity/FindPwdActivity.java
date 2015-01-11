@@ -13,10 +13,12 @@ import com.cettco.buycar.entity.User;
 import com.cettco.buycar.entity.UserEntity;
 import com.cettco.buycar.utils.GlobalData;
 import com.cettco.buycar.utils.HttpConnection;
+import com.cettco.buycar.utils.UserUtil;
 import com.cettco.buycar.utils.db.DatabaseHelperOrder;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 
@@ -75,8 +77,20 @@ public class FindPwdActivity extends Activity{
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			HttpConnection.getClient().removeHeader("Cookie");
+			UserUtil.logout(FindPwdActivity.this);
+			PersistentCookieStore myCookieStore = new PersistentCookieStore(
+					FindPwdActivity.this);
+			if (myCookieStore != null)
+				myCookieStore.clear();
 			String url = GlobalData.getBaseUrl()+"/users/reset_pwd.json";
 			String phone = signupPhoneEditText.getText().toString();
+			if (phone==null||phone.equals("")) {
+				Toast toast = Toast.makeText(FindPwdActivity.this,
+						"请输入手机号码", Toast.LENGTH_SHORT);
+				toast.show();
+				return;
+			}
 			User user = new User();
 			user.setPhone(phone);
 			UserEntity userEntity = new UserEntity();

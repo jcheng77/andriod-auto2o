@@ -35,7 +35,7 @@
             android:background="@color/gray" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
@@ -48,7 +48,7 @@
 
             <EditText
                 android:id="@+id/signinPhoneEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
@@ -68,7 +68,7 @@
             android:background="@color/gray" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
@@ -82,8 +82,8 @@
 
             <EditText
                 android:id="@+id/signinPasswordEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -169,9 +169,11 @@
             android:id="@+id/findpwd_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:layout_marginLeft="5dp"
             android:text="忘记密码?"
-            android:textColor="#0000FF"
+            android:textColor="@color/actionbar_main"
+            android:background="@drawable/textview_click"
             android:textSize="10sp" />
 
         <LinearLayout
@@ -210,7 +212,7 @@
         android:paddingRight="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:background="@color/light_gray"
+        android:background="@drawable/sign_up_click_style"
         android:text="注册"
         android:textColor="@color/text_gray"
         android:textSize="10sp" />

@@ -42,6 +42,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="@dimen/order_detail_seg_distance"
                     android:id="@+id/activity_order_detail_dealer_intention"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

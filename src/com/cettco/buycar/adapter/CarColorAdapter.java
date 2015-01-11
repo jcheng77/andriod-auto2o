@@ -5,11 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +16,6 @@ import android.widget.TextView;
 
 import com.cettco.buycar.R;
 import com.cettco.buycar.entity.CarColorEntity;
-import com.cettco.buycar.view.CircleView;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CarColorAdapter extends ArrayAdapter<CarColorEntity> {
 
