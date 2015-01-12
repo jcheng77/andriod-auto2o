@@ -124,7 +124,7 @@ public class SignInActivity extends Activity {
 							// System.out.println(headers[i]);
 							// }
 							Toast toast = Toast.makeText(SignInActivity.this,
-									"登录失败，重新登录", Toast.LENGTH_SHORT);
+									"请输入正确的手机号或密码", Toast.LENGTH_SHORT);
 							toast.show();
 						}
 
