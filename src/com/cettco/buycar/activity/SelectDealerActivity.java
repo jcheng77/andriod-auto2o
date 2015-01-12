@@ -52,6 +52,7 @@ public class SelectDealerActivity extends Activity{
 	private String trim_id;
 	private HttpCache httpCache;
 	private ProgressBar progressBar;
+	private ArrayList<String> init_dealers = new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -63,8 +64,10 @@ public class SelectDealerActivity extends Activity{
 		progressBar = (ProgressBar)findViewById(R.id.activity_selectshop_progressbar);
 		intent = getIntent();
 		trim_id = intent.getStringExtra("trim_id");
-		System.out.println("trim_id:"+trim_id);
+		//System.out.println("trim_id:"+trim_id);
 		name= intent.getStringExtra("name");
+		init_dealers = intent.getStringArrayListExtra("init_dealers");
+		System.out.println("init_dealers size:"+init_dealers.size());
 		titleTextView.setText(name);
 		listView = (ListView) findViewById(R.id.selectshop_listview);
 		dealerList = new ArrayList<DealerEntity>();
@@ -73,6 +76,20 @@ public class SelectDealerActivity extends Activity{
 		listView.setAdapter(dealerListAdapter);
 		listView.setOnItemClickListener(dealerListClickListener);
 		getData();
+	}
+	private void init(){
+		for(int i=0;i<init_dealers.size();i++){
+			String init_id = init_dealers.get(i);
+			//System.out.println("init id:"+init_id);
+			for(int j=0;j<dealerList.size();j++){			
+				String dealer_id= dealerList.get(j).getId();
+				//System.out.println("dealer id:"+dealer_id);
+				if(init_id.equals(dealer_id)){
+					//System.out.println("equaty:"+dealer_id);
+					dealerListAdapter.getIsSelected().put(j, true);
+				}
+			}
+		}
 	}
 	protected OnItemClickListener dealerListClickListener = new OnItemClickListener() {
 
@@ -117,7 +134,7 @@ public class SelectDealerActivity extends Activity{
 		String url=GlobalData.getBaseUrl()+"/shops.json";
 		RequestParams params = new RequestParams();
 		params.put("trim_id", trim_id);
-		System.out.println("trim_url:"+url);
+		//System.out.println("trim_url:"+url);
 		progressBar.setProgress(40);
 		HttpConnection.get(url,params,new AsyncHttpResponseHandler(){
 
@@ -140,7 +157,7 @@ public class SelectDealerActivity extends Activity{
 					Type listType = new TypeToken<ArrayList<DealerEntity>>() {
 					}.getType();
 					dealerList = new Gson().fromJson(result, listType);
-					System.out.println("size:"+dealerList.size());
+					//System.out.println("size:"+dealerList.size());
 					Message message = new Message();
 					message.what = 1;
 					mHandler.sendMessage(message);
@@ -161,10 +178,14 @@ public class SelectDealerActivity extends Activity{
 				progressBar.setProgress(100);
 				progressBar.setVisibility(View.GONE);
 				if(dealerList==null||dealerList.size()==0){
-					Toast toast = Toast.makeText(SelectDealerActivity.this, "获取商家列表失败", Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(SelectDealerActivity.this, "商家列表为空", Toast.LENGTH_SHORT);
 					toast.show();
+					break;
 				}
+				
 				dealerListAdapter.updateList(dealerList);
+				init();
+				dealerListAdapter.notifyDataSetChanged();
 				break;
 			case 2:
 				progressBar.setProgress(100);

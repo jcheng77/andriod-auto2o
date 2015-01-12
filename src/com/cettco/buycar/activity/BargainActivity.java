@@ -111,6 +111,7 @@ public class BargainActivity extends Activity {
 	private String model_id;
 	private String trim_id;
 	private ArrayList<String> dealers = new ArrayList<String>();
+	//private ArrayList<String> init_dealers = new ArrayList<String>();
 	private OrderItemEntity orderItemEntity = new OrderItemEntity();
 	private TextView titleTextView;
 
@@ -447,6 +448,7 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, SelectCarColorActivity.class);
 			intent.putExtra("name", "选择颜色");
 			intent.putExtra("tag", 1);
+			intent.putStringArrayListExtra("init_colors", colors);
 			intent.putExtra("model_id", model_id);
 			// intent.putStringArrayListExtra("selected_colors", colors);
 			startActivityForResult(intent, 0);
@@ -513,6 +515,7 @@ public class BargainActivity extends Activity {
 			intent.setClass(BargainActivity.this, SelectDealerActivity.class);
 			intent.putExtra("name", "选择4s店");
 			intent.putExtra("trim_id", trim_id);
+			intent.putStringArrayListExtra("init_dealers", dealers);
 			startActivityForResult(intent, 5);
 
 		}

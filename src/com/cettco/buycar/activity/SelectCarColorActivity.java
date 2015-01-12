@@ -33,6 +33,7 @@ public class SelectCarColorActivity extends Activity {
 	private String name;
 	private String model_id;
 	private TextView titleTextView;
+	private ArrayList<String> init_colors = new ArrayList<String>();
 	//private ArrayList<String> selected_colors;
 
 	// private int tag;
@@ -47,6 +48,7 @@ public class SelectCarColorActivity extends Activity {
 		intent = getIntent();
 		name = intent.getStringExtra("name");
 		model_id = intent.getStringExtra("model_id");
+		init_colors = intent.getStringArrayListExtra("init_colors");
 		//selected_colors = intent.getStringArrayListExtra("selected_colors");
 		DatabaseHelperColor helperColor = DatabaseHelperColor.getHelper(this);
 		try {
@@ -60,8 +62,20 @@ public class SelectCarColorActivity extends Activity {
 		listView = (ListView) findViewById(R.id.select_color_listview);
 		mycarColorAdapter = new CarColorAdapter(this, R.layout.item_color,
 				colorList);
+		init();
 		listView.setAdapter(mycarColorAdapter);
 		listView.setOnItemClickListener(listener);
+	}
+	private void init(){
+		for(int i=0;i<init_colors.size();i++){
+			String init_id = init_colors.get(i);
+			for(int j=0;j<colorList.size();j++){
+				String color_id= colorList.get(j).getId();
+				if(init_id.equals(color_id)){
+					mycarColorAdapter.getIsSelected().put(j, true);
+				}
+			}
+		}
 	}
 
 	protected OnItemClickListener listener = new OnItemClickListener() {
