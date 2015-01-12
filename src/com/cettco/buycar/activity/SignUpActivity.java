@@ -43,6 +43,7 @@ public class SignUpActivity extends Activity {
 	private RelativeLayout progressLayout;
 	private static final int SENDSUCCESS = 1;
 	private static final int SENDFAILURE = 2;
+	private static final int HAVEREGISTERED = 3;
 
 	private TextView titleTextView;
 
@@ -123,6 +124,13 @@ public class SignUpActivity extends Activity {
 				toast.show();
 				return;
 			}
+			int length = phone.length();
+			if(length!=11){
+				Toast toast = Toast.makeText(SignUpActivity.this,
+						"请输入正确的手机号码", Toast.LENGTH_SHORT);
+				toast.show();
+				return;
+			}
 			User user = new User();
 			user.setPhone(phone);
 			UserEntity userEntity = new UserEntity();
@@ -152,6 +160,12 @@ public class SignUpActivity extends Activity {
 							// System.out.println(headers[i]);
 							// }
 							// System.out.println("response:"+errorResponse);
+							if(statusCode==422){
+								Message msg = new Message();
+								msg.what = HAVEREGISTERED;
+								mHandler.sendMessage(msg);
+								return;
+							}
 							Message msg = new Message();
 							msg.what = SENDFAILURE;
 							mHandler.sendMessage(msg);
@@ -194,6 +208,11 @@ public class SignUpActivity extends Activity {
 				Toast toast2 = Toast.makeText(SignUpActivity.this, "发送验证码失败",
 						Toast.LENGTH_SHORT);
 				toast2.show();
+				break;
+			case HAVEREGISTERED:
+				Toast toast3 = Toast.makeText(SignUpActivity.this, "该号码已注册,请登陆",
+						Toast.LENGTH_SHORT);
+				toast3.show();
 				break;
 
 			default:

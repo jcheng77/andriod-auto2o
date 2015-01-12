@@ -135,10 +135,10 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginLeft="23dp"
-                android:src="@drawable/ic_action_guide" />
+                android:src="@drawable/ic_action_coupon" />
 
             <TextView
                 android:layout_width="wrap_content"

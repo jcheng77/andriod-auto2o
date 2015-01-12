@@ -25,19 +25,19 @@ public final class R {
 		public static final int textColorforItemTitle = 0x7f080040;
 	}
 	public static final class drawable {
-		public static final int dialog_bg_click = 0x7f02006f;
-		public static final int dialog_bg_normal = 0x7f020070;
-		public static final int dialog_button_colorlist = 0x7f020071;
-		public static final int dialog_button_submit = 0x7f020072;
-		public static final int dialog_cut_line = 0x7f020073;
-		public static final int dialog_split_h = 0x7f020074;
-		public static final int dialog_split_v = 0x7f020075;
-		public static final int popup_bg = 0x7f0200a1;
-		public static final int refresh = 0x7f0200a4;
-		public static final int refresh_button = 0x7f0200a5;
-		public static final int refresh_push = 0x7f0200a6;
-		public static final int title = 0x7f0200c2;
-		public static final int title_background = 0x7f0200c3;
+		public static final int dialog_bg_click = 0x7f020070;
+		public static final int dialog_bg_normal = 0x7f020071;
+		public static final int dialog_button_colorlist = 0x7f020072;
+		public static final int dialog_button_submit = 0x7f020073;
+		public static final int dialog_cut_line = 0x7f020074;
+		public static final int dialog_split_h = 0x7f020075;
+		public static final int dialog_split_v = 0x7f020076;
+		public static final int popup_bg = 0x7f0200a3;
+		public static final int refresh = 0x7f0200a6;
+		public static final int refresh_button = 0x7f0200a7;
+		public static final int refresh_push = 0x7f0200a8;
+		public static final int title = 0x7f0200c4;
+		public static final int title_background = 0x7f0200c5;
 	}
 	public static final class id {
 		public static final int AlipayTitle = 0x7f0600e0;

@@ -39,7 +39,7 @@ public class SelectCityActivity extends Activity{
 		listView = (ListView)findViewById(R.id.city_listview);
 		arrayList = new ArrayList<String>();
 		arrayList.add("上海");
-		arrayList.add("北京");
+		//arrayList.add("北京");
 		adapter = new MyBaseListAdapter(this,R.layout.item_my_base_list, arrayList);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listViewClickListener);

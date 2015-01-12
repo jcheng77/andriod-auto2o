@@ -48,6 +48,7 @@ public class FindPwdActivity extends Activity{
 	private TextView titleTextView;
 	private static final int SENDSUCCESS = 1;
 	private static final int SENDFAILURE = 2;
+	private static final int NOTREGISTER = 3;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -91,6 +92,13 @@ public class FindPwdActivity extends Activity{
 				toast.show();
 				return;
 			}
+			int length = phone.length();
+			if(length!=11){
+				Toast toast = Toast.makeText(FindPwdActivity.this,
+						"请输入正确的手机号码", Toast.LENGTH_SHORT);
+				toast.show();
+				return;
+			}
 			User user = new User();
 			user.setPhone(phone);
 			UserEntity userEntity = new UserEntity();
@@ -110,10 +118,26 @@ public class FindPwdActivity extends Activity{
 					// TODO Auto-generated method stub
 					super.onFailure(statusCode, headers, throwable,
 							errorResponse);
+					//System.out.println("throwable error code:"+statusCode);
 					progressLayout.setVisibility(View.GONE);
 					Message msg = new Message();
 					msg.what = SENDFAILURE;
 					mHandler.sendMessage(msg);
+				}
+
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						String responseString, Throwable throwable) {
+					// TODO Auto-generated method stub
+					super.onFailure(statusCode, headers, responseString, throwable);
+					//System.out.println("string error code:"+statusCode);
+					progressLayout.setVisibility(View.GONE);
+					if(statusCode==404){
+						Message msg = new Message();
+						msg.what = NOTREGISTER;
+						mHandler.sendMessage(msg);
+						return;
+					}
 				}
 
 				@Override
@@ -144,6 +168,10 @@ public class FindPwdActivity extends Activity{
 			case SENDFAILURE:
 				Toast toast2 = Toast.makeText(FindPwdActivity.this, "发送验证码失败", Toast.LENGTH_SHORT);
 				toast2.show();
+				break;
+			case NOTREGISTER:
+				Toast toast3 = Toast.makeText(FindPwdActivity.this, "该号码未注册，请先注册", Toast.LENGTH_SHORT);
+				toast3.show();
 				break;
 
 			default:

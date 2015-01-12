@@ -28,7 +28,7 @@ public final class R {
 		public static final int drop_down_list_header_release_min_distance = 0x7f090017;
 	}
 	public static final class drawable {
-		public static final int drop_down_list_arrow = 0x7f020077;
+		public static final int drop_down_list_arrow = 0x7f020078;
 	}
 	public static final class id {
 		public static final int drop_down_list_footer_button = 0x7f0600eb;

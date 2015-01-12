@@ -13,6 +13,8 @@ import com.umeng.analytics.MobclickAgent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -34,6 +36,8 @@ public class BargainPriceActivity extends Activity {
 	private int order_id;
 	private String trim_id;
 	private double price;
+	
+	private TextWatcher priceTextWatcher;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,46 @@ public class BargainPriceActivity extends Activity {
 		titleTextView.setText("设置期望成交价");
 		nextButton = (Button) findViewById(R.id.bargain_price_nextstepbtn);
 		nextButton.setOnClickListener(nextClickListener);
+		//price
 		priceEditText = (EditText) findViewById(R.id.activity_bargain_price_textview);
-		priceEditText.setOnFocusChangeListener(priceOnFocusChangeListener);
+		//priceEditText.setOnFocusChangeListener(priceOnFocusChangeListener);
+		priceTextWatcher = new TextWatcher()  
+        {  
+  
+            @Override  
+            public void afterTextChanged(Editable s)  
+            {  
+                // TODO Auto-generated method stub  
+            }  
+  
+            @Override  
+            public void beforeTextChanged(CharSequence s, int start, int count,  
+                    int after)  
+            {  
+                // TODO Auto-generated method stub  
+            }  
+  
+            @Override  
+            public void onTextChanged(CharSequence s, int start, int before,  
+                    int count)  
+            {   
+            	double now = 0;
+            	if(priceEditText.getText().toString().equals("")){
+            		now = 0;
+            	}
+            	else now = Double.parseDouble(priceEditText.getText().toString());
+    			benefitPriceTextView.setText(String.format("%.1f", price - now));
+    			if ((price - now) / price > 0.5) {
+    				invalidPriceLayout.setVisibility(View.VISIBLE);
+    				return;
+    			}else{
+    				invalidPriceLayout.setVisibility(View.GONE);
+    				return;
+    			}
+            }  
+  
+        };
+        priceEditText.addTextChangedListener(priceTextWatcher);
 		userNameEditText = (EditText) findViewById(R.id.activity_bargain_name_textview);
 		invalidPriceLayout = (LinearLayout) findViewById(R.id.invalid_price_linearlayout);
 		guidePirceTextView = (TextView) findViewById(R.id.activity_bargain_price_guide_price_textview);
@@ -82,6 +124,12 @@ public class BargainPriceActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			if(priceEditText.getText().toString().equals("")){
+				Toast toast = Toast.makeText(BargainPriceActivity.this,
+						"请输入裸车价", Toast.LENGTH_SHORT);
+				toast.show();
+				return;
+			}
 			double now = Double.parseDouble(priceEditText.getText().toString());
 			if ((price - now) / price > 0.5) {
 				invalidPriceLayout.setVisibility(View.VISIBLE);
@@ -115,6 +163,7 @@ public class BargainPriceActivity extends Activity {
 
 		}
 	};
+	
 	private OnFocusChangeListener priceOnFocusChangeListener = new OnFocusChangeListener() {
 
 		@Override
