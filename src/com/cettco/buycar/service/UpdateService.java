@@ -44,10 +44,11 @@ public class UpdateService extends Service{
             fileName = url.substring(url.lastIndexOf("/")+1);
             if(Environment.getExternalStorageState() != null){
             	updateDir = Environment.getExternalStorageDirectory()
-                        + "/Downloads/";
+                        + "/Download/";
             }else{
             	updateDir = Environment.getDataDirectory() + "/data/" + this.getPackageName() + "/files/";
             }  
+            //System.out.println("update dir:"+updateDir);
             Intent nullIntent = new Intent();  
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, nullIntent, 0);  
             // 创建文件  
@@ -163,7 +164,22 @@ public class UpdateService extends Service{
             }  
             is = httpConnection.getInputStream();                     
            /* fos = new FileOutputStream(saveFile, false);*/  
-            fos =  openFileOutput(fileName, MODE_WORLD_READABLE);  
+            if(Environment.getExternalStorageState()!=null){
+            	File path = new File(updateDir);  
+            	File file = new File(updateDir + fileName);  
+                if( !path.exists()) {  
+                    //Log.d("TestFile", "Create the path:" + pathName);  
+                    path.mkdir();  
+                }  
+                if( !file.exists()) {  
+                    //Log.d("TestFile", "Create the file:" + fileName);  
+                    file.createNewFile();  
+                }
+                fos = new FileOutputStream(file); 
+            }else{
+            	fos =  openFileOutput(fileName, MODE_WORLD_READABLE);  
+            }
+            
               
             byte buffer[] = new byte[4096];  
             int readsize = 0;  
