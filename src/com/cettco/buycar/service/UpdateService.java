@@ -37,12 +37,17 @@ public class UpdateService extends Service{
     @Override  
     public int onStartCommand(Intent intent, int flags, int startId) {  
         // 获取传值  
-    	System.out.println("service url:"+url);
+    	//System.out.println("service url:"+url);
         url = intent.getStringExtra("url");  
         appName = getApplication().getResources().getText(R.string.app_name).toString();  
         if (url != null) {  
-            fileName = url.substring(url.lastIndexOf("/")+1);  
-            updateDir = Environment.getDataDirectory() + "/data/" + this.getPackageName() + "/files/";  
+            fileName = url.substring(url.lastIndexOf("/")+1);
+            if(Environment.getExternalStorageState() != null){
+            	updateDir = Environment.getExternalStorageDirectory()
+                        + "/Downloads/";
+            }else{
+            	updateDir = Environment.getDataDirectory() + "/data/" + this.getPackageName() + "/files/";
+            }  
             Intent nullIntent = new Intent();  
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, nullIntent, 0);  
             // 创建文件  
