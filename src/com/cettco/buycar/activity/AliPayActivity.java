@@ -181,6 +181,7 @@ public class AliPayActivity extends Activity {
 			// int position = b.getInt("result");
 			discountTextView.setText(String.valueOf(b.getInt("result")));
 			discount = b.getInt("result");
+			actualTextView.setText(String.valueOf(amount-discount));
 			break;
 		default:
 			break;

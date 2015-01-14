@@ -1,11 +1,17 @@
 package com.cettco.buycar.activity;
 
+//import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cettco.buycar.R;
@@ -37,17 +43,47 @@ public class DealerMapActivity extends Activity{
 		mBaiduMap = mMapView.getMap();  
 		//普通地图  
 		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL); 
-		//定义Maker坐标点  
-		LatLng point = new LatLng(39.963175, 116.400244);  
-		//构建Marker图标  
+		LatLng center = new LatLng(23.0544980000, 113.4137840000);  
+        MapStatus status = new MapStatus.Builder().target(center).build();  
+        MapStatusUpdate statusUpdate = MapStatusUpdateFactory  
+                .newMapStatus(status); 
+        mBaiduMap.setMapStatus(statusUpdate);
+        mBaiduMap.setMaxAndMinZoomLevel(15, 19);
+        //mBaiduMap.set
+        
 		BitmapDescriptor bitmap = BitmapDescriptorFactory  
-		    .fromResource(R.drawable.icon_marka);  
-		//构建MarkerOption，用于在地图上添加Marker  
-		OverlayOptions option = new MarkerOptions()  
-		    .position(point)  
-		    .icon(bitmap);  
-		//在地图上添加Marker，并显示  
-		mBaiduMap.addOverlay(option);
+	    .fromResource(R.drawable.icon_marka);  
+	    //构建MarkerOption，用于在地图上添加Marker  
+	    OverlayOptions option = new MarkerOptions()  
+	    .position(center)  
+	    .icon(bitmap);  
+	    //在地图上添加Marker，并显示  
+	    mBaiduMap.addOverlay(option);
+		//定义Maker坐标点  
+		
+		// 开启定位图层  
+		//mBaiduMap.setMyLocationEnabled(true);  
+		// 构造定位数据  
+//		MyLocationData locData = new MyLocationData.Builder()  
+//		    .accuracy(100)  
+//		    // 此处设置开发者获取到的方向信息，顺时针0-360  
+//		    .direction(100).latitude(32.963175)  
+//		    .longitude(116.400244).build();  
+//		// 设置定位数据  
+//		mBaiduMap.setMyLocationData(locData);  
+//		// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）  
+//		BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory  
+//		    .fromResource(R.drawable.icon_marka);  
+//		//LocationMode.
+//		MyLocationConfiguration config = new MyLocationConfiguration(com.baidu.mapapi.map.MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);  
+//	   // mBaiduMap.setMyLocationConfiguration(config);
+//	    mBaiduMap.setMyLocationConfigeration(config);
+//	    //mBaiduMap.setmy
+//		// 当不需要定位图层时关闭定位图层  
+//		mBaiduMap.setMyLocationEnabled(false);
+//		LatLng point = new LatLng(32.963175, 116.400244);  
+//		//构建Marker图标  
+
 	}
 	protected OnClickListener localMapBtnClickListener = new OnClickListener() {
 		

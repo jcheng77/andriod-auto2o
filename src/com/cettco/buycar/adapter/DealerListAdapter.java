@@ -4,7 +4,7 @@ import java.net.ContentHandler;
 import java.util.HashMap;
 import java.util.List;
 
-import com.baidu.navi.location.LocationClient;
+//import com.baidu.navi.location.LocationClient;
 import com.cettco.buycar.R;
 import com.cettco.buycar.activity.DealerCommentActivity;
 import com.cettco.buycar.entity.CarBrandEntity;

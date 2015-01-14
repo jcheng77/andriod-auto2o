@@ -38,7 +38,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 
     <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.cettco.buycar.utils.MyApplication" android:theme="@style/DefaultStyle">
-        <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="e9OqHPz7X7PwaFwIAqA2rSf6"/>
+        <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="yp694vafeHGqKX3gC2mhQ0ed"/>
 
         <activity android:label="@string/app_name" android:name="com.cettco.buycar.activity.SplashActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -220,7 +220,7 @@
     <!-- ###################添加UmengAppkey###################### -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="54a2ae9cfd98c51987000505" >
+            android:value="54b49808fd98c580f60004f7" >
         </meta-data>
         <meta-data android:value="Wandoujia" android:name="UMENG_CHANNEL"/>
 </application>

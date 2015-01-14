@@ -21,7 +21,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
-import com.baidu.nplatform.comapi.basestruct.GeoPoint;
+//import com.baidu.nplatform.comapi.basestruct.GeoPoint;
 import com.cettco.buycar.R;
 import com.cettco.buycar.adapter.DealerCommentAdapter;
 import com.cettco.buycar.adapter.DealerListAdapter;

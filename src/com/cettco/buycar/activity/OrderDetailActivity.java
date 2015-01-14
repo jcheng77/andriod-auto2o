@@ -4,11 +4,16 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
@@ -88,6 +93,12 @@ public class OrderDetailActivity extends Activity {
 	private TextView desTextView;
 	
 	private Button cancelButton;
+	
+	private static final int LOCATION_SUCCESS=3;
+	
+	private String lng;
+	private String lat;
+	private RelativeLayout dealerAddressRly;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -135,19 +146,27 @@ public class OrderDetailActivity extends Activity {
 		mBaiduMap = mMapView.getMap();
 		// 普通地图
 		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-		// 定义Maker坐标点
-		LatLng point = new LatLng(39.963175, 116.400244);
-		// 构建Marker图标
-		BitmapDescriptor bitmap = BitmapDescriptorFactory
-				.fromResource(R.drawable.icon_marka);
-		// 构建MarkerOption，用于在地图上添加Marker
-		OverlayOptions option = new MarkerOptions().position(point)
-				.icon(bitmap);
-		// 在地图上添加Marker，并显示
-		mBaiduMap.addOverlay(option);
+		mBaiduMap.setMaxAndMinZoomLevel(15, 19);
+		LatLng center = new LatLng(31.2000, 121.5000);  
+        MapStatus status = new MapStatus.Builder().target(center).build();  
+        MapStatusUpdate statusUpdate = MapStatusUpdateFactory  
+                .newMapStatus(status); 
+        mBaiduMap.setMapStatus(statusUpdate);
+////		// 定义Maker坐标点
+//		LatLng point = new LatLng(21, 116.400244);
+//		// 构建Marker图标
+//		BitmapDescriptor bitmap = BitmapDescriptorFactory
+//				.fromResource(R.drawable.icon_marka);
+//		// 构建MarkerOption，用于在地图上添加Marker
+//		OverlayOptions option = new MarkerOptions().position(point)
+//				.icon(bitmap);
+//		// 在地图上添加Marker，并显示
+//		mBaiduMap.addOverlay(option);
 
 		qrImageView = (ImageView) findViewById(R.id.order_has_dealer_qr_image);
 		//getData();
+		dealerAddressRly = (RelativeLayout)findViewById(R.id.order_detail_shop_info_address_rly);
+		dealerAddressRly.setOnClickListener(localMapBtnClickListener);
 	}
 
 	@Override
@@ -251,6 +270,25 @@ public class OrderDetailActivity extends Activity {
 						"获取订单详情失败", Toast.LENGTH_SHORT);
 				toast.show();
 				break;
+			case LOCATION_SUCCESS:
+				// 定义Maker坐标点
+				System.out.println("lat:"+lat);
+				LatLng center = new LatLng(Double.valueOf(lat), Double.valueOf(lng));  
+		        MapStatus status = new MapStatus.Builder().target(center).build();  
+		        MapStatusUpdate statusUpdate = MapStatusUpdateFactory  
+		                .newMapStatus(status); 
+		        mBaiduMap.setMapStatus(statusUpdate);
+		        //mBaiduMap.setMaxAndMinZoomLevel(15, 19);
+				LatLng point = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
+				// 构建Marker图标
+				BitmapDescriptor bitmap = BitmapDescriptorFactory
+						.fromResource(R.drawable.icon_marka);
+				// 构建MarkerOption，用于在地图上添加Marker
+				OverlayOptions option = new MarkerOptions().position(point)
+						.icon(bitmap);
+				// 在地图上添加Marker，并显示
+				mBaiduMap.addOverlay(option);
+				break;
 			}
 		};
 	};
@@ -262,6 +300,7 @@ public class OrderDetailActivity extends Activity {
 			cancelButton.setVisibility(View.VISIBLE);
 			qRcodeLayout.setVisibility(View.GONE);
 		} else if (state.equals("deal_made")) {
+			convertGPSData(detailEntity.getShop().getAddress());
 			stateTextView.setText("已有4s店接受报价");
 			cancelButton.setVisibility(View.VISIBLE);
 			dealerInfoLayout.setVisibility(View.VISIBLE);
@@ -285,6 +324,7 @@ public class OrderDetailActivity extends Activity {
 			}
 
 		} else if (state.equals("final_deal_closed")) {
+			convertGPSData(detailEntity.getShop().getAddress());
 			cancelButton.setVisibility(View.GONE);
 			stateTextView.setText("最终成交");
 			dealerInfoLayout.setVisibility(View.VISIBLE);
@@ -394,14 +434,15 @@ public class OrderDetailActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			Uri uri = Uri.parse("geo:39.922840,116.3543240,北京市西城区阜外大街2号万通大厦");
+			//Uri uri = Uri.parse("geo:39.922840,116.3543240,北京市西城区阜外大街2号万通大厦");
+			Uri uri = Uri.parse("geo:0,0,"+detailEntity.getShop().getAddress());
 			intent.setData(uri);
 			// intent.setPackage("com.baidu.BaiduMap");
 			if (intent.resolveActivity(getPackageManager()) != null) {
 				startActivity(intent);
 			} else {
 				uri = Uri.parse("http://api.map.baidu.com/geocoder?address="
-						+ "上海虹桥机场" + "&output=html");
+						+ detailEntity.getShop().getAddress() + "&output=html");
 				Intent intent2 = new Intent(Intent.ACTION_VIEW, uri);
 				intent2.setData(uri);
 				startActivity(intent2);
@@ -436,12 +477,75 @@ public class OrderDetailActivity extends Activity {
 			}
 		});
 	}
+	protected void convertGPSData(String address) {
+		// String url = GlobalData.getBaseUrl() + "/cars/list.json";
+		// httpCache.clear();
+		System.out.println("convert");
+		String url = "http://api.map.baidu.com/geocoder/v2/?address="+address+"&output=json&ak=iTBz2hqlDEZ5oL0AtYQDx4t4&callback=showLocation";
+		//HttpConnection.setCookie(getApplicationContext());
+		//nullDataLayout.setVisibility(View.GONE);
+		//progressLayout.setVisibility(View.VISIBLE);
+		HttpConnection.get(url, new AsyncHttpResponseHandler() {
 
-	public void exitClick(View view) {
-		this.finish();
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				// TODO Auto-generated method stub
+				System.out.println("fail");
+//				Message message = new Message();
+//				message.what = 2;
+//				mHandler.sendMessage(message);
+			}
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				System.out.println("seccuss");
+				try {
+					String result = new String(arg2, "UTF-8");
+					int start = result.indexOf("(");
+					int end = result.indexOf(")");
+					String json = result.substring(start+1, end);
+					try {
+						JSONObject jsonObject = new JSONObject(json);
+						JSONObject resultObj = jsonObject.getJSONObject("result").getJSONObject("location");
+						lng = resultObj.getString("lng");
+						lat = resultObj.getString("lat");
+						//System.out.println("lng,lat:"+lng+":"+lat);
+						Message message = new Message();
+						message.what = LOCATION_SUCCESS;
+						mHandler.sendMessage(message);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//System.out.println("json:"+json);
+					//System.out.println("gps result:" + result);
+//					Gson gson = new Gson();
+//					detailEntity = gson.fromJson(result,
+//							OrderDetailEntity.class);
+//					// Type listType = new TypeToken<ArrayList<DealerEntity>>()
+//					// {
+//					// }.getType();
+//					// dealerList = new Gson().fromJson(result, listType);
+//					// System.out.println("size:"+dealerList.size());
+//					Message message = new Message();
+//					message.what = 1;
+//					mHandler.sendMessage(message);
+					// System.out.println("result:"+result);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
 	}
 	public void refresh(View view){
 		getData();
+	}
+	public void exitClick(View view){
+		this.finish();
 	}
 
 }

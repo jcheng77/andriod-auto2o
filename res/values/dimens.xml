@@ -21,12 +21,13 @@
     <dimen name="list_item_left_right">10dp</dimen>
     
     <dimen name="can_icon_textsize">10sp</dimen>
-    <dimen name="text_size_small">15sp</dimen>
-    <dimen name="text_size_middle">18sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_middle">16sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_extra_large">30sp</dimen>
     
     <dimen name="settings_seperator_distance">15dp</dimen>
     <dimen name="order_detail_seg_distance">5dp</dimen>
+    <dimen name="order_detail_padding_distance">5dp</dimen>
 
 </resources>
