@@ -104,12 +104,61 @@
                 item:myText="关于拍立行" >
             </com.cettco.buycar.view.SettingsItemView>
 
-            <com.cettco.buycar.view.SettingsItemView
+            <LinearLayout
                 android:id="@+id/fragment_settings_checkupdate_ly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                item:myText="检查更新" >
-            </com.cettco.buycar.view.SettingsItemView>
+                android:background="@drawable/item_click"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/item_settings_text_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center_vertical"
+                        android:text="检查更新"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <LinearLayout
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:textSize="@dimen/text_size_small"
+                            android:layout_marginRight="5dp"
+                            android:id="@+id/settings_version_name_txtv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/ic_action_next_item" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_gray" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/settings_phone_linearlayout"

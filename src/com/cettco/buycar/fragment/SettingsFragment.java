@@ -27,7 +27,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -61,7 +63,8 @@ public class SettingsFragment extends Fragment {
 	private TextView loginNameTxv;
 	private TextView loginPhoneTxv;
 	private Button logouButton;
-	private SettingsItemView checkUpdateLayout;
+	private LinearLayout checkUpdateLayout;
+	private TextView versionNameTxtV;
 	//private SettingsItemView creditLy;
 	//private SettingsItemView agreementLy;
 	private SettingsItemView talkToCEOLy;
@@ -88,9 +91,11 @@ public class SettingsFragment extends Fragment {
 				.findViewById(R.id.fragment_settings_login_phone_textview);
 		logouButton = (Button) fragmentView.findViewById(R.id.logout_button);
 		logouButton.setOnClickListener(logoutClickListener);
-		checkUpdateLayout = (SettingsItemView) fragmentView
+		checkUpdateLayout = (LinearLayout) fragmentView
 				.findViewById(R.id.fragment_settings_checkupdate_ly);
 		checkUpdateLayout.setOnClickListener(checkUpdateClickListener);
+		versionNameTxtV = (TextView)fragmentView.findViewById(R.id.settings_version_name_txtv);
+		versionNameTxtV.setText("v"+getVersionName(getActivity()));
 
 //		creditLy = (SettingsItemView) fragmentView
 //				.findViewById(R.id.fragment_settings_credit_ly);
@@ -261,6 +266,17 @@ public class SettingsFragment extends Fragment {
 			}
 		}
 	};
+	private String getVersionName(Context context) {
+		String versionName = "";
+		try {
+			// 获取软件版本号，对应AndroidManifest.xml下android:versionCode
+			versionName = context.getPackageManager().getPackageInfo(
+					"com.cettco.buycar", 0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return versionName;
+	}
 
 	// private void signOutData(){
 	// String url = GlobalData.getBaseUrl()+"/dealers/sign_in.json";
