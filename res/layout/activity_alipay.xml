@@ -68,7 +68,7 @@
 
                 <LinearLayout
                     android:id="@+id/guide_price_layout"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -100,7 +100,7 @@
                     android:background="@color/gray" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -167,7 +167,7 @@
                 <LinearLayout
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -201,14 +201,13 @@
                 <ImageView
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
                     android:background="@color/gray" />
 
                 <LinearLayout
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:id="@+id/bargain_coupon_lly"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/item_click"

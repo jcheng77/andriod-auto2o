@@ -28,6 +28,6 @@
     
     <dimen name="settings_seperator_distance">15dp</dimen>
     <dimen name="order_detail_seg_distance">5dp</dimen>
-    <dimen name="order_detail_padding_distance">5dp</dimen>
+    <dimen name="order_detail_padding_distance">8dp</dimen>
 
 </resources>

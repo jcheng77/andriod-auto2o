@@ -93,6 +93,7 @@
         </RelativeLayout>
 
         <ExpandableListView
+            android:childDivider="@drawable/list_divider"
             android:id="@+id/carExpandedList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

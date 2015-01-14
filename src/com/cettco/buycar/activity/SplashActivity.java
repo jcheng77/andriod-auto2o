@@ -11,6 +11,7 @@ import com.cettco.buycar.utils.BaiduPushUtils;
 import com.cettco.buycar.utils.db.DataBaseUtil;
 import com.umeng.analytics.MobclickAgent;
 
+import android.R.anim;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -81,6 +82,7 @@ public class SplashActivity extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(SplashActivity.this, IntroductionActivity.class);
 				startActivity(intent);
+				overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
 				this.finish();
 			}
 		}
