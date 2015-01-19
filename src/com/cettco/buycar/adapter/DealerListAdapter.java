@@ -74,31 +74,41 @@ public class DealerListAdapter extends ArrayAdapter<DealerEntity>{
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.item_dealer, parent,
 					false);
-			holder.viewcommentLayout = (RelativeLayout)convertView.findViewById(R.id.dealer_view_comment_layout);
-			
-			holder.distanceTextView = (TextView)convertView.findViewById(R.id.dealer_item_distance);
-			//
-			holder.priceMarkView = (MarkView)convertView.findViewById(R.id.dealer_price_markview);
-			holder.timeMarkView = (MarkView)convertView.findViewById(R.id.dealer_time_markview);
-
-			holder.qualityMarkView = (MarkView)convertView.findViewById(R.id.dealer_quality_markview);
+			holder.viewcommentLayout = (RelativeLayout)convertView.findViewById(R.id.dealer_view_comment_rly);
+//			
+//			holder.distanceTextView = (TextView)convertView.findViewById(R.id.dealer_item_distance);
+//			//
+//			holder.priceMarkView = (MarkView)convertView.findViewById(R.id.dealer_price_markview);
+//			holder.timeMarkView = (MarkView)convertView.findViewById(R.id.dealer_time_markview);
+//
+//			holder.qualityMarkView = (MarkView)convertView.findViewById(R.id.dealer_quality_markview);
 			convertView.setTag(holder);
 ;
 		}else {
 			holder = (ViewHolder) convertView.getTag(); 
 		}
-		DealerEntity entity = list.get(position);
-		holder.viewcommentLayout.setOnClickListener(viewCommentClickListener);
-		holder.distanceTextView.setText(Integer.toString(entity.getDistance()));
-		
-		holder.priceMarkView.setLevel(3);
-		holder.priceMarkView.setClick(false);
-		
-		holder.timeMarkView.setLevel(3);
-		holder.timeMarkView.setClick(false);
-		
-		holder.qualityMarkView.setLevel(3);
-		holder.qualityMarkView.setClick(false);
+		holder.viewcommentLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.setClass(context, DealerCommentActivity.class);
+				context.startActivity(intent);
+			}
+		});
+//		DealerEntity entity = list.get(position);
+//		holder.viewcommentLayout.setOnClickListener(viewCommentClickListener);
+//		holder.distanceTextView.setText(Integer.toString(entity.getDistance()));
+//		
+//		holder.priceMarkView.setLevel(3);
+//		holder.priceMarkView.setClick(false);
+//		
+//		holder.timeMarkView.setLevel(3);
+//		holder.timeMarkView.setClick(false);
+//		
+//		holder.qualityMarkView.setLevel(3);
+//		holder.qualityMarkView.setClick(false);
 //		LayoutInflater inflater = (LayoutInflater) context
 //				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //		View rowView = inflater.inflate(R.layout.dealer_item, parent,

@@ -63,6 +63,7 @@
     </RelativeLayout>
 
     <cn.trinea.android.common.view.DropDownListView
+        android:divider="@drawable/list_divider"
         android:id="@+id/comment_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

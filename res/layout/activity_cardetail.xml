@@ -30,16 +30,16 @@
                 android:paddingTop="10dp" >
 
                 <TextView
-                    android:textColor="@color/text_gray"
                     android:id="@+id/carDetail_brandMaker_textview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_gray" />
 
                 <TextView
-                    android:textColor="@color/text_gray"
                     android:id="@+id/carDetail_model_textview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_gray" />
             </LinearLayout>
 
             <RelativeLayout
@@ -68,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/light_gray" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -97,12 +98,43 @@
                 android:layout_height="10dp"
                 android:background="@color/light_gray" />
 
+            <RelativeLayout
+                android:id="@+id/view4sLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/item_click" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/text_gray"
+                    android:textSize="15sp"
+                    android:text="查看可选4s店" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/light_gray" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:gravity="center"
                 android:background="@color/white"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="20dp" >
 
@@ -113,27 +145,27 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="现在有"
-                        android:textColor="#666666" />
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
 
                     <TextView
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
                         android:id="@+id/car_detail_buyer_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
                         android:text=""
                         android:textColor="#f27020" />
 
                     <TextView
-                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="位小伙伴"
-                        android:textColor="#666666" />
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <TextView
@@ -145,39 +177,11 @@
             </LinearLayout>
 
             <!--
-            <RelativeLayout
-                android:id="@+id/view4sLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/item_click" >
-
-                <TextView
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="查看可选4s店" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/ic_action_next_item" />
-            </RelativeLayout>
-            -->
-
-
-            <!--
                  <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/car_price_chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/gray" />
-            -->
+                android:background="@color/gray" />-->
 
 
             <!--
@@ -203,36 +207,37 @@
                     android:text="开始购车"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
-            </RelativeLayout>           -->
+            </RelativeLayout>
+            -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white" >
+
+                <Button
+                    android:id="@+id/begin_bid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/beginbuycar_btn_style"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:paddingTop="8dp"
+                    android:text="开始购车"
+                    android:textColor="@color/button_color"
+                    android:textSize="25sp" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white" >
-
-        <Button
-            android:id="@+id/begin_bid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/beginbuycar_btn_style"
-            android:paddingBottom="8dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="8dp"
-            android:text="开始购车"
-            android:textColor="@color/button_color"
-            android:textSize="25sp" />
-    </RelativeLayout>
 
     <include layout="@layout/item_transparent_progressbar" />
 

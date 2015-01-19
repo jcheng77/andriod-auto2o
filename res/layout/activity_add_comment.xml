@@ -10,6 +10,7 @@
         layout="@layout/actionbar" />
 
     <EditText
+        android:layout_marginTop="10dp"
         android:id="@+id/add_comment_editText"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -17,78 +18,75 @@
         android:maxLines="5" />
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/add_comment_star_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_comment_editText"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
+       <TableLayout
+           android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="价格合理" />
+                android:layout_alignParentLeft="true" >
 
-            <com.cettco.buycar.utils.MarkView
-                android:id="@+id/add_comment_price_markview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </com.cettco.buycar.utils.MarkView>
-        </LinearLayout>
+                <TableRow>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="价格收费合理"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="交车时间" />
+                    <com.cettco.buycar.utils.MarkView
+                        android:id="@+id/add_comment_price_markview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="15dp" >
+                    </com.cettco.buycar.utils.MarkView>
+                </TableRow>
 
-            <com.cettco.buycar.utils.MarkView
-                android:id="@+id/add_comment_time_markview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </com.cettco.buycar.utils.MarkView>
-        </LinearLayout>
+                <TableRow
+                    android:layout_marginTop="10dp"
+                    >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="新车交付速度"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="服务质量" />
+                    <com.cettco.buycar.utils.MarkView
+                        android:id="@+id/add_comment_time_markview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp" >
+                    </com.cettco.buycar.utils.MarkView>
+                </TableRow>
 
-            <com.cettco.buycar.utils.MarkView
-                android:id="@+id/add_comment_quality_markview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </com.cettco.buycar.utils.MarkView>
-        </LinearLayout>
+                <TableRow
+                    android:layout_marginTop="10dp"
+                    >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="服务质量与态度"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_size_middle" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="******" />
-        </LinearLayout>
+                    <com.cettco.buycar.utils.MarkView
+                        android:id="@+id/add_comment_quality_markview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp" >
+                    </com.cettco.buycar.utils.MarkView>
+                </TableRow>
+            </TableLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -107,6 +105,7 @@
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingTop="8dp"
+            android:textColor="@color/white"
             android:text="提交评论"
             android:textSize="25sp" />
     </LinearLayout>

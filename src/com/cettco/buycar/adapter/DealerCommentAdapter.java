@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 import com.cettco.buycar.R;
@@ -39,23 +42,46 @@ public class DealerCommentAdapter extends ArrayAdapter<DealerCommentEntity>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.item_dealer_comment, parent,
-				false);
-		MarkView priceMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_price_markview);
-		priceMarkView.setLevel(3);
-		priceMarkView.setClick(false);
-		MarkView timeMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_time_markview);
-		timeMarkView.setLevel(3);
-		priceMarkView.setClick(false);
-		MarkView qualityMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_quality_markview);
-		qualityMarkView.setLevel(3);
-		qualityMarkView.setClick(false);
+		ViewHolder holder = null;
+		if(convertView==null){
+			holder = new ViewHolder();
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.item_dealer_comment, parent,
+					false);
+			//holder.ratingBar = (RatingBar)convertView.findViewById(R.id.item_dealer_comment_ratingBar);
+			convertView.setTag(holder);
+		}else {
+			holder = (ViewHolder)convertView.getTag();
+		}
+//		holder.ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
+//
+//			@Override
+//			public void onRatingChanged(RatingBar ratingBar, float rating,
+//					boolean fromUser) {
+//				// TODO Auto-generated method stub
+//				//holder.ratingBar.setRating(rating);
+//				
+//			}
+//			
+//		});
+//		MarkView priceMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_price_markview);
+//		priceMarkView.setLevel(3);
+//		priceMarkView.setClick(false);
+//		MarkView timeMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_time_markview);
+//		timeMarkView.setLevel(3);
+//		priceMarkView.setClick(false);
+//		MarkView qualityMarkView = (MarkView)rowView.findViewById(R.id.dealer_comment_quality_markview);
+//		qualityMarkView.setLevel(3);
+//		qualityMarkView.setClick(false);
 //		DealerCommentEntity entity = carBrandList.get(position);
 //		TextView textView = (TextView)rowView.findViewById(R.id.carBrandText);
 //		textView.setText(entity.getName());
 		//ImageView imageView = (ImageView)rowView.findViewById(R.id.car)
-		return rowView;
+		return convertView;
 	}
+	private static class ViewHolder
+    {
+		RatingBar ratingBar;
+    }
 }

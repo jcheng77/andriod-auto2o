@@ -46,6 +46,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -60,34 +61,37 @@ public class DealersListActivity extends Activity {
     private static int LOCATION_COUTNS = 0; 
     
     private String trim_id;
+    private TextView titleTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		SDKInitializer.initialize(getApplicationContext());
+		//SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_dealers);
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("4s店");
 		trim_id = getIntent().getStringExtra("trim_id");
 		listView = (ListView) findViewById(R.id.dealers_list_view);
 		// set drop down listener
 		listItems = new ArrayList<DealerEntity>();
 		// listItems.addAll(Arrays.asList(mStrings));
-//		for (int i = 0; i < 10; i++) {
-//			DealerEntity entity = new DealerEntity();
-//			listItems.add(entity);
-//		}
+		for (int i = 0; i < 10; i++) {
+			DealerEntity entity = new DealerEntity();
+			listItems.add(entity);
+		}
 		adapter = new DealerListAdapter(this, R.layout.item_dealer,
 				listItems);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(listItemClickListener);
-		getData();
-		initLocation();
+		//getData();
+		//initLocation();
 	}
 
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
-		locationClient.stop();
+		//locationClient.stop();
 		super.onStop();
 	}
 	

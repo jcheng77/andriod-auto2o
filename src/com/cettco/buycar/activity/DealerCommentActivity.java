@@ -25,11 +25,14 @@ public class DealerCommentActivity extends Activity{
     private DropDownListView     listView  = null;
     private DealerCommentAdapter adapter;
     private TextView addCommentTextView;
+    private TextView titleTextView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dealer_comment);
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("评论");
 		addCommentTextView = (TextView)findViewById(R.id.comment_add_textview);
 		addCommentTextView.setOnClickListener(addCommentClick);
 		listView = (DropDownListView)findViewById(R.id.comment_list_view);

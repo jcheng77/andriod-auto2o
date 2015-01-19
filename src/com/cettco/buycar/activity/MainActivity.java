@@ -317,7 +317,7 @@ public class MainActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, SelectCityActivity.class);
+			intent.setClass(MainActivity.this, DealerCommentActivity.class);
 			// ArrayList<String> myArrayList = new ArrayList<String>();
 			// myArrayList.add("Beijin");
 			// myArrayList.add("Shanghai");

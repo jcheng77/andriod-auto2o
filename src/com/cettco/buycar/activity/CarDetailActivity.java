@@ -116,8 +116,8 @@ public class CarDetailActivity extends Activity {
 		
 		//initChart();
 		
-		//view4sLayout = (RelativeLayout)findViewById(R.id.view4sLinearLayout);
-		//view4sLayout.setOnClickListener(view4sClickListener);
+		view4sLayout = (RelativeLayout)findViewById(R.id.view4sLinearLayout);
+		view4sLayout.setOnClickListener(view4sClickListener);
 		
 		
 		
@@ -219,9 +219,9 @@ public class CarDetailActivity extends Activity {
         indicator.setViewPager(viewPager);
         //indicator.setBackgroundColor(0xCCCCFF);
         //indicator.setRadius(10 * density);
-        indicator.setPageColor(getResources().getColor(R.color.white));
-        indicator.setFillColor(getResources().getColor(R.color.gray));
-        indicator.setStrokeColor(getResources().getColor(R.color.deep_gray));
+        indicator.setPageColor(getResources().getColor(R.color.gray));
+        indicator.setFillColor(getResources().getColor(R.color.actionbar_main));
+        indicator.setStrokeColor(getResources().getColor(R.color.gray));
         indicator.setOnPageChangeListener(viewChangeListener);
         //indicator.setStrokeWidth(2 * density);
 		//viewPager.isi

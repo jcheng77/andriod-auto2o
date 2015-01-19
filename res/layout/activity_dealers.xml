@@ -8,6 +8,7 @@
 
     <include layout="@layout/actionbar" />
     <ListView 
+        android:divider="@drawable/list_divider"
         android:id="@+id/dealers_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

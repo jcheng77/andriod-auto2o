@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class AddCommentActivity extends Activity {
 
@@ -17,11 +18,14 @@ public class AddCommentActivity extends Activity {
 	private MarkView qualityMarkView;
 	private Button submitButton;
 	private EditText editText;
+	private TextView titleTextView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_comment);
+		titleTextView = (TextView)findViewById(R.id.title_text);
+		titleTextView.setText("添加评价");
 		priceMarkView = (MarkView)findViewById(R.id.add_comment_price_markview);
 		priceMarkView.setLevel(0);
 
